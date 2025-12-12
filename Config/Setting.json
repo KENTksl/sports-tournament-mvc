@@ -1,0 +1,7 @@
+{
+    "mongodb": {
+    "username": "sa",
+    "password": "sa",
+    "database": "database_sport"
+  }
+}
