@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('partical/headercomponent'); %>
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <%- include('partical/menucomponent'); %>
+    <!-- Navbar End -->
+
+
+    <!-- Page Header Start -->
+    <div class="page-header container-fluid bg-primary d-flex flex-column align-items-center justify-content-center">
+        <h1 class="display-3 text-uppercase mb-3">Đăng nhập</h1>
+
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Login Form Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="bg-light rounded p-5">
+                        <form>
+                            <div class="form-group">
+                                <label for="email" class="text-uppercase">Email</label>
+                                <input type="email" class="form-control border-0 p-4" id="email" placeholder="Nhập email của bạn" required="required">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="text-uppercase">Mật Khẩu</label>
+                                <input type="password" class="form-control border-0 p-4" id="password" placeholder="Nhập mật khẩu" required="required">
+                            </div>
+                            <div class="form-group mb-4">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="remember">
+                                    <label class="custom-control-label" for="remember">Ghi nhớ đăng nhập</label>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary btn-block border-0 py-3 text-uppercase" type="submit">Đăng Nhập</button>
+                            </div>
+                            <div class="text-center mt-3">
+                                <p>Chưa có tài khoản? <a href="signup" class="text-primary">Đăng ký ngay</a></p>
+                                <p><a href="#" class="text-primary">Quên mật khẩu?</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Login Form End -->
+
+
+    <!-- Footer Start -->
+    <%- include('partical/footercomponent'); %>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-up"></i></a>
+
+
+    <!-- JavaScript lib/raries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="static/lib/easing/easing.min.js"></script>
+    <script src="static/lib/waypoints/waypoints.min.js"></script>
+    <script src="static/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="static/lib/isotope/isotope.pkgd.min.js"></script>
+    <script src="static/lib/lightbox/js/lightbox.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="static/mail/jqBootstrapValidation.min.js"></script>
+    <script src="static/mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="static/js/main.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').on('submit', function(e) {
+                e.preventDefault();
+                var email = $('#email').val();
+                var password = $('#password').val();
+                
+                $.ajax({
+                    url: '/authenticate/login',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ email: email, password: password }),
+                    success: function(response) {
+                        alert('Đăng nhập thành công!');
+                        localStorage.setItem('token', response.token);
+                        if (response.roles && response.roles.includes('admin')) {
+                            window.location.href = '/admin';
+                        } else {
+                            window.location.href = '/home';
+                        }
+                    },
+                    error: function(xhr) {
+                        alert('Lỗi: ' + (xhr.responseJSON ? xhr.responseJSON.message : xhr.statusText));
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

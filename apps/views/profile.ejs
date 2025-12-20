@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <title>Hồ Sơ Cá Nhân - Sports Tournament</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏆</text></svg>">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="static/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="static/css/style.css" rel="stylesheet">
+    
+    <style>
+        .profile-header {
+            background-color: #EDF1FF;
+            padding: 30px 0;
+            text-align: center;
+        }
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .profile-nav {
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .profile-nav a {
+            color: #333;
+            padding: 15px 20px;
+            display: block;
+            border-bottom: 1px solid #eee;
+        }
+        .profile-nav a:hover, .profile-nav a.active {
+            background: #D19C97;
+            color: #fff;
+            text-decoration: none;
+        }
+        /* View/Edit Mode Styles */
+        .view-mode .form-control {
+            background-color: #f8f9fa;
+            border: none;
+            box-shadow: none;
+            pointer-events: none; /* Disable interaction in view mode */
+        }
+        .view-mode input[type="radio"] {
+            pointer-events: none;
+        }
+        #edit-buttons {
+            display: none;
+        }
+        #update-btn-container {
+            display: block;
+        }
+        .edit-mode #edit-buttons {
+            display: block;
+        }
+        .edit-mode #update-btn-container {
+            display: none;
+        }
+        .edit-mode .form-control {
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            pointer-events: auto;
+        }
+        .edit-mode input[type="radio"] {
+            pointer-events: auto;
+        }
+        #avatar-upload-container {
+            display: none;
+        }
+        .edit-mode #avatar-upload-container {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Topbar Start -->
+    <%- include("partical/headercomponent.ejs") %>
+    <!-- Topbar End -->
+
+    <!-- Navbar Start -->
+    <div class="container-fluid">
+        <div class="row border-top px-xl-5">
+            <div class="col-lg-12">
+                <%- include("partical/menucomponent.ejs") %>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Page Header Start -->
+    <div class="page-header container-fluid bg-primary d-flex flex-column align-items-center justify-content-center">
+        <h1 class="display-3 text-uppercase mb-3">Hồ sơ cá nhân</h1>
+        <div class="d-inline-flex text-white">
+            <h6 class="text-uppercase m-0"><a class="text-white" href="">Home</a></h6>
+            <h6 class="m-0 px-3">/</h6>
+            <h6 class="text-uppercase m-0">Hồ Sơ</h6>
+        </div>
+    </div>
+    
+    <!-- Page Header End -->
+
+    <!-- Profile Start -->
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-4 mb-5">
+                <div class="profile-header mb-4 rounded">
+                    <img src="static/img/user.jpg" alt="Profile Image" class="profile-img" id="display-avatar">
+                    <h3 class="mb-0" id="display-name">Loading...</h3>
+                    <p class="text-muted" id="display-email">...</p>
+                    
+                    <div id="avatar-upload-container" class="mt-3">
+                        <input type="file" id="avatar-input" class="form-control-file" accept="image/*" style="display: none;">
+                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="document.getElementById('avatar-input').click()">
+                            <i class="fa fa-camera"></i> Đổi Avatar
+                        </button>
+                        <small id="file-name" class="d-block mt-2 text-muted"></small>
+                    </div>
+                </div>
+                
+                <div class="profile-nav rounded">
+                    <a href="#" class="active"><i class="fa fa-user mr-2"></i> Thông Tin Cá Nhân</a>
+                    <a href="#" id="sidebar-logout"><i class="fa fa-sign-out-alt mr-2"></i> Đăng Xuất</a>
+                </div>
+            </div>
+            
+            <div class="col-lg-8 mb-5">
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-white border-bottom p-4">
+                        <h4 class="card-title mb-0">Thông Tin Tài Khoản</h4>
+                    </div>
+                    <div class="card-body p-4 view-mode" id="profile-container">
+                        <form id="profile-form">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label font-weight-bold">Họ và Tên</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="username" name="username" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label font-weight-bold">Email</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" id="email" name="email" readonly>
+                                    <small class="form-text text-muted">Email không thể thay đổi.</small>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label font-weight-bold">Số Điện Thoại</label>
+                                <div class="col-sm-9">
+                                    <input type="tel" class="form-control" id="phone" name="phone">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label font-weight-bold">Địa Chỉ</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="address" name="address">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label font-weight-bold">Ngày Sinh</label>
+                                <div class="col-sm-9">
+                                    <input type="date" class="form-control" id="dob" name="dob">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label font-weight-bold">Giới Tính</label>
+                                <div class="col-sm-9 d-flex align-items-center">
+                                    <div class="custom-control custom-radio mr-4">
+                                        <input type="radio" id="gender-male" name="gender" value="male" class="custom-control-input">
+                                        <label class="custom-control-label" for="gender-male">Nam</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="gender-female" name="gender" value="female" class="custom-control-input">
+                                        <label class="custom-control-label" for="gender-female">Nữ</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row mt-4">
+                                <div class="col-sm-9 offset-sm-3">
+                                    <div id="update-btn-container">
+                                        <button type="button" class="btn btn-primary px-4" id="btn-enable-edit">Cập Nhật Thông Tin</button>
+                                    </div>
+                                    <div id="edit-buttons">
+                                        <button type="submit" class="btn btn-primary px-4 mr-2">Lưu Thay Đổi</button>
+                                        <button type="button" class="btn btn-secondary px-4" id="btn-cancel-edit">Hủy</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Profile End -->
+
+    <!-- Footer Start -->
+    <%- include("partical/footercomponent.ejs") %>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="static/lib/easing/easing.min.js"></script>
+    <script src="static/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="static/mail/jqBootstrapValidation.min.js"></script>
+    <script src="static/mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="static/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = '/login';
+                return;
+            }
+
+            var originalData = {};
+
+            // Helper function to switch modes
+            function setEditMode(enable) {
+                if (enable) {
+                    $('#profile-container').removeClass('view-mode').addClass('edit-mode');
+                    $('#avatar-upload-container').show();
+                } else {
+                    $('#profile-container').removeClass('edit-mode').addClass('view-mode');
+                    $('#avatar-upload-container').hide();
+                }
+            }
+
+            // Check if user is logged in
+            if (!token) {
+                alert('Vui lòng đăng nhập để xem hồ sơ cá nhân.');
+                window.location.href = '/login';
+                return;
+            }
+
+            // Load Profile Data
+            $.ajax({
+                url: '/profile/data',
+                method: 'GET',
+                headers: { 'Authorization': 'Bearer ' + token },
+                success: function(response) {
+                    if (response.success) {
+                        var user = response.data;
+                        originalData = user; // Save for cancel
+                        
+                        $('#username').val(user.username);
+                        $('#display-name').text(user.username);
+                        
+                        $('#email').val(user.email);
+                        $('#display-email').text(user.email);
+                        
+                        $('#phone').val(user.phone || '');
+                        $('#address').val(user.address || '');
+                        $('#dob').val(user.dob || '');
+                        
+                        if (user.gender) {
+                            $('input[name="gender"][value="' + user.gender + '"]').prop('checked', true);
+                        }
+                        
+                        if (user.avatar) {
+                            $('#display-avatar').attr('src', user.avatar);
+                        } else {
+                            $('#display-avatar').attr('src', 'static/img/user.jpg');
+                        }
+                    }
+                },
+                error: function(xhr) {
+                    if (xhr.status === 401) {
+                        alert('Phiên đăng nhập hết hạn');
+                        localStorage.removeItem('token');
+                        window.location.href = '/login';
+                    } else {
+                        alert('Lỗi tải thông tin: ' + (xhr.responseJSON ? xhr.responseJSON.message : xhr.statusText));
+                    }
+                }
+            });
+
+            // Handle "Update Info" click
+            $('#btn-enable-edit').click(function() {
+                setEditMode(true);
+            });
+
+            // Handle "Cancel" click
+            $('#btn-cancel-edit').click(function() {
+                setEditMode(false);
+                // Reset form to original data
+                $('#username').val(originalData.username);
+                $('#phone').val(originalData.phone || '');
+                $('#address').val(originalData.address || '');
+                $('#dob').val(originalData.dob || '');
+                if (originalData.gender) {
+                    $('input[name="gender"][value="' + originalData.gender + '"]').prop('checked', true);
+                } else {
+                    $('input[name="gender"]').prop('checked', false);
+                }
+                // Reset file input
+                $('#avatar-input').val('');
+                $('#file-name').text('');
+            });
+            
+            // Handle file input change
+            $('#avatar-input').change(function() {
+                var file = this.files[0];
+                if (file) {
+                    $('#file-name').text(file.name);
+                    // Optional: Preview image
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#display-avatar').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Handle Form Submit
+            $('#profile-form').submit(function(e) {
+                e.preventDefault();
+                
+                var formData = new FormData();
+                formData.append('username', $('#username').val());
+                formData.append('phone', $('#phone').val());
+                formData.append('address', $('#address').val());
+                formData.append('dob', $('#dob').val());
+                
+                var gender = $('input[name="gender"]:checked').val();
+                if (gender) formData.append('gender', gender);
+                
+                var avatarFile = $('#avatar-input')[0].files[0];
+                if (avatarFile) {
+                    formData.append('avatar', avatarFile);
+                }
+
+                $.ajax({
+                    url: '/profile/update',
+                    method: 'POST',
+                    headers: { 'Authorization': 'Bearer ' + token },
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.success) {
+                            alert(response.message);
+                            // Update original data
+                            originalData.username = $('#username').val();
+                            originalData.phone = $('#phone').val();
+                            originalData.address = $('#address').val();
+                            originalData.dob = $('#dob').val();
+                            originalData.gender = gender;
+                            if (response.avatar) {
+                                originalData.avatar = response.avatar;
+                                $('#display-avatar').attr('src', response.avatar);
+                            }
+                            
+                            $('#display-name').text(originalData.username);
+                            setEditMode(false);
+                        } else {
+                            alert('Lỗi: ' + response.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 401) {
+                            alert('Phiên đăng nhập hết hạn hoặc không hợp lệ.');
+                            localStorage.removeItem('token');
+                            window.location.href = '/login';
+                        } else {
+                            alert('Lỗi cập nhật: ' + (xhr.responseJSON ? xhr.responseJSON.message : xhr.statusText));
+                        }
+                    }
+                });
+            });
+
+            // Sidebar logout
+            $('#sidebar-logout').click(function(e) {
+                e.preventDefault();
+                localStorage.removeItem('token');
+                window.location.href = '/login';
+            });
+        });
+    </script>
+</body>
+</html>

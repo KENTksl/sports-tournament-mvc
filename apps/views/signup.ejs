@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('partical/headercomponent'); %>
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <%- include('partical/menucomponent'); %>
+    <!-- Navbar End -->
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-primary py-5 px-0" style="margin-bottom: 90px;">
+        <div class="row mx-0 align-items-center">
+            <div class="col-12 text-center">
+                <h1 class="display-4 text-uppercase text-white">Đăng Ký</h1>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Signup Form Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="bg-light rounded p-5">
+                        <form>
+                            <div class="form-group">
+                                <label for="fullname" class="text-uppercase">Họ và tên</label>
+                                <input type="text" class="form-control border-0 p-4" id="fullname" placeholder="Nhập họ và tên" required="required">
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="text-uppercase">Gmail</label>
+                                <input type="email" class="form-control border-0 p-4" id="email" placeholder="Nhập Gmail của bạn" required="required">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="text-uppercase">Mật Khẩu</label>
+                                <input type="password" class="form-control border-0 p-4" id="password" placeholder="Nhập mật khẩu" required="required">
+                            </div>
+                            <div class="form-group">
+                                <label for="repassword" class="text-uppercase">Nhập lại Mật Khẩu</label>
+                                <input type="password" class="form-control border-0 p-4" id="repassword" placeholder="Nhập lại mật khẩu" required="required">
+                            </div>
+                            <div class="form-group">
+                                <label for="dob" class="text-uppercase">Ngày Sinh</label>
+                                <input type="date" class="form-control border-0 p-4" id="dob" required="required">
+                            </div>
+                            <div class="form-group">
+                                <label class="text-uppercase">Giới Tính</label>
+                                <div class="d-flex align-items-center mt-2">
+                                    <div class="custom-control custom-radio mr-4">
+                                        <input type="radio" class="custom-control-input" id="genderMale" name="gender" value="male" checked>
+                                        <label class="custom-control-label" for="genderMale">Nam</label>
+                                    </div>
+                                    <div class="custom-control custom-radio mr-4">
+                                        <input type="radio" class="custom-control-input" id="genderFemale" name="gender" value="female">
+                                        <label class="custom-control-label" for="genderFemale">Nữ</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" id="genderOther" name="gender" value="other">
+                                        <label class="custom-control-label" for="genderOther">Khác</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <button class="btn btn-primary btn-block border-0 py-3 text-uppercase" type="submit">Đăng Ký</button>
+                            </div>
+                            <div class="text-center mt-3">
+                                <p>Đã có tài khoản? <a href="login" class="text-primary">Đăng nhập ngay</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Signup Form End -->
+
+
+    <!-- Footer Start -->
+    <%- include('partical/footercomponent'); %>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-up"></i></a>
+
+
+    <!-- JavaScript lib/raries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="static/lib/easing/easing.min.js"></script>
+    <script src="static/lib/waypoints/waypoints.min.js"></script>
+    <script src="static/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="static/lib/isotope/isotope.pkgd.min.js"></script>
+    <script src="static/lib/lightbox/js/lightbox.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="static/mail/jqBootstrapValidation.min.js"></script>
+    <script src="static/mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="static/js/main.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').on('submit', function(e) {
+                e.preventDefault();
+                var fullname = $('#fullname').val();
+                var email = $('#email').val();
+                var password = $('#password').val();
+                var repassword = $('#repassword').val();
+
+                if (password !== repassword) {
+                    alert('Mật khẩu nhập lại không khớp!');
+                    return;
+                }
+                
+                $.ajax({
+                    url: '/authenticate/register',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ username: fullname, email: email, password: password }),
+                    success: function(response) {
+                        alert('Đăng ký thành công! Vui lòng đăng nhập.');
+                        window.location.href = '/login';
+                    },
+                    error: function(xhr) {
+                        alert('Lỗi: ' + (xhr.responseJSON ? xhr.responseJSON.message : xhr.statusText));
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
