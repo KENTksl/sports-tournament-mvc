@@ -3,5 +3,8 @@
     "username": "sa",
     "password": "sa",
     "database": "database_sport"
-  }
+  },
+  "jwt": {
+      "secret":"goK!pusp6ThEdURUtRenOwUhAsWUCLheBazl!uJLPlS8EbreWLdrupIwabRAsiBu"
+    }
 }
