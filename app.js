@@ -1,5 +1,18 @@
 var express = require("express");
 var app = express();
+var mongoose = require('mongoose');
+var config = require(__dirname + "/Config/Setting.json");
+
+// Connect to MongoDB with Mongoose
+const user = config.mongodb.username;
+const pass = config.mongodb.password;
+const dbName = config.mongodb.database;
+const uri = `mongodb+srv://${user}:${pass}@cluster0.u5scqoz.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+
+mongoose.connect(uri)
+    .then(() => console.log('Mongoose connected...'))
+    .catch(err => console.error('Mongoose connection error:', err));
+
 //Body parser
 global.__basedir = __dirname;
 

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <%- include('partical/headercomponent'); %>
+    <script>
+        // Check token and role immediately
+        (function() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = '/login';
+                return;
+            }
+
+            function parseJwt(token) {
+                try {
+                    var base64Url = token.split('.')[1];
+                    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                    }).join(''));
+                    return JSON.parse(jsonPayload);
+                } catch (e) {
+                    return null;
+                }
+            }
+
+            const decoded = parseJwt(token);
+            if (!decoded || !decoded.roles || !decoded.roles.includes('admin')) {
+                alert('Bạn không có quyền truy cập!');
+                window.location.href = '/home';
+            }
+        })();
+    </script>
+    <style>
+        .profile-img-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+        }
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .profile-img-overlay {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: #009CFF;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            border: 3px solid white;
+        }
+        #avatarInput {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid position-relative bg-white d-flex p-0">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+        <!-- Sidebar Start -->
+        <%- include('partical/menucomponent'); %>
+        <!-- Sidebar End -->
+
+
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <%- include('partical/navbarcomponent'); %>
+            <!-- Navbar End -->
+
+            <!-- Profile Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Hồ Sơ Cá Nhân</h6>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <div class="profile-img-container">
+                                <img src="https://graph.facebook.com/100000000000000/picture" alt="Avatar" class="profile-img" id="profilePageAvatar">
+                                <label for="avatarInput" class="profile-img-overlay">
+                                    <i class="fa fa-camera"></i>
+                                </label>
+                                <input type="file" id="avatarInput" accept="image/*">
+                            </div>
+                            <h5 id="profilePageName" class="mb-1">Loading...</h5>
+                            <p id="profilePageEmail" class="text-muted mb-4">...</p>
+                        </div>
+                        <div class="col-md-8">
+                            <form id="profileForm">
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Tên người dùng</label>
+                                        <input type="text" class="form-control" id="username" name="username">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Số điện thoại</label>
+                                        <input type="text" class="form-control" id="phone" name="phone">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Địa chỉ</label>
+                                    <input type="text" class="form-control" id="address" name="address">
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Ngày sinh</label>
+                                        <input type="date" class="form-control" id="dob" name="dob">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Giới tính</label>
+                                        <div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gender" id="genderMale" value="male">
+                                                <label class="form-check-label" for="genderMale">Nam</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="female">
+                                                <label class="form-check-label" for="genderFemale">Nữ</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gender" id="genderOther" value="other">
+                                                <label class="form-check-label" for="genderOther">Khác</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Cập nhật hồ sơ</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Profile End -->
+
+            <!-- Footer Start -->
+            <%- include('partical/footercomponent'); %>
+            <!-- Footer End -->
+        </div>
+        <!-- Content End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/admin/lib/chart/chart.min.js"></script>
+    <script src="/static/admin/lib/easing/easing.min.js"></script>
+    <script src="/static/admin/lib/waypoints/waypoints.min.js"></script>
+    <script src="/static/admin/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="/static/admin/lib/tempusdominus/js/moment.min.js"></script>
+    <script src="/static/admin/lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="/static/admin/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/static/admin/js/main.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('token');
+            if (!token) return; // Should be handled by head script
+
+            // Load profile data
+            fetch('/profile/data', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    const user = data.data;
+                    
+                    // Update Top Nav (if menucomponent script didn't catch it yet, or to be safe)
+                    const topNavAvatar = document.getElementById('topNavAvatar');
+                    const topNavName = document.getElementById('topNavName');
+                    if (topNavAvatar && user.avatar) topNavAvatar.src = user.avatar;
+                    if (topNavName) topNavName.textContent = user.username || user.email;
+
+                    // Update Profile Page Elements
+                    document.getElementById('profilePageName').textContent = user.username || user.email;
+                    document.getElementById('profilePageEmail').textContent = user.email;
+                    if (user.avatar) {
+                        document.getElementById('profilePageAvatar').src = user.avatar;
+                    }
+
+                    // Fill Form
+                    document.getElementById('username').value = user.username || '';
+                    document.getElementById('phone').value = user.phone || '';
+                    document.getElementById('address').value = user.address || '';
+                    if (user.dob) {
+                        document.getElementById('dob').value = user.dob.split('T')[0];
+                    }
+                    if (user.gender) {
+                        const radio = document.querySelector(`input[name="gender"][value="${user.gender}"]`);
+                        if (radio) radio.checked = true;
+                    }
+                }
+            })
+            .catch(err => console.error(err));
+
+            // Handle Logout from Top Nav
+            const topNavLogout = document.getElementById('topNavLogout');
+            if (topNavLogout) {
+                topNavLogout.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('token');
+                    window.location.href = '/login';
+                });
+            }
+
+            // Handle Avatar Preview
+            const avatarInput = document.getElementById('avatarInput');
+            const profilePageAvatar = document.getElementById('profilePageAvatar');
+            
+            avatarInput.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        profilePageAvatar.src = e.target.result;
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+
+            // Handle Form Submit
+            document.getElementById('profileForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData();
+                formData.append('username', document.getElementById('username').value);
+                formData.append('phone', document.getElementById('phone').value);
+                formData.append('address', document.getElementById('address').value);
+                formData.append('dob', document.getElementById('dob').value);
+                const gender = document.querySelector('input[name="gender"]:checked');
+                if (gender) formData.append('gender', gender.value);
+                
+                if (avatarInput.files[0]) {
+                    formData.append('avatar', avatarInput.files[0]);
+                }
+
+                fetch('/profile/update', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Cập nhật thành công!');
+                        // Reload to update all avatars/names
+                        location.reload();
+                    } else {
+                        alert('Lỗi: ' + data.message);
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('Có lỗi xảy ra!');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
