@@ -1,9 +1,20 @@
 var express = require("express");
 var router = express.Router();
 
-router.use("/", function(req,res){
-    //res.json({"message": "this is home"});
-    res.render("home.ejs");
-});
+class HomeController {
+    constructor() {
+        this.router = router;
+        this.initializeRoutes();
+    }
 
-module.exports = router;
+    initializeRoutes() {
+        this.router.get("/", this.index.bind(this));
+    }
+
+    index(req, res) {
+        //res.json({"message": "this is home"});
+        res.render("home.ejs");
+    }
+}
+
+module.exports = new HomeController().router;

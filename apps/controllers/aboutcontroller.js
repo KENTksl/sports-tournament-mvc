@@ -1,8 +1,19 @@
 var express = require("express");
 var router = express.Router();
 
-router.use("/", function(req,res){
-    res.render("about.ejs");
-});
+class AboutController {
+    constructor() {
+        this.router = router;
+        this.initializeRoutes();
+    }
 
-module.exports = router;
+    initializeRoutes() {
+        this.router.get("/", this.index.bind(this));
+    }
+
+    index(req, res) {
+        res.render("about.ejs");
+    }
+}
+
+module.exports = new AboutController().router;

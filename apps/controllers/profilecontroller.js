@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var User = require(global.__basedir + "/apps/models/User");
+var UserService = require(global.__basedir + "/apps/services/UserService");
 var JWTMiddleware = require(global.__basedir + "/apps/Util/VerifyToken");
 var multer = require("multer");
 var path = require("path");
@@ -31,7 +31,18 @@ const upload = multer({
 });
 
 class ProfileController {
-    static async index(req, res) {
+    constructor() {
+        this.router = router;
+        this.initializeRoutes();
+    }
+
+    initializeRoutes() {
+        this.router.get("/", this.index.bind(this));
+        this.router.get("/data", JWTMiddleware.verifyToken, this.getProfileData.bind(this));
+        this.router.post("/update", JWTMiddleware.verifyToken, upload.single('avatar'), this.update.bind(this));
+    }
+
+    async index(req, res) {
         try {
             res.render("profile.ejs");
         } catch (error) {
@@ -40,26 +51,31 @@ class ProfileController {
         }
     }
     
-    static async getProfileData(req, res) {
+    async getProfileData(req, res) {
          try {
             const email = req.userData.email; 
             if (!email) {
                  return res.status(400).json({ success: false, message: "Invalid token data" });
             }
-            const user = await User.findUserByEmail(email);
+            const user = await UserService.getUserByEmail(email);
             if (!user) {
                 return res.status(404).json({ success: false, message: "User not found" });
             }
-            // Don't send password
-            delete user.password;
-            res.json({ success: true, data: user });
+            // Don't send password - Mongoose document needs .toObject() or just delete from obj
+            // Since Mongoose returns a document, we should convert to object if we want to delete props safely
+            // But since I updated Repository to return simple query result, it is a document.
+            // Using toObject() is safer.
+            const userObj = user.toObject ? user.toObject() : user;
+            delete userObj.password;
+            
+            res.json({ success: true, data: userObj });
         } catch (error) {
             console.error(error);
             res.status(500).json({ success: false, message: "Internal server error" });
         }
     }
 
-    static async update(req, res) {
+    async update(req, res) {
         try {
             const email = req.userData.email;
             const { username, phone, address, dob, gender } = req.body;
@@ -76,7 +92,7 @@ class ProfileController {
                 updateData.avatar = "/static/uploads/avatars/" + req.file.filename;
             }
 
-            const result = await User.updateUser(email, updateData);
+            const result = await UserService.updateProfile(email, updateData);
             if (result.modifiedCount > 0 || result.matchedCount > 0) {
                  res.json({ success: true, message: "Profile updated successfully", avatar: updateData.avatar });
             } else {
@@ -89,8 +105,4 @@ class ProfileController {
     }
 }
 
-router.get("/", ProfileController.index);
-router.get("/data", JWTMiddleware.verifyToken, ProfileController.getProfileData);
-router.post("/update", JWTMiddleware.verifyToken, upload.single('avatar'), ProfileController.update);
-
-module.exports = router;
+module.exports = new ProfileController().router;

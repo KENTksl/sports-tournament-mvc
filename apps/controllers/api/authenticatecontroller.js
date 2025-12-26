@@ -4,14 +4,27 @@ const jsonwebtoken = require("jsonwebtoken");
 const jwtExpirySeconds = 300;
 var config = require(global.__basedir + "/Config/Setting.json");
 var JWTMiddleware = require(global.__basedir + "/apps/Util/VerifyToken");
-var User = require(global.__basedir + "/apps/models/User");
-var bcrypt = require("bcrypt");
+const UserService = require("../../services/UserService");
 
 class AuthController {
-    static async register(req, res) {
+    constructor() {
+        this.router = router;
+        this.initializeRoutes();
+    }
+
+    initializeRoutes() {
+        this.router.post("/register", this.register.bind(this));
+        this.router.post("/login", this.login.bind(this));
+        this.router.get("/test-security", JWTMiddleware.verifyToken, this.testSecurity.bind(this));
+    }
+
+    async register(req, res) {
         const { username, password, email, phone, address, dob, gender } = req.body;
         try {
-            const result = await User.createUser(username, password, email, "customer", phone, address, dob, gender);
+            const result = await UserService.register({
+                username, password, email, phone, address, dob, gender
+            });
+            
             if (result.success) {
                 res.status(200).json({ message: "User registered successfully" });
             } else {
@@ -23,18 +36,14 @@ class AuthController {
         }
     }
 
-    static async login(req, res) {
+    async login(req, res) {
         const { email, password } = req.body;
         console.log(`${email} is trying to login ..`);
 
         try {
-            const user = await User.findUserByEmail(email);
+            const user = await UserService.login(email, password);
+            
             if (!user) {
-                return res.status(401).json({ message: "The email and password your provided are invalid" });
-            }
-
-            const passwordIsValid = await bcrypt.compare(password, user.password);
-            if (!passwordIsValid) {
                 return res.status(401).json({ message: "The email and password your provided are invalid" });
             }
 
@@ -64,14 +73,10 @@ class AuthController {
         }
     }
 
-    static testSecurity(req, res) {
+    testSecurity(req, res) {
         console.log(req.userData);
         res.json({ status: true, message: "login success" });
     }
 }
 
-router.post("/register", AuthController.register);
-router.post("/login", AuthController.login);
-router.get("/test-security", JWTMiddleware.verifyToken, AuthController.testSecurity);
-
-module.exports = router;
+module.exports = new AuthController().router;

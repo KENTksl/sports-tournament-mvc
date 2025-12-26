@@ -1,8 +1,19 @@
 var express = require("express");
 var router = express.Router();
 
-router.get("/", function(req, res){
-    res.render("signin.ejs");
-});
+class LoginController {
+    constructor() {
+        this.router = router;
+        this.initializeRoutes();
+    }
 
-module.exports = router;
+    initializeRoutes() {
+        this.router.get("/", this.index.bind(this));
+    }
+
+    index(req, res) {
+        res.render("signin.ejs");
+    }
+}
+
+module.exports = new LoginController().router;
