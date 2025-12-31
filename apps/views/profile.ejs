@@ -40,16 +40,20 @@
             background: #fff;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        .profile-nav a {
-            color: #333;
+        .profile-nav .nav-link {
             padding: 15px 20px;
-            display: block;
-            border-bottom: 1px solid #eee;
+            color: #333;
+            border-bottom: 1px solid #f0f0f0;
         }
-        .profile-nav a:hover, .profile-nav a.active {
-            background: #D19C97;
-            color: #fff;
-            text-decoration: none;
+        .profile-nav .nav-link:hover, .profile-nav .nav-link.active {
+            background: #EDF1FF;
+            color: #FF6F61;
+            font-weight: 500;
+        }
+        /* Custom Styles for Tabs */
+        .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+            background-color: #FF6F61;
+            color: #fff !important;
         }
         /* View/Edit Mode Styles */
         .view-mode .form-control {
@@ -136,79 +140,212 @@
                 </div>
                 
                 <div class="profile-nav rounded">
-                    <a href="#" class="active"><i class="fa fa-user mr-2"></i> Thông Tin Cá Nhân</a>
-                    <a href="#" id="sidebar-logout"><i class="fa fa-sign-out-alt mr-2"></i> Đăng Xuất</a>
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="true"><i class="fa fa-user mr-2"></i> Thông Tin Cá Nhân</a>
+                        <a class="nav-link" id="v-pills-myteam-tab" data-toggle="pill" href="#v-pills-myteam" role="tab" aria-controls="v-pills-myteam" aria-selected="false"><i class="fa fa-users mr-2"></i> Thông Tin Đội</a>
+                        <a class="nav-link" id="v-pills-history-tab" data-toggle="pill" href="#v-pills-history" role="tab" aria-controls="v-pills-history" aria-selected="false"><i class="fa fa-history mr-2"></i> Lịch Sử Đăng Ký</a>
+                        <a class="nav-link" href="#" id="sidebar-logout"><i class="fa fa-sign-out-alt mr-2"></i> Đăng Xuất</a>
+                    </div>
                 </div>
             </div>
             
             <div class="col-lg-8 mb-5">
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header bg-white border-bottom p-4">
-                        <h4 class="card-title mb-0">Thông Tin Tài Khoản</h4>
+                <div class="tab-content" id="v-pills-tabContent">
+                    <!-- Tab 1: Profile Info -->
+                    <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-header bg-white border-bottom p-4">
+                                <h4 class="card-title mb-0">Thông Tin Tài Khoản</h4>
+                            </div>
+                            <div class="card-body p-4 view-mode" id="profile-container">
+                                <form id="profile-form">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label font-weight-bold">Họ và Tên</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="username" name="username" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label font-weight-bold">Email</label>
+                                        <div class="col-sm-9">
+                                            <input type="email" class="form-control" id="email" name="email" readonly>
+                                            <small class="form-text text-muted">Email không thể thay đổi.</small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label font-weight-bold">Số Điện Thoại</label>
+                                        <div class="col-sm-9">
+                                            <input type="tel" class="form-control" id="phone" name="phone">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label font-weight-bold">Địa Chỉ</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="address" name="address">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label font-weight-bold">Ngày Sinh</label>
+                                        <div class="col-sm-9">
+                                            <input type="date" class="form-control" id="dob" name="dob">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label font-weight-bold">Giới Tính</label>
+                                        <div class="col-sm-9 d-flex align-items-center">
+                                            <div class="custom-control custom-radio mr-4">
+                                                <input type="radio" id="gender-male" name="gender" value="male" class="custom-control-input">
+                                                <label class="custom-control-label" for="gender-male">Nam</label>
+                                            </div>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="gender-female" name="gender" value="female" class="custom-control-input">
+                                                <label class="custom-control-label" for="gender-female">Nữ</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group row mt-4">
+                                        <div class="col-sm-9 offset-sm-3">
+                                            <div id="update-btn-container">
+                                                <button type="button" class="btn btn-primary px-4" id="btn-enable-edit">Cập Nhật Thông Tin</button>
+                                            </div>
+                                            <div id="edit-buttons">
+                                                <button type="submit" class="btn btn-primary px-4 mr-2">Lưu Thay Đổi</button>
+                                                <button type="button" class="btn btn-secondary px-4" id="btn-cancel-edit">Hủy</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Team Analysis Charts MOVED to My Team Tab -->
                     </div>
-                    <div class="card-body p-4 view-mode" id="profile-container">
-                        <form id="profile-form">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label font-weight-bold">Họ và Tên</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="username" name="username" required>
-                                </div>
+
+                    <!-- Tab 2: My Team Info -->
+                    <div class="tab-pane fade" id="v-pills-myteam" role="tabpanel" aria-labelledby="v-pills-myteam-tab">
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-header bg-white border-bottom p-4">
+                                <h4 class="card-title mb-0">Thông Tin Đội Của Tôi</h4>
+                                <small class="text-muted">Lưu thông tin đội để đăng ký giải đấu nhanh chóng hơn.</small>
                             </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label font-weight-bold">Email</label>
-                                <div class="col-sm-9">
-                                    <input type="email" class="form-control" id="email" name="email" readonly>
-                                    <small class="form-text text-muted">Email không thể thay đổi.</small>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label font-weight-bold">Số Điện Thoại</label>
-                                <div class="col-sm-9">
-                                    <input type="tel" class="form-control" id="phone" name="phone">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label font-weight-bold">Địa Chỉ</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="address" name="address">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label font-weight-bold">Ngày Sinh</label>
-                                <div class="col-sm-9">
-                                    <input type="date" class="form-control" id="dob" name="dob">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label font-weight-bold">Giới Tính</label>
-                                <div class="col-sm-9 d-flex align-items-center">
-                                    <div class="custom-control custom-radio mr-4">
-                                        <input type="radio" id="gender-male" name="gender" value="male" class="custom-control-input">
-                                        <label class="custom-control-label" for="gender-male">Nam</label>
+                            <div class="card-body p-4">
+                                <form id="my-team-form" enctype="multipart/form-data">
+                                    <h5 class="mb-3 text-primary border-left border-primary pl-2">Thông Tin Chung</h5>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Tên Đội <span class="text-danger">*</span></label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="teamName" id="teamName" required>
+                                        </div>
                                     </div>
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="gender-female" name="gender" value="female" class="custom-control-input">
-                                        <label class="custom-control-label" for="gender-female">Nữ</label>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Logo Đội</label>
+                                        <div class="col-sm-9">
+                                            <div class="d-flex align-items-center">
+                                                <img src="" id="team-logo-preview" class="img-thumbnail mr-3" style="width: 80px; height: 80px; object-fit: cover; display: none;">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="teamLogo" name="logo" accept="image/*">
+                                                    <label class="custom-file-label" for="teamLogo">Chọn ảnh...</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Người Đại Diện</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="representative" id="teamRepresentative">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Số Điện Thoại</label>
+                                        <div class="col-sm-9">
+                                            <input type="tel" class="form-control" name="phone" id="teamPhone">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Email Liên Hệ</label>
+                                        <div class="col-sm-9">
+                                            <input type="email" class="form-control" name="email" id="teamEmail">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Giới Thiệu</label>
+                                        <div class="col-sm-9">
+                                            <textarea class="form-control" name="description" id="teamDescription" rows="3"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <h5 class="mb-3 mt-4 text-primary border-left border-primary pl-2 d-flex justify-content-between align-items-center">
+                                        Danh Sách Thành Viên
+                                        <button type="button" class="btn btn-sm btn-outline-primary" id="btn-add-member">
+                                            <i class="fa fa-plus"></i> Thêm Thành Viên
+                                        </button>
+                                    </h5>
+                                    <div id="members-container">
+                                        <!-- Members will be added here dynamically -->
+                                        <div class="text-center text-muted py-3" id="no-members-msg">Chưa có thành viên nào.</div>
+                                    </div>
+
+                                    <div class="mt-4 pt-3 border-top text-right">
+                                        <button type="submit" class="btn btn-primary px-4" id="btn-save-team">
+                                            <i class="fa fa-save mr-2"></i> Lưu Thông Tin Đội
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Team Analysis Charts -->
+                        <div class="card border-0 shadow-sm mb-4" id="team-stats-section" style="display: none;">
+                            <div class="card-header bg-info text-white d-flex justify-content-between align-items-center p-4">
+                                <h4 class="card-title mb-0 text-white"><i class="fa fa-chart-bar mr-2"></i> Phân Tích Đội Bóng</h4>
+                                <div id="stats-tournament-selector-group" style="display: none;">
+                                    <select class="form-control form-control-sm" id="stats-tournament-select" style="min-width: 200px;"></select>
+                                </div>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="row">
+                                    <div class="col-lg-6 mb-4">
+                                        <h6 class="text-center mb-3">Tỷ Lệ Kết Quả</h6>
+                                        <div style="height: 300px; position: relative;">
+                                            <canvas id="resultsChart"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-4">
+                                        <h6 class="text-center mb-3">Hiệu Suất Ghi Bàn Qua Các Trận</h6>
+                                        <div style="height: 300px; position: relative;">
+                                            <canvas id="goalsChart"></canvas>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div class="form-group row mt-4">
-                                <div class="col-sm-9 offset-sm-3">
-                                    <div id="update-btn-container">
-                                        <button type="button" class="btn btn-primary px-4" id="btn-enable-edit">Cập Nhật Thông Tin</button>
-                                    </div>
-                                    <div id="edit-buttons">
-                                        <button type="submit" class="btn btn-primary px-4 mr-2">Lưu Thay Đổi</button>
-                                        <button type="button" class="btn btn-secondary px-4" id="btn-cancel-edit">Hủy</button>
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: Registration History -->
+                    <div class="tab-pane fade" id="v-pills-history" role="tabpanel" aria-labelledby="v-pills-history-tab">
+                        <div class="bg-light p-4 rounded shadow-sm">
+                            <h4 class="mb-4 text-uppercase text-primary border-bottom pb-2">Lịch Sử Đăng Ký Đội</h4>
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Ngày Đăng Ký</th>
+                                            <th>Giải Đấu</th>
+                                            <th>Tên Đội</th>
+                                            <th>Trạng Thái</th>
+                                            <th>Ghi Chú</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="registration-history-body">
+                                        <tr><td colspan="5" class="text-center text-muted">Đang tải dữ liệu...</td></tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
     <!-- Profile End -->
 
@@ -224,6 +361,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="static/lib/easing/easing.min.js"></script>
     <script src="static/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="/static/admin/lib/chart/chart.min.js"></script>
 
     <!-- Contact Javascript File -->
     <script src="static/mail/jqBootstrapValidation.min.js"></script>
@@ -253,110 +391,172 @@
                 }
             }
 
-            // Check if user is logged in
-            if (!token) {
-                alert('Vui lòng đăng nhập để xem hồ sơ cá nhân.');
-                window.location.href = '/login';
-                return;
+            // Load Profile Data
+            loadProfileData();
+
+            function loadProfileData() {
+                $.ajax({
+                    url: '/profile/data',
+                    method: 'GET',
+                    headers: { 'Authorization': 'Bearer ' + token },
+                    success: function(response) {
+                        console.log('Profile Data Response:', response);
+                        if (response.success) {
+                            var user = response.data;
+                            originalData = user; // Save for cancel
+                            
+                            // --- Populate Profile Info ---
+                            $('#username').val(user.username);
+                            $('#display-name').text(user.username);
+                            $('#email').val(user.email);
+                            $('#display-email').text(user.email);
+                            $('#phone').val(user.phone || '');
+                            $('#address').val(user.address || '');
+                            $('#dob').val(user.dob || '');
+                            
+                            if (user.gender) {
+                                $('input[name="gender"][value="' + user.gender + '"]').prop('checked', true);
+                            }
+                            
+                            if (user.avatar) {
+                                $('#display-avatar').attr('src', user.avatar);
+                            } else {
+                                $('#display-avatar').attr('src', 'static/img/user.jpg');
+                            }
+
+                            // --- Populate Registration History ---
+                            if (response.registrations && response.registrations.length > 0) {
+                                var html = '';
+                                response.registrations.forEach(function(reg) {
+                                    var statusBadge = '';
+                                    var note = '';
+                                    switch(reg.status) {
+                                        case 'pending': 
+                                            statusBadge = '<span class="badge badge-warning text-white">Đang chờ duyệt</span>'; 
+                                            note = 'Hồ sơ đang được xem xét';
+                                            break;
+                                        case 'approved': 
+                                            statusBadge = '<span class="badge badge-success">Đã duyệt</span>'; 
+                                            note = 'Đội đã được thêm vào giải đấu';
+                                            break;
+                                        case 'rejected': 
+                                            statusBadge = '<span class="badge badge-danger">Từ chối</span>'; 
+                                            note = 'Hồ sơ không hợp lệ hoặc giải đã đủ đội';
+                                            break;
+                                        default: 
+                                            statusBadge = '<span class="badge badge-secondary">' + reg.status + '</span>';
+                                            note = '';
+                                    }
+                                    
+                                    var date = new Date(reg.submittedAt).toLocaleDateString('vi-VN');
+                                    var tournamentName = reg.tournamentId ? reg.tournamentId.name : 'Không xác định';
+                                    
+                                    html += '<tr>' +
+                                        '<td>' + date + '</td>' +
+                                        '<td>' + tournamentName + '</td>' +
+                                        '<td>' + reg.teamName + '</td>' +
+                                        '<td>' + statusBadge + '</td>' +
+                                        '<td>' + note + '</td>' +
+                                        '</tr>';
+                                });
+                                $('#registration-history-body').html(html);
+                            } else {
+                                $('#registration-history-body').html('<tr><td colspan="5" class="text-center text-muted">Chưa có lịch sử đăng ký nào.</td></tr>');
+                            }
+
+                            // --- Populate My Team Info ---
+                            if (response.myTeam) {
+                                var team = response.myTeam;
+                                $('#teamName').val(team.teamName);
+                                $('#teamRepresentative').val(team.representative);
+                                $('#teamPhone').val(team.phone);
+                                $('#teamEmail').val(team.email);
+                                $('#teamDescription').val(team.description);
+                                
+                                if (team.logo && team.logo !== 'default.png') {
+                                    $('#team-logo-preview').attr('src', '/static/uploads/avatars/' + team.logo).show();
+                                }
+
+                                $('#members-container').empty();
+                                if (team.members && team.members.length > 0) {
+                                    team.members.forEach(function(member) {
+                                        addMemberRow(member);
+                                    });
+                                } else {
+                                    $('#no-members-msg').show();
+                                }
+                            }
+
+                            // --- Populate Team Stats Charts ---
+                            if (response.teamStats && response.teamStats.length > 0) {
+                                $('#team-stats-section').show();
+                                var selector = $('#stats-tournament-select');
+                                selector.empty();
+                                
+                                if (response.teamStats.length > 1) {
+                                    $('#stats-tournament-selector-group').show();
+                                } else {
+                                    $('#stats-tournament-selector-group').hide();
+                                }
+
+                                response.teamStats.forEach(function(stat, index) {
+                                    selector.append(new Option(stat.tournamentName + ' (' + stat.teamName + ')', index));
+                                });
+
+                                // Handle change
+                                selector.off('change').on('change', function() {
+                                    var index = $(this).val();
+                                    renderTeamCharts(response.teamStats[index]);
+                                });
+
+                                // Initial render
+                                renderTeamCharts(response.teamStats[0]);
+                            } else {
+                                $('#team-stats-section').hide();
+                            }
+                        }
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 401) {
+                            alert('Phiên đăng nhập hết hạn');
+                            localStorage.removeItem('token');
+                            window.location.href = '/login';
+                        } else {
+                            alert('Lỗi tải thông tin: ' + (xhr.responseJSON ? xhr.responseJSON.message : xhr.statusText));
+                        }
+                    }
+                });
             }
 
-            // Load Profile Data
-            $.ajax({
-                url: '/profile/data',
-                method: 'GET',
-                headers: { 'Authorization': 'Bearer ' + token },
-                success: function(response) {
-                    if (response.success) {
-                        var user = response.data;
-                        originalData = user; // Save for cancel
-                        
-                        $('#username').val(user.username);
-                        $('#display-name').text(user.username);
-                        
-                        $('#email').val(user.email);
-                        $('#display-email').text(user.email);
-                        
-                        $('#phone').val(user.phone || '');
-                        $('#address').val(user.address || '');
-                        $('#dob').val(user.dob || '');
-                        
-                        if (user.gender) {
-                            $('input[name="gender"][value="' + user.gender + '"]').prop('checked', true);
-                        }
-                        
-                        if (user.avatar) {
-                            $('#display-avatar').attr('src', user.avatar);
-                        } else {
-                            $('#display-avatar').attr('src', 'static/img/user.jpg');
-                        }
-                    }
-                },
-                error: function(xhr) {
-                    if (xhr.status === 401) {
-                        alert('Phiên đăng nhập hết hạn');
-                        localStorage.removeItem('token');
-                        window.location.href = '/login';
-                    } else {
-                        alert('Lỗi tải thông tin: ' + (xhr.responseJSON ? xhr.responseJSON.message : xhr.statusText));
-                    }
-                }
-            });
-
-            // Handle "Update Info" click
-            $('#btn-enable-edit').click(function() {
-                setEditMode(true);
-            });
-
-            // Handle "Cancel" click
-            $('#btn-cancel-edit').click(function() {
+            // --- Profile Info Handlers ---
+            $('#btn-enable-edit').click(function() { setEditMode(true); });
+            $('#btn-cancel-edit').click(function() { 
                 setEditMode(false);
-                // Reset form to original data
+                // Reset simple fields
                 $('#username').val(originalData.username);
                 $('#phone').val(originalData.phone || '');
                 $('#address').val(originalData.address || '');
                 $('#dob').val(originalData.dob || '');
-                if (originalData.gender) {
-                    $('input[name="gender"][value="' + originalData.gender + '"]').prop('checked', true);
-                } else {
-                    $('input[name="gender"]').prop('checked', false);
-                }
-                // Reset file input
-                $('#avatar-input').val('');
-                $('#file-name').text('');
+                if (originalData.gender) $('input[name="gender"][value="' + originalData.gender + '"]').prop('checked', true);
+                else $('input[name="gender"]').prop('checked', false);
             });
             
-            // Handle file input change
             $('#avatar-input').change(function() {
                 var file = this.files[0];
                 if (file) {
                     $('#file-name').text(file.name);
-                    // Optional: Preview image
                     var reader = new FileReader();
-                    reader.onload = function(e) {
-                        $('#display-avatar').attr('src', e.target.result);
-                    }
+                    reader.onload = function(e) { $('#display-avatar').attr('src', e.target.result); }
                     reader.readAsDataURL(file);
                 }
             });
 
-            // Handle Form Submit
             $('#profile-form').submit(function(e) {
                 e.preventDefault();
+                var formData = new FormData(this);
+                // ... (rest of profile submit logic is fine with FormData(this))
+                // Just ensuring we append gender correctly if checked
                 
-                var formData = new FormData();
-                formData.append('username', $('#username').val());
-                formData.append('phone', $('#phone').val());
-                formData.append('address', $('#address').val());
-                formData.append('dob', $('#dob').val());
-                
-                var gender = $('input[name="gender"]:checked').val();
-                if (gender) formData.append('gender', gender);
-                
-                var avatarFile = $('#avatar-input')[0].files[0];
-                if (avatarFile) {
-                    formData.append('avatar', avatarFile);
-                }
-
                 $.ajax({
                     url: '/profile/update',
                     method: 'POST',
@@ -367,31 +567,69 @@
                     success: function(response) {
                         if (response.success) {
                             alert(response.message);
-                            // Update original data
-                            originalData.username = $('#username').val();
-                            originalData.phone = $('#phone').val();
-                            originalData.address = $('#address').val();
-                            originalData.dob = $('#dob').val();
-                            originalData.gender = gender;
-                            if (response.avatar) {
-                                originalData.avatar = response.avatar;
-                                $('#display-avatar').attr('src', response.avatar);
-                            }
-                            
-                            $('#display-name').text(originalData.username);
+                            loadProfileData(); // Reload to sync everything
                             setEditMode(false);
                         } else {
                             alert('Lỗi: ' + response.message);
                         }
                     },
                     error: function(xhr) {
-                        if (xhr.status === 401) {
-                            alert('Phiên đăng nhập hết hạn hoặc không hợp lệ.');
-                            localStorage.removeItem('token');
-                            window.location.href = '/login';
+                        alert('Lỗi cập nhật: ' + (xhr.responseJSON ? xhr.responseJSON.message : xhr.statusText));
+                    }
+                });
+            });
+
+            // --- My Team Handlers ---
+
+            // Add Member
+            $('#btn-add-member').click(function() {
+                $('#no-members-msg').hide();
+                addMemberRow({});
+            });
+
+            // Remove Member (Delegated)
+            $('#members-container').on('click', '.remove-member', function() {
+                $(this).closest('.member-row').remove();
+                if ($('#members-container').children().length === 0) {
+                    $('#no-members-msg').show();
+                }
+            });
+
+            // Logo Preview
+            $('#teamLogo').change(function() {
+                var file = this.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#team-logo-preview').attr('src', e.target.result).show();
+                    }
+                    reader.readAsDataURL(file);
+                    $(this).next('.custom-file-label').text(file.name);
+                }
+            });
+
+            // Submit Team Form
+            $('#my-team-form').submit(function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: '/profile/my-team/update',
+                    method: 'POST',
+                    headers: { 'Authorization': 'Bearer ' + token },
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.success) {
+                            alert('Đã lưu thông tin đội thành công!');
+                            // No need to reload, just update UI if needed
                         } else {
-                            alert('Lỗi cập nhật: ' + (xhr.responseJSON ? xhr.responseJSON.message : xhr.statusText));
+                            alert('Lỗi: ' + response.message);
                         }
+                    },
+                    error: function(xhr) {
+                        alert('Lỗi lưu thông tin: ' + (xhr.responseJSON ? xhr.responseJSON.message : xhr.statusText));
                     }
                 });
             });
@@ -403,6 +641,160 @@
                 window.location.href = '/login';
             });
         });
+
+        // Global functions for inline events
+        function addMemberRow(member) {
+            var avatarUrl = member.avatar ? '/static/uploads/avatars/' + member.avatar : '/static/img/user.jpg';
+            if (member.avatar && member.avatar.indexOf('http') === 0) avatarUrl = member.avatar; // Handle absolute URLs if any
+
+            var html = `
+            <div class="member-row border rounded p-3 mb-3 bg-white position-relative shadow-sm">
+                <button type="button" class="close position-absolute remove-member" style="top: 10px; right: 15px;">&times;</button>
+                <div class="row align-items-center">
+                    <div class="col-md-2 text-center">
+                        <img src="${avatarUrl}" class="img-thumbnail mb-2 member-avatar-preview" style="width: 80px; height: 80px; object-fit: cover;">
+                        <input type="hidden" name="existingMemberAvatar" value="${member.avatar || ''}">
+                        <input type="hidden" name="memberHasNewAvatar" value="false" class="has-new-avatar">
+                        <div class="custom-file mt-1">
+                            <input type="file" class="custom-file-input" name="memberAvatar" accept="image/*" onchange="previewMemberAvatar(this)">
+                            <label class="custom-file-label text-truncate" style="font-size: 0.8rem;">Ảnh</label>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="small font-weight-bold">Họ và Tên</label>
+                                <input type="text" class="form-control form-control-sm" name="memberName" value="${member.name || ''}" required placeholder="Nhập tên thành viên">
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="small font-weight-bold">Số Áo</label>
+                                <input type="number" class="form-control form-control-sm" name="memberNumber" value="${member.number || ''}">
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="small font-weight-bold">CCCD/CMND</label>
+                                <input type="hidden" name="existingMemberCitizenIdImage" value="${member.citizenIdImage || ''}">
+                                <input type="hidden" name="memberHasNewCitizen" value="false" class="has-new-citizen">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="memberCitizenIdImage" accept="image/*" onchange="markNewCitizen(this)">
+                                    <label class="custom-file-label text-truncate" style="font-size: 0.8rem;">File ảnh</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            $('#members-container').append(html);
+        }
+
+        function previewMemberAvatar(input) {
+            var file = input.files[0];
+            if (file) {
+                var row = $(input).closest('.member-row');
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    row.find('.member-avatar-preview').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(file);
+                row.find('.has-new-avatar').val('true');
+                $(input).next('.custom-file-label').text(file.name);
+            }
+        }
+
+        function markNewCitizen(input) {
+            var file = input.files[0];
+            if (file) {
+                $(input).closest('.col-md-3').find('.has-new-citizen').val('true');
+                $(input).next('.custom-file-label').text(file.name);
+            }
+        }
+
+        function renderTeamCharts(statData) {
+            // Process Data
+            var matches = statData.matches;
+            var wins = 0, draws = 0, losses = 0;
+            var labels = [];
+            var goalsScored = [];
+            var goalsConceded = [];
+            
+            matches.forEach(function(m) {
+                var myScore = m.isTeam1 ? m.score1 : m.score2;
+                var oppScore = m.isTeam1 ? m.score2 : m.score1;
+                
+                if (myScore > oppScore) wins++;
+                else if (myScore === oppScore) draws++;
+                else losses++;
+                
+                labels.push(m.matchLabel); // e.g. "Vòng 1" or Date
+                goalsScored.push(myScore);
+                goalsConceded.push(oppScore);
+            });
+            
+            // 1. Results Chart (Doughnut)
+            var ctxResults = document.getElementById('resultsChart').getContext('2d');
+            if (resultsChartInstance) resultsChartInstance.destroy();
+            
+            // Check if data is empty
+            var hasData = wins + draws + losses > 0;
+            var data = hasData ? [wins, draws, losses] : [0, 0, 0];
+            var bgColors = hasData ? ['#28a745', '#ffc107', '#dc3545'] : ['#e9ecef', '#e9ecef', '#e9ecef'];
+
+            resultsChartInstance = new Chart(ctxResults, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Thắng', 'Hòa', 'Thua'],
+                    datasets: [{
+                        data: data,
+                        backgroundColor: bgColors,
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top' }
+                    }
+                }
+            });
+            
+            // 2. Goals Chart (Bar)
+            var ctxGoals = document.getElementById('goalsChart').getContext('2d');
+            if (goalsChartInstance) goalsChartInstance.destroy();
+            
+            goalsChartInstance = new Chart(ctxGoals, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Bàn Thắng',
+                            data: goalsScored,
+                            backgroundColor: '#007bff',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Bàn Thua',
+                            data: goalsConceded,
+                            backgroundColor: '#dc3545',
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { stepSize: 1 }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'top' }
+                    }
+                }
+            });
+        }
     </script>
 </body>
 </html>

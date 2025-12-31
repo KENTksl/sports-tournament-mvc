@@ -20,6 +20,7 @@ class AdminController {
 
         // New Football Management Routes
         this.router.use("/football/tournament", require(__dirname + "/football/tournamentcontroller"));
+        this.router.use("/team-registration", require(__dirname + "/teamregistrationcontroller"));
     }
 
     index(req, res) {

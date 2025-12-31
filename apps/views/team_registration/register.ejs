@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <%- include('../partical/headercomponent'); %>
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <%- include('../partical/menucomponent'); %>
+    <!-- Navbar End -->
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 px-0" style="margin-bottom: 90px;">
+        <div class="row mx-0 align-items-center">
+            <div class="col-lg-6 px-md-5 text-center text-lg-left">
+                <h1 class="display-2 text-uppercase mb-3">Đăng Ký Đội Tuyển</h1>
+                <p class="text-dark mb-4">Gửi hồ sơ đăng ký tham gia giải đấu và trở thành một phần của cộng đồng thể thao sôi động.</p>
+            </div>
+            <div class="col-lg-6 px-0 text-right">
+                <img class="img-fluid mt-5 mt-lg-0" src="/static/img/header.jpg" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+    <!-- Registration Form Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h1 class="display-4 text-uppercase">Form Đăng Ký</h1>
+                <% if (typeof tournamentName !== 'undefined' && tournamentName) { %>
+                    <h3 class="text-primary">Tham gia giải: <%= tournamentName %></h3>
+                <% } %>
+                <h5 class="text-uppercase text-primary mb-3">Thông tin đội bóng & Thành viên</h5>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="contact-form bg-light mb-4" style="padding: 30px;">
+                        <% if (typeof error !== 'undefined') { %>
+                            <div class="alert alert-danger"><%= error %></div>
+                        <% } %>
+                        
+                        <form action="/register-team/submit" method="POST" enctype="multipart/form-data" id="registrationForm">
+                            <% if (typeof tournamentId !== 'undefined' && tournamentId) { %>
+                                <input type="hidden" name="tournamentId" value="<%= tournamentId %>">
+                            <% } %>
+                            
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h4 class="text-uppercase mb-0">1. Thông Tin Đội Bóng</h4>
+                                <button type="button" class="btn btn-info btn-sm" id="btn-use-saved-team">
+                                    <i class="fa fa-download mr-1"></i> Sử dụng thông tin đội đã lưu
+                                </button>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <input type="text" class="form-control p-4" name="teamName" id="teamName" placeholder="Tên Đội Bóng *" required="required" />
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <input type="text" class="form-control p-4" name="representative" id="representative" placeholder="Người Đại Diện *" required="required" />
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <input type="email" class="form-control p-4" name="email" id="email" placeholder="Email Liên Hệ *" required="required" />
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <input type="tel" class="form-control p-4" name="phone" id="phone" placeholder="Số Điện Thoại *" required="required" />
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <textarea class="form-control p-4" rows="4" name="description" id="description" placeholder="Giới thiệu sơ lược về đội bóng"></textarea>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label>Logo Đội Bóng:</label>
+                                    <div id="logo-preview-container" style="display: none;" class="mb-2">
+                                        <img src="" id="logo-preview" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
+                                        <span class="badge badge-success ml-2">Đã lưu</span>
+                                        <input type="hidden" name="existingLogo" id="existingLogo">
+                                    </div>
+                                    <input type="file" class="form-control" name="logo" id="logoInput" accept="image/*">
+                                </div>
+                            </div>
+
+                            <h4 class="mb-4 mt-5 text-uppercase">2. Danh Sách Thành Viên</h4>
+                            <div id="members-container">
+                                <!-- Members will be added here -->
+                            </div>
+                            
+                            <div class="text-center mb-5">
+                                <button type="button" class="btn btn-secondary py-2 px-4" id="add-member-btn"><i class="fa fa-plus"></i> Thêm Thành Viên</button>
+                            </div>
+
+                            <div class="text-center">
+                                <button class="btn btn-primary py-3 px-5" type="submit">Gửi Hồ Sơ Đăng Ký</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Registration Form End -->
+
+    <!-- Footer Start -->
+    <%- include('../partical/footercomponent'); %>
+    <!-- Footer End -->
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            let memberIndexCounter = 0;
+            const token = localStorage.getItem('token');
+
+            // Initial member row
+            addMemberRow();
+
+            // Add Member Button
+            $('#add-member-btn').click(function() {
+                addMemberRow();
+            });
+
+            // Use Saved Team Button
+            $('#btn-use-saved-team').click(function() {
+                if (!token) {
+                    alert('Vui lòng đăng nhập để sử dụng tính năng này!');
+                    window.location.href = '/login';
+                    return;
+                }
+                
+                // Show loading state
+                const btn = $(this);
+                const originalText = btn.html();
+                btn.html('<i class="fa fa-spinner fa-spin"></i> Đang tải...');
+                btn.prop('disabled', true);
+
+                $.ajax({
+                    url: '/profile/data',
+                    method: 'GET',
+                    headers: { 'Authorization': 'Bearer ' + token },
+                    success: function(response) {
+                        if (response.success && response.myTeam) {
+                            const team = response.myTeam;
+                            
+                            // Populate Team Info
+                            $('#teamName').val(team.teamName);
+                            $('#representative').val(team.representative);
+                            $('#email').val(team.email);
+                            $('#phone').val(team.phone);
+                            $('#description').val(team.description);
+                            
+                            // Handle Logo
+                            if (team.logo && team.logo !== 'default.png') {
+                                $('#logo-preview').attr('src', '/static/uploads/avatars/' + team.logo);
+                                $('#logo-preview-container').show();
+                                $('#existingLogo').val(team.logo);
+                                // Optional: make file input not required or secondary
+                            }
+
+                            // Populate Members
+                            if (team.members && team.members.length > 0) {
+                                $('#members-container').empty(); // Clear existing
+                                team.members.forEach(member => {
+                                    addMemberRow(member);
+                                });
+                            } else {
+                                alert('Bạn chưa có thành viên nào trong đội đã lưu.');
+                            }
+                        } else {
+                            alert('Không tìm thấy thông tin đội đã lưu. Vui lòng cập nhật trong Hồ sơ cá nhân.');
+                        }
+                    },
+                    error: function(xhr) {
+                        alert('Lỗi tải thông tin: ' + (xhr.responseJSON ? xhr.responseJSON.message : xhr.statusText));
+                    },
+                    complete: function() {
+                        btn.html(originalText);
+                        btn.prop('disabled', false);
+                    }
+                });
+            });
+
+            function addMemberRow(data = null) {
+                const index = memberIndexCounter++;
+                const name = data ? data.name : '';
+                const number = data ? data.number : '';
+                
+                let avatarHtml = '';
+                let avatarRequired = 'required';
+                let existingAvatarVal = '';
+                
+                if (data && data.avatar && data.avatar !== 'default-avatar.png') {
+                    avatarHtml = `
+                        <div class="mt-2">
+                            <img src="/static/uploads/avatars/${data.avatar}" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                            <span class="badge badge-success">Đã lưu</span>
+                        </div>`;
+                    avatarRequired = '';
+                    existingAvatarVal = data.avatar;
+                }
+
+                let citizenHtml = '';
+                let citizenRequired = 'required';
+                let existingCitizenVal = '';
+
+                if (data && data.citizenIdImage) {
+                     citizenHtml = `
+                        <div class="mt-2">
+                            <span class="badge badge-success">CCCD Đã lưu</span>
+                        </div>`;
+                    citizenRequired = '';
+                    existingCitizenVal = data.citizenIdImage;
+                }
+
+                const memberRow = `
+                    <div class="member-row row mb-3 border-bottom pb-3">
+                        <input type="hidden" name="memberIndex[]" value="${index}">
+                        <div class="col-md-3 form-group">
+                            <input type="text" class="form-control" name="memberName[]" placeholder="Họ Tên *" required value="${name}">
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <input type="number" class="form-control" name="memberNumber[]" placeholder="Số Áo *" required value="${number}">
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label class="small text-muted mb-0">Ảnh Chân Dung</label>
+                            <input type="hidden" name="existingMemberAvatar[]" value="${existingAvatarVal}">
+                            <input type="file" class="form-control-file" name="memberAvatar_${index}" accept="image/*" ${avatarRequired}>
+                            ${avatarHtml}
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label class="small text-muted mb-0">Ảnh CCCD/CMND</label>
+                            <input type="hidden" name="existingMemberCitizenIdImage[]" value="${existingCitizenVal}">
+                            <input type="file" class="form-control-file" name="memberCitizenIdImage_${index}" accept="image/*" ${citizenRequired}>
+                            ${citizenHtml}
+                        </div>
+                        <div class="col-md-1 d-flex align-items-center">
+                            <button type="button" class="btn btn-danger btn-sm remove-member"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                `;
+                $('#members-container').append(memberRow);
+            }
+
+            // Remove Member
+            $(document).on('click', '.remove-member', function() {
+                if ($('.member-row').length > 1) {
+                    $(this).closest('.member-row').remove();
+                } else {
+                    alert('Đội bóng cần ít nhất 1 thành viên!');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
