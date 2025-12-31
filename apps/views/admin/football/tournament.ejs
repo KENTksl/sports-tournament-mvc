@@ -56,12 +56,20 @@
                                             <td><%= t.teams ? t.teams.length : 0 %> / <%= t.teamsCount %></td>
                                             <td><%= t.status %></td>
                                             <td>
-                                                <a href="/admin/football/tournament/detail/<%= t._id %>" class="btn btn-sm btn-primary">Chi Tiết</a>
-                                                <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#editModal<%= t._id %>">Sửa</button>
-                                                <form action="/admin/football/tournament/delete" method="POST" style="display:inline;">
-                                                    <input type="hidden" name="id" value="<%= t._id %>">
-                                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</button>
-                                                </form>
+                                                <div class="btn-group" role="group">
+                                                    <a href="/admin/football/tournament/detail/<%= t._id %>" class="btn btn-sm btn-info">Chi Tiết</a>
+                                                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal<%= t._id %>">Sửa</button>
+                                                    <form action="/admin/football/tournament/delete" method="POST" style="display:inline;">
+                                                        <input type="hidden" name="id" value="<%= t._id %>">
+                                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</button>
+                                                    </form>
+                                                    <% if (t.status === 'upcoming' && (t.teams ? t.teams.length : 0) >= t.teamsCount) { %>
+                                                        <form action="/admin/football/tournament/start" method="POST" style="display: inline-block; margin-left: 5px;" onsubmit="return confirm('Bạn có chắc chắn muốn bắt đầu giải đấu này không?');">
+                                                            <input type="hidden" name="tournamentId" value="<%= t._id %>">
+                                                            <button type="submit" class="btn btn-sm btn-success">Bắt Đầu</button>
+                                                        </form>
+                                                    <% } %>
+                                                </div>
                                             </td>
                                         </tr>
 
@@ -227,6 +235,56 @@
 
     <!-- Template Javascript -->
     <script src="/static/admin/js/main.js"></script>
+    <script>
+        $(document).ready(function() {
+            function updateTeamsCount(container) {
+                const mode = $(container).find('select[name="mode"]').val();
+                const teamsSelect = $(container).find('select[name="teamsCount"]');
+                
+                // Reset all options first
+                teamsSelect.find('option').prop('disabled', false).show();
+
+                if (mode === 'Knockout') {
+                    // Knockout allows 4, 8 only
+                    teamsSelect.find('option[value="16"]').prop('disabled', true).hide();
+                    teamsSelect.find('option[value="32"]').prop('disabled', true).hide();
+                    
+                    // If current selection is invalid, switch to 8
+                    const currentVal = teamsSelect.val();
+                    if (currentVal == 16 || currentVal == 32) {
+                        teamsSelect.val('8');
+                    }
+                } else {
+                    // Group Stage allows 16, 32 only
+                    teamsSelect.find('option[value="4"]').prop('disabled', true).hide();
+                    teamsSelect.find('option[value="8"]').prop('disabled', true).hide();
+                    
+                    // If current selection is invalid, switch to 16
+                    const currentVal = teamsSelect.val();
+                    if (currentVal == 4 || currentVal == 8) {
+                        teamsSelect.val('16');
+                    }
+                }
+            }
+
+            // Event listener for Mode change
+            $(document).on('change', 'select[name="mode"]', function() {
+                const container = $(this).closest('.modal-body');
+                updateTeamsCount(container);
+            });
+
+            // Initialize for Create Modal on load
+            updateTeamsCount($('#createModal .modal-body'));
+
+            // Initialize for Edit Modals when they are shown
+            $('.modal').on('show.bs.modal', function () {
+                const container = $(this).find('.modal-body');
+                if (container.length > 0) {
+                    updateTeamsCount(container);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -4,7 +4,9 @@
 <head>
     <%- include('partical/headercomponent'); %>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.css" />
     <style>
         /* Custom Styles for Tabs */
@@ -67,6 +69,55 @@
             object-fit: cover;
             border: 2px solid #eee;
         }
+        
+        /* Player Stats Badges */
+        .badge-goal {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            color: #2c3e50;
+            border: 1px solid #dcdcdc;
+            border-radius: 12px;
+            padding: 2px 6px;
+            font-size: 10px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+            margin-bottom: 2px;
+            transform: scale(1);
+            transition: transform 0.2s;
+        }
+        .badge-goal:hover {
+            transform: scale(1.1);
+        }
+        .badge-goal i {
+            margin-right: 4px;
+            font-size: 11px;
+            color: #2c3e50;
+        }
+
+        .badge-assist {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border: 1px solid #2980b9;
+            border-radius: 12px;
+            padding: 2px 6px;
+            font-size: 10px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+            margin-bottom: 2px;
+            transform: scale(1);
+            transition: transform 0.2s;
+        }
+        .badge-assist:hover {
+            transform: scale(1.1);
+        }
+        .badge-assist-icon {
+            margin-right: 4px;
+            font-weight: 900;
+            font-size: 11px;
+        }
     </style>
 </head>
 
@@ -116,6 +167,12 @@
                         </span>
                     </p>
                     <p><strong>Mô tả:</strong> <%= tournament.description || 'Chưa có mô tả' %></p>
+                    
+                    <% if (tournament.status === 'upcoming') { %>
+                        <div class="mt-4">
+                            <a href="/register-team?tournamentId=<%= tournament._id %>" class="btn btn-primary btn-lg px-5">ĐĂNG KÝ GIẢI</a>
+                        </div>
+                    <% } %>
                 </div>
             </div>
 
@@ -182,7 +239,7 @@
                                                                     <small class="d-block text-muted"><%= match.date %></small>
                                                                 <% } %>
                                                                 
-                                                                <button class="btn btn-sm btn-outline-primary mt-2 shadow-sm rounded-pill" onclick="openMatchDetail('<%= match.id %>')">
+                                                                <button class="btn btn-sm btn-outline-primary mt-2 shadow-sm rounded-pill" data-match-id="<%= match.id %>" onclick="openMatchDetail('<%= match.id %>')">
                                                                     <i class="fa fa-eye"></i>
                                                                 </button>
                                                             </div>
@@ -272,17 +329,98 @@
 
                 <!-- Stats Tab -->
                 <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="stats-tab">
-                    <div class="bg-light p-4 rounded text-center">
-                        <h4 class="mb-4 text-uppercase">Thống Kê</h4>
-                        <p>Tính năng đang được cập nhật...</p>
+                    <div class="row">
+                        <div class="col-lg-4 mb-3">
+                            <div class="card shadow-sm border-0">
+                                <div class="card-header bg-success text-white fw-bold">🏅 Vua Phá Lưới</div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center" style="width:50px;">#</th>
+                                                    <th>Cầu thủ</th>
+                                                    <th class="text-center" style="width:70px;">⚽</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="topScorersBody">
+                                                <tr><td colspan="3" class="text-center text-muted">Chưa có dữ liệu</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                            <div class="card shadow-sm border-0">
+                                <div class="card-header bg-primary text-white fw-bold">👏 Vua Kiến Tạo</div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center" style="width:50px;">#</th>
+                                                    <th>Cầu thủ</th>
+                                                    <th class="text-center" style="width:70px;">Assists</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="topAssistsBody">
+                                                <tr><td colspan="3" class="text-center text-muted">Chưa có dữ liệu</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                            <div class="card shadow-sm border-0">
+                                <div class="card-header bg-danger text-white fw-bold">🟥 Thẻ Phạt</div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center" style="width:50px;">#</th>
+                                                    <th>Cầu thủ</th>
+                                                    <th class="text-center" style="width:70px;">Thẻ</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="topCardsBody">
+                                                <tr><td colspan="3" class="text-center text-muted">Chưa có dữ liệu</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Charts Tab -->
                 <div class="tab-pane fade" id="charts" role="tabpanel" aria-labelledby="charts-tab">
-                    <div class="bg-light p-4 rounded text-center">
-                        <h4 class="mb-4 text-uppercase">Biểu Đồ</h4>
-                        <p>Tính năng đang được cập nhật...</p>
+                    <div class="card shadow-sm border-0 mb-4">
+                        <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0 fw-bold"><i class="fa fa-chart-bar me-2"></i> Phân Tích Đội Bóng</h5>
+                            <select id="chartTeamSelect" class="form-control w-auto" style="min-width: 200px;">
+                                <option value="">-- Chọn Đội Bóng --</option>
+                            </select>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6 mb-4">
+                                    <h6 class="text-center mb-3">Tỷ Lệ Kết Quả</h6>
+                                    <div style="height: 300px; position: relative;">
+                                        <canvas id="resultsChart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <h6 class="text-center mb-3">Hiệu Suất Ghi Bàn Qua Các Trận</h6>
+                                    <div style="height: 300px; position: relative;">
+                                        <canvas id="goalsChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -403,11 +541,25 @@
                             </div>
                         </div>
 
-                        <!-- Events Tab (Placeholder) -->
+                        <!-- Events Tab -->
                         <div class="tab-pane fade" id="events-modal" role="tabpanel">
-                            <div class="p-4 text-center text-muted">
-                                <i class="fa fa-info-circle fa-3x mb-3"></i>
-                                <p>Chưa có dữ liệu diễn biến trận đấu.</p>
+                            <div class="p-4">
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-bordered mb-0">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th style="width:80px;">Phút</th>
+                                                <th>Đội</th>
+                                                <th>Cầu thủ</th>
+                                                <th>Sự kiện</th>
+                                                <th>Kiến tạo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="eventListBodyPublic">
+                                            <tr class="text-center text-muted"><td colspan="5">Chưa có diễn biến nào</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -531,10 +683,112 @@
             background: #6c757d;
             font-size: 9px;
         }
+        .badge-goal {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            color: #2c3e50;
+            border: 1px solid #dcdcdc;
+            border-radius: 12px;
+            padding: 2px 6px;
+            font-size: 10px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+            margin-bottom: 2px;
+            transform: scale(1);
+            transition: transform 0.2s;
+        }
+        .badge-goal:hover {
+            transform: scale(1.1);
+        }
+        .badge-assist {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border: 1px solid #2980b9;
+            border-radius: 12px;
+            padding: 2px 6px;
+            font-size: 10px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+            margin-bottom: 2px;
+            transform: scale(1);
+            transition: transform 0.2s;
+        }
+        .badge-assist:hover {
+            transform: scale(1.1);
+        }
+        .badge-assist-icon {
+            font-size: 8px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            width: 12px;
+            height: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 3px;
+        }
     </style>
 
     <script>
         const tournamentData = JSON.parse(decodeURIComponent('<%- encodeURIComponent(JSON.stringify(tournament)) %>'));
+        const socket = typeof io !== 'undefined' ? io() : null;
+        let currentOpenMatchId = null;
+
+        if (socket) {
+            socket.emit('join_tournament', tournamentData._id);
+            socket.on('match_updated', (msg) => {
+                if (!msg || !msg.matchId || !msg.payload) return;
+                const { matchId, payload } = msg;
+                // Update data
+                if (tournamentData.fixtures) {
+                    for (const group of tournamentData.fixtures) {
+                        const m = group.matches.find(m => m.id === matchId);
+                        if (m) {
+                            if (payload.score1 !== undefined) m.score1 = payload.score1;
+                            if (payload.score2 !== undefined) m.score2 = payload.score2;
+                            if (payload.lineup1 !== undefined) m.lineup1 = payload.lineup1;
+                            if (payload.lineup2 !== undefined) m.lineup2 = payload.lineup2;
+                            if (payload.events !== undefined) m.events = payload.events;
+                            if (payload.status !== undefined) m.status = payload.status;
+                            break;
+                        }
+                    }
+                }
+                // Update UI score in fixtures list
+                const btn = document.querySelector(`button[data-match-id="${matchId}"]`);
+                if (btn) {
+                    const col = btn.closest('.col-2');
+                    if (col && payload.score1 !== undefined && payload.score2 !== undefined) {
+                        const scoreEl = col.querySelector('.font-weight-bold.h5');
+                        if (scoreEl) scoreEl.innerText = `${payload.score1} - ${payload.score2}`;
+                        const ft = col.querySelector('.text-success.font-weight-bold');
+                        if (ft) ft.innerText = 'FT';
+                    }
+                }
+                // If modal open for this match
+                if (document.getElementById('matchDetailModal') && $('#matchDetailModal').hasClass('show')) {
+                    if (currentOpenMatchId === matchId) {
+                        openMatchDetail(matchId);
+                    }
+                }
+
+                // Re-render tournament stats when events change
+                if (payload.events !== undefined) {
+                    renderTournamentStats();
+                }
+
+                // Update charts if a team is selected and relevant data changed
+                if (payload.score1 !== undefined || payload.score2 !== undefined || payload.events !== undefined) {
+                    const chartSelect = document.getElementById('chartTeamSelect');
+                    if (chartSelect && chartSelect.value && typeof updateTeamCharts === 'function') {
+                        updateTeamCharts(chartSelect.value);
+                    }
+                }
+            });
+        }
 
         // Position Configs (Same as Admin)
         const PITCH_CONFIGS = {
@@ -552,6 +806,7 @@
         };
 
         function openMatchDetail(matchId) {
+            currentOpenMatchId = matchId;
             let currentMatch = null;
             // Find match
             if (tournamentData.fixtures) {
@@ -583,14 +838,16 @@
             // Render Lineups
             const positions = PITCH_CONFIGS[pitchType] || PITCH_CONFIGS['7'];
 
-            renderTeamLineup('team1', currentMatch.team1, currentMatch.lineup1 || [], positions);
-            renderTeamLineup('team2', currentMatch.team2, currentMatch.lineup2 || [], positions);
+            renderTeamLineup('team1', currentMatch.team1, currentMatch.lineup1 || [], positions, currentMatch);
+            renderTeamLineup('team2', currentMatch.team2, currentMatch.lineup2 || [], positions, currentMatch);
+
+            renderPublicEvents(currentMatch);
 
             // Show Modal
             $('#matchDetailModal').modal('show');
         }
 
-        function renderTeamLineup(side, teamName, currentLineup, positions) {
+        function renderTeamLineup(side, teamName, currentLineup, positions, currentMatch) {
             const team = tournamentData.teams.find(t => t.name === teamName);
             const members = team ? (team.members || []) : [];
             
@@ -612,12 +869,27 @@
                 const player = assignedPlayerId ? members.find(m => m.id === assignedPlayerId || m.name === assignedPlayerId) : null;
 
                 if (player) {
+                    const status = getPlayerDisciplinaryStatusPublic(player, side, currentMatch);
+                    const stats = getPlayerEventStatsPublic(player, side, currentMatch);
+                    const sentOffStyle = status.sentOff ? 'opacity:0.35; filter: grayscale(80%);' : '';
+                    
+                    let badgesHtml = '';
+                    if (stats.goals > 0) badgesHtml += `<div class="badge-goal" title="Bàn thắng"><i class="fa fa-futbol"></i> ${stats.goals}</div>`;
+                    if (stats.assists > 0) badgesHtml += `<div class="badge-assist" title="Kiến tạo"><span class="badge-assist-icon">A</span> ${stats.assists}</div>`;
+                    if (status.yellow > 0) badgesHtml += `<span class="badge" style="background:#f1c40f;color:#000; font-size: 0.6rem; padding: 2px 4px; margin-top:1px;">${status.yellow}</span>`;
+                    if (status.red > 0) badgesHtml += `<span class="badge bg-danger" style="font-size: 0.6rem; padding: 2px 4px; margin-top:1px;">1</span>`;
+
                     posDiv.innerHTML = `
                         <div class="position-label">${pos.role}</div>
-                        <div class="player-avatar">
-                            ${player.avatar && player.avatar !== 'default-avatar.png' ? 
-                                `<img src="/static/uploads/tournaments/${player.avatar}">` : 
-                                `<i class="fa fa-user text-secondary"></i>`}
+                        <div style="position: relative; display: inline-block;">
+                            <div class="player-avatar" style="${sentOffStyle}">
+                                ${player.avatar && player.avatar !== 'default-avatar.png' ? 
+                                    `<img src="/static/uploads/tournaments/${player.avatar}">` : 
+                                    `<i class="fa fa-user text-secondary"></i>`}
+                            </div>
+                            <div style="position:absolute; top:-8px; right:-12px; display:flex; flex-direction:column; align-items:center; gap:1px; z-index:100;">
+                                ${badgesHtml}
+                            </div>
                         </div>
                         <div class="player-name">${player.name}</div>
                     `;
@@ -638,19 +910,352 @@
                 const isInLineup = currentLineup.includes(member.id) || currentLineup.includes(member.name);
                 
                 if (!isInLineup) {
+                    const status = getPlayerDisciplinaryStatusPublic(member, side, currentMatch);
+                    const stats = getPlayerEventStatsPublic(member, side, currentMatch);
+                    const sentOffStyle = status.sentOff ? 'opacity:0.35; filter: grayscale(80%);' : '';
+                    
+                    let badgesHtml = '';
+                    if (stats.goals > 0) badgesHtml += `<div class="badge-goal" title="Bàn thắng"><i class="fa fa-futbol"></i> ${stats.goals}</div>`;
+                    if (stats.assists > 0) badgesHtml += `<div class="badge-assist" title="Kiến tạo"><span class="badge-assist-icon">A</span> ${stats.assists}</div>`;
+                    if (status.yellow > 0) badgesHtml += `<span class="badge" style="background:#f1c40f;color:#000; font-size: 0.6rem; padding: 2px 4px; margin-top:1px;">${status.yellow}</span>`;
+                    if (status.red > 0) badgesHtml += `<span class="badge bg-danger" style="font-size: 0.6rem; padding: 2px 4px; margin-top:1px;">1</span>`;
+
                     const subDiv = document.createElement('div');
                     subDiv.className = 'sub-player';
                     subDiv.innerHTML = `
-                        <div class="player-avatar">
-                            ${member.avatar && member.avatar !== 'default-avatar.png' ? 
-                                `<img src="/static/uploads/tournaments/${member.avatar}">` : 
-                                `<div class="bg-secondary w-100 h-100 d-flex align-items-center justify-content-center text-white"><i class="fa fa-user"></i></div>`}
+                        <div style="position: relative; display: inline-block;">
+                            <div class="player-avatar" style="${sentOffStyle}">
+                                ${member.avatar && member.avatar !== 'default-avatar.png' ? 
+                                    `<img src="/static/uploads/tournaments/${member.avatar}">` : 
+                                    `<div class="bg-secondary w-100 h-100 d-flex align-items-center justify-content-center text-white"><i class="fa fa-user"></i></div>`}
+                            </div>
+                            <div style="position:absolute; top:-8px; right:-12px; display:flex; flex-direction:column; align-items:center; gap:1px; z-index:100;">
+                                ${badgesHtml}
+                            </div>
                         </div>
                         <div class="player-name">${member.name}</div>
                     `;
                     subsContainer.appendChild(subDiv);
                 }
             });
+        }
+
+        function getPlayerDisciplinaryStatusPublic(player, side, currentMatch) {
+            const events = currentMatch && currentMatch.events ? currentMatch.events : [];
+            let yellow = 0, red = 0;
+            events.forEach(ev => {
+                let isTarget = false;
+                if (ev.playerId && player.id && String(ev.playerId) === String(player.id)) {
+                    isTarget = true;
+                } else if (ev.playerName === player.name) {
+                    if (!ev.playerId || !player.id) isTarget = true;
+                }
+
+                if (isTarget) {
+                    if (ev.type === 'yellow') yellow++;
+                    if (ev.type === 'red') red++;
+                }
+            });
+            const sentOff = red >= 1 || yellow >= 2;
+            return { yellow, red, sentOff };
+        }
+
+        function getPlayerEventStatsPublic(player, side, currentMatch) {
+            const events = currentMatch && currentMatch.events ? currentMatch.events : [];
+            let goals = 0, assists = 0;
+            events.forEach(ev => {
+                let isTarget = false;
+                if (ev.playerId && player.id && String(ev.playerId) === String(player.id)) {
+                    isTarget = true;
+                } else if (ev.playerName === player.name) {
+                    if (!ev.playerId || !player.id) isTarget = true;
+                }
+
+                if (isTarget) {
+                    if (ev.type === 'goal') goals++;
+                }
+
+                let isAssist = false;
+                if (ev.assistId && player.id && String(ev.assistId) === String(player.id)) {
+                    isAssist = true;
+                } else if (ev.assistName === player.name) {
+                     if (!ev.assistId || !player.id) isAssist = true;
+                }
+
+                if (isAssist && ev.type === 'goal') {
+                    assists++;
+                }
+            });
+            return { goals, assists };
+        }
+
+        function renderPublicEvents(currentMatch) {
+            const body = document.getElementById('eventListBodyPublic');
+            if (!body) return;
+            body.innerHTML = '';
+            if (!currentMatch.events || currentMatch.events.length === 0) {
+                body.innerHTML = '<tr class="text-center text-muted"><td colspan="5">Chưa có diễn biến nào</td></tr>';
+                return;
+            }
+            currentMatch.events.sort((a,b)=>a.minute-b.minute).forEach(ev=>{
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="text-center">${ev.minute}</td>
+                    <td>${ev.team === 'team1' ? currentMatch.team1 : currentMatch.team2}</td>
+                    <td>${ev.playerName}</td>
+                    <td class="text-center">${ev.type === 'goal' ? 'Bàn thắng' : ev.type === 'yellow' ? 'Thẻ vàng' : 'Thẻ đỏ'}</td>
+                    <td>${ev.assistName || ''}</td>
+                `;
+                body.appendChild(tr);
+            });
+        }
+
+        function renderTournamentStats() {
+            const scorers = new Map();
+            const assisters = new Map();
+            const cards = new Map();
+
+            function upsert(map, key, base) {
+                if (!map.has(key)) map.set(key, Object.assign({ goals:0, assists:0, yellow:0, red:0 }, base));
+                return map.get(key);
+            }
+
+            function findPlayerInfo(teamName, id, name) {
+                const team = tournamentData.teams && tournamentData.teams.find(t => t.name === teamName);
+                const members = team ? (team.members || []) : [];
+                let player = null;
+                if (id) player = members.find(m => String(m.id) === String(id));
+                if (!player && name) player = members.find(m => m.name === name);
+                const avatar = player && player.avatar ? player.avatar : 'default-avatar.png';
+                const displayName = player ? player.name : (name || 'N/A');
+                return { teamName, avatar, name: displayName, id: player ? player.id : (id || null) };
+            }
+
+            (tournamentData.fixtures || []).forEach(group => {
+                (group.matches || []).forEach(m => {
+                    (m.events || []).forEach(ev => {
+                        // Goals
+                        if (ev.type === 'goal') {
+                            const info = findPlayerInfo(ev.teamName, ev.playerId, ev.playerName);
+                            const k = info.id ? 'id:'+info.id : 'name:'+info.teamName+':'+info.name;
+                            const row = upsert(scorers, k, info);
+                            row.goals++;
+                        }
+                        // Assists
+                        if (ev.type === 'goal' && (ev.assistId || ev.assistName)) {
+                            const infoA = findPlayerInfo(ev.teamName, ev.assistId, ev.assistName);
+                            const ka = infoA.id ? 'id:'+infoA.id : 'name:'+infoA.teamName+':'+infoA.name;
+                            const rowA = upsert(assisters, ka, infoA);
+                            rowA.assists++;
+                        }
+                        // Cards
+                        if (ev.type === 'yellow' || ev.type === 'red') {
+                            const infoC = findPlayerInfo(ev.teamName, ev.playerId, ev.playerName);
+                            const kc = infoC.id ? 'id:'+infoC.id : 'name:'+infoC.teamName+':'+infoC.name;
+                            const rowC = upsert(cards, kc, infoC);
+                            if (ev.type === 'yellow') rowC.yellow++;
+                            if (ev.type === 'red') rowC.red++;
+                        }
+                    });
+                });
+            });
+
+            function renderBody(map, bodyId, valueGetter) {
+                const body = document.getElementById(bodyId);
+                if (!body) return;
+                const arr = Array.from(map.values());
+                arr.sort((a,b)=> valueGetter(b) - valueGetter(a));
+                const top = arr.filter(x=> valueGetter(x) > 0).slice(0,10);
+                body.innerHTML = '';
+                if (top.length === 0) {
+                    body.innerHTML = '<tr><td colspan="3" class="text-center text-muted">Chưa có dữ liệu</td></tr>';
+                    return;
+                }
+                top.forEach((p, idx) => {
+                    const total = valueGetter(p);
+                    const avatar = p.avatar && p.avatar !== 'default-avatar.png' ? `/static/uploads/tournaments/${p.avatar}` : '/static/images/default.png';
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td class="text-center">${idx+1}</td>
+                        <td class="d-flex align-items-center">
+                            <img src="${avatar}" class="rounded-circle border mr-2" width="28" height="28" onerror="this.src='/static/images/default.png'">
+                            <span class="mr-2">${p.name}</span>
+                            <small class="text-muted">(${p.teamName})</small>
+                        </td>
+                        <td class="text-center">${total}</td>
+                    `;
+                    body.appendChild(tr);
+                });
+            }
+
+            renderBody(scorers, 'topScorersBody', (p)=>p.goals);
+            renderBody(assisters, 'topAssistsBody', (p)=>p.assists);
+            renderBody(cards, 'topCardsBody', (p)=>p.yellow + p.red);
+        }
+
+        document.addEventListener('DOMContentLoaded', function(){
+            renderTournamentStats();
+            initChartsTab();
+        });
+
+        // Chart Logic
+        let resultsChart = null;
+        let goalsChart = null;
+
+        function initChartsTab() {
+            const select = document.getElementById('chartTeamSelect');
+            if (!select) return;
+
+            // Populate teams
+            const addedTeams = new Set();
+            if (tournamentData.teams && tournamentData.teams.length > 0) {
+                tournamentData.teams.forEach(team => {
+                    const name = typeof team === 'string' ? team : team.name;
+                    if (!addedTeams.has(name)) {
+                        const opt = document.createElement('option');
+                        opt.value = name;
+                        opt.innerText = name;
+                        select.appendChild(opt);
+                        addedTeams.add(name);
+                    }
+                });
+            } else if (tournamentData.standings) {
+                 tournamentData.standings.forEach(g => {
+                     g.teams.forEach(t => {
+                        if (!addedTeams.has(t.name)) {
+                            const opt = document.createElement('option');
+                            opt.value = t.name;
+                            opt.innerText = t.name;
+                            select.appendChild(opt);
+                            addedTeams.add(t.name);
+                        }
+                     });
+                 });
+            }
+
+            select.addEventListener('change', function() {
+                updateTeamCharts(this.value);
+            });
+        }
+
+        function updateTeamCharts(teamName) {
+            if (!teamName) return;
+            
+            // Check Chart.js
+            if (typeof Chart === 'undefined') {
+                return;
+            }
+
+            // 1. Calculate Stats
+            let wins = 0, draws = 0, losses = 0;
+            const goalsPerMatch = []; // { match: 'Lượt X', goals: Y }
+            
+            // Collect all matches involving this team
+            const matches = [];
+            if (tournamentData.fixtures) {
+                tournamentData.fixtures.forEach((group, gIdx) => {
+                    group.matches.forEach((m, mIdx) => {
+                        const t1 = (m.team1 || '').trim();
+                        const t2 = (m.team2 || '').trim();
+                        const target = teamName.trim();
+
+                        if (t1 === target || t2 === target) {
+                            // Check if match is finished (has score)
+                            if (m.score1 !== null && m.score1 !== undefined && m.score1 !== "" &&
+                                m.score2 !== null && m.score2 !== undefined && m.score2 !== "") {
+                                matches.push({
+                                    ...m, 
+                                    groupName: group.group
+                                });
+                            }
+                        }
+                    });
+                });
+            }
+
+            // Process matches
+            matches.forEach((m, index) => {
+                const isTeam1 = (m.team1 || '').trim() === teamName.trim();
+                const score1 = parseInt(m.score1);
+                const score2 = parseInt(m.score2);
+                const myScore = isTeam1 ? score1 : score2;
+                const opponentScore = isTeam1 ? score2 : score1;
+
+                // Result
+                if (myScore > opponentScore) wins++;
+                else if (myScore === opponentScore) draws++;
+                else losses++;
+
+                // Goals
+                goalsPerMatch.push({
+                    label: m.groupName ? `${m.groupName} - Trận ${index+1}` : `Trận ${index + 1}`,
+                    goals: myScore
+                });
+            });
+
+            // 2. Render Results Chart (Donut)
+            const canvasResult = document.getElementById('resultsChart');
+            if (canvasResult) {
+                const ctxResult = canvasResult.getContext('2d');
+                if (resultsChart) resultsChart.destroy();
+                
+                // If no matches, show empty chart or just empty
+                const data = matches.length > 0 ? [wins, draws, losses] : [0, 0, 0];
+                const bgColors = matches.length > 0 ? ['#28a745', '#ffc107', '#dc3545'] : ['#e9ecef', '#e9ecef', '#e9ecef'];
+
+                resultsChart = new Chart(ctxResult, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Thắng', 'Hòa', 'Thua'],
+                        datasets: [{
+                            data: data,
+                            backgroundColor: bgColors,
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'top' },
+                            title: { display: false }
+                        }
+                    }
+                });
+            }
+
+            // 3. Render Goals Chart (Bar)
+            const canvasGoals = document.getElementById('goalsChart');
+            if (canvasGoals) {
+                const ctxGoals = canvasGoals.getContext('2d');
+                if (goalsChart) goalsChart.destroy();
+
+                goalsChart = new Chart(ctxGoals, {
+                    type: 'bar',
+                    data: {
+                        labels: goalsPerMatch.map(x => x.label),
+                        datasets: [{
+                            label: 'Số bàn thắng ghi được',
+                            data: goalsPerMatch.map(x => x.goals),
+                            backgroundColor: '#007bff',
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: { stepSize: 1 }
+                            }
+                        },
+                        plugins: {
+                            legend: { position: 'top' }
+                        }
+                    }
+                });
+            }
         }
     </script>
 
@@ -663,6 +1268,7 @@
 
     <!-- JavaScript Libraries -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="/static/lib/easing/easing.min.js"></script>
     <script src="/static/lib/waypoints/waypoints.min.js"></script>
     <script src="/static/lib/owlcarousel/owl.carousel.min.js"></script>

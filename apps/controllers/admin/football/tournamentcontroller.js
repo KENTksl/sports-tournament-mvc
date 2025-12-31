@@ -31,11 +31,24 @@ class FootballTournamentController {
         // New Routes for Detail and Management
         this.router.get('/detail/:id', this.detail.bind(this));
         this.router.post('/add-team', upload.single('teamLogo'), this.addTeam.bind(this));
+        this.router.post('/add-team-from-registration', this.addTeamFromRegistration.bind(this));
         this.router.post('/add-team-member', upload.single('memberAvatar'), this.addTeamMember.bind(this));
         this.router.post('/update-team', upload.single('teamLogo'), this.updateTeam.bind(this));
         this.router.post('/add-match', this.addMatch.bind(this));
         this.router.post('/update-match', this.updateMatch.bind(this));
         this.router.post('/generate-bracket', this.generateBracket.bind(this));
+        this.router.post('/start', this.start.bind(this));
+    }
+
+    async start(req, res) {
+        try {
+            const { tournamentId } = req.body;
+            await FootballService.startTournament(tournamentId);
+            res.redirect('/admin/football/tournament');
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error starting tournament: ' + error.message);
+        }
     }
 
     async index(req, res) {
@@ -206,7 +219,7 @@ class FootballTournamentController {
         try {
             const { tournamentId, homeTeam, awayTeam, matchDate } = req.body;
             const matchData = {
-                id: Date.now().toString(),
+                id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
                 homeTeam,
                 awayTeam,
                 date: matchDate,
@@ -222,9 +235,38 @@ class FootballTournamentController {
         }
     }
 
+    async addTeamFromRegistration(req, res) {
+        try {
+            const { tournamentId, registrationId } = req.body;
+            const TeamRegistration = require('../../../models/TeamRegistration');
+            const registration = await TeamRegistration.findById(registrationId);
+
+            if (!registration) throw new Error('Hồ sơ không tồn tại');
+
+            const teamData = {
+                name: registration.teamName,
+                logo: registration.logo,
+                members: registration.members.map(m => ({
+                    id: new Date().getTime().toString() + Math.random().toString(36).substr(2, 9),
+                    name: m.name,
+                    number: m.number,
+                    position: m.position,
+                    avatar: m.avatar,
+                    citizenIdImage: m.citizenIdImage
+                }))
+            };
+
+            await FootballService.addTeam(tournamentId, teamData);
+            res.redirect(`/admin/football/tournament/detail/${tournamentId}`);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Lỗi thêm đội từ hồ sơ: ' + error.message);
+        }
+    }
+
     async updateMatch(req, res) {
         try {
-            const { tournamentId, matchId, score1, score2, time, date, lineup1, lineup2 } = req.body;
+            const { tournamentId, matchId, score1, score2, time, date, lineup1, lineup2, events } = req.body;
             const matchData = {};
             
             if (score1 !== undefined && score1 !== '') matchData.score1 = parseInt(score1);
@@ -233,8 +275,27 @@ class FootballTournamentController {
             if (date) matchData.date = date;
             if (lineup1) matchData.lineup1 = lineup1;
             if (lineup2) matchData.lineup2 = lineup2;
+            if (events) matchData.events = events;
+            // Auto status
+            const hasScores = (matchData.score1 !== undefined && matchData.score1 !== null) && (matchData.score2 !== undefined && matchData.score2 !== null);
+            if (hasScores) matchData.status = 'finished';
+            else if (events && events.length) matchData.status = 'live';
+            else matchData.status = 'scheduled';
             
             await FootballService.updateMatch(tournamentId, matchId, matchData);
+            const io = req.app.get('io');
+            if (io) {
+                io.to('tournament:' + String(tournamentId)).emit('match_updated', {
+                    tournamentId,
+                    matchId,
+                    payload: matchData
+                });
+                io.to('match:' + String(matchId)).emit('match_updated', {
+                    tournamentId,
+                    matchId,
+                    payload: matchData
+                });
+            }
             
             if (req.xhr || req.headers['content-type'] === 'application/json') {
                 return res.json({ success: true });
