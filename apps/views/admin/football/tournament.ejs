@@ -49,7 +49,7 @@
                                 <% if (tournaments && tournaments.length > 0) { %>
                                     <% tournaments.forEach((t, index) => { %>
                                         <tr>
-                                            <th scope="row"><%= index + 1 %></th>
+                                            <th scope="row"><%= (currentPage - 1) * 10 + index + 1 %></th>
                                             <td><a href="/admin/football/tournament/detail/<%= t._id %>"><%= t.name %></a></td>
                                             <td><%= t.organizer %></td>
                                             <td><%= t.mode %></td>
@@ -94,10 +94,14 @@
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label class="form-label">Hình thức thi đấu</label>
-                                                                <select class="form-select" name="mode">
+                                                                <% const isLocked = t.status !== 'upcoming'; %>
+                                                                <select class="form-select" name="mode" <%= isLocked ? 'disabled' : '' %>>
                                                                     <option value="Group Stage" <%= t.mode === 'Group Stage' ? 'selected' : '' %>>Chia bảng đấu (Group Stage)</option>
                                                                     <option value="Knockout" <%= t.mode === 'Knockout' ? 'selected' : '' %>>Loại trực tiếp (Knockout)</option>
                                                                 </select>
+                                                                <% if (isLocked) { %>
+                                                                    <input type="hidden" name="mode" value="<%= t.mode %>">
+                                                                <% } %>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-6 mb-3">
@@ -109,12 +113,15 @@
                                                                 </div>
                                                                 <div class="col-md-6 mb-3">
                                                                     <label class="form-label">Số lượng đội</label>
-                                                                    <select class="form-select" name="teamsCount">
+                                                                    <select class="form-select" name="teamsCount" <%= isLocked ? 'disabled' : '' %>>
                                                                         <option value="4" <%= t.teamsCount === 4 ? 'selected' : '' %>>4 Đội</option>
                                                                         <option value="8" <%= t.teamsCount === 8 ? 'selected' : '' %>>8 Đội</option>
                                                                         <option value="16" <%= t.teamsCount === 16 ? 'selected' : '' %>>16 Đội</option>
                                                                         <option value="32" <%= t.teamsCount === 32 ? 'selected' : '' %>>32 Đội</option>
                                                                     </select>
+                                                                    <% if (isLocked) { %>
+                                                                        <input type="hidden" name="teamsCount" value="<%= t.teamsCount %>">
+                                                                    <% } %>
                                                                 </div>
                                                             </div>
                                                             <div class="mb-3">
@@ -146,6 +153,31 @@
                                 <% } %>
                             </tbody>
                         </table>
+
+                        <!-- Pagination -->
+                        <% if (typeof totalPages !== 'undefined' && totalPages > 1) { %>
+                            <div class="d-flex justify-content-center mt-3">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination">
+                                        <li class="page-item <%= currentPage == 1 ? 'disabled' : '' %>">
+                                            <a class="page-link" href="/admin/football/tournament?page=<%= currentPage - 1 %>" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <% for(let i = 1; i <= totalPages; i++) { %>
+                                            <li class="page-item <%= currentPage == i ? 'active' : '' %>">
+                                                <a class="page-link" href="/admin/football/tournament?page=<%= i %>"><%= i %></a>
+                                            </li>
+                                        <% } %>
+                                        <li class="page-item <%= currentPage == totalPages ? 'disabled' : '' %>">
+                                            <a class="page-link" href="/admin/football/tournament?page=<%= parseInt(currentPage) + 1 %>" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        <% } %>
                     </div>
                 </div>
             </div>

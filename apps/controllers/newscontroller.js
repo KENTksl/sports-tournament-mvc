@@ -15,6 +15,10 @@ class NewsController {
     
     async index(req, res) {
         try {
+            const page = parseInt(req.query.page) || 1;
+            const limit = 6;
+            const skip = (page - 1) * limit;
+
             // Fetch news from CBS Sports RSS Feed (Better images support)
             let feed = await parser.parseURL('https://www.cbssports.com/rss/headlines/');
             
@@ -25,11 +29,20 @@ class NewsController {
                 if (item.content) item.content = item.content.trim();
                 if (item.contentSnippet) item.contentSnippet = item.contentSnippet.trim();
             });
+
+            const totalItems = feed.items.length;
+            const totalPages = Math.ceil(totalItems / limit);
+            const paginatedItems = feed.items.slice(skip, skip + limit);
     
-            res.render("news.ejs", { items: feed.items, error: null });
+            res.render("news.ejs", { 
+                items: paginatedItems, 
+                currentPage: page,
+                totalPages: totalPages,
+                error: null 
+            });
         } catch (error) {
             console.error("Error fetching news:", error);
-            res.render("news.ejs", { items: [], error: "Không thể tải tin tức lúc này. Vui lòng thử lại sau." });
+            res.render("news.ejs", { items: [], currentPage: 1, totalPages: 0, error: "Không thể tải tin tức lúc này. Vui lòng thử lại sau." });
         }
     }
 }

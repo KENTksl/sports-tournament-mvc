@@ -179,35 +179,54 @@
             <!-- Navigation Tabs -->
             <ul class="nav nav-pills mb-4" id="tournamentTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="fixtures-tab" data-toggle="pill" href="#fixtures" role="tab" aria-controls="fixtures" aria-selected="true">Lịch Đấu</a>
+                    <a class="nav-link <%= (!locals.currentTab || currentTab === 'fixtures') ? 'active' : '' %>" id="fixtures-tab" data-toggle="pill" href="#fixtures" role="tab" aria-controls="fixtures" aria-selected="<%= (!locals.currentTab || currentTab === 'fixtures') %>">Lịch Đấu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="standings-tab" data-toggle="pill" href="#standings" role="tab" aria-controls="standings" aria-selected="false">BXH</a>
+                    <a class="nav-link <%= currentTab === 'standings' ? 'active' : '' %>" id="standings-tab" data-toggle="pill" href="#standings" role="tab" aria-controls="standings" aria-selected="<%= currentTab === 'standings' %>">BXH</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="stats-tab" data-toggle="pill" href="#stats" role="tab" aria-controls="stats" aria-selected="false">Thống Kê</a>
+                    <a class="nav-link <%= currentTab === 'stats' ? 'active' : '' %>" id="stats-tab" data-toggle="pill" href="#stats" role="tab" aria-controls="stats" aria-selected="<%= currentTab === 'stats' %>">Thống Kê</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="charts-tab" data-toggle="pill" href="#charts" role="tab" aria-controls="charts" aria-selected="false">Biểu Đồ</a>
+                    <a class="nav-link <%= currentTab === 'charts' ? 'active' : '' %>" id="charts-tab" data-toggle="pill" href="#charts" role="tab" aria-controls="charts" aria-selected="<%= currentTab === 'charts' %>">Biểu Đồ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="bracket-tab" data-toggle="pill" href="#bracket" role="tab" aria-controls="bracket" aria-selected="false">Bracket</a>
+                    <a class="nav-link <%= currentTab === 'bracket' ? 'active' : '' %>" id="bracket-tab" data-toggle="pill" href="#bracket" role="tab" aria-controls="bracket" aria-selected="<%= currentTab === 'bracket' %>">Bracket</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="teams-tab" data-toggle="pill" href="#teams" role="tab" aria-controls="teams" aria-selected="false">Các Đội</a>
+                    <a class="nav-link <%= currentTab === 'teams' ? 'active' : '' %>" id="teams-tab" data-toggle="pill" href="#teams" role="tab" aria-controls="teams" aria-selected="<%= currentTab === 'teams' %>">Các Đội</a>
                 </li>
             </ul>
 
             <!-- Tab Content -->
             <div class="tab-content" id="tournamentTabContent">
                 <!-- Fixtures Tab -->
-                        <div class="tab-pane fade show active" id="fixtures" role="tabpanel" aria-labelledby="fixtures-tab">
-                            <% if (tournament.fixtures && tournament.fixtures.length > 0) { %>
-                                <% tournament.fixtures.forEach(group => { %>
-                                    <div class="mb-4">
-                                        <h5 class="text-primary font-weight-bold border-bottom pb-2 mb-3"><%= group.group %></h5>
-                                        <% if (group.matches && group.matches.length > 0) { %>
-                                            <% group.matches.forEach(match => { 
+                        <div class="tab-pane fade <%= (!locals.currentTab || currentTab === 'fixtures') ? 'show active' : '' %>" id="fixtures" role="tabpanel" aria-labelledby="fixtures-tab">
+                            <% 
+                                let groups = {};
+                                if (matches && matches.length > 0) {
+                                    matches.forEach(match => {
+                                        let gName = match.groupName || 'Vòng khác';
+                                        if (!groups[gName]) groups[gName] = [];
+                                        groups[gName].push(match);
+                                    });
+                                }
+                                let groupNames = Object.keys(groups).sort();
+                            %>
+
+                            <% if (groupNames.length > 0) { %>
+                                <ul class="nav nav-pills mb-4 justify-content-center" id="public-fixtures-tab" role="tablist">
+                                    <% groupNames.forEach((name, index) => { %>
+                                        <li class="nav-item mx-1">
+                                            <a class="nav-link border <%= index === 0 ? 'active' : '' %>" id="pf-<%= index %>-tab" data-toggle="pill" href="#pf-<%= index %>" role="tab" aria-controls="pf-<%= index %>" aria-selected="<%= index === 0 %>"><%= name %></a>
+                                        </li>
+                                    <% }) %>
+                                </ul>
+
+                                <div class="tab-content" id="public-fixtures-tabContent">
+                                    <% groupNames.forEach((name, index) => { %>
+                                        <div class="tab-pane fade <%= index === 0 ? 'show active' : '' %>" id="pf-<%= index %>" role="tabpanel" aria-labelledby="pf-<%= index %>-tab">
+                                            <% groups[name].forEach(match => { 
                                                 let logo1 = 'default.png';
                                                 let logo2 = 'default.png';
                                                 if (tournament.teams) {
@@ -218,6 +237,9 @@
                                                 }
                                             %>
                                                 <div class="card mb-3 shadow-sm border-0 match-card">
+                                                    <div class="card-header bg-light border-bottom-0">
+                                                        <small class="text-muted font-weight-bold"><%= match.groupName %> | <%= match.date %> <%= match.time %></small>
+                                                    </div>
                                                     <div class="card-body py-3">
                                                         <div class="row align-items-center">
                                                             <!-- Team 1 -->
@@ -235,8 +257,6 @@
                                                                     <small class="text-success font-weight-bold">FT</small>
                                                                 <% } else { %>
                                                                     <div class="badge badge-light border px-2 py-1 mb-1">VS</div>
-                                                                    <small class="d-block text-muted"><%= match.time %></small>
-                                                                    <small class="d-block text-muted"><%= match.date %></small>
                                                                 <% } %>
                                                                 
                                                                 <button class="btn btn-sm btn-outline-primary mt-2 shadow-sm rounded-pill" data-match-id="<%= match.id %>" onclick="openMatchDetail('<%= match.id %>')">
@@ -258,11 +278,35 @@
                                                     </div>
                                                 </div>
                                             <% }) %>
-                                        <% } else { %>
-                                            <p class="text-muted font-italic ml-3">Chưa có trận đấu nào trong bảng này.</p>
-                                        <% } %>
+                                        </div>
+                                    <% }) %>
+                                </div>
+
+                                <!-- Pagination -->
+                                <% if (typeof matchesTotalPages !== 'undefined' && matchesTotalPages > 1) { %>
+                                    <div class="col-12 mt-4">
+                                        <nav aria-label="Page navigation">
+                                            <ul class="pagination justify-content-center mb-0">
+                                                <li class="page-item <%= matchesCurrentPage == 1 ? 'disabled' : '' %>">
+                                                    <a class="page-link" href="/football/detail/<%= tournament._id %>?tab=fixtures&page=<%= parseInt(matchesCurrentPage) - 1 %>#fixtures" aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                                <% for(let i = 1; i <= matchesTotalPages; i++) { %>
+                                                    <li class="page-item <%= matchesCurrentPage == i ? 'active' : '' %>">
+                                                        <a class="page-link" href="/football/detail/<%= tournament._id %>?tab=fixtures&page=<%= i %>#fixtures"><%= i %></a>
+                                                    </li>
+                                                <% } %>
+                                                <li class="page-item <%= matchesCurrentPage == matchesTotalPages ? 'disabled' : '' %>">
+                                                    <a class="page-link" href="/football/detail/<%= tournament._id %>?tab=fixtures&page=<%= parseInt(matchesCurrentPage) + 1 %>#fixtures" aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
                                     </div>
-                                <% }) %>
+                                <% } %>
+
                             <% } else { %>
                                 <div class="alert alert-info text-center">Chưa có lịch thi đấu.</div>
                             <% } %>
@@ -278,7 +322,7 @@
                                     </button>
                                 </div>
                                 <div class="card-body bg-white">
-                                    <div class="row">
+                                    <div class="row" id="standings-content">
                                         <% if (tournament.standings && tournament.standings.length > 0) { %>
                                             <% tournament.standings.forEach(group => { %>
                                                 <div class="col-lg-6 mb-4">
@@ -433,12 +477,12 @@
                 </div>
 
                 <!-- Teams Tab -->
-                <div class="tab-pane fade" id="teams" role="tabpanel" aria-labelledby="teams-tab">
+                <div class="tab-pane fade <%= currentTab === 'teams' ? 'show active' : '' %>" id="teams" role="tabpanel" aria-labelledby="teams-tab">
                     <div class="bg-light p-4 rounded">
                         <h4 class="mb-4 text-uppercase">Các Đội Tham Gia</h4>
                         <div class="row">
-                            <% if (tournament.teams && tournament.teams.length > 0) { %>
-                                <% tournament.teams.forEach(team => { %>
+                            <% if (teams && teams.length > 0) { %>
+                                <% teams.forEach(team => { %>
                                     <div class="col-6 col-md-3 mb-4">
                                         <div class="card h-100 text-center p-3 shadow-sm border-0">
                                             <% 
@@ -460,6 +504,31 @@
                                 <p class="col-12 text-center">Chưa có danh sách đội.</p>
                             <% } %>
                         </div>
+
+                        <!-- Teams Pagination -->
+                        <% if (typeof teamsTotalPages !== 'undefined' && teamsTotalPages > 1) { %>
+                            <div class="col-12 mt-4">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-center mb-0">
+                                        <li class="page-item <%= teamsCurrentPage == 1 ? 'disabled' : '' %>">
+                                            <a class="page-link" href="/football/detail/<%= tournament._id %>?tab=teams&page=<%= parseInt(teamsCurrentPage) - 1 %>#teams" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <% for(let i = 1; i <= teamsTotalPages; i++) { %>
+                                            <li class="page-item <%= teamsCurrentPage == i ? 'active' : '' %>">
+                                                <a class="page-link" href="/football/detail/<%= tournament._id %>?tab=teams&page=<%= i %>#teams"><%= i %></a>
+                                            </li>
+                                        <% } %>
+                                        <li class="page-item <%= teamsCurrentPage == teamsTotalPages ? 'disabled' : '' %>">
+                                            <a class="page-link" href="/football/detail/<%= tournament._id %>?tab=teams&page=<%= parseInt(teamsCurrentPage) + 1 %>#teams" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        <% } %>
                     </div>
                 </div>
             </div>
@@ -481,10 +550,16 @@
                     <!-- Score Header -->
                     <div class="d-flex justify-content-between align-items-center p-3 bg-light border-bottom">
                         <h4 class="text-primary mb-0 w-25 text-right" id="matchTeam1Name">Team 1</h4>
-                        <div class="d-flex align-items-center justify-content-center w-50">
-                            <span id="matchScore1" class="font-weight-bold h2 mb-0 mx-3">0</span>
-                            <span class="font-weight-bold h3 mb-0">-</span>
-                            <span id="matchScore2" class="font-weight-bold h2 mb-0 mx-3">0</span>
+                        <div class="d-flex flex-column align-items-center justify-content-center w-50">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <span id="matchScore1" class="font-weight-bold h2 mb-0 mx-3">0</span>
+                                <span class="font-weight-bold h3 mb-0">-</span>
+                                <span id="matchScore2" class="font-weight-bold h2 mb-0 mx-3">0</span>
+                            </div>
+                            <div id="matchLiveStatus" class="mt-2 text-center">
+                                <span id="matchStatusBadge" class="badge bg-secondary">--</span>
+                                <span id="matchLiveTime" class="ml-2 font-weight-bold text-danger"></span>
+                            </div>
                         </div>
                         <h4 class="text-primary mb-0 w-25 text-left" id="matchTeam2Name">Team 2</h4>
                     </div>
@@ -788,6 +863,76 @@
                     }
                 }
             });
+
+            socket.on('standings_updated', (msg) => {
+                 if (msg && msg.standings) {
+                     renderStandings(msg.standings);
+                 }
+            });
+        }
+
+        function renderStandings(standings) {
+            const container = document.getElementById('standings-content');
+            if (!container) return;
+            
+            if (!standings || standings.length === 0) {
+                container.innerHTML = '<div class="col-12 text-center text-muted">Chưa có bảng xếp hạng.</div>';
+                return;
+            }
+
+            let html = '';
+            standings.forEach(group => {
+                html += `
+                <div class="col-lg-6 mb-4">
+                    <h6 class="font-weight-bold text-primary pl-2 border-left border-primary mb-2" style="border-width: 4px !important;">
+                        ${group.groupName || group.group}
+                    </h6>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-sm table-bordered text-center align-middle mb-0" style="font-size: 14px;">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th class="text-left w-50">CLB</th>
+                                    <th>Tr</th>
+                                    <th>T</th>
+                                    <th>H</th>
+                                    <th>B</th>
+                                    <th>HS</th>
+                                    <th>Đ</th>
+                                </tr>
+                            </thead>
+                            <tbody>`;
+                
+                if (group.teams) {
+                    group.teams.forEach((team, index) => {
+                        const rowClass = index < 2 ? 'table-success' : '';
+                        const gd = team.gd > 0 ? '+' + team.gd : team.gd;
+                        const logo = team.logo || 'default.png';
+                        
+                        html += `
+                        <tr class="${rowClass}">
+                            <td class="text-left font-weight-bold text-nowrap px-2">
+                                <span class="mr-2 text-secondary">${index + 1}</span>
+                                <img src="/static/images/${logo}" width="20" height="20" class="rounded-circle border mr-1" onerror="this.src='/static/images/default.png'">
+                                ${team.name}
+                            </td>
+                            <td>${team.played}</td>
+                            <td>${team.won}</td>
+                            <td>${team.drawn}</td>
+                            <td>${team.lost}</td>
+                            <td>${gd}</td>
+                            <td class="font-weight-bold text-danger bg-light">${team.points}</td>
+                        </tr>`;
+                    });
+                }
+
+                html += `
+                            </tbody>
+                        </table>
+                    </div>
+                </div>`;
+            });
+            
+            container.innerHTML = html;
         }
 
         // Position Configs (Same as Admin)
@@ -805,15 +950,107 @@
             ]
         };
 
+        let matchTimerInterval = null;
+
+        function updateMatchTimer(currentMatch, groupName) {
+            const statusBadge = document.getElementById('matchStatusBadge');
+            const liveEl = document.getElementById('matchLiveTime');
+            if (!statusBadge || !liveEl) return;
+
+            const now = Date.now();
+            const sched = new Date(currentMatch.date + 'T' + currentMatch.time).getTime();
+            
+            // If invalid date/time
+            if (isNaN(sched)) {
+                statusBadge.className = 'badge bg-secondary';
+                statusBadge.innerText = 'Chưa xếp lịch';
+                liveEl.textContent = '';
+                return;
+            }
+
+            let pitchType = '7'; 
+            if (tournamentData.pitchType) {
+                pitchType = tournamentData.pitchType;
+            } else if (tournamentData.mode && tournamentData.mode.includes('5')) {
+                pitchType = '5';
+            }
+
+            const gname = groupName || '';
+            const isKO = gname && (gname.includes('Tứ Kết') || gname.includes('Bán Kết') || gname.includes('Chung Kết') || (gname.startsWith('Vòng 1/')));
+            let halfDuration = pitchType === '5' ? 20 : 35;
+            let halftimeBreak = pitchType === '5' ? 15 : 10;
+            let hasOT = false;
+            let otHalf = pitchType === '5' ? 5 : 10;
+            if (pitchType === '5') {
+                hasOT = !!isKO;
+            } else {
+                hasOT = !!(isKO && gname && gname.includes('Chung Kết'));
+            }
+
+            const firstHalfEnd = sched + halfDuration*60000;
+            const breakEnd = firstHalfEnd + halftimeBreak*60000;
+            const secondHalfEnd = breakEnd + halfDuration*60000;
+            const et1End = secondHalfEnd + (hasOT ? otHalf*60000 : 0);
+            const et2End = et1End + (hasOT ? otHalf*60000 : 0);
+
+            if (now < sched) {
+                statusBadge.className = 'badge bg-warning text-dark';
+                statusBadge.innerText = 'Sắp đá';
+                liveEl.textContent = '';
+            } else if (now < firstHalfEnd) {
+                statusBadge.className = 'badge bg-primary';
+                statusBadge.innerText = 'Đang thi đấu';
+                const elapsed = now - sched;
+                const mm = Math.floor(elapsed/60000);
+                const ss = Math.floor((elapsed%60000)/1000);
+                liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
+            } else if (now < breakEnd) {
+                statusBadge.className = 'badge bg-info text-dark';
+                statusBadge.innerText = 'Giải lao';
+                liveEl.textContent = 'HT';
+            } else if (now < secondHalfEnd) {
+                statusBadge.className = 'badge bg-primary';
+                statusBadge.innerText = 'Đang thi đấu';
+                const elapsed = now - breakEnd;
+                // Hiep 2 bat dau tu halfDuration, khong cong don break
+                const mm = halfDuration + Math.floor(elapsed/60000);
+                const ss = Math.floor((elapsed%60000)/1000);
+                liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
+            } else if (hasOT && now < et1End) {
+                statusBadge.className = 'badge bg-primary';
+                statusBadge.innerText = 'Hiệp phụ';
+                const elapsed = now - secondHalfEnd;
+                // Hiep phu 1 bat dau sau 2 hiep chinh
+                const mm = halfDuration*2 + Math.floor(elapsed/60000);
+                const ss = Math.floor((elapsed%60000)/1000);
+                liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
+            } else if (hasOT && now < et2End) {
+                statusBadge.className = 'badge bg-primary';
+                statusBadge.innerText = 'Hiệp phụ';
+                const elapsed = now - et1End;
+                // Hiep phu 2 bat dau sau hiep phu 1
+                const mm = halfDuration*2 + otHalf + Math.floor(elapsed/60000);
+                const ss = Math.floor((elapsed%60000)/1000);
+                liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
+            } else {
+                statusBadge.className = 'badge bg-secondary';
+                statusBadge.innerText = 'FT';
+                liveEl.textContent = '';
+            }
+        }
+
         function openMatchDetail(matchId) {
             currentOpenMatchId = matchId;
             let currentMatch = null;
+            let groupName = '';
+
             // Find match
             if (tournamentData.fixtures) {
                 for (const group of tournamentData.fixtures) {
                     const m = group.matches.find(m => m.id === matchId);
                     if (m) {
                         currentMatch = m;
+                        groupName = group.group;
                         break;
                     }
                 }
@@ -826,6 +1063,13 @@
             document.getElementById('matchTeam2Name').innerText = currentMatch.team2;
             document.getElementById('matchScore1').innerText = (currentMatch.score1 !== null && currentMatch.score1 !== undefined) ? currentMatch.score1 : '-';
             document.getElementById('matchScore2').innerText = (currentMatch.score2 !== null && currentMatch.score2 !== undefined) ? currentMatch.score2 : '-';
+
+            // Start Timer
+            if (matchTimerInterval) clearInterval(matchTimerInterval);
+            updateMatchTimer(currentMatch, groupName);
+            matchTimerInterval = setInterval(() => {
+                updateMatchTimer(currentMatch, groupName);
+            }, 1000);
 
             // Determine Pitch Type
             let pitchType = '7'; // Default
@@ -1095,6 +1339,14 @@
 
         document.addEventListener('DOMContentLoaded', function(){
             renderTournamentStats();
+
+            // Cleanup timer when modal is closed
+            $('#matchDetailModal').on('hidden.bs.modal', function () {
+                if (matchTimerInterval) {
+                    clearInterval(matchTimerInterval);
+                    matchTimerInterval = null;
+                }
+            });
             initChartsTab();
         });
 

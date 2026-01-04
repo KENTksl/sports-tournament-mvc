@@ -31,11 +31,17 @@ class TournamentController {
 
     async index(req, res) {
         try {
+            const page = parseInt(req.query.page) || 1;
+            const limit = 10;
             // Filter "Other" tournaments (exclude Football and legacy ones treated as Football)
-            const tournaments = await TournamentService.getAllTournaments({ 
+            const result = await TournamentService.getAllTournaments({ 
                 sportType: { $exists: true, $ne: 'Football' } 
+            }, page, limit);
+            res.render('admin/tournament', { 
+                tournaments: result.data,
+                currentPage: result.currentPage,
+                totalPages: result.totalPages
             });
-            res.render('admin/tournament', { tournaments: tournaments });
         } catch (error) {
             console.error(error);
             res.status(500).send('Server Error');

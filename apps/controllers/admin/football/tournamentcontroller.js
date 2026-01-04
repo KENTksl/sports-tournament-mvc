@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const FootballService = require('../../../services/FootballService');
+const Fine = require('../../../models/Fine');
 const multer = require('multer');
 const path = require('path');
 
@@ -34,10 +35,62 @@ class FootballTournamentController {
         this.router.post('/add-team-from-registration', this.addTeamFromRegistration.bind(this));
         this.router.post('/add-team-member', upload.single('memberAvatar'), this.addTeamMember.bind(this));
         this.router.post('/update-team', upload.single('teamLogo'), this.updateTeam.bind(this));
+        this.router.post('/delete-team', this.deleteTeam.bind(this));
         this.router.post('/add-match', this.addMatch.bind(this));
         this.router.post('/update-match', this.updateMatch.bind(this));
         this.router.post('/generate-bracket', this.generateBracket.bind(this));
         this.router.post('/start', this.start.bind(this));
+        this.router.post('/validate-match', this.validateMatch.bind(this));
+        this.router.post('/check-player', this.checkPlayer.bind(this));
+        this.router.post('/schedule-batch', this.scheduleBatch.bind(this));
+    }
+
+    async scheduleBatch(req, res) {
+        try {
+            const { tournamentId, startDate, startTime, matchDuration, concurrentMatches, stageName } = req.body;
+            await FootballService.batchScheduleMatches(tournamentId, {
+                startDate,
+                startTime,
+                matchDuration,
+                concurrentMatches,
+                stageName
+            });
+            res.redirect(`/admin/football/tournament/detail/${tournamentId}`);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error scheduling matches: ' + error.message);
+        }
+    }
+
+    async checkPlayer(req, res) {
+        try {
+            const { tournamentId, citizenId, memberName } = req.body;
+            // Create a dummy member object for validation
+            const memberData = {
+                name: memberName || 'Unknown',
+                citizenId: citizenId,
+                citizenIdImage: citizenId // Check both fields
+            };
+            
+            // We pass excludeTeamId as null because we are checking against ALL teams (assuming new player)
+            // If editing an existing player, we might need to pass their teamId, but for now this is for "Add Member"
+            await FootballService.checkDuplicatePlayers(tournamentId, [memberData]);
+            
+            res.json({ valid: true });
+        } catch (error) {
+            res.json({ valid: false, message: error.message });
+        }
+    }
+
+    async validateMatch(req, res) {
+        try {
+            const { tournamentId, matchId, date, time, location } = req.body;
+            const result = await FootballService.validateMatchSchedule(tournamentId, matchId, date, time, location);
+            res.json(result);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ valid: false, message: error.message });
+        }
     }
 
     async start(req, res) {
@@ -53,9 +106,15 @@ class FootballTournamentController {
 
     async index(req, res) {
         try {
+            const page = parseInt(req.query.page) || 1;
+            const limit = 10;
             // No filter needed for FootballService as it points to FootballRepository -> FootballTournament
-            const tournaments = await FootballService.getAllTournaments({});
-            res.render('admin/football/tournament', { tournaments: tournaments });
+            const result = await FootballService.getAllTournaments({}, page, limit);
+            res.render('admin/football/tournament', { 
+                tournaments: result.data,
+                currentPage: result.currentPage,
+                totalPages: result.totalPages
+            });
         } catch (error) {
             console.error(error);
             res.status(500).send('Server Error');
@@ -127,11 +186,62 @@ class FootballTournamentController {
     async detail(req, res) {
         try {
             const { id } = req.params;
+            const tab = req.query.tab || 'overview'; // Default tab (overview is usually first, but fixtures is active in code?)
+            // Wait, previous code didn't handle tabs. View handles active tab via JS or hash?
+            // View uses Bootstrap tabs (client-side).
+            // To support server-side pagination, we need to set active tab based on query param.
+            
+            const page = parseInt(req.query.page) || 1;
+            const limit = 10;
+
             const tournament = await FootballService.getTournamentById(id);
             if (!tournament) {
                 return res.status(404).send('Tournament not found');
             }
-            res.render('admin/football/detail', { tournament: tournament });
+
+            // Matches (No Pagination as requested)
+            // Flatten and split matches
+            let groupMatches = [];
+            let knockoutMatches = [];
+
+            if (tournament.fixtures) {
+                tournament.fixtures.forEach(group => {
+                    const isKO = group.group && (group.group.includes('Tứ Kết') || group.group.includes('Bán Kết') || group.group.includes('Chung Kết') || group.group.startsWith('Vòng 1/'));
+                    if (group.matches) {
+                        group.matches.forEach(match => {
+                            match.groupName = group.group;
+                            if (isKO) {
+                                knockoutMatches.push(match);
+                            } else {
+                                groupMatches.push(match);
+                            }
+                        });
+                    }
+                });
+            }
+
+            // Teams Pagination
+            const isTeamTab = (tab === 'teams');
+            const teamPage = isTeamTab ? page : 1;
+            const allTeams = tournament.teams || [];
+            const totalTeams = allTeams.length;
+            const totalTeamPages = Math.ceil(totalTeams / limit);
+            const paginatedTeams = allTeams.slice((teamPage - 1) * limit, teamPage * limit);
+
+            res.render('admin/football/detail', { 
+                tournament: tournament,
+                
+                // Matches (Full List)
+                groupMatches: groupMatches,
+                knockoutMatches: knockoutMatches,
+                
+                // Teams (Paginated)
+                teams: paginatedTeams,
+                teamsCurrentPage: teamPage,
+                teamsTotalPages: totalTeamPages,
+
+                currentTab: tab
+            });
         } catch (error) {
             console.error(error);
             res.status(500).send('Server Error');
@@ -182,10 +292,15 @@ class FootballTournamentController {
 
     async addTeamMember(req, res) {
         try {
-            const { tournamentId, teamId, memberName } = req.body;
+            const { tournamentId, teamId, memberName, citizenId } = req.body;
                 
                 if (!memberName || memberName.trim() === '') {
                     throw new Error('Member name is required');
+                }
+                
+                // Validate citizenId
+                if (!citizenId || citizenId.trim() === '') {
+                    throw new Error('Số CCCD/CMND là bắt buộc để tránh trùng lặp cầu thủ.');
                 }
 
                 let avatar = 'default-avatar.png';
@@ -196,7 +311,9 @@ class FootballTournamentController {
             const memberData = {
                 id: Date.now().toString(),
                 name: memberName,
-                avatar: avatar
+                avatar: avatar,
+                citizenId: citizenId,
+                citizenIdImage: citizenId // For backward compatibility with Service check, though Service should update to check citizenId preference
             };
 
             await FootballService.addTeamMember(tournamentId, teamId, memberData);
@@ -205,11 +322,13 @@ class FootballTournamentController {
                 return res.json({ success: true, member: memberData });
             }
 
+            // Fallback for non-AJAX requests (though UI uses AJAX)
             res.redirect(`/admin/football/tournament/detail/${tournamentId}`);
         } catch (error) {
             console.error("Error in addTeamMember:", error);
-            if (req.xhr || req.headers.accept.indexOf('json') > -1) {
-                return res.status(500).json({ success: false, message: 'Error adding team member: ' + error.message });
+            // Always try to return JSON if it looks like an API call
+            if (req.xhr || req.headers.accept.indexOf('json') > -1 || req.headers['content-type']?.includes('multipart/form-data')) {
+                return res.status(500).json({ success: false, message: error.message });
             }
             res.status(500).send('Error adding team member: ' + error.message);
         }
@@ -264,37 +383,181 @@ class FootballTournamentController {
         }
     }
 
+    async deleteTeam(req, res) {
+        try {
+            const { tournamentId, teamId } = req.body;
+            const updated = await FootballService.deleteTeam(tournamentId, teamId);
+            res.json({ success: true, tournament: updated });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ success: false, message: error.message });
+        }
+    }
+
     async updateMatch(req, res) {
         try {
-            const { tournamentId, matchId, score1, score2, time, date, lineup1, lineup2, events } = req.body;
+            const { tournamentId, matchId, score1, score2, time, date, location, lineup1, lineup2, events } = req.body;
             const matchData = {};
             
-            if (score1 !== undefined && score1 !== '') matchData.score1 = parseInt(score1);
-            if (score2 !== undefined && score2 !== '') matchData.score2 = parseInt(score2);
+            if (score1 !== undefined) {
+                matchData.score1 = (score1 === '') ? null : parseInt(score1);
+            }
+            if (score2 !== undefined) {
+                matchData.score2 = (score2 === '') ? null : parseInt(score2);
+            }
             if (time) matchData.time = time;
             if (date) matchData.date = date;
+            if (location) matchData.location = location;
             if (lineup1) matchData.lineup1 = lineup1;
             if (lineup2) matchData.lineup2 = lineup2;
             if (events) matchData.events = events;
-            // Auto status
-            const hasScores = (matchData.score1 !== undefined && matchData.score1 !== null) && (matchData.score2 !== undefined && matchData.score2 !== null);
-            if (hasScores) matchData.status = 'finished';
-            else if (events && events.length) matchData.status = 'live';
-            else matchData.status = 'scheduled';
             
-            await FootballService.updateMatch(tournamentId, matchId, matchData);
+            // Let Service handle status logic
+            
+            const result = await FootballService.updateMatch(tournamentId, matchId, matchData);
+            const updatedTournament = result.tournament || result;
+            const affectedMatches = result.affectedMatches || [];
+
+            // --- Fine Generation Logic ---
+            if (events && Array.isArray(events)) {
+                try {
+                    // Find the match in the updated tournament to get team names
+                    let currentMatch = null;
+                    let groupName = '';
+                    if (updatedTournament.fixtures) {
+                        for (const group of updatedTournament.fixtures) {
+                            const m = group.matches.find(m => m.id === matchId);
+                            if (m) {
+                                currentMatch = m;
+                                groupName = group.group || '';
+                                break;
+                            }
+                        }
+                    }
+
+                    if (currentMatch) {
+                        // Helper to find team ID by name
+                        const getTeamId = (teamName) => {
+                            const team = updatedTournament.teams.find(t => t.name === teamName);
+                            return team ? team.id : null;
+                        };
+
+                        for (const event of events) {
+                            if (event.type === 'yellow' || event.type === 'red') {
+                                const isYellow = event.type === 'yellow';
+                                const amount = isYellow ? 100000 : 300000;
+                                const teamName = event.team === 'team1' ? currentMatch.team1 : currentMatch.team2;
+                                const teamId = getTeamId(teamName);
+                                
+                                if (teamId && event.playerId) {
+                                    // Check for duplicates
+                                    // We use a combination of matchId, memberId, type, and maybe time/minute to be unique?
+                                    // Or just one fine per card event. 
+                                    // Since events don't have unique IDs in the array, we rely on duplicate check by properties.
+                                    // However, a player could get 2 yellow cards.
+                                    // So we should check if a fine exists for this match, player, type AND minute.
+                                    
+                                    const exists = await Fine.findOne({
+                                        tournamentId: tournamentId,
+                                        matchId: matchId,
+                                        memberId: event.playerId,
+                                        type: event.type === 'yellow' ? 'yellow_card' : 'red_card',
+                                        reason: `${event.type === 'yellow' ? 'Thẻ vàng' : 'Thẻ đỏ'} phút ${event.minute}`
+                                    });
+
+                                    if (!exists) {
+                                        const fine = new Fine({
+                                            memberId: event.playerId,
+                                            memberName: event.playerName || 'Unknown',
+                                            teamId: teamId,
+                                            teamName: teamName,
+                                            tournamentId: tournamentId,
+                                            matchId: matchId,
+                                            matchLabel: `${groupName} - ${currentMatch.team1} vs ${currentMatch.team2}`,
+                                            type: event.type === 'yellow' ? 'yellow_card' : 'red_card',
+                                            amount: amount,
+                                            reason: `${event.type === 'yellow' ? 'Thẻ vàng' : 'Thẻ đỏ'} phút ${event.minute}`,
+                                            status: 'pending'
+                                        });
+                                        await fine.save();
+                                        console.log(`Created fine for ${event.playerName}: ${amount}`);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } catch (fineError) {
+                    console.error('Error generating fines:', fineError);
+                    // Don't block the response, just log error
+                }
+            }
+            // -----------------------------
+
             const io = req.app.get('io');
             if (io) {
-                io.to('tournament:' + String(tournamentId)).emit('match_updated', {
-                    tournamentId,
-                    matchId,
-                    payload: matchData
-                });
-                io.to('match:' + String(matchId)).emit('match_updated', {
-                    tournamentId,
-                    matchId,
-                    payload: matchData
-                });
+                // If we have a list of affected matches from Service (new logic), use it
+                if (affectedMatches.length > 0) {
+                    affectedMatches.forEach(m => {
+                        // Construct payload from the actual match object to ensure we send latest state
+                        const payload = {
+                            score1: m.score1,
+                            score2: m.score2,
+                            status: m.status,
+                            team1: m.team1,
+                            team2: m.team2,
+                            lineup1: m.lineup1,
+                            lineup2: m.lineup2,
+                            events: m.events,
+                            time: m.time,
+                            date: m.date,
+                            location: m.location
+                        };
+
+                        io.to('tournament:' + String(tournamentId)).emit('match_updated', {
+                            tournamentId,
+                            matchId: m.id,
+                            payload: payload
+                        });
+                        io.to('match:' + String(m.id)).emit('match_updated', {
+                            tournamentId,
+                            matchId: m.id,
+                            payload: payload
+                        });
+                    });
+                } else {
+                    // Fallback for safety (though affectedMatches should include at least the target match)
+                    // Find the actual updated status to emit via Socket
+                    if (updatedTournament && updatedTournament.fixtures) {
+                        let realStatus = null;
+                        for (const g of updatedTournament.fixtures) {
+                            const m = g.matches.find(m => m.id === matchId);
+                            if (m) {
+                                realStatus = m.status;
+                                break;
+                            }
+                        }
+                        if (realStatus) matchData.status = realStatus;
+                    }
+
+                    io.to('tournament:' + String(tournamentId)).emit('match_updated', {
+                        tournamentId,
+                        matchId,
+                        payload: matchData
+                    });
+                    io.to('match:' + String(matchId)).emit('match_updated', {
+                        tournamentId,
+                        matchId,
+                        payload: matchData
+                    });
+                }
+
+                // Emit Standings Update
+                if (updatedTournament && updatedTournament.standings) {
+                    io.to('tournament:' + String(tournamentId)).emit('standings_updated', {
+                        tournamentId,
+                        standings: updatedTournament.standings
+                    });
+                }
             }
             
             if (req.xhr || req.headers['content-type'] === 'application/json') {
@@ -305,9 +568,9 @@ class FootballTournamentController {
         } catch (error) {
             console.error(error);
             if (req.xhr || req.headers['content-type'] === 'application/json') {
-                return res.status(500).json({ success: false, message: 'Error updating match' });
+                return res.status(500).json({ success: false, message: error.message });
             }
-            res.status(500).send('Error updating match');
+            res.status(500).send('Error updating match: ' + error.message);
         }
     }
 

@@ -77,7 +77,7 @@
                                                     <td><%= new Date(item.submittedAt).toLocaleDateString('vi-VN') %></td>
                                                     <td>
                                                         <div class="d-flex align-items-center">
-                                                            <img src="/static/images/<%= item.logo %>" alt="" style="width: 30px; height: 30px; object-fit: cover;" class="rounded-circle me-2">
+                                                            <img src="<%= (item.logo === 'default.png' || item.logo === 'default-avatar.png') ? '/static/images/' + item.logo : '/static/uploads/avatars/' + item.logo %>" alt="" style="width: 30px; height: 30px; object-fit: cover;" class="rounded-circle me-2">
                                                             <%= item.teamName %>
                                                         </div>
                                                     </td>
@@ -106,10 +106,29 @@
                                     </tbody>
                                 </table>
                             </div>
-                            
+
                             <div class="mt-3">
                                 <!-- Removed tip -->
                             </div>
+
+                            <!-- Pagination -->
+                            <% if (typeof totalPages !== 'undefined' && totalPages > 1) { %>
+                                <nav aria-label="Page navigation" class="mt-3">
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                                            <a class="page-link" href="/admin/team-registration?page=<%= currentPage - 1 %>&status=<%= filterStatus %>&tournamentId=<%= filterTournamentId %>">Trước</a>
+                                        </li>
+                                        <% for(let i = 1; i <= totalPages; i++) { %>
+                                            <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                                <a class="page-link" href="/admin/team-registration?page=<%= i %>&status=<%= filterStatus %>&tournamentId=<%= filterTournamentId %>"><%= i %></a>
+                                            </li>
+                                        <% } %>
+                                        <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+                                            <a class="page-link" href="/admin/team-registration?page=<%= currentPage + 1 %>&status=<%= filterStatus %>&tournamentId=<%= filterTournamentId %>">Sau</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            <% } %>
                         </div>
                     </div>
                 </div>

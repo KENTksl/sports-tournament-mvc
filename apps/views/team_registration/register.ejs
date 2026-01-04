@@ -185,6 +185,7 @@
                 const index = memberIndexCounter++;
                 const name = data ? data.name : '';
                 const number = data ? data.number : '';
+                const citizenId = data ? data.citizenId : '';
                 
                 let avatarHtml = '';
                 let avatarRequired = 'required';
@@ -222,13 +223,16 @@
                         <div class="col-md-2 form-group">
                             <input type="number" class="form-control" name="memberNumber[]" placeholder="Số Áo *" required value="${number}">
                         </div>
-                        <div class="col-md-3 form-group">
+                        <div class="col-md-2 form-group">
+                            <input type="text" class="form-control" name="memberCitizenId[]" placeholder="CCCD/CMND *" required value="${citizenId}">
+                        </div>
+                        <div class="col-md-2 form-group">
                             <label class="small text-muted mb-0">Ảnh Chân Dung</label>
                             <input type="hidden" name="existingMemberAvatar[]" value="${existingAvatarVal}">
                             <input type="file" class="form-control-file" name="memberAvatar_${index}" accept="image/*" ${avatarRequired}>
                             ${avatarHtml}
                         </div>
-                        <div class="col-md-3 form-group">
+                        <div class="col-md-2 form-group">
                             <label class="small text-muted mb-0">Ảnh CCCD/CMND</label>
                             <input type="hidden" name="existingMemberCitizenIdImage[]" value="${existingCitizenVal}">
                             <input type="file" class="form-control-file" name="memberCitizenIdImage_${index}" accept="image/*" ${citizenRequired}>

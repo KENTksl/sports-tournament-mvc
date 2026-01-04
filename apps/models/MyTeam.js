@@ -14,6 +14,7 @@ const MyTeamSchema = new Schema({
         number: { type: Number },
         position: { type: String, default: 'Cầu thủ' },
         avatar: { type: String, default: 'default-avatar.png' },
+        citizenId: { type: String },
         citizenIdImage: { type: String }
     }],
     createdAt: { type: Date, default: Date.now },

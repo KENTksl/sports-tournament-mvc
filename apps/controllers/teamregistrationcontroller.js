@@ -72,6 +72,7 @@ class TeamRegistrationController {
             // Handle array inputs
             const names = Array.isArray(req.body.memberName) ? req.body.memberName : (req.body.memberName ? [req.body.memberName] : []);
             const numbers = Array.isArray(req.body.memberNumber) ? req.body.memberNumber : (req.body.memberNumber ? [req.body.memberNumber] : []);
+            const citizenIds = Array.isArray(req.body.memberCitizenId) ? req.body.memberCitizenId : (req.body.memberCitizenId ? [req.body.memberCitizenId] : []);
             const indices = Array.isArray(req.body.memberIndex) ? req.body.memberIndex : (req.body.memberIndex ? [req.body.memberIndex] : []);
             
             // Existing files (hidden inputs)
@@ -119,6 +120,7 @@ class TeamRegistrationController {
                         name: names[i],
                         number: numbers[i],
                         position: 'Cầu thủ',
+                        citizenId: citizenIds[i],
                         avatar: avatar,
                         citizenIdImage: citizenIdImage
                     });

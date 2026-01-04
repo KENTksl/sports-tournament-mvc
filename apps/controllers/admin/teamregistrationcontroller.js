@@ -24,6 +24,10 @@ class TeamRegistrationController {
     // 1. List all registrations (Hồ sơ đội tuyển)
     async index(req, res) {
         try {
+            const page = parseInt(req.query.page) || 1;
+            const limit = 10;
+            const skip = (page - 1) * limit;
+
             const filter = {};
             if (req.query.status && req.query.status !== 'all') {
                 filter.status = req.query.status;
@@ -32,7 +36,15 @@ class TeamRegistrationController {
                 filter.tournamentId = req.query.tournamentId;
             }
             
-            const registrations = await TeamRegistration.find(filter).sort({ submittedAt: -1 }).populate('tournamentId');
+            const totalDocs = await TeamRegistration.countDocuments(filter);
+            const totalPages = Math.ceil(totalDocs / limit);
+
+            const registrations = await TeamRegistration.find(filter)
+                .sort({ submittedAt: -1 })
+                .skip(skip)
+                .limit(limit)
+                .populate('tournamentId');
+
             const tournaments = await FootballService.getAllTournaments();
             
             res.render('admin/team_registration/index', { 
@@ -40,6 +52,8 @@ class TeamRegistrationController {
                 tournaments,
                 filterStatus: req.query.status || 'all',
                 filterTournamentId: req.query.tournamentId || 'all',
+                currentPage: page,
+                totalPages: totalPages,
                 layout: 'admin/layout' 
             });
         } catch (error) {
@@ -76,8 +90,10 @@ class TeamRegistrationController {
             const copyFile = (filename) => {
                 if (!filename || filename === 'default.png' || filename === 'default-avatar.png') return;
                 
-                const srcPath = path.join(__basedir, 'public', 'uploads', 'avatars', filename);
-                const destPath = path.join(__basedir, 'public', 'uploads', 'tournaments', filename);
+                // Use process.cwd() to ensure correct root path if __basedir is unreliable
+                const rootDir = global.__basedir || process.cwd();
+                const srcPath = path.join(rootDir, 'public', 'uploads', 'avatars', filename);
+                const destPath = path.join(rootDir, 'public', 'uploads', 'tournaments', filename);
 
                 // Check if source exists
                 if (fs.existsSync(srcPath)) {
@@ -88,7 +104,13 @@ class TeamRegistrationController {
                     }
                     
                     // Copy file
-                    fs.copyFileSync(srcPath, destPath);
+                    try {
+                        fs.copyFileSync(srcPath, destPath);
+                    } catch (err) {
+                        console.error(`Failed to copy file ${filename}:`, err);
+                    }
+                } else {
+                    console.warn(`Source file not found: ${srcPath}`);
                 }
             };
 
@@ -113,6 +135,7 @@ class TeamRegistrationController {
                         number: m.number,
                         position: m.position,
                         avatar: m.avatar,
+                        citizenId: m.citizenId, // Pass citizenId text
                         citizenIdImage: m.citizenIdImage
                     }))
                 };
@@ -128,7 +151,9 @@ class TeamRegistrationController {
             
             // Redirect based on whether it was attached to a tournament
             if (registration.tournamentId) {
-                res.redirect(`/admin/football/tournament/detail/${registration.tournamentId}`);
+                // User requested to return to the registration list filtered by this tournament
+                // instead of jumping to the tournament detail page.
+                res.redirect(`/admin/team-registration?tournamentId=${registration.tournamentId}`);
             } else {
                 res.redirect('/admin/team-registration');
             }

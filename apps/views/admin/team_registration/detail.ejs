@@ -37,7 +37,7 @@
 
                             <div class="row mb-4">
                                 <div class="col-md-4 text-center">
-                                    <img src="/static/uploads/avatars/<%= registration.logo %>" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                                    <img src="<%= (registration.logo === 'default.png' || registration.logo === 'default-avatar.png') ? '/static/images/' + registration.logo : '/static/uploads/avatars/' + registration.logo %>" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
                                     <h4><%= registration.teamName %></h4>
                                     <% if (registration.tournamentId) { %>
                                         <div class="mb-2">
@@ -101,14 +101,15 @@
                                                         <tr>
                                                             <td><%= index + 1 %></td>
                                                             <td>
-                                                                <img src="/static/uploads/avatars/<%= member.avatar %>" style="width: 40px; height: 40px; object-fit: cover;" class="rounded-circle">
+                                                                <img src="<%= (member.avatar === 'default.png' || member.avatar === 'default-avatar.png') ? '/static/images/' + member.avatar : '/static/uploads/avatars/' + member.avatar %>" style="width: 40px; height: 40px; object-fit: cover;" class="rounded-circle">
                                                             </td>
                                                             <td><%= member.name %></td>
                                                             <td><%= member.number %></td>
                                                             <td>
+                                                                <div class="mb-1 fw-bold text-primary"><%= member.citizenId || '' %></div>
                                                                 <% if (member.citizenIdImage) { %>
-                                                                    <a href="/static/uploads/avatars/<%= member.citizenIdImage %>" target="_blank">
-                                                                        <img src="/static/uploads/avatars/<%= member.citizenIdImage %>" style="width: 60px; height: 40px; object-fit: cover;" class="rounded">
+                                                                    <a href="<%= (member.citizenIdImage === 'default.png' || member.citizenIdImage === 'default-avatar.png') ? '/static/images/' + member.citizenIdImage : '/static/uploads/avatars/' + member.citizenIdImage %>" target="_blank">
+                                                                        <img src="<%= (member.citizenIdImage === 'default.png' || member.citizenIdImage === 'default-avatar.png') ? '/static/images/' + member.citizenIdImage : '/static/uploads/avatars/' + member.citizenIdImage %>" style="width: 60px; height: 40px; object-fit: cover;" class="rounded">
                                                                     </a>
                                                                 <% } else { %>
                                                                     <span class="text-muted">Không có ảnh</span>

@@ -13,6 +13,7 @@ const TeamRegistrationSchema = new Schema({
         dob: { type: String }, // Ngày sinh
         position: { type: String, default: 'Cầu thủ' }, // Vị trí (Mặc định do user bỏ chọn)
         number: { type: Number }, // Số áo
+        citizenId: { type: String }, // Số CCCD/CMND
         avatar: { type: String, default: 'default-avatar.png' },
         citizenIdImage: { type: String } // Ảnh CCCD/CMND
     }],
