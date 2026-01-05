@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
 var UserService = require(global.__basedir + "/apps/services/UserService");
+var TeamRegistration = require(global.__basedir + "/apps/models/TeamRegistration");
+var MyTeam = require(global.__basedir + "/apps/models/MyTeam");
 var JWTMiddleware = require(global.__basedir + "/apps/Util/VerifyToken");
 var multer = require("multer");
 var path = require("path");
@@ -11,24 +13,11 @@ const storage = multer.diskStorage({
         cb(null, 'public/uploads/avatars/')
     },
     filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname))
+        cb(null, Date.now() + '-' + file.originalname);
     }
 });
 
-const upload = multer({ 
-    storage: storage,
-    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
-    fileFilter: function (req, file, cb) {
-        const filetypes = /jpeg|jpg|png|gif/;
-        const mimetype = filetypes.test(file.mimetype);
-        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-        if (mimetype && extname) {
-            return cb(null, true);
-        }
-        cb(new Error("Error: File upload only supports the following filetypes - " + filetypes));
-    }
-});
+const upload = multer({ storage: storage });
 
 class ProfileController {
     constructor() {
@@ -40,6 +29,14 @@ class ProfileController {
         this.router.get("/", this.index.bind(this));
         this.router.get("/data", JWTMiddleware.verifyToken, this.getProfileData.bind(this));
         this.router.post("/update", JWTMiddleware.verifyToken, upload.single('avatar'), this.update.bind(this));
+        
+        // My Team Routes
+        const teamUpload = upload.fields([
+            { name: 'logo', maxCount: 1 },
+            { name: 'memberAvatar', maxCount: 30 },
+            { name: 'memberCitizenIdImage', maxCount: 30 }
+        ]);
+        this.router.post("/my-team/update", JWTMiddleware.verifyToken, teamUpload, this.updateMyTeam.bind(this));
     }
 
     async index(req, res) {
@@ -68,7 +65,78 @@ class ProfileController {
             const userObj = user.toObject ? user.toObject() : user;
             delete userObj.password;
             
-            res.json({ success: true, data: userObj });
+            // Fetch registrations
+            console.log("Querying registrations for email:", email);
+            
+            // Use regex for case-insensitive and trimmed match
+            const emailRegex = new RegExp(`^${email.trim()}$`, 'i');
+            
+            const registrations = await TeamRegistration.find({ email: { $regex: emailRegex } })
+                .populate('tournamentId')
+                .sort({ submittedAt: -1 });
+                
+            console.log("Found registrations:", registrations.length);
+
+            // Process Team Stats
+            const teamStats = [];
+            registrations.forEach(reg => {
+                if (reg.tournamentId && reg.tournamentId.fixtures && reg.status === 'approved') {
+                    const tournament = reg.tournamentId;
+                    const myTeamName = reg.teamName;
+                    const relevantMatches = [];
+
+                    tournament.fixtures.forEach(group => {
+                        if (group.matches) {
+                            group.matches.forEach(match => {
+                                const t1 = (match.team1 || '').trim();
+                                const t2 = (match.team2 || '').trim();
+                                const target = myTeamName.trim();
+
+                                if (t1 === target || t2 === target) {
+                                    // Check if match is finished (has score)
+                                    if (match.score1 !== null && match.score1 !== undefined && match.score1 !== "" &&
+                                        match.score2 !== null && match.score2 !== undefined && match.score2 !== "") {
+                                        
+                                        // Match Label Logic (similar to public view)
+                                        let label = `Trận`;
+                                        if (group.group) {
+                                            label = `${group.group}`;
+                                            // Find index in group? No, just use Date or generic
+                                        }
+                                        if (match.date) {
+                                            label += ` (${match.date})`;
+                                        }
+
+                                        relevantMatches.push({
+                                            matchLabel: label, 
+                                            groupName: group.group,
+                                            team1: t1,
+                                            team2: t2,
+                                            score1: parseInt(match.score1),
+                                            score2: parseInt(match.score2),
+                                            isTeam1: t1 === target
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    });
+
+                    if (relevantMatches.length > 0) {
+                        teamStats.push({
+                            tournamentId: tournament._id,
+                            tournamentName: tournament.name,
+                            teamName: myTeamName,
+                            matches: relevantMatches
+                        });
+                    }
+                }
+            });
+
+            // Fetch My Team
+            const myTeam = await MyTeam.findOne({ userId: user._id });
+
+            res.json({ success: true, data: userObj, registrations: registrations, myTeam: myTeam, teamStats: teamStats, debugEmail: email });
         } catch (error) {
             console.error(error);
             res.status(500).json({ success: false, message: "Internal server error" });
@@ -78,14 +146,15 @@ class ProfileController {
     async update(req, res) {
         try {
             const email = req.userData.email;
-            const { username, phone, address, dob, gender } = req.body;
+            const { username, phone, address, dob, gender, citizenId } = req.body;
             
             const updateData = {
                 username: username,
                 phone: phone,
                 address: address,
                 dob: dob,
-                gender: gender
+                gender: gender,
+                citizenId: citizenId
             };
 
             if (req.file) {
@@ -101,6 +170,83 @@ class ProfileController {
         } catch (error) {
              console.error(error);
              res.status(500).json({ success: false, message: "Internal server error: " + error.message });
+        }
+    }
+
+    async updateMyTeam(req, res) {
+        try {
+            const email = req.userData.email;
+            const user = await UserService.getUserByEmail(email);
+            if (!user) return res.status(404).json({ success: false, message: "User not found" });
+
+            const { teamName, representative, phone, email: teamEmail, description } = req.body;
+            
+            let myTeam = await MyTeam.findOne({ userId: user._id });
+            if (!myTeam) {
+                myTeam = new MyTeam({ userId: user._id });
+            }
+            
+            myTeam.teamName = teamName;
+            myTeam.representative = representative;
+            myTeam.phone = phone;
+            myTeam.email = teamEmail;
+            myTeam.description = description;
+
+            if (req.files['logo'] && req.files['logo'][0]) {
+                myTeam.logo = req.files['logo'][0].filename;
+            }
+
+            // Process Members
+            const names = Array.isArray(req.body.memberName) ? req.body.memberName : (req.body.memberName ? [req.body.memberName] : []);
+            const numbers = Array.isArray(req.body.memberNumber) ? req.body.memberNumber : (req.body.memberNumber ? [req.body.memberNumber] : []);
+            const citizenIds = Array.isArray(req.body.memberCitizenId) ? req.body.memberCitizenId : (req.body.memberCitizenId ? [req.body.memberCitizenId] : []);
+            
+            const existingAvatars = Array.isArray(req.body.existingMemberAvatar) ? req.body.existingMemberAvatar : (req.body.existingMemberAvatar ? [req.body.existingMemberAvatar] : []);
+            const existingCitizenIdImages = Array.isArray(req.body.existingMemberCitizenIdImage) ? req.body.existingMemberCitizenIdImage : (req.body.existingMemberCitizenIdImage ? [req.body.existingMemberCitizenIdImage] : []);
+            
+            const hasNewAvatar = Array.isArray(req.body.memberHasNewAvatar) ? req.body.memberHasNewAvatar : (req.body.memberHasNewAvatar ? [req.body.memberHasNewAvatar] : []);
+            const hasNewCitizen = Array.isArray(req.body.memberHasNewCitizen) ? req.body.memberHasNewCitizen : (req.body.memberHasNewCitizen ? [req.body.memberHasNewCitizen] : []);
+
+            const newAvatars = req.files['memberAvatar'] || [];
+            const newCitizenIdImages = req.files['memberCitizenIdImage'] || [];
+            
+            let avatarIdx = 0;
+            let citizenIdx = 0;
+            
+            const members = [];
+            
+            for (let i = 0; i < names.length; i++) {
+                if (!names[i] || names[i].trim() === '') continue;
+                
+                let avatar = existingAvatars[i];
+                if (hasNewAvatar[i] === 'true' && newAvatars[avatarIdx]) {
+                    avatar = newAvatars[avatarIdx].filename;
+                    avatarIdx++;
+                }
+                
+                let citizenIdImage = existingCitizenIdImages[i];
+                if (hasNewCitizen[i] === 'true' && newCitizenIdImages[citizenIdx]) {
+                    citizenIdImage = newCitizenIdImages[citizenIdx].filename;
+                    citizenIdx++;
+                }
+                
+                members.push({
+                    name: names[i],
+                    number: numbers[i],
+                    citizenId: citizenIds[i],
+                    avatar: avatar,
+                    citizenIdImage: citizenIdImage
+                });
+            }
+            
+            myTeam.members = members;
+            await myTeam.save();
+
+            res.json({ success: true, message: "Đã lưu thông tin đội thành công!" });
+
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ success: false, message: "Lỗi server: " + error.message });
         }
     }
 }

@@ -1,7 +1,141 @@
 const FootballRepository = require('../repositories/FootballRepository');
 
+function generateUniqueId(prefix = '') {
+    return `${prefix}${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+}
+
 class FootballService {
     // --- Helper Methods ---
+    async checkDuplicatePlayers(tournamentId, newMembers, excludeTeamId = null) {
+        if (!newMembers || newMembers.length === 0) return;
+        const tournament = await FootballRepository.findById(tournamentId);
+        if (!tournament || !tournament.teams) return;
+
+        const allMembers = [];
+        tournament.teams.forEach(t => {
+            if (excludeTeamId && (String(t.id) === String(excludeTeamId) || (t._id && String(t._id) === String(excludeTeamId)))) return;
+            if (t.members) {
+                t.members.forEach(m => allMembers.push({ ...m, teamName: t.name }));
+            }
+        });
+
+        for (const newMem of newMembers) {
+            // Check by Citizen ID (Unique Identifier)
+            // Priority 1: Check explicit citizenId field
+            if (newMem.citizenId && newMem.citizenId.trim() !== '') {
+                const dup = allMembers.find(m => 
+                    (m.citizenId && m.citizenId === newMem.citizenId) || 
+                    (m.citizenIdImage && m.citizenIdImage === newMem.citizenId) // Check against image field if it holds the ID
+                );
+                if (dup) {
+                    throw new Error(`Cầu thủ ${newMem.name} (CCCD: ${newMem.citizenId}) đã đăng ký cho đội ${dup.teamName}.`);
+                }
+            }
+            // Priority 2: Check citizenIdImage (legacy or registration data)
+            else if (newMem.citizenIdImage && newMem.citizenIdImage !== 'default.png' && newMem.citizenIdImage !== '') {
+                const dup = allMembers.find(m => 
+                    (m.citizenIdImage === newMem.citizenIdImage) ||
+                    (m.citizenId && m.citizenId === newMem.citizenIdImage)
+                );
+                if (dup) {
+                    throw new Error(`Cầu thủ ${newMem.name} trùng thông tin định danh (CCCD/Ảnh) với cầu thủ đội ${dup.teamName}.`);
+                }
+            }
+        }
+    }
+
+    // Helper for date parsing
+    parseDateTime(d, t) {
+        if (!d || !t) return new Date();
+        const dp = d.split('-');
+        const year = parseInt(dp[0]);
+        const month = parseInt(dp[1]) - 1;
+        const day = parseInt(dp[2]);
+        const m1 = t.match(/^(\d{1,2}):(\d{2})$/);
+        const m2 = t.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+        let hour, minute;
+        if (m2) {
+            hour = parseInt(m2[1]);
+            minute = parseInt(m2[2]);
+            const ap = m2[3].toUpperCase();
+            if (ap === 'PM' && hour < 12) hour += 12;
+            if (ap === 'AM' && hour === 12) hour = 0;
+        } else if (m1) {
+            hour = parseInt(m1[1]);
+            minute = parseInt(m1[2]);
+        } else {
+            hour = 0; minute = 0;
+        }
+        return new Date(year, month, day, hour, minute, 0, 0);
+    }
+
+    async validateMatchSchedule(tournamentId, matchId, date, time, location) {
+        const tournament = await FootballRepository.findById(tournamentId);
+        if (!tournament) throw new Error('Tournament not found');
+
+        const isRealDate = typeof date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(date);
+        const isRealTime = typeof time === 'string' && (/^\d{1,2}:\d{2}$/.test(time) || /^\d{1,2}:\d{2}\s*(AM|PM)$/i.test(time));
+        if (!isRealDate || !isRealTime) return { valid: true };
+
+        // Use class helper
+        const parseDateTime = this.parseDateTime;
+
+        const pitchType = tournament.pitchType === '5' ? '5' : '7';
+        const halfDuration = pitchType === '5' ? 20 : 35;
+        const halftimeBreak = pitchType === '5' ? 15 : 10;
+        const baseMinutes = (halfDuration * 2) + halftimeBreak;
+        const bufferMinutes = 10;
+        const restMinutes = 120;
+
+        let currentTeams = { team1: null, team2: null };
+        if (tournament.fixtures) {
+            for (const g of tournament.fixtures) {
+                const cm = (g.matches || []).find(x => x.id === matchId);
+                if (cm) { currentTeams.team1 = cm.team1; currentTeams.team2 = cm.team2; break; }
+            }
+        }
+
+        const newStart = parseDateTime(date, time).getTime();
+        const newEnd = newStart + (baseMinutes + bufferMinutes) * 60000;
+
+        if (tournament.fixtures) {
+            for (const g of tournament.fixtures) {
+                for (const m of (g.matches || [])) {
+                    if (m.id === matchId) continue;
+                    if (!m.date || !m.time) continue;
+                    const validD = typeof m.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(m.date);
+                    const validT = typeof m.time === 'string' && (/^\d{1,2}:\d{2}$/.test(m.time) || /^\d{1,2}:\d{2}\s*(AM|PM)$/i.test(m.time));
+                    if (!validD || !validT) continue;
+
+                    const existingStart = parseDateTime(m.date, m.time).getTime();
+                    const existingEnd = existingStart + (baseMinutes + bufferMinutes) * 60000;
+
+                    if (location && m.location && String(location).trim() !== '' && String(m.location).trim() !== '') {
+                        const sameLocation = String(location).trim().toLowerCase() === String(m.location).trim().toLowerCase();
+                        if (sameLocation) {
+                            const overlaps = (newStart < existingEnd) && (existingStart < newEnd);
+                            if (overlaps) {
+                                return { valid: false, message: `Xung đột sân: Sân ${location} đã có trận ${m.team1} vs ${m.team2} lúc ${m.time} ngày ${m.date}.` };
+                            }
+                        }
+                    }
+
+                    const involvesTeam1 = currentTeams.team1 && (m.team1 === currentTeams.team1 || m.team2 === currentTeams.team1);
+                    const involvesTeam2 = currentTeams.team2 && (m.team1 === currentTeams.team2 || m.team2 === currentTeams.team2);
+                    if (involvesTeam1 || involvesTeam2) {
+                        const diffMinutes = Math.abs(newStart - existingStart) / 60000;
+                        if (diffMinutes < restMinutes) {
+                            const tmsg = involvesTeam1 ? currentTeams.team1 : currentTeams.team2;
+                            return { valid: false, message: `Thời gian nghỉ không đủ: Đội ${tmsg} có trận khác lúc ${m.time} ngày ${m.date}.` };
+                        }
+                    }
+                }
+            }
+        }
+
+        return { valid: true };
+    }
+
     generateKnockoutStructure(teams) {
         // 1. Prepare Bracket Teams (Pairs)
         const bracketTeams = [];
@@ -49,7 +183,7 @@ class FootballService {
                 }
 
                 roundMatches.push({
-                    id: `m_${Date.now()}_KO_r${r}_${m}`,
+                    id: generateUniqueId(`m_KO_r${r}_${m}_`),
                     team1: t1,
                     team2: t2,
                     score1: null,
@@ -102,8 +236,14 @@ class FootballService {
     generateFixtures(numTeams) {
         const fixtures = [];
         const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
-        const teamsPerGroup = 4;
-        const numGroups = Math.ceil(numTeams / teamsPerGroup); 
+        let numGroups = Math.ceil(numTeams / 4); 
+        
+        // Custom logic for 16 and 32 teams: Force 4 groups
+        if (numTeams === 16 || numTeams === 32) {
+            numGroups = 4;
+        }
+
+        const teamsPerGroup = numTeams / numGroups;
         let globalTeamCount = 1;
 
         if (numTeams < 4) {
@@ -137,7 +277,7 @@ class FootballService {
             rounds.forEach((roundMatches, roundIndex) => {
                 roundMatches.forEach((match, matchIndex) => {
                     allMatches.push({
-                        id: `m_${Date.now()}_${i}_r${roundIndex}_${matchIndex}`,
+                        id: generateUniqueId(`m_${i}_r${roundIndex}_${matchIndex}_`),
                         team1: match.t1, team2: match.t2, score1: null, score2: null,
                         scorers1: "", scorers2: "", lineup1: [], lineup2: [], events: [],
                         time: '20:00', date: `Lượt ${roundIndex + 1}`
@@ -150,13 +290,41 @@ class FootballService {
     }
 
     // --- Main Service Methods ---
-    async getAllTournaments(filter = {}) {
-        return await FootballRepository.findAll(filter);
+    async getAllTournaments(filter = {}, page = null, limit = null) {
+        return await FootballRepository.findAll(filter, page, limit);
     }
 
     async addTeam(tournamentId, teamData) {
         const tournament = await FootballRepository.findById(tournamentId);
         if (!tournament) throw new Error('Tournament not found');
+
+        // Filter out any null/undefined or invalid teams before checking length
+        const validTeams = (tournament.teams || []).filter(t => t && t.name);
+        
+        if (validTeams.length >= tournament.teamsCount) {
+            throw new Error(`Tournament is full. Maximum ${tournament.teamsCount} teams allowed.`);
+        }
+
+        const isDuplicate = validTeams.some(t => t.name.toLowerCase() === teamData.name.toLowerCase());
+        if (isDuplicate) {
+            throw new Error(`Team name "${teamData.name}" already exists in this tournament.`);
+        }
+
+        // Check for duplicate players
+        if (teamData.members && teamData.members.length > 0) {
+            await this.checkDuplicatePlayers(tournamentId, teamData.members);
+        }
+
+        // Ensure stats initialized
+        if (!teamData.stats) {
+            teamData.stats = { p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0 };
+        }
+        
+        // Ensure id exists
+        if (!teamData.id) {
+            teamData.id = Date.now().toString() + Math.random().toString(36).substr(2, 5);
+        }
+
         tournament.teams.push(teamData);
         return await tournament.save();
     }
@@ -180,6 +348,9 @@ class FootballService {
             tournament.teams[teamIndex].members = [];
         }
 
+        // Check for duplicate player
+        await this.checkDuplicatePlayers(tournamentId, [memberData], teamId);
+
         tournament.teams[teamIndex].members.push(memberData);
         tournament.markModified('teams');
         
@@ -197,6 +368,41 @@ class FootballService {
         if (updateData.logo) tournament.teams[teamIndex].logo = updateData.logo;
 
         tournament.markModified('teams');
+        return await tournament.save();
+    }
+
+    async deleteTeam(tournamentId, teamId) {
+        const tournament = await FootballRepository.findById(tournamentId);
+        if (!tournament) throw new Error('Tournament not found');
+        
+        if (tournament.status && tournament.status !== 'upcoming') {
+            throw new Error('Không thể xóa đội khi giải đang diễn ra hoặc đã kết thúc.');
+        }
+        
+        let teamIndex = tournament.teams.findIndex(t => String(t.id) === String(teamId));
+        if (teamIndex === -1) {
+            teamIndex = tournament.teams.findIndex(t => t._id && String(t._id) === String(teamId));
+        }
+        if (teamIndex === -1) throw new Error('Team not found');
+        
+        const removedTeam = tournament.teams[teamIndex];
+        const removedName = removedTeam.name;
+        tournament.teams.splice(teamIndex, 1);
+        tournament.markModified('teams');
+        
+        if (tournament.fixtures && tournament.fixtures.length > 0) {
+            tournament.fixtures.forEach(group => {
+                if (group.matches && group.matches.length) {
+                    group.matches = group.matches.filter(m => m.team1 !== removedName && m.team2 !== removedName);
+                }
+            });
+            tournament.markModified('fixtures');
+        }
+        
+        // Recalculate standings based on remaining fixtures
+        tournament.standings = this.calculateStandings(tournament);
+        tournament.markModified('standings');
+        
         return await tournament.save();
     }
 
@@ -219,6 +425,7 @@ class FootballService {
         
         let matchFound = false;
         let targetMatch = null;
+        let affectedMatches = [];
 
         if (tournament.fixtures) {
             for (const group of tournament.fixtures) {
@@ -226,80 +433,261 @@ class FootballService {
                 if (matchIndex !== -1) {
                     const match = group.matches[matchIndex];
                     targetMatch = match;
-                    
-                    if (matchData.score1 !== undefined) match.score1 = matchData.score1;
-                    if (matchData.score2 !== undefined) match.score2 = matchData.score2;
-                    if (matchData.time !== undefined) match.time = matchData.time;
-                    if (matchData.date !== undefined) match.date = matchData.date;
-                    if (matchData.lineup1 !== undefined) match.lineup1 = matchData.lineup1;
-                    if (matchData.lineup2 !== undefined) match.lineup2 = matchData.lineup2;
-                    
-                    // Update Bracket Data (UI)
-                    // Now checking bracketRound existence instead of hardcoded group name
-                    if (match.bracketRound !== undefined && tournament.bracketData && tournament.bracketData.results) {
-                        const bRound = match.bracketRound;
-                        const bIndex = match.bracketMatchIndex;
-                        
-                        if (bRound !== undefined && bIndex !== undefined && tournament.bracketData.results[bRound] && tournament.bracketData.results[bRound][bIndex]) {
-                            const s1 = match.score1 !== null ? parseInt(match.score1) : null;
-                            const s2 = match.score2 !== null ? parseInt(match.score2) : null;
-                            
-                            tournament.bracketData.results[bRound][bIndex] = [s1, s2];
-                            tournament.markModified('bracketData');
-                        }
+                    affectedMatches.push(match);
+
+                    const isGroupStage = group.group && (group.group.startsWith('Bảng') || group.group.startsWith('Group'));
+                    if (isGroupStage && tournament.bracketData) {
+                        throw new Error('Vòng bảng đã khóa sau khi tạo Knockout');
                     }
-
-                    matchFound = true;
-                    break; // Found the match, exit loop
-                }
-            }
-        }
-        
-        if (matchFound) {
-            // --- Logic: Advance Winner to Next Round in Fixtures ---
-            // Only applies if scores are present and it has bracket info
-            if (targetMatch && targetMatch.score1 !== null && targetMatch.score2 !== null && 
-               targetMatch.bracketRound !== undefined) {
-                
-                const s1 = parseInt(targetMatch.score1);
-                const s2 = parseInt(targetMatch.score2);
-                let winnerName = null;
-                
-                if (s1 > s2) winnerName = targetMatch.team1;
-                else if (s2 > s1) winnerName = targetMatch.team2;
-                
-                // If there is a winner, advance them
-                if (winnerName) {
-                    const currentRound = targetMatch.bracketRound;
-                    const currentIndex = targetMatch.bracketMatchIndex;
                     
-                    // Safety check for undefined properties
-                    if (currentRound !== undefined && currentIndex !== undefined) {
-                        const nextRound = currentRound + 1;
-                        const nextIndex = Math.floor(currentIndex / 2);
-                        const isTeam1InNextMatch = (currentIndex % 2 === 0);
+                    // --- Schedule Conflict Validation ---
+                    const proposedDate = matchData.date !== undefined ? matchData.date : match.date;
+                    const proposedTime = matchData.time !== undefined ? matchData.time : match.time;
+                    const proposedLocation = matchData.location !== undefined ? matchData.location : match.location;
 
-                        // Find the next match across ALL fixture groups
-                        let nextMatchFound = false;
+                    if ((matchData.date || matchData.time || matchData.location) && proposedDate && proposedTime && proposedLocation) {
+                        // Check for conflicts within this tournament
+                        // Note: To check across ALL tournaments, we would need to query the DB, which requires more changes.
+                        // For now, we restrict to the current tournament context.
                         if (tournament.fixtures) {
-                            for (const group of tournament.fixtures) {
-                                const nextMatch = group.matches.find(m => m.bracketRound === nextRound && m.bracketMatchIndex === nextIndex);
-                                if (nextMatch) {
-                                    if (isTeam1InNextMatch) nextMatch.team1 = winnerName;
-                                    else nextMatch.team2 = winnerName;
-                                    nextMatchFound = true;
-                                    break;
+                            for (const g of tournament.fixtures) {
+                                for (const m of g.matches) {
+                                    if (m.id !== matchId && m.date === proposedDate && m.time === proposedTime && m.location === proposedLocation) {
+                                        throw new Error(`Xung đột lịch: Sân ${proposedLocation} đã có trận đấu lúc ${proposedTime} ngày ${proposedDate}.`);
+                                    }
                                 }
                             }
                         }
                     }
+                    // ------------------------------------
+
+                    if (matchData.score1 !== undefined) {
+                        match.score1 = (matchData.score1 === 'null' || matchData.score1 === '') ? null : matchData.score1;
+                    }
+                    if (matchData.score2 !== undefined) {
+                        match.score2 = (matchData.score2 === 'null' || matchData.score2 === '') ? null : matchData.score2;
+                    }
+                    if (matchData.scorers1 !== undefined) match.scorers1 = matchData.scorers1;
+                    if (matchData.scorers2 !== undefined) match.scorers2 = matchData.scorers2;
+                    if (matchData.time !== undefined) match.time = matchData.time;
+                    if (matchData.date !== undefined) match.date = matchData.date;
+                    if (matchData.location !== undefined) match.location = matchData.location;
+                    if (matchData.status !== undefined) match.status = matchData.status;
+                    if (matchData.lineup1 !== undefined) match.lineup1 = matchData.lineup1;
+                    if (matchData.lineup2 !== undefined) match.lineup2 = matchData.lineup2;
+                    if (matchData.events !== undefined) match.events = matchData.events;
+
+                    // --- KNOCKOUT PROGRESSION LOGIC ---
+                    if (match.score1 !== null && match.score2 !== null && match.bracketRound !== undefined && match.bracketMatchIndex !== undefined) {
+                         const currentRound = match.bracketRound;
+                         const currentIndex = match.bracketMatchIndex;
+                         const nextRound = currentRound + 1;
+                         const nextIndex = Math.floor(currentIndex / 2);
+                         const isTeam1InNext = (currentIndex % 2 === 0);
+                         
+                         const s1 = parseInt(match.score1);
+                         const s2 = parseInt(match.score2);
+                         let winnerName = null;
+                         
+                         if (s1 > s2) winnerName = match.team1;
+                         else if (s2 > s1) winnerName = match.team2;
+                         
+                         if (winnerName) {
+                             // Find next match
+                             for (const g of tournament.fixtures) {
+                                 const nextMatch = g.matches.find(m => m.bracketRound === nextRound && m.bracketMatchIndex === nextIndex);
+                                 if (nextMatch) {
+                                     if (isTeam1InNext) nextMatch.team1 = winnerName;
+                                     else nextMatch.team2 = winnerName;
+                                     affectedMatches.push(nextMatch);
+                                     break; 
+                                 }
+                             }
+                         }
+                    }
+                    // ----------------------------------
+
+                    matchFound = true;
+                    // Note: We don't break immediately because we might need to check other groups?
+                    // But typically match IDs are unique across groups.
+                    break; 
                 }
             }
-
-            tournament.markModified('fixtures');
-            return await tournament.save();
         }
-        return null;
+        
+        if (!matchFound) throw new Error('Match not found');
+        
+        // Recalculate standings
+        tournament.standings = this.calculateStandings(tournament);
+        tournament.markModified('standings');
+        tournament.markModified('teams');
+
+        tournament.markModified('fixtures');
+        const savedTournament = await tournament.save();
+        return { tournament: savedTournament, affectedMatches };
+    }
+
+    async batchScheduleMatches(tournamentId, { startDate, startTime, matchDuration, concurrentMatches, stageName }) {
+        const tournament = await FootballRepository.findById(tournamentId);
+        if (!tournament) throw new Error('Tournament not found');
+
+        // Helper to parse and format time
+        let ptr = this.parseDateTime(startDate, startTime);
+
+        // Flatten matches into queues by group
+        let queues = [];
+        
+        if (tournament.fixtures) {
+            tournament.fixtures.forEach(group => {
+                // If stageName is specified, filter by it (simple substring check or exact match)
+                // For "Vòng Bảng", we usually look for groups starting with "Bảng" or "Group"
+                let isRelevantGroup = true;
+                if (stageName === 'group_stage') {
+                    isRelevantGroup = group.group.startsWith('Bảng') || group.group.startsWith('Group');
+                } else if (stageName === 'knockout_stage') {
+                    isRelevantGroup = !group.group.startsWith('Bảng') && !group.group.startsWith('Group');
+                }
+                
+                if (isRelevantGroup && group.matches && group.matches.length > 0) {
+                     // Filter unplayed matches
+                     const pendingMatches = group.matches.filter(m => 
+                         (m.score1 === null || m.score1 === undefined || m.score1 === '') &&
+                         (m.score2 === null || m.score2 === undefined || m.score2 === '')
+                     );
+                     if (pendingMatches.length > 0) {
+                         queues.push({ group: group.group, matches: pendingMatches });
+                     }
+                }
+            });
+        }
+
+        // Scheduling Loop
+        let hasMatches = true;
+        while (hasMatches) {
+            let scheduledCount = 0;
+            let batchMatches = [];
+
+            // Try to pick one match from each queue until we hit concurrentMatches
+            // To ensure fairness and parallelism across groups, we iterate queues.
+            for (let i = 0; i < queues.length; i++) {
+                if (queues[i].matches.length > 0) {
+                    batchMatches.push(queues[i].matches.shift()); 
+                    scheduledCount++;
+                    if (scheduledCount >= concurrentMatches) break;
+                }
+            }
+            
+            if (scheduledCount === 0) {
+                hasMatches = false;
+                break;
+            }
+
+            // Assign Time to this batch
+            const timeString = `${ptr.getHours().toString().padStart(2, '0')}:${ptr.getMinutes().toString().padStart(2, '0')}`;
+            const dateString = `${ptr.getFullYear()}-${(ptr.getMonth()+1).toString().padStart(2, '0')}-${ptr.getDate().toString().padStart(2, '0')}`;
+
+            batchMatches.forEach(match => {
+                match.date = dateString;
+                match.time = timeString;
+                // Location assignment logic could go here if we had a pool of locations
+            });
+
+            // Increment time for next batch
+            ptr.setMinutes(ptr.getMinutes() + parseInt(matchDuration));
+        }
+
+        tournament.markModified('fixtures');
+        return await tournament.save();
+    }
+
+    calculateStandings(tournament) {
+        if (!tournament.fixtures) return [];
+
+        const groups = tournament.fixtures.filter(g => g.group && (g.group.startsWith('Bảng') || g.group.startsWith('Group')));
+        const groupStandings = [];
+
+        // Map team name to team details (logo, etc.)
+        const teamDetailsMap = {};
+        if (tournament.teams) {
+            tournament.teams.forEach(t => {
+                teamDetailsMap[t.name] = t;
+            });
+        }
+
+        groups.forEach(group => {
+            const teamsMap = {};
+            
+            // 1. Initialize all teams in this group from fixtures
+            // We scan all matches to find participating teams
+            group.matches.forEach(m => {
+                [m.team1, m.team2].forEach(teamName => {
+                    if (teamName && !teamsMap[teamName]) {
+                        const details = teamDetailsMap[teamName] || { logo: 'default.png' };
+                        teamsMap[teamName] = { 
+                            name: teamName, 
+                            logo: details.logo,
+                            played: 0, 
+                            won: 0, 
+                            drawn: 0, 
+                            lost: 0, 
+                            gd: 0, 
+                            points: 0 
+                        };
+                    }
+                });
+            });
+
+            // 2. Calculate stats from matches
+            group.matches.forEach(m => {
+                if (m.score1 !== null && m.score2 !== null && m.score1 !== undefined && m.score2 !== undefined && m.score1 !== "" && m.score2 !== "") {
+                    const s1 = parseInt(m.score1);
+                    const s2 = parseInt(m.score2);
+                    
+                    if (teamsMap[m.team1]) teamsMap[m.team1].played++;
+                    if (teamsMap[m.team2]) teamsMap[m.team2].played++;
+                    
+                    if (teamsMap[m.team1]) teamsMap[m.team1].gd += (s1 - s2);
+                    if (teamsMap[m.team2]) teamsMap[m.team2].gd += (s2 - s1);
+
+                    if (s1 > s2) {
+                        if (teamsMap[m.team1]) { teamsMap[m.team1].won++; teamsMap[m.team1].points += 3; }
+                        if (teamsMap[m.team2]) { teamsMap[m.team2].lost++; }
+                    } else if (s1 < s2) {
+                        if (teamsMap[m.team2]) { teamsMap[m.team2].won++; teamsMap[m.team2].points += 3; }
+                        if (teamsMap[m.team1]) { teamsMap[m.team1].lost++; }
+                    } else {
+                        if (teamsMap[m.team1]) { teamsMap[m.team1].drawn++; teamsMap[m.team1].points += 1; }
+                        if (teamsMap[m.team2]) { teamsMap[m.team2].drawn++; teamsMap[m.team2].points += 1; }
+                    }
+                }
+            });
+
+            // 3. Sort
+            const rankedTeams = Object.values(teamsMap).sort((a, b) => {
+                if (b.points !== a.points) return b.points - a.points;
+                if (b.gd !== a.gd) return b.gd - a.gd;
+                return 0;
+            });
+
+            // Update tournament.teams stats
+            rankedTeams.forEach(rt => {
+                const team = tournament.teams.find(t => t.name === rt.name);
+                if (team) {
+                    team.stats = {
+                        p: rt.played,
+                        w: rt.won,
+                        d: rt.drawn,
+                        l: rt.lost,
+                        gd: rt.gd,
+                        pts: rt.points
+                    };
+                }
+            });
+
+            groupStandings.push({ groupName: group.group, teams: rankedTeams });
+        });
+
+        return groupStandings;
     }
 
     async getTournamentById(id) {
@@ -311,40 +699,133 @@ class FootballService {
             data.status = 'upcoming';
         }
 
-        const numTeams = parseInt(data.teamsCount) || 0;
-        let teamList = [];
-        for(let i = 1; i <= numTeams; i++) {
-            teamList.push({ 
-                id: `t${i}`, 
-                name: `Đội ${i}`, 
-                logo: 'default.png',
-                members: [],
-                stats: { p: 0, w: 0, d: 0, l: 0, gd: 0, pts: 0 }
-            });
-        }
-        data.teams = teamList;
-
-        let autoBracket = null, autoFixtures = null;
-        if (data.mode === "Knockout") {
-            const teamNames = teamList.map(t => t.name);
-            const knockoutData = this.generateKnockoutStructure(teamNames);
-            autoBracket = knockoutData.bracketData;
-            autoFixtures = knockoutData.fixtures;
-
-        } else if (data.mode === "Group Stage") {
-            autoFixtures = this.generateFixtures(numTeams);
-            // Don't generate bracket immediately for Group Stage
-            // It will be generated later via generateKnockoutStage
-            autoBracket = null;
-        }
-        
-        data.bracketData = autoBracket;
-        data.fixtures = autoFixtures || [];
+        // Initialize empty teams and structures
+        data.teams = [];
+        data.fixtures = [];
+        data.bracketData = null;
+        data.standings = [];
 
         return await FootballRepository.create(data);
     }
 
+    async startTournament(id) {
+        const tournament = await FootballRepository.findById(id);
+        if (!tournament) throw new Error('Tournament not found');
+
+        if (tournament.teams.length === 0) {
+             throw new Error('Cannot start tournament with 0 teams.');
+        }
+
+        // Optional: Enforce team count match
+        // if (tournament.teams.length !== tournament.teamsCount) {
+        //    throw new Error(`Tournament requires ${tournament.teamsCount} teams, but has ${tournament.teams.length}.`);
+        // }
+
+        const teamNames = tournament.teams.map(t => t.name);
+        let autoBracket = null, autoFixtures = null;
+
+        if (tournament.mode === "Knockout") {
+            const knockoutData = this.generateKnockoutStructure(teamNames);
+            autoBracket = knockoutData.bracketData;
+            autoFixtures = knockoutData.fixtures;
+        } else if (tournament.mode === "Group Stage") {
+            autoFixtures = this.generateFixturesForRealTeams(teamNames, tournament.teamsCount);
+             // Don't generate bracket immediately for Group Stage
+            autoBracket = null;
+        }
+
+        tournament.bracketData = autoBracket;
+        tournament.fixtures = autoFixtures || [];
+        
+        // Initial Standings Calculation
+        const tempTournament = { fixtures: tournament.fixtures, teams: tournament.teams };
+        tournament.standings = this.calculateStandings(tempTournament);
+        
+        tournament.status = 'ongoing';
+        return await tournament.save();
+    }
+
+    generateFixturesForRealTeams(teamNames, expectedCount) {
+        const fixtures = [];
+        const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+        const numTeams = teamNames.length;
+        
+        // Determine number of groups
+        let numGroups = Math.ceil(expectedCount / 4); 
+        if (expectedCount === 16 || expectedCount === 32) {
+            numGroups = 4;
+        }
+        
+        // If we have fewer teams than expected, we might need to adjust or just distribute them
+        // For simplicity, let's distribute available teams into groups
+        
+        const teamsPerGroup = Math.ceil(numTeams / numGroups);
+        let teamIndex = 0;
+
+        if (numTeams < 4) {
+             // Single group
+             const rounds = this.getRoundRobinSchedule(teamNames);
+             let allMatches = [];
+             rounds.forEach((roundMatches, roundIndex) => {
+                roundMatches.forEach((match, matchIndex) => {
+                    allMatches.push({
+                        id: generateUniqueId(`m_${Date.now()}_A_r${roundIndex}_${matchIndex}_`),
+                        team1: match.t1, team2: match.t2, score1: null, score2: null,
+                        scorers1: "", scorers2: "", lineup1: [], lineup2: [], events: [],
+                        time: '20:00', date: `Lượt ${roundIndex + 1}`
+                    });
+                });
+            });
+            fixtures.push({ group: 'Bảng A', matches: allMatches });
+            return fixtures;
+        }
+
+        for (let i = 0; i < numGroups; i++) {
+            const groupName = `Bảng ${groups[i]}`;
+            let groupTeamNames = [];
+            
+            // Distribute teams
+            // This is a simple distribution; for 16 teams / 4 groups = 4 teams per group
+            // If teams are missing, some groups might have fewer
+            for(let k=0; k < 4; k++) { // Assuming max 4 per group roughly
+                 if (teamIndex < numTeams) {
+                     groupTeamNames.push(teamNames[teamIndex++]);
+                 }
+            }
+
+            if (groupTeamNames.length < 2) continue; // Skip if less than 2 teams in group
+
+            const rounds = this.getRoundRobinSchedule(groupTeamNames);
+            let allMatches = [];
+            rounds.forEach((roundMatches, roundIndex) => {
+                roundMatches.forEach((match, matchIndex) => {
+                    allMatches.push({
+                        id: generateUniqueId(`m_${i}_r${roundIndex}_${matchIndex}_`),
+                        team1: match.t1, team2: match.t2, score1: null, score2: null,
+                        scorers1: "", scorers2: "", lineup1: [], lineup2: [], events: [],
+                        time: '20:00', date: `Lượt ${roundIndex + 1}`
+                    });
+                });
+            });
+            fixtures.push({ group: groupName, matches: allMatches });
+        }
+        return fixtures;
+    }
+
     async updateTournament(id, data) {
+        const tournament = await FootballRepository.findById(id);
+        if (!tournament) throw new Error('Tournament not found');
+
+        // Check Structure Integrity
+        if (tournament.status === 'ongoing' || tournament.status === 'completed') {
+            if (data.teamsCount !== undefined && data.teamsCount != tournament.teamsCount) {
+                 throw new Error('Không thể thay đổi số lượng đội khi giải đang diễn ra hoặc đã kết thúc.');
+            }
+            if (data.mode !== undefined && data.mode !== tournament.mode) {
+                 throw new Error('Không thể thay đổi thể thức thi đấu khi giải đang diễn ra hoặc đã kết thúc.');
+            }
+        }
+
         return await FootballRepository.update(id, data);
     }
 
@@ -359,19 +840,7 @@ class FootballService {
         const groups = tournament.fixtures.filter(g => !g.group.includes('Knockout') && !g.group.includes('Vòng Chung Kết'));
         const groupStandings = [];
 
-        // 1. Check if all group matches are completed
-        let allMatchesCompleted = true;
-        groups.forEach(group => {
-            group.matches.forEach(m => {
-                if (m.score1 === null || m.score2 === null || m.score1 === undefined || m.score2 === undefined) {
-                    allMatchesCompleted = false;
-                }
-            });
-        });
-
-        if (!allMatchesCompleted) {
-            throw new Error('Vui lòng cập nhật đầy đủ tỉ số vòng bảng trước khi tạo vòng knockout.');
-        }
+        // 1. Standings will be computed from available results without requiring all matches to be completed
 
         // 2. Calculate Standings
         groups.forEach(group => {

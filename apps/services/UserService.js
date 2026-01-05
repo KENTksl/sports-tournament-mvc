@@ -21,6 +21,11 @@ class UserService {
             return { success: false, message: "Email already exists" };
         }
 
+        const existingUsername = await UserRepository.findByUsername(userData.username);
+        if (existingUsername) {
+            return { success: false, message: "Username already exists" };
+        }
+
         const hashedPassword = await bcrypt.hash(userData.password, saltRounds);
         userData.password = hashedPassword;
         

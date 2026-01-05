@@ -19,6 +19,7 @@ class MainController {
         this.router.use("/admin", require(__dirname + "/admin/admincontroller"));
         this.router.use("/authenticate", require(__dirname + "/api/authenticatecontroller"));
         this.router.use("/football", require(__dirname + "/footballcontroller"));
+        this.router.use("/register-team", require(__dirname + "/teamregistrationcontroller"));
 
         // Default Route
         this.router.get("/", this.index.bind(this));

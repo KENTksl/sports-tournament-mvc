@@ -2,8 +2,9 @@ const TournamentRepository = require('../repositories/TournamentRepository');
 
 class TournamentService {
     // --- Main Service Methods ---
-    async getAllTournaments(filter = {}) {
-        return await TournamentRepository.findAll(filter);
+    async getAllTournaments(filter = {}, page = null, limit = null) {
+        // Pass null for sort to use default in repository
+        return await TournamentRepository.findAll(filter, { createdAt: -1 }, page, limit);
     }
 
     async getTournamentById(id) {

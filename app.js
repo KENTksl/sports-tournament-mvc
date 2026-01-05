@@ -32,3 +32,20 @@ app.use("/static", express.static(__dirname + "/public"));
 var server = app.listen(3000, function(){
    console.log("server is running");
 });
+
+// Realtime: attach Socket.IO server and rooms
+const { Server } = require('socket.io');
+const io = new Server(server, {
+  cors: { origin: '*', methods: ['GET','POST'] }
+});
+
+app.set('io', io);
+
+io.on('connection', (socket) => {
+  socket.on('join_tournament', (tid) => {
+    if (tid) socket.join('tournament:' + String(tid));
+  });
+  socket.on('join_match', (mid) => {
+    if (mid) socket.join('match:' + String(mid));
+  });
+});

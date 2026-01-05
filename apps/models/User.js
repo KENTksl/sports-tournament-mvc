@@ -9,7 +9,9 @@ const UserSchema = new Schema({
     phone: { type: String, default: "" },
     address: { type: String, default: "" },
     dob: { type: String, default: "" },
+    citizenId: { type: String, default: "" },
     gender: { type: String, default: "" },
+    avatar: { type: String, default: "" },
     createdAt: { type: Date, default: Date.now }
 });
 

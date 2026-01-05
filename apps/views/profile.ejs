@@ -22,70 +22,182 @@
     <link href="static/css/style.css" rel="stylesheet">
     
     <style>
-        .profile-header {
-            background-color: #EDF1FF;
-            padding: 30px 0;
+        /* Modern Profile Styles */
+        .profile-header-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            overflow: hidden;
             text-align: center;
+            color: white;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
+        
+        .profile-img-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 20px;
+        }
+        
         .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border: 5px solid #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 50%;
+            border: 5px solid rgba(255,255,255,0.8);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background-color: #fff;
+        }
+        
+        .avatar-edit-btn {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 45px;
+            height: 45px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #764ba2;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .avatar-edit-btn:hover {
+            transform: scale(1.1);
+            color: #5a32a3;
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .profile-email {
+            font-size: 0.9rem;
+            opacity: 0.8;
             margin-bottom: 20px;
         }
-        .profile-nav {
+
+        .profile-nav-card {
             background: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .profile-nav a {
-            color: #333;
-            padding: 15px 20px;
-            display: block;
-            border-bottom: 1px solid #eee;
-        }
-        .profile-nav a:hover, .profile-nav a.active {
-            background: #D19C97;
-            color: #fff;
-            text-decoration: none;
-        }
-        /* View/Edit Mode Styles */
-        .view-mode .form-control {
-            background-color: #f8f9fa;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
             border: none;
-            box-shadow: none;
-            pointer-events: none; /* Disable interaction in view mode */
         }
-        .view-mode input[type="radio"] {
-            pointer-events: none;
+
+        .profile-nav .nav-link {
+            padding: 15px 25px;
+            color: #555;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+            font-weight: 500;
         }
-        #edit-buttons {
-            display: none;
+
+        .profile-nav .nav-link:hover {
+            background: #f8f9fa;
+            color: #764ba2;
+            padding-left: 30px;
         }
-        #update-btn-container {
-            display: block;
+
+        .profile-nav .nav-link.active {
+            background: #f8f9fa;
+            color: #764ba2;
+            border-left-color: #764ba2;
+            font-weight: 600;
         }
-        .edit-mode #edit-buttons {
-            display: block;
+        
+        .profile-nav .nav-link i {
+            width: 25px;
+            text-align: center;
+            margin-right: 10px;
         }
-        .edit-mode #update-btn-container {
-            display: none;
+
+        /* Content Card Styles */
+        .content-card {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: none;
+            overflow: hidden;
+            height: 100%;
         }
-        .edit-mode .form-control {
+
+        .card-header-custom {
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title-custom {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #333;
+            margin: 0;
+        }
+
+        /* Form Styles */
+        .form-control-custom {
+            border-radius: 8px;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            background-color: #f9f9f9;
+        }
+        
+        .form-control-custom:focus {
             background-color: #fff;
-            border: 1px solid #ced4da;
-            pointer-events: auto;
+            box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.1);
+            border-color: #764ba2;
         }
-        .edit-mode input[type="radio"] {
-            pointer-events: auto;
+
+        .view-mode .form-control-custom {
+            background-color: transparent;
+            border: 1px solid transparent;
+            padding-left: 0;
+            font-weight: 500;
+            color: #333;
         }
-        #avatar-upload-container {
-            display: none;
+
+        .edit-mode .form-control-custom {
+            background-color: #fff;
         }
-        .edit-mode #avatar-upload-container {
-            display: block;
+
+        .btn-custom {
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary-custom {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+        }
+        
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(118, 75, 162, 0.3);
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 991px) {
+            .profile-header-card {
+                margin-bottom: 30px;
+            }
         }
     </style>
 </head>
@@ -121,94 +233,353 @@
     <div class="container-fluid pt-5">
         <div class="row px-xl-5">
             <div class="col-lg-4 mb-5">
-                <div class="profile-header mb-4 rounded">
-                    <img src="static/img/user.jpg" alt="Profile Image" class="profile-img" id="display-avatar">
-                    <h3 class="mb-0" id="display-name">Loading...</h3>
-                    <p class="text-muted" id="display-email">...</p>
-                    
-                    <div id="avatar-upload-container" class="mt-3">
-                        <input type="file" id="avatar-input" class="form-control-file" accept="image/*" style="display: none;">
-                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="document.getElementById('avatar-input').click()">
-                            <i class="fa fa-camera"></i> Đổi Avatar
-                        </button>
-                        <small id="file-name" class="d-block mt-2 text-muted"></small>
+                <div class="profile-header-card">
+                    <div class="profile-img-container">
+                        <img src="/static/admin/img/user.jpg" alt="Profile Image" class="profile-img" id="display-avatar">
+                        <label for="avatar-input" class="avatar-edit-btn" title="Đổi ảnh đại diện">
+                            <i class="fa fa-camera"></i>
+                        </label>
                     </div>
+                    <input type="file" id="avatar-input" accept="image/*" style="display: none;">
+                    
+                    <h3 class="profile-name" id="display-name">Loading...</h3>
+                    <p class="profile-email" id="display-email">...</p>
+                    
+                    <button class="btn btn-light btn-sm px-4" id="btn-enable-edit-sidebar" onclick="$('#btn-enable-edit').click()">
+                        <i class="fa fa-edit mr-2"></i>Chỉnh Sửa Hồ Sơ
+                    </button>
                 </div>
                 
-                <div class="profile-nav rounded">
-                    <a href="#" class="active"><i class="fa fa-user mr-2"></i> Thông Tin Cá Nhân</a>
-                    <a href="#" id="sidebar-logout"><i class="fa fa-sign-out-alt mr-2"></i> Đăng Xuất</a>
+                <div class="profile-nav-card">
+                    <div class="nav flex-column profile-nav nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="true"><i class="fa fa-user"></i> Thông Tin Cá Nhân</a>
+                        <a class="nav-link" id="v-pills-myteam-tab" data-toggle="pill" href="#v-pills-myteam" role="tab" aria-controls="v-pills-myteam" aria-selected="false"><i class="fa fa-users"></i> Thông Tin Đội</a>
+
+                        <a class="nav-link" id="v-pills-history-tab" data-toggle="pill" href="#v-pills-history" role="tab" aria-controls="v-pills-history" aria-selected="false"><i class="fa fa-history"></i> Lịch Sử Đăng Ký</a>
+                        <a class="nav-link text-danger" href="#" id="sidebar-logout"><i class="fa fa-sign-out-alt"></i> Đăng Xuất</a>
+                    </div>
                 </div>
             </div>
             
             <div class="col-lg-8 mb-5">
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header bg-white border-bottom p-4">
-                        <h4 class="card-title mb-0">Thông Tin Tài Khoản</h4>
+                <div class="tab-content h-100" id="v-pills-tabContent">
+                    <!-- Tab 1: Profile Info -->
+                    <div class="tab-pane fade show active h-100" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                        <div class="content-card">
+                            <div class="card-header-custom">
+                                <h4 class="card-title-custom">Thông Tin Tài Khoản</h4>
+                            </div>
+                            <div class="card-body p-4 view-mode" id="profile-container">
+                                <form id="profile-form">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-3">
+                                                <label class="small font-weight-bold text-muted mb-1">Họ và Tên</label>
+                                                <input type="text" class="form-control form-control-custom" id="username" name="username" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-3">
+                                                <label class="small font-weight-bold text-muted mb-1">Email</label>
+                                                <input type="email" class="form-control form-control-custom" id="email" name="email" readonly>
+                                                <small class="form-text text-muted mt-1" style="font-size: 0.75rem;"><i class="fa fa-lock mr-1"></i>Email không thể thay đổi.</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-3">
+                                                <label class="small font-weight-bold text-muted mb-1">Số Điện Thoại</label>
+                                                <input type="tel" class="form-control form-control-custom" id="phone" name="phone">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-3">
+                                                <label class="small font-weight-bold text-muted mb-1">Ngày Sinh</label>
+                                                <input type="date" class="form-control form-control-custom" id="dob" name="dob">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <label class="small font-weight-bold text-muted mb-1">Địa Chỉ</label>
+                                        <input type="text" class="form-control form-control-custom" id="address" name="address">
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label class="small font-weight-bold text-muted mb-1 d-block">Giới Tính</label>
+                                        <div class="d-flex align-items-center mt-2">
+                                            <div class="custom-control custom-radio mr-4">
+                                                <input type="radio" id="gender-male" name="gender" value="male" class="custom-control-input">
+                                                <label class="custom-control-label" for="gender-male">Nam</label>
+                                            </div>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="gender-female" name="gender" value="female" class="custom-control-input">
+                                                <label class="custom-control-label" for="gender-female">Nữ</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="border-top pt-4 mt-2">
+                                        <div id="update-btn-container" class="text-center">
+                                            <button type="button" class="btn btn-secondary px-5 py-2" id="btn-enable-edit">
+                                                <i class="fa fa-edit mr-2"></i>Cập Nhật Thông Tin
+                                            </button>
+                                        </div>
+                                        <div id="edit-buttons" class="text-center" style="display: none;">
+                                            <button type="button" class="btn btn-outline-secondary px-4 mr-3" id="btn-cancel-edit">Hủy</button>
+                                            <button type="submit" class="btn btn-secondary px-5 py-2">
+                                                <i class="fa fa-save mr-2"></i>Lưu Thay Đổi
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Team Analysis Charts MOVED to My Team Tab -->
                     </div>
-                    <div class="card-body p-4 view-mode" id="profile-container">
-                        <form id="profile-form">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label font-weight-bold">Họ và Tên</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="username" name="username" required>
-                                </div>
+
+                    <!-- Tab 2: My Team Info -->
+                    <div class="tab-pane fade h-100" id="v-pills-myteam" role="tabpanel" aria-labelledby="v-pills-myteam-tab">
+                        <div class="content-card">
+                            <div class="card-header-custom p-0">
+                                <ul class="nav nav-tabs card-header-tabs m-0 w-100 border-bottom-0 px-3 pt-3" id="myTeamSubTabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="sub-info-tab" data-toggle="tab" href="#sub-info" role="tab" aria-controls="sub-info" aria-selected="true"><i class="fa fa-info-circle mr-2"></i>Thông Tin</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="sub-fixtures-tab" data-toggle="tab" href="#sub-fixtures" role="tab" aria-controls="sub-fixtures" aria-selected="false"><i class="fa fa-calendar-alt mr-2"></i>Lịch Đấu</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="sub-results-tab" data-toggle="tab" href="#sub-results" role="tab" aria-controls="sub-results" aria-selected="false"><i class="fa fa-trophy mr-2"></i>Kết Quả</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="sub-stats-tab" data-toggle="tab" href="#sub-stats" role="tab" aria-controls="sub-stats" aria-selected="false"><i class="fa fa-chart-bar mr-2"></i>Phân Tích</a>
+                                    </li>
+                                </ul>
                             </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label font-weight-bold">Email</label>
-                                <div class="col-sm-9">
-                                    <input type="email" class="form-control" id="email" name="email" readonly>
-                                    <small class="form-text text-muted">Email không thể thay đổi.</small>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label font-weight-bold">Số Điện Thoại</label>
-                                <div class="col-sm-9">
-                                    <input type="tel" class="form-control" id="phone" name="phone">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label font-weight-bold">Địa Chỉ</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="address" name="address">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label font-weight-bold">Ngày Sinh</label>
-                                <div class="col-sm-9">
-                                    <input type="date" class="form-control" id="dob" name="dob">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label font-weight-bold">Giới Tính</label>
-                                <div class="col-sm-9 d-flex align-items-center">
-                                    <div class="custom-control custom-radio mr-4">
-                                        <input type="radio" id="gender-male" name="gender" value="male" class="custom-control-input">
-                                        <label class="custom-control-label" for="gender-male">Nam</label>
+                            <div class="card-body p-0">
+                                <div class="tab-content" id="myTeamSubTabsContent">
+                                    <!-- Sub-Tab 1: Info (Form) -->
+                                    <div class="tab-pane fade show active" id="sub-info" role="tabpanel" aria-labelledby="sub-info-tab">
+                                        <div class="p-4">
+                                            <h4 class="card-title mb-3">Thông Tin Đội Của Tôi</h4>
+                                            <small class="text-muted d-block mb-4">Lưu thông tin đội để đăng ký giải đấu nhanh chóng hơn.</small>
+                                            
+                                            <form id="my-team-form" enctype="multipart/form-data">
+                                                <div id="team-info-all">
+                                                    <div id="section-team-info">
+                                                    <h5 class="mb-3 text-primary border-left border-primary pl-2">Thông Tin Chung</h5>
+                                                    <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Tên Đội <span class="text-danger">*</span></label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control" name="teamName" id="teamName" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Logo Đội</label>
+                                                    <div class="col-sm-9">
+                                                        <div class="d-flex align-items-center">
+                                                            <img src="" id="team-logo-preview" class="img-thumbnail mr-3" style="width: 80px; height: 80px; object-fit: cover; display: none;">
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input" id="teamLogo" name="logo" accept="image/*">
+                                                                <label class="custom-file-label" for="teamLogo">Chọn ảnh...</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Người Đại Diện</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control" name="representative" id="teamRepresentative">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Số Điện Thoại</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="tel" class="form-control" name="phone" id="teamPhone">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Email Liên Hệ</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="email" class="form-control" name="email" id="teamEmail">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Giới Thiệu</label>
+                                                    <div class="col-sm-9">
+                                                        <textarea class="form-control" name="description" id="teamDescription" rows="3"></textarea>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                    <div id="section-team-members">
+                                                    <h5 class="mb-3 mt-1 text-primary border-left border-primary pl-2 d-flex justify-content-between align-items-center">
+                                                        Danh Sách Thành Viên
+                                                        <button type="button" class="btn btn-sm btn-outline-primary" id="btn-add-member">
+                                                            <i class="fa fa-plus"></i> Thêm Thành Viên
+                                                        </button>
+                                                    </h5>
+                                                    <div id="members-container">
+                                                        <!-- Members will be added here dynamically -->
+                                                        <div class="text-center text-muted py-3" id="no-members-msg">Chưa có thành viên nào.</div>
+                                                    </div>
+                                                    <div class="mt-4 pt-3 border-top text-right">
+                                                        <button type="submit" class="btn btn-primary px-4" id="btn-save-team">
+                                                            <i class="fa fa-save mr-2"></i> Lưu Thông Tin Đội
+                                                        </button>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                </form>
+                                        </div>
                                     </div>
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="gender-female" name="gender" value="female" class="custom-control-input">
-                                        <label class="custom-control-label" for="gender-female">Nữ</label>
+
+                                    <!-- Sub-Tab 2: Fixtures -->
+                                    <div class="tab-pane fade" id="sub-fixtures" role="tabpanel" aria-labelledby="sub-fixtures-tab">
+                                        <div class="p-4" id="my-team-fixtures-card">
+                                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                                <div class="d-flex align-items-center gap-3">
+                                                    <h4 class="card-title mb-0">Lịch Thi Đấu Của Đội Tôi</h4>
+                                                    <span class="badge bg-info ms-3" id="next-match-countdown" style="display:none"></span>
+                                                </div>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <select class="form-control form-control-sm" id="fixtures-tournament-filter" style="max-width: 200px;">
+                                                        <option value="">Tất cả giải đấu</option>
+                                                    </select>
+                                                    <span class="text-muted small" id="my-team-name-label"></span>
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-export-ics">Xuất lịch .ics</button>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="table-responsive">
+                                                <table class="table table-hover mb-0">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th>Ngày</th>
+                                                            <th>Giờ</th>
+                                                            <th>Giải</th>
+                                                            <th>Đối thủ</th>
+                                                            <th>Vòng</th>
+                                                            <th>Trạng thái</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="my-team-fixtures-body">
+                                                        <tr><td colspan="6" class="text-center text-muted">Đang tải dữ liệu...</td></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Sub-Tab 3: Results -->
+                                    <div class="tab-pane fade" id="sub-results" role="tabpanel" aria-labelledby="sub-results-tab">
+                                        <div class="p-0" id="my-team-results-card">
+                                            <div class="d-flex justify-content-between align-items-center p-4 pb-0">
+                                                <h4 class="card-title mb-0">Kết Quả Thi Đấu</h4>
+                                                <select class="form-control form-control-sm" id="results-tournament-filter" style="max-width: 200px;">
+                                                    <option value="">Tất cả giải đấu</option>
+                                                </select>
+                                            </div>
+                                            <ul class="nav nav-tabs border-bottom-0 px-4 mt-3" id="resultsTabs" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" id="recent-results-tab" data-toggle="tab" href="#recent-results" role="tab" aria-controls="recent-results" aria-selected="true">Kết quả gần đây</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="season-results-tab" data-toggle="tab" href="#season-results" role="tab" aria-controls="season-results" aria-selected="false">Kết quả mùa giải</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content p-4 border-top" id="resultsTabsContent">
+                                                <!-- Recent Results Tab -->
+                                                <div class="tab-pane fade show active" id="recent-results" role="tabpanel" aria-labelledby="recent-results-tab">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover mb-0">
+                                                            <thead class="thead-light">
+                                                                <tr>
+                                                                    <th>Ngày</th>
+                                                                    <th>Giải</th>
+                                                                    <th>Đối thủ</th>
+                                                                    <th>Tỷ số</th>
+                                                                    <th>Vòng</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="my-team-results-body">
+                                                                <tr><td colspan="5" class="text-center text-muted">Đang tải dữ liệu...</td></tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Season Results Tab -->
+                                                <div class="tab-pane fade" id="season-results" role="tabpanel" aria-labelledby="season-results-tab">
+                                                    <div id="season-results-container" class="row">
+                                                        <!-- Season results will be injected here -->
+                                                        <div class="col-12 text-center text-muted py-5">Đang tải dữ liệu...</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Sub-Tab 4: Stats -->
+                                    <div class="tab-pane fade" id="sub-stats" role="tabpanel" aria-labelledby="sub-stats-tab">
+                                        <div class="p-0">
+                                            <div class="bg-info text-white d-flex justify-content-between align-items-center p-4 rounded-top">
+                                                <h4 class="card-title mb-0 text-white"><i class="fa fa-chart-bar mr-2"></i> Phân Tích Đội Bóng</h4>
+                                                <div id="stats-tournament-selector-group" style="display: none;">
+                                                    <select class="form-control form-control-sm" id="stats-tournament-select" style="min-width: 200px;"></select>
+                                                </div>
+                                            </div>
+                                            <div class="p-4">
+                                                <div class="row">
+                                                    <div class="col-lg-6 mb-4">
+                                                        <h6 class="text-center mb-3">Tỷ Lệ Kết Quả</h6>
+                                                        <div style="height: 300px; position: relative;">
+                                                            <canvas id="resultsChart"></canvas>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 mb-4">
+                                                        <h6 class="text-center mb-3">Hiệu Suất Ghi Bàn Qua Các Trận</h6>
+                                                        <div style="height: 300px; position: relative;">
+                                                            <canvas id="goalsChart"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div class="form-group row mt-4">
-                                <div class="col-sm-9 offset-sm-3">
-                                    <div id="update-btn-container">
-                                        <button type="button" class="btn btn-primary px-4" id="btn-enable-edit">Cập Nhật Thông Tin</button>
-                                    </div>
-                                    <div id="edit-buttons">
-                                        <button type="submit" class="btn btn-primary px-4 mr-2">Lưu Thay Đổi</button>
-                                        <button type="button" class="btn btn-secondary px-4" id="btn-cancel-edit">Hủy</button>
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 6: Registration History -->
+                    <div class="tab-pane fade" id="v-pills-history" role="tabpanel" aria-labelledby="v-pills-history-tab">
+                        <div class="bg-light p-4 rounded shadow-sm">
+                            <h4 class="mb-4 text-uppercase text-primary border-bottom pb-2">Lịch Sử Đăng Ký Đội</h4>
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Ngày Đăng Ký</th>
+                                            <th>Giải Đấu</th>
+                                            <th>Tên Đội</th>
+                                            <th>Trạng Thái</th>
+                                            <th>Ghi Chú</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="registration-history-body">
+                                        <tr><td colspan="5" class="text-center text-muted">Đang tải dữ liệu...</td></tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        </form>
+                            <div id="registration-pagination" class="mt-3 d-flex justify-content-center"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
     <!-- Profile End -->
 
@@ -224,6 +595,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="static/lib/easing/easing.min.js"></script>
     <script src="static/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="/static/admin/lib/chart/chart.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
 
     <!-- Contact Javascript File -->
     <script src="static/mail/jqBootstrapValidation.min.js"></script>
@@ -233,6 +606,85 @@
     <script src="static/js/main.js"></script>
 
     <script>
+        var resultsChartInstance = null;
+        var goalsChartInstance = null;
+        
+        // Global variables for pagination
+        var allRegistrations = [];
+        var historyPageSize = 5;
+
+        // Render Registration History Pagination
+        window.renderRegistrationPage = function(page) {
+            if (!allRegistrations || allRegistrations.length === 0) {
+                 $('#registration-history-body').html('<tr><td colspan="5" class="text-center text-muted">Chưa có lịch sử đăng ký nào.</td></tr>');
+                 $('#registration-pagination').empty();
+                 return;
+            }
+
+            var totalPages = Math.ceil(allRegistrations.length / historyPageSize);
+            if (page < 1) page = 1;
+            if (page > totalPages) page = totalPages;
+            
+            var start = (page - 1) * historyPageSize;
+            var end = start + historyPageSize;
+            var pageData = allRegistrations.slice(start, end);
+            
+            var html = '';
+            pageData.forEach(function(reg) {
+                var statusBadge = '';
+                var note = '';
+                switch(reg.status) {
+                    case 'pending': 
+                        statusBadge = '<span class="badge badge-warning text-white">Đang chờ duyệt</span>'; 
+                        note = 'Hồ sơ đang được xem xét';
+                        break;
+                    case 'approved': 
+                        statusBadge = '<span class="badge badge-success">Đã duyệt</span>'; 
+                        note = 'Đội đã được thêm vào giải đấu';
+                        break;
+                    case 'rejected': 
+                        statusBadge = '<span class="badge badge-danger">Từ chối</span>'; 
+                        note = 'Hồ sơ không hợp lệ hoặc giải đã đủ đội';
+                        break;
+                    default: 
+                        statusBadge = '<span class="badge badge-secondary">' + reg.status + '</span>';
+                        note = '';
+                }
+                
+                var date = new Date(reg.submittedAt).toLocaleDateString('vi-VN');
+                var tournamentName = reg.tournamentId ? reg.tournamentId.name : 'Không xác định';
+                
+                html += '<tr>' +
+                    '<td>' + date + '</td>' +
+                    '<td>' + tournamentName + '</td>' +
+                    '<td>' + reg.teamName + '</td>' +
+                    '<td>' + statusBadge + '</td>' +
+                    '<td>' + (reg.note || note) + '</td>' +
+                    '</tr>';
+            });
+            $('#registration-history-body').html(html);
+            
+            // Render Pagination
+            if (totalPages > 1) {
+                var pagHtml = '<nav><ul class="pagination pagination-sm mb-0">';
+                
+                // Prev
+                pagHtml += '<li class="page-item '+(page===1?'disabled':'')+'"><a class="page-link" href="#" onclick="window.renderRegistrationPage('+(page-1)+'); return false;">Trước</a></li>';
+                
+                // Pages
+                for(var i=1; i<=totalPages; i++) {
+                    pagHtml += '<li class="page-item '+(page===i?'active':'')+'"><a class="page-link" href="#" onclick="window.renderRegistrationPage('+i+'); return false;">'+i+'</a></li>';
+                }
+                
+                // Next
+                pagHtml += '<li class="page-item '+(page===totalPages?'disabled':'')+'"><a class="page-link" href="#" onclick="window.renderRegistrationPage('+(page+1)+'); return false;">Sau</a></li>';
+                pagHtml += '</ul></nav>';
+                $('#registration-pagination').html(pagHtml);
+            } else {
+                $('#registration-pagination').empty();
+            }
+        };
+
         $(document).ready(function() {
             var token = localStorage.getItem('token');
             if (!token) {
@@ -243,120 +695,492 @@
             var originalData = {};
 
             // Helper function to switch modes
-            function setEditMode(enable) {
-                if (enable) {
-                    $('#profile-container').removeClass('view-mode').addClass('edit-mode');
-                    $('#avatar-upload-container').show();
-                } else {
-                    $('#profile-container').removeClass('edit-mode').addClass('view-mode');
-                    $('#avatar-upload-container').hide();
-                }
-            }
-
-            // Check if user is logged in
-            if (!token) {
-                alert('Vui lòng đăng nhập để xem hồ sơ cá nhân.');
-                window.location.href = '/login';
-                return;
-            }
+function setEditMode(enable) {
+    if (enable) {
+        $('#profile-container').removeClass('view-mode').addClass('edit-mode');
+        $('#avatar-upload-container').show();
+        $('#update-btn-container').hide();
+        $('#edit-buttons').fadeIn();
+    } else {
+        $('#profile-container').removeClass('edit-mode').addClass('view-mode');
+        $('#avatar-upload-container').hide();
+        $('#edit-buttons').hide();
+        $('#update-btn-container').fadeIn();
+    }
+}
 
             // Load Profile Data
-            $.ajax({
-                url: '/profile/data',
-                method: 'GET',
-                headers: { 'Authorization': 'Bearer ' + token },
-                success: function(response) {
-                    if (response.success) {
-                        var user = response.data;
-                        originalData = user; // Save for cancel
-                        
-                        $('#username').val(user.username);
-                        $('#display-name').text(user.username);
-                        
-                        $('#email').val(user.email);
-                        $('#display-email').text(user.email);
-                        
-                        $('#phone').val(user.phone || '');
-                        $('#address').val(user.address || '');
-                        $('#dob').val(user.dob || '');
-                        
-                        if (user.gender) {
-                            $('input[name="gender"][value="' + user.gender + '"]').prop('checked', true);
+            loadProfileData();
+
+            function loadProfileData() {
+                $.ajax({
+                    url: '/profile/data',
+                    method: 'GET',
+                    headers: { 'Authorization': 'Bearer ' + token },
+                    success: function(response) {
+                        console.log('Profile Data Response:', response);
+                        if (response.success) {
+                            var user = response.data;
+                            originalData = user; // Save for cancel
+                            
+                            // --- Populate Profile Info ---
+                            $('#username').val(user.username);
+                            $('#display-name').text(user.username);
+                            $('#email').val(user.email);
+                            $('#display-email').text(user.email);
+                            $('#phone').val(user.phone || '');
+                            $('#citizenId').val(user.citizenId || '');
+                            $('#address').val(user.address || '');
+                            $('#dob').val(user.dob || '');
+                            
+                            if (user.gender) {
+                                $('input[name="gender"][value="' + user.gender + '"]').prop('checked', true);
+                            }
+                            
+                            if (user.avatar) {
+                                $('#display-avatar').attr('src', user.avatar);
+                            } else {
+                                $('#display-avatar').attr('src', '/static/admin/img/user.jpg');
+                            }
+
+                            // --- Populate Registration History ---
+                            allRegistrations = response.registrations || [];
+                            window.renderRegistrationPage(1);
+
+                            // --- Populate My Team Info ---
+                            if (response.myTeam) {
+                                var team = response.myTeam;
+                                $('#teamName').val(team.teamName);
+                                $('#teamRepresentative').val(team.representative);
+                                $('#teamPhone').val(team.phone);
+                                $('#teamEmail').val(team.email);
+                                $('#teamDescription').val(team.description);
+                                
+                                if (team.logo && team.logo !== 'default.png') {
+                                    $('#team-logo-preview').attr('src', '/static/uploads/avatars/' + team.logo).show();
+                                }
+
+                                $('#members-container').empty();
+                                if (team.members && team.members.length > 0) {
+                                    team.members.forEach(function(member) {
+                                        addMemberRow(member);
+                                    });
+                                } else {
+                                    $('#no-members-msg').show();
+                                }
+                            }
+
+                            // --- Populate Team Stats Charts ---
+                            if (response.teamStats && response.teamStats.length > 0) {
+                                $('#sub-stats-tab').parent().show();
+                                var selector = $('#stats-tournament-select');
+                                selector.empty();
+                                
+                                if (response.teamStats.length > 1) {
+                                    $('#stats-tournament-selector-group').show();
+                                } else {
+                                    $('#stats-tournament-selector-group').hide();
+                                }
+
+                                response.teamStats.forEach(function(stat, index) {
+                                    selector.append(new Option(stat.tournamentName + ' (' + stat.teamName + ')', index));
+                                });
+
+                                // Handle change
+                                selector.off('change').on('change', function() {
+                                    var index = $(this).val();
+                                    renderTeamCharts(response.teamStats[index]);
+                                });
+
+                                // Initial render
+                                renderTeamCharts(response.teamStats[0]);
+                            } else {
+                                $('#sub-stats-tab').parent().hide();
+                            }
+                            
+                            window.renderRegistrationPage(1);
+
+                            // --- Populate My Team Info ---
+                            var myFixtures = [];
+                            var myResults = [];
+                            var myRegistrations = [];
+                            var uniqueTournaments = new Set();
+                            var myTeamNameLabel = '';
+                            function parseMatchDT(d,t){
+                                var year,month,day,hour,minute;
+                                if (d && /^\d{4}-\d{2}-\d{2}$/.test(d)) {
+                                    var parts = d.split('-'); year = parseInt(parts[0]); month = parseInt(parts[1])-1; day = parseInt(parts[2]);
+                                } else { var dd = new Date(); year = dd.getFullYear(); month = dd.getMonth(); day = dd.getDate(); }
+                                if (t) {
+                                    var m1 = t.match(/^(\d{1,2}):(\d{2})$/);
+                                    var m2 = t.match(/^(\d{1,2}):(\d{2})\\s*(AM|PM)$/i);
+                                    if (m2) { hour = parseInt(m2[1]); minute = parseInt(m2[2]); var ap = m2[3].toUpperCase(); if (ap==='PM' && hour<12) hour+=12; if (ap==='AM' && hour===12) hour=0; }
+                                    else if (m1) { hour = parseInt(m1[1]); minute = parseInt(m1[2]); }
+                                    else { hour = 0; minute = 0; }
+                                } else { hour = 0; minute = 0; }
+                                return new Date(year,month,day,hour,minute,0,0);
+                            }
+                            function collectMyTeamData(){
+                                myFixtures = []; myResults = []; myRegistrations = []; uniqueTournaments = new Set(); myTeamNameLabel = '';
+                                (response.registrations||[]).forEach(function(reg){
+                                    if (reg.status !== 'approved') return;
+                                    
+                                    myRegistrations.push(reg);
+                                    if (reg.tournamentId && reg.tournamentId.name) {
+                                        uniqueTournaments.add(reg.tournamentId.name);
+                                    }
+
+                                    if (!reg.tournamentId || !reg.tournamentId.fixtures) return;
+                                    var myTeam = (reg.teamName||'').trim();
+                                    if (!myTeamNameLabel) myTeamNameLabel = myTeam;
+                                    reg.tournamentId.fixtures.forEach(function(group){
+                                        (group.matches||[]).forEach(function(m){
+                                            var t1 = (m.team1||'').trim(); var t2=(m.team2||'').trim();
+                                            var isMine = (t1===myTeam)||(t2===myTeam);
+                                            if (!isMine) return;
+                                            var done = (m.score1!==null && m.score1!==undefined && m.score1!=='') && (m.score2!==null && m.score2!==undefined && m.score2!=='');
+                                            var dt = parseMatchDT(m.date, m.time);
+                                            var opponent = t1===myTeam ? t2 : t1;
+                                            if (done) {
+                                                myResults.push({
+                                                    date: m.date||'',
+                                                    tournament: reg.tournamentId.name||'',
+                                                    opponent: opponent,
+                                                    score: (parseInt(m.score1)||0)+' : '+(parseInt(m.score2)||0),
+                                                    group: group.group||''
+                                                });
+                                            } else {
+                                                myFixtures.push({
+                                                    date: m.date||'',
+                                                    time: m.time||'',
+                                                    tournament: reg.tournamentId.name||'',
+                                                    opponent: opponent,
+                                                    group: group.group||'',
+                                                    schedMs: dt.getTime()
+                                                });
+                                            }
+                                        });
+                                    });
+                                });
+                                myFixtures.sort(function(a,b){ return a.schedMs - b.schedMs; });
+                                myResults.sort(function(a,b){ return (b.date||'').localeCompare(a.date||''); });
+                                
+                                populateTournamentSelectors();
+                            }
+                            
+                            function populateTournamentSelectors() {
+                                var options = '<option value="">Tất cả giải đấu</option>';
+                                uniqueTournaments.forEach(function(t) {
+                                    options += '<option value="' + t + '">' + t + '</option>';
+                                });
+                                $('#fixtures-tournament-filter').html(options);
+                                $('#results-tournament-filter').html(options);
+                                
+                                $('#fixtures-tournament-filter').off('change').on('change', function() {
+                                    renderMyTeamFixtures($(this).val());
+                                });
+                                $('#results-tournament-filter').off('change').on('change', function() {
+                                    var val = $(this).val();
+                                    renderMyTeamResults(val);
+                                    renderSeasonResults(val);
+                                });
+                            }
+                            function renderMyTeamFixtures(filter){
+                                var list = myFixtures;
+                                if (filter) list = list.filter(function(x){ return x.tournament === filter; });
+                                
+                                if (list.length===0) {
+                                    $('#my-team-fixtures-card').show();
+                                    $('#my-team-name-label').text(myTeamNameLabel);
+                                    $('#my-team-fixtures-body').html('<tr><td colspan="6" class="text-center text-muted">Không có lịch sắp tới.</td></tr>');
+                                    return;
+                                }
+                                var now = Date.now();
+                                var html = '';
+                                list.forEach(function(f){
+                                    var status = 'Sắp đá';
+                                    var extra = '';
+                                    var dtMs = f.schedMs;
+                                    if (now >= dtMs) {
+                                        status = 'Đang thi đấu';
+                                        var elapsed = now - dtMs;
+                                        var mm = Math.floor(elapsed/60000);
+                                        var ss = Math.floor((elapsed%60000)/1000);
+                                        extra = ' <span class="text-muted live-time">('+String(mm).padStart(2,'0')+':'+String(ss).padStart(2,'0')+')</span>';
+                                    }
+                                    html += '<tr data-sched="'+dtMs+'">'+
+                                        '<td>'+ (f.date||'') +'</td>'+
+                                        '<td>'+ (f.time||'') +'</td>'+
+                                        '<td>'+ f.tournament +'</td>'+
+                                        '<td>'+ f.opponent +'</td>'+
+                                        '<td>'+ f.group +'</td>'+
+                                        '<td><span class="badge '+ (status==='Đang thi đấu'?'badge-primary':'badge-warning') +'">'+status+'</span>'+extra+'</td>'+
+                                    '</tr>';
+                                });
+                                $('#my-team-fixtures-card').show();
+                                $('#my-team-name-label').text(myTeamNameLabel);
+                                $('#my-team-fixtures-body').html(html);
+                            }
+                            function renderMyTeamResults(filter){
+                                var list = myResults;
+                                if (filter) list = list.filter(function(x){ return x.tournament === filter; });
+
+                                if (list.length===0) {
+                                    $('#my-team-results-card').show();
+                                    $('#my-team-results-body').html('<tr><td colspan="5" class="text-center text-muted">Chưa có kết quả.</td></tr>');
+                                    return;
+                                }
+                                var html = '';
+                                list.slice(0,10).forEach(function(r){
+                                    html += '<tr>'+
+                                        '<td>'+ (r.date||'') +'</td>'+
+                                        '<td>'+ r.tournament +'</td>'+
+                                        '<td>'+ r.opponent +'</td>'+
+                                        '<td><strong>'+ r.score +'</strong></td>'+
+                                        '<td>'+ r.group +'</td>'+
+                                    '</tr>';
+                                });
+                                $('#my-team-results-card').show();
+                                $('#my-team-results-body').html(html);
+                            }
+                            
+                            function calculateRank(tournament, myTeamName) {
+                                if (tournament.status !== 'completed') return { status: tournament.status };
+                                
+                                var finalMatch = null;
+                                var thirdMatch = null;
+                                
+                                (tournament.fixtures||[]).forEach(g => {
+                                    (g.matches||[]).forEach(m => {
+                                        var groupName = (g.group||'').toLowerCase();
+                                        if (groupName.includes('chung kết') || groupName.includes('final')) {
+                                            finalMatch = m;
+                                        }
+                                        if (groupName.includes('tranh giải ba') || groupName.includes('3rd')) {
+                                            thirdMatch = m;
+                                        }
+                                    });
+                                });
+                                
+                                if (finalMatch) {
+                                    if ((finalMatch.team1 === myTeamName || finalMatch.team2 === myTeamName) && finalMatch.score1) {
+                                        var s1 = parseInt(finalMatch.score1);
+                                        var s2 = parseInt(finalMatch.score2);
+                                        var winner = s1 > s2 ? finalMatch.team1 : (s2 > s1 ? finalMatch.team2 : null);
+                                        if (winner === myTeamName) return { rank: 1, medal: 'gold' };
+                                        else return { rank: 2, medal: 'silver' };
+                                    }
+                                }
+                                
+                                if (thirdMatch) {
+                                     if ((thirdMatch.team1 === myTeamName || thirdMatch.team2 === myTeamName) && thirdMatch.score1) {
+                                        var s1 = parseInt(thirdMatch.score1);
+                                        var s2 = parseInt(thirdMatch.score2);
+                                        var winner = s1 > s2 ? thirdMatch.team1 : (s2 > s1 ? thirdMatch.team2 : null);
+                                        if (winner === myTeamName) return { rank: 3, medal: 'bronze' };
+                                     }
+                                }
+                                
+                                if (tournament.standings && tournament.standings.length > 0) {
+                                    if (tournament.standings.length === 1) {
+                                        var teams = tournament.standings[0].teams;
+                                        teams.sort((a,b) => parseInt(b.points) - parseInt(a.points));
+                                        var idx = teams.findIndex(x => x.name === myTeamName);
+                                        if (idx !== -1) {
+                                            var r = idx + 1;
+                                            var medal = r === 1 ? 'gold' : (r === 2 ? 'silver' : (r === 3 ? 'bronze' : null));
+                                            return { rank: r, medal: medal };
+                                        }
+                                    }
+                                }
+                                return { rank: 'participated' };
+                            }
+
+                            function renderSeasonResults(filter) {
+                                var list = myRegistrations;
+                                if (filter) list = list.filter(function(r) { return r.tournamentId && r.tournamentId.name === filter; });
+                                
+                                var container = $('#season-results-container');
+                                if (list.length === 0) {
+                                    container.html('<div class="col-12 text-center text-muted py-5">Chưa có dữ liệu mùa giải.</div>');
+                                    return;
+                                }
+                                
+                                var html = '';
+                                list.forEach(function(reg) {
+                                    if (!reg.tournamentId) return;
+                                    var t = reg.tournamentId;
+                                    var myTeam = (reg.teamName||'').trim();
+                                    var res = calculateRank(t, myTeam);
+                                    
+                                    var statusLabel = '';
+                                    var resultDisplay = '';
+                                    
+                                    if (res.status === 'upcoming') statusLabel = '<span class="badge badge-warning">Sắp diễn ra</span>';
+                                    else if (res.status === 'ongoing') statusLabel = '<span class="badge badge-primary">Đang diễn ra</span>';
+                                    else statusLabel = '<span class="badge badge-secondary">Đã kết thúc</span>';
+                                    
+                                    if (res.medal) {
+                                        var color = res.medal === 'gold' ? '#FFD700' : (res.medal === 'silver' ? '#C0C0C0' : '#CD7F32');
+                                        var text = res.medal === 'gold' ? 'Vô Địch' : (res.medal === 'silver' ? 'Á Quân' : 'Hạng 3');
+                                        resultDisplay = '<div class="text-center mt-3">' +
+                                            '<i class="fa fa-medal fa-3x mb-2" style="color: '+color+';"></i>' +
+                                            '<h5 style="color: '+color+'; font-weight: bold;">'+text+'</h5>' +
+                                            '</div>';
+                                    } else if (res.rank && res.rank !== 'participated') {
+                                        resultDisplay = '<div class="text-center mt-3">' +
+                                            '<h1 class="display-4 font-weight-bold text-dark">'+res.rank+'</h1>' +
+                                            '<p class="text-muted">Hạng</p>' +
+                                            '</div>';
+                                    } else {
+                                        resultDisplay = '<div class="text-center mt-3"><p class="text-muted">Đã tham gia</p></div>';
+                                    }
+
+                                    html += '<div class="col-md-6 mb-4">' +
+                                        '<div class="card h-100 shadow-sm border">' +
+                                            '<div class="card-body text-center">' +
+                                                '<h5 class="card-title text-truncate" title="'+t.name+'">'+t.name+'</h5>' +
+                                                '<p class="card-text mb-2">'+statusLabel+'</p>' +
+                                                '<hr>' +
+                                                resultDisplay +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>';
+                                });
+                                container.html(html);
+                            }
+                            function updateLiveTimes(){
+                                var now = Date.now();
+                                $('#my-team-fixtures-body tr').each(function(){
+                                    var sched = parseInt($(this).attr('data-sched')||'0');
+                                    var badge = $(this).find('.badge');
+                                    var liveSpan = $(this).find('.live-time');
+                                    if (!badge.length) return;
+                                    if (now >= sched) {
+                                        badge.removeClass('badge-warning').addClass('badge-primary').text('Đang thi đấu');
+                                        var elapsed = now - sched;
+                                        var mm = Math.floor(elapsed/60000);
+                                        var ss = Math.floor((elapsed%60000)/1000);
+                                        if (liveSpan.length===0) {
+                                            $(this).find('td:last-child').append(' <span class="text-muted live-time"></span>');
+                                            liveSpan = $(this).find('.live-time');
+                                        }
+                                        liveSpan.text('('+String(mm).padStart(2,'0')+':'+String(ss).padStart(2,'0')+')');
+                                    } else {
+                                        badge.removeClass('badge-primary').addClass('badge-warning').text('Sắp đá');
+                                        if (liveSpan.length) liveSpan.text('');
+                                    }
+                                });
+                            }
+                            collectMyTeamData();
+                            renderMyTeamFixtures();
+                            renderMyTeamResults();
+                            renderSeasonResults();
+                            class NextMatchCountdown {
+                                constructor(el){ this.el = el; this.data = []; this.timer = null; }
+                                setData(list){ this.data = list || []; }
+                                start(){ if (this.timer) clearInterval(this.timer); this.tick(); this.timer = setInterval(()=>this.tick(),1000); }
+                                fmt(n){ return String(n).padStart(2,'0'); }
+                                tick(){ if (!this.el) return; const now = Date.now(); const upcoming = this.data.filter(x=>x.schedMs>now).sort((a,b)=>a.schedMs-b.schedMs)[0]; if (!upcoming) { this.el.style.display='none'; return; } const diff = upcoming.schedMs - now; if (diff<=0) { this.el.style.display=''; this.el.innerText = 'Đang thi đấu'; return; } const h = Math.floor(diff/3600000); const m = Math.floor((diff%3600000)/60000); const s = Math.floor((diff%60000)/1000); this.el.style.display=''; this.el.innerText = 'Còn ' + this.fmt(h)+':'+this.fmt(m)+':'+this.fmt(s) + ' • ' + upcoming.opponent + ' • ' + upcoming.tournament; }
+                            }
+                            class IcsExporter {
+                                static pad(n){ return String(n).padStart(2,'0'); }
+                                static toIcsDate(d){ const y=d.getFullYear(); const m=this.pad(d.getMonth()+1); const day=this.pad(d.getDate()); const hh=this.pad(d.getHours()); const mm=this.pad(d.getMinutes()); const ss='00'; return `${y}${m}${day}T${hh}${mm}${ss}`; }
+                                static buildEvent(item){ const dt = new Date(item.schedMs); const dtend = new Date(item.schedMs + 90*60000); const lines = [
+                                    'BEGIN:VEVENT',
+                                    'UID:'+Math.random().toString(36).slice(2)+'@sports-tournament',
+                                    'DTSTAMP:'+this.toIcsDate(new Date()),
+                                    'DTSTART:'+this.toIcsDate(dt),
+                                    'DTEND:'+this.toIcsDate(dtend),
+                                    'SUMMARY:'+item.tournament+' - '+item.opponent,
+                                    'DESCRIPTION:'+item.group,
+                                    'END:VEVENT'
+                                ]; return lines.join('\r\n'); }
+                                static generate(list){ const events = (list||[]).map(x=>this.buildEvent(x)).join('\r\n'); const cal = [
+                                    'BEGIN:VCALENDAR',
+                                    'VERSION:2.0',
+                                    'PRODID:-//sports-tournament//EN',
+                                    events,
+                                    'END:VCALENDAR'
+                                ].join('\r\n'); return cal; }
+                                static download(filename, content){ const blob = new Blob([content], {type:'text/calendar'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); }
+                            }
+                            const countdown = new NextMatchCountdown(document.getElementById('next-match-countdown'));
+                            countdown.setData(myFixtures);
+                            countdown.start();
+                            document.getElementById('btn-export-ics').addEventListener('click', function(){ const ics = IcsExporter.generate(myFixtures); IcsExporter.download('lich-doi-toi.ics', ics); });
+                            setInterval(updateLiveTimes, 1000);
+
+                            class ToastNotifier {
+                                constructor(){ this.container = document.getElementById('toast-notify-container'); if (!this.container){ this.container = document.createElement('div'); this.container.id='toast-notify-container'; this.container.style.position='fixed'; this.container.style.top='15px'; this.container.style.right='15px'; this.container.style.zIndex='1060'; document.body.appendChild(this.container); } }
+                                show(message){ const el = document.createElement('div'); el.className='alert alert-info shadow-sm mb-2'; el.innerText = message; this.container.appendChild(el); setTimeout(()=>{ el.remove(); }, 4000); }
+                            }
+                            class MatchIndex {
+                                constructor(registrations){ this.byId = {}; this.myTeams = new Set(); (registrations||[]).forEach(r=>{ if (r.status!=='approved' || !r.tournamentId || !r.tournamentId.fixtures) return; const myTeam = (r.teamName||'').trim(); this.myTeams.add(myTeam); r.tournamentId.fixtures.forEach(g=>{ (g.matches||[]).forEach(m=>{ this.byId[m.id] = { team1:m.team1, team2:m.team2, tournamentName:r.tournamentId.name, group:g.group, myTeam: myTeam }; }); }); }); }
+                                isMine(matchId){ const info = this.byId[matchId]; if (!info) return false; return info.team1===info.myTeam || info.team2===info.myTeam; }
+                                opponent(matchId){ const info = this.byId[matchId]; if (!info) return ''; const me = info.myTeam; return info.team1===me ? info.team2 : info.team1; }
+                                label(matchId){ const info = this.byId[matchId]; if (!info) return ''; return (info.tournamentName||'') + ' • ' + (info.group||''); }
+                            }
+                            class NotifyService {
+                                constructor(index, notifier){ this.index = index; this.notifier = notifier; this.socket = null; this.joined = new Set(); }
+                                connect(){ if (!window.io) return; this.socket = io(); this.bind(); this.joinAll(); }
+                                bind(){ if (!this.socket) return; this.socket.on('connect', ()=>{}); this.socket.on('match_updated', (msg)=>{ if (!msg || !msg.matchId) return; if (!this.index.isMine(msg.matchId)) return; const opp = this.index.opponent(msg.matchId); const label = this.index.label(msg.matchId); let text = 'Cập nhật trận đối đầu '+opp; if (msg.payload){ if (typeof msg.payload.score1 !== 'undefined' || typeof msg.payload.score2 !== 'undefined'){ text += ' • Tỷ số thay đổi'; } if (msg.payload.status){ text += ' • '+msg.payload.status; } if (msg.payload.time){ text += ' • Giờ: '+msg.payload.time; } }
+                                    this.notifier.show(text + ' • ' + label);
+                                    collectMyTeamData(); renderMyTeamFixtures(); renderMyTeamResults(); countdown.setData(myFixtures); }); }
+                                joinAll(){ const tournaments = new Set(); (response.registrations||[]).forEach(r=>{ if (r.status==='approved' && r.tournamentId) tournaments.add(String(r.tournamentId._id||r.tournamentId)); }); tournaments.forEach(id=>{ const room='tournament:'+id; if (this.joined.has(room)) return; if (this.socket){ this.socket.emit('join_tournament', id); this.joined.add(room); } }); }
+                            }
+                            const notifier = new ToastNotifier();
+                            const matchIndex = new MatchIndex(response.registrations||[]);
+                            const notifyService = new NotifyService(matchIndex, notifier);
+                            notifyService.connect();
                         }
-                        
-                        if (user.avatar) {
-                            $('#display-avatar').attr('src', user.avatar);
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 401) {
+                            alert('Phiên đăng nhập hết hạn');
+                            localStorage.removeItem('token');
+                            window.location.href = '/login';
                         } else {
-                            $('#display-avatar').attr('src', 'static/img/user.jpg');
+                            alert('Lỗi tải thông tin: ' + (xhr.responseJSON ? xhr.responseJSON.message : xhr.statusText));
                         }
                     }
-                },
-                error: function(xhr) {
-                    if (xhr.status === 401) {
-                        alert('Phiên đăng nhập hết hạn');
-                        localStorage.removeItem('token');
-                        window.location.href = '/login';
-                    } else {
-                        alert('Lỗi tải thông tin: ' + (xhr.responseJSON ? xhr.responseJSON.message : xhr.statusText));
-                    }
-                }
-            });
+                });
+            }
 
-            // Handle "Update Info" click
-            $('#btn-enable-edit').click(function() {
-                setEditMode(true);
-            });
-
-            // Handle "Cancel" click
-            $('#btn-cancel-edit').click(function() {
+            // --- Profile Info Handlers ---
+            $('#btn-enable-edit').click(function() { setEditMode(true); });
+            $('#btn-cancel-edit').click(function() { 
                 setEditMode(false);
-                // Reset form to original data
+                // Reset simple fields
                 $('#username').val(originalData.username);
                 $('#phone').val(originalData.phone || '');
+                $('#citizenId').val(originalData.citizenId || '');
                 $('#address').val(originalData.address || '');
                 $('#dob').val(originalData.dob || '');
-                if (originalData.gender) {
-                    $('input[name="gender"][value="' + originalData.gender + '"]').prop('checked', true);
-                } else {
-                    $('input[name="gender"]').prop('checked', false);
-                }
-                // Reset file input
-                $('#avatar-input').val('');
-                $('#file-name').text('');
+                if (originalData.gender) $('input[name="gender"][value="' + originalData.gender + '"]').prop('checked', true);
+                else $('input[name="gender"]').prop('checked', false);
             });
             
-            // Handle file input change
             $('#avatar-input').change(function() {
                 var file = this.files[0];
                 if (file) {
-                    $('#file-name').text(file.name);
-                    // Optional: Preview image
+                    // $('#file-name').text(file.name);
                     var reader = new FileReader();
-                    reader.onload = function(e) {
-                        $('#display-avatar').attr('src', e.target.result);
-                    }
+                    reader.onload = function(e) { $('#display-avatar').attr('src', e.target.result); }
                     reader.readAsDataURL(file);
                 }
             });
 
-            // Handle Form Submit
             $('#profile-form').submit(function(e) {
                 e.preventDefault();
+                var formData = new FormData(this);
                 
-                var formData = new FormData();
-                formData.append('username', $('#username').val());
-                formData.append('phone', $('#phone').val());
-                formData.append('address', $('#address').val());
-                formData.append('dob', $('#dob').val());
-                
-                var gender = $('input[name="gender"]:checked').val();
-                if (gender) formData.append('gender', gender);
-                
-                var avatarFile = $('#avatar-input')[0].files[0];
-                if (avatarFile) {
-                    formData.append('avatar', avatarFile);
+                // Append avatar if selected (since it's outside the form now)
+                var avatarInput = document.getElementById('avatar-input');
+                if (avatarInput && avatarInput.files.length > 0) {
+                    formData.append('avatar', avatarInput.files[0]);
                 }
-
+                
                 $.ajax({
                     url: '/profile/update',
                     method: 'POST',
@@ -367,31 +1191,69 @@
                     success: function(response) {
                         if (response.success) {
                             alert(response.message);
-                            // Update original data
-                            originalData.username = $('#username').val();
-                            originalData.phone = $('#phone').val();
-                            originalData.address = $('#address').val();
-                            originalData.dob = $('#dob').val();
-                            originalData.gender = gender;
-                            if (response.avatar) {
-                                originalData.avatar = response.avatar;
-                                $('#display-avatar').attr('src', response.avatar);
-                            }
-                            
-                            $('#display-name').text(originalData.username);
+                            loadProfileData(); // Reload to sync everything
                             setEditMode(false);
                         } else {
                             alert('Lỗi: ' + response.message);
                         }
                     },
                     error: function(xhr) {
-                        if (xhr.status === 401) {
-                            alert('Phiên đăng nhập hết hạn hoặc không hợp lệ.');
-                            localStorage.removeItem('token');
-                            window.location.href = '/login';
+                        alert('Lỗi cập nhật: ' + (xhr.responseJSON ? xhr.responseJSON.message : xhr.statusText));
+                    }
+                });
+            });
+
+            // --- My Team Handlers ---
+
+            // Add Member
+            $('#btn-add-member').click(function() {
+                $('#no-members-msg').hide();
+                addMemberRow({});
+            });
+
+            // Remove Member (Delegated)
+            $('#members-container').on('click', '.remove-member', function() {
+                $(this).closest('.member-row').remove();
+                if ($('#members-container').children().length === 0) {
+                    $('#no-members-msg').show();
+                }
+            });
+
+            // Logo Preview
+            $('#teamLogo').change(function() {
+                var file = this.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#team-logo-preview').attr('src', e.target.result).show();
+                    }
+                    reader.readAsDataURL(file);
+                    $(this).next('.custom-file-label').text(file.name);
+                }
+            });
+
+            // Submit Team Form
+            $('#my-team-form').submit(function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: '/profile/my-team/update',
+                    method: 'POST',
+                    headers: { 'Authorization': 'Bearer ' + token },
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.success) {
+                            alert('Đã lưu thông tin đội thành công!');
+                            // No need to reload, just update UI if needed
                         } else {
-                            alert('Lỗi cập nhật: ' + (xhr.responseJSON ? xhr.responseJSON.message : xhr.statusText));
+                            alert('Lỗi: ' + response.message);
                         }
+                    },
+                    error: function(xhr) {
+                        alert('Lỗi lưu thông tin: ' + (xhr.responseJSON ? xhr.responseJSON.message : xhr.statusText));
                     }
                 });
             });
@@ -403,6 +1265,164 @@
                 window.location.href = '/login';
             });
         });
+
+        // Global functions for inline events
+        function addMemberRow(member) {
+            var avatarUrl = member.avatar ? '/static/uploads/avatars/' + member.avatar : '/static/admin/img/user.jpg';
+            if (member.avatar && member.avatar.indexOf('http') === 0) avatarUrl = member.avatar; // Handle absolute URLs if any
+
+            var html = `
+            <div class="member-row border rounded p-3 mb-3 bg-white position-relative shadow-sm">
+                <button type="button" class="close position-absolute remove-member" style="top: 10px; right: 15px;">&times;</button>
+                <div class="row align-items-center">
+                    <div class="col-md-2 text-center">
+                        <img src="${avatarUrl}" class="img-thumbnail mb-2 member-avatar-preview" style="width: 80px; height: 80px; object-fit: cover;">
+                        <input type="hidden" name="existingMemberAvatar" value="${member.avatar || ''}">
+                        <input type="hidden" name="memberHasNewAvatar" value="false" class="has-new-avatar">
+                        <div class="custom-file mt-1">
+                            <input type="file" class="custom-file-input" name="memberAvatar" accept="image/*" onchange="previewMemberAvatar(this)">
+                            <label class="custom-file-label text-truncate" style="font-size: 0.8rem;">Ảnh</label>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="small font-weight-bold">Họ và Tên</label>
+                                <input type="text" class="form-control form-control-sm" name="memberName" value="${member.name || ''}" required placeholder="Nhập tên thành viên">
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label class="small font-weight-bold">Số Áo</label>
+                                <input type="number" class="form-control form-control-sm" name="memberNumber" value="${member.number || ''}">
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="small font-weight-bold">Số CCCD</label>
+                                <input type="text" class="form-control form-control-sm" name="memberCitizenId" value="${member.citizenId || ''}" placeholder="Nhập số CCCD">
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="small font-weight-bold">Ảnh CCCD</label>
+                                <input type="hidden" name="existingMemberCitizenIdImage" value="${member.citizenIdImage || ''}">
+                                <input type="hidden" name="memberHasNewCitizen" value="false" class="has-new-citizen">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="memberCitizenIdImage" accept="image/*" onchange="markNewCitizen(this)">
+                                    <label class="custom-file-label text-truncate" style="font-size: 0.8rem;">File ảnh</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            $('#members-container').append(html);
+        }
+
+        function previewMemberAvatar(input) {
+            var file = input.files[0];
+            if (file) {
+                var row = $(input).closest('.member-row');
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    row.find('.member-avatar-preview').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(file);
+                row.find('.has-new-avatar').val('true');
+                $(input).next('.custom-file-label').text(file.name);
+            }
+        }
+
+        function markNewCitizen(input) {
+            var file = input.files[0];
+            if (file) {
+                $(input).closest('.col-md-3').find('.has-new-citizen').val('true');
+                $(input).next('.custom-file-label').text(file.name);
+            }
+        }
+
+        function renderTeamCharts(statData) {
+            // Process Data
+            var matches = statData.matches;
+            var wins = 0, draws = 0, losses = 0;
+            var labels = [];
+            var goalsScored = [];
+            var goalsConceded = [];
+            
+            matches.forEach(function(m) {
+                var myScore = m.isTeam1 ? m.score1 : m.score2;
+                var oppScore = m.isTeam1 ? m.score2 : m.score1;
+                
+                if (myScore > oppScore) wins++;
+                else if (myScore === oppScore) draws++;
+                else losses++;
+                
+                labels.push(m.matchLabel); // e.g. "Vòng 1" or Date
+                goalsScored.push(myScore);
+                goalsConceded.push(oppScore);
+            });
+            
+            // 1. Results Chart (Doughnut)
+            var ctxResults = document.getElementById('resultsChart').getContext('2d');
+            if (resultsChartInstance) resultsChartInstance.destroy();
+            
+            // Check if data is empty
+            var hasData = wins + draws + losses > 0;
+            var data = hasData ? [wins, draws, losses] : [0, 0, 0];
+            var bgColors = hasData ? ['#28a745', '#ffc107', '#dc3545'] : ['#e9ecef', '#e9ecef', '#e9ecef'];
+
+            resultsChartInstance = new Chart(ctxResults, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Thắng', 'Hòa', 'Thua'],
+                    datasets: [{
+                        data: data,
+                        backgroundColor: bgColors,
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top' }
+                    }
+                }
+            });
+            
+            // 2. Goals Chart (Bar)
+            var ctxGoals = document.getElementById('goalsChart').getContext('2d');
+            if (goalsChartInstance) goalsChartInstance.destroy();
+            
+            goalsChartInstance = new Chart(ctxGoals, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Bàn Thắng',
+                            data: goalsScored,
+                            backgroundColor: '#007bff',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Bàn Thua',
+                            data: goalsConceded,
+                            backgroundColor: '#dc3545',
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { stepSize: 1 }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'top' }
+                    }
+                }
+            });
+        }
     </script>
 </body>
 </html>

@@ -1,7 +1,22 @@
 const FootballTournament = require('../models/FootballTournament');
 
 class FootballRepository {
-    async findAll(filter = {}) {
+    async findAll(filter = {}, page = null, limit = null) {
+        if (page && limit) {
+            const skip = (page - 1) * limit;
+            const total = await FootballTournament.countDocuments(filter);
+            const data = await FootballTournament.find(filter)
+                .sort({ createdAt: -1 })
+                .skip(skip)
+                .limit(limit);
+            
+            return {
+                data,
+                total,
+                totalPages: Math.ceil(total / limit),
+                currentPage: page
+            };
+        }
         return await FootballTournament.find(filter).sort({ createdAt: -1 });
     }
 

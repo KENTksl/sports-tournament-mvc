@@ -50,7 +50,7 @@
                                 <% if (tournaments && tournaments.length > 0) { %>
                                     <% tournaments.forEach((t, index) => { %>
                                         <tr>
-                                            <th scope="row"><%= index + 1 %></th>
+                                            <th scope="row"><%= (currentPage - 1) * 10 + index + 1 %></th>
                                             <td><%= t.name %></td>
                                             <td><%= t.organizer %></td>
                                             <td><%= t.mode %></td>
@@ -120,6 +120,31 @@
                                 <% } %>
                             </tbody>
                         </table>
+
+                        <!-- Pagination -->
+                        <% if (typeof totalPages !== 'undefined' && totalPages > 1) { %>
+                            <div class="d-flex justify-content-center mt-3">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination">
+                                        <li class="page-item <%= currentPage == 1 ? 'disabled' : '' %>">
+                                            <a class="page-link" href="/admin/tournament?page=<%= currentPage - 1 %>" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <% for(let i = 1; i <= totalPages; i++) { %>
+                                            <li class="page-item <%= currentPage == i ? 'active' : '' %>">
+                                                <a class="page-link" href="/admin/tournament?page=<%= i %>"><%= i %></a>
+                                            </li>
+                                        <% } %>
+                                        <li class="page-item <%= currentPage == totalPages ? 'disabled' : '' %>">
+                                            <a class="page-link" href="/admin/tournament?page=<%= parseInt(currentPage) + 1 %>" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        <% } %>
                     </div>
                 </div>
             </div>

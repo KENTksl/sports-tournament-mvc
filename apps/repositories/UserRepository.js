@@ -5,6 +5,10 @@ class UserRepository {
         return await User.findOne({ email: email });
     }
 
+    async findByUsername(username) {
+        return await User.findOne({ username: username });
+    }
+
     async createUser(userData) {
         const user = new User(userData);
         return await user.save();
