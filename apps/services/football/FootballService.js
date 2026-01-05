@@ -376,6 +376,18 @@ class FootballService {
 
     // --- Main Service Methods ---
 
+    async createTournament(data) {
+        return await FootballRepository.create(data);
+    }
+
+    async updateTournament(id, data) {
+        return await FootballRepository.update(id, data);
+    }
+
+    async deleteTournament(id) {
+        return await FootballRepository.delete(id);
+    }
+
     async getAllTournaments(filter = {}, page = null, limit = null) {
         return await FootballRepository.findAll(filter, page, limit);
     }
