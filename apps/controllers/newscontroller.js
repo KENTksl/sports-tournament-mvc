@@ -1,7 +1,7 @@
-var express = require("express");
-var router = express.Router();
-var Parser = require('rss-parser');
-var parser = new Parser();
+const express = require("express");
+const router = express.Router();
+const Parser = require('rss-parser');
+const parser = new Parser();
 
 class NewsController {
     constructor() {

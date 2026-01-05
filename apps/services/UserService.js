@@ -1,6 +1,6 @@
 const UserRepository = require('../repositories/UserRepository');
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
+const { AUTH_SETTINGS } = require('../common/constants');
 
 class UserService {
     async login(email, password) {
@@ -26,12 +26,12 @@ class UserService {
             return { success: false, message: "Username already exists" };
         }
 
-        const hashedPassword = await bcrypt.hash(userData.password, saltRounds);
+        const hashedPassword = await bcrypt.hash(userData.password, AUTH_SETTINGS.SALT_ROUNDS);
         userData.password = hashedPassword;
         
         // Ensure default role
         if (!userData.role) {
-            userData.role = "customer";
+            userData.role = AUTH_SETTINGS.DEFAULT_ROLE;
         }
 
         await UserRepository.createUser(userData);

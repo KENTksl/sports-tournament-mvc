@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-class SignupController {
+class UpdateController {
     constructor() {
         this.router = router;
         this.initializeRoutes();
@@ -12,8 +12,8 @@ class SignupController {
     }
 
     index(req, res) {
-        res.render("signup.ejs");
+        res.render("update.ejs");
     }
 }
 
-module.exports = new SignupController().router;
+module.exports = new UpdateController().router;

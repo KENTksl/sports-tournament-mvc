@@ -1,12 +1,12 @@
-var express = require("express");
-var router = express.Router();
-var UserService = require(global.__basedir + "/apps/services/UserService");
-var TeamRegistration = require(global.__basedir + "/apps/models/TeamRegistration");
-var MyTeam = require(global.__basedir + "/apps/models/MyTeam");
-var Fine = require(global.__basedir + "/apps/models/Fine");
-var JWTMiddleware = require(global.__basedir + "/apps/Util/VerifyToken");
-var multer = require("multer");
-var path = require("path");
+const express = require("express");
+const router = express.Router();
+const UserService = require("../services/UserService");
+const TeamRegistration = require("../models/football/TeamRegistration");
+const MyTeam = require("../models/football/MyTeam");
+const Fine = require("../models/football/Fine");
+const JWTMiddleware = require("../Util/VerifyToken");
+const multer = require("multer");
+const path = require("path");
 
 // Configure multer
 const storage = multer.diskStorage({
@@ -67,16 +67,12 @@ class ProfileController {
             delete userObj.password;
             
             // Fetch registrations
-            console.log("Querying registrations for email:", email);
-            
             // Use regex for case-insensitive and trimmed match
             const emailRegex = new RegExp(`^${email.trim()}$`, 'i');
             
             const registrations = await TeamRegistration.find({ email: { $regex: emailRegex } })
                 .populate('tournamentId')
                 .sort({ submittedAt: -1 });
-                
-            console.log("Found registrations:", registrations.length);
 
             // Ensure tournament status is up-to-date (completed if final finished or all matches finished)
             for (const reg of registrations) {

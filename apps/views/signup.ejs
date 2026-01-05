@@ -114,6 +114,8 @@
                 var email = $('#email').val();
                 var password = $('#password').val();
                 var repassword = $('#repassword').val();
+                var dob = $('#dob').val();
+                var gender = $('input[name="gender"]:checked').val();
 
                 if (password !== repassword) {
                     alert('Mật khẩu nhập lại không khớp!');
@@ -124,7 +126,13 @@
                     url: '/authenticate/register',
                     method: 'POST',
                     contentType: 'application/json',
-                    data: JSON.stringify({ username: fullname, email: email, password: password }),
+                    data: JSON.stringify({ 
+                        username: fullname, 
+                        email: email, 
+                        password: password,
+                        dob: dob,
+                        gender: gender
+                    }),
                     success: function(response) {
                         alert('Đăng ký thành công! Vui lòng đăng nhập.');
                         window.location.href = '/login';

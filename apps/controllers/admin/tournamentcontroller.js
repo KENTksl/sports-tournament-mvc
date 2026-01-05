@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const TournamentService = require('../../services/TournamentService');
 const multer = require('multer');
 const path = require('path');
+const TournamentService = require('../../services/TournamentService');
 
 // Configure Multer Storage
 const storage = multer.diskStorage({
@@ -33,17 +33,18 @@ class TournamentController {
         try {
             const page = parseInt(req.query.page) || 1;
             const limit = 10;
-            // Filter "Other" tournaments (exclude Football and legacy ones treated as Football)
+            // Filter "Other" tournaments
             const result = await TournamentService.getAllTournaments({ 
                 sportType: { $exists: true, $ne: 'Football' } 
             }, page, limit);
+            
             res.render('admin/tournament', { 
                 tournaments: result.data,
                 currentPage: result.currentPage,
                 totalPages: result.totalPages
             });
         } catch (error) {
-            console.error(error);
+            console.error('Error in TournamentController index:', error);
             res.status(500).send('Server Error');
         }
     }
@@ -51,10 +52,7 @@ class TournamentController {
     async create(req, res) {
         try {
             const { name, organizer, mode, teamsCount, description, sportType } = req.body;
-            let image = 'default.png';
-            if (req.file) {
-                image = req.file.filename;
-            }
+            const image = req.file ? req.file.filename : 'default.png';
 
             await TournamentService.createTournament({
                 name,
@@ -64,11 +62,11 @@ class TournamentController {
                 description,
                 image: image,
                 status: 'upcoming',
-                sportType: sportType || 'Other' // Default to 'Other' to avoid falling back to Schema default 'Football'
+                sportType: sportType || 'Other'
             });
             res.redirect('/admin/tournament');
         } catch (error) {
-            console.error(error);
+            console.error('Error creating tournament:', error);
             res.status(500).send('Error creating tournament');
         }
     }
@@ -79,7 +77,7 @@ class TournamentController {
             await TournamentService.deleteTournament(id);
             res.redirect('/admin/tournament');
         } catch (error) {
-            console.error(error);
+            console.error('Error deleting tournament:', error);
             res.status(500).send('Error deleting tournament');
         }
     }
@@ -103,7 +101,7 @@ class TournamentController {
             await TournamentService.updateTournament(id, updateData);
             res.redirect('/admin/tournament');
         } catch (error) {
-            console.error(error);
+            console.error('Error updating tournament:', error);
             res.status(500).send('Error updating tournament');
         }
     }
