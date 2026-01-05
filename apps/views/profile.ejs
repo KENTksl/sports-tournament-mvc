@@ -256,6 +256,7 @@
                         <a class="nav-link" id="v-pills-myteam-tab" data-toggle="pill" href="#v-pills-myteam" role="tab" aria-controls="v-pills-myteam" aria-selected="false"><i class="fa fa-users"></i> Thông Tin Đội</a>
 
                         <a class="nav-link" id="v-pills-history-tab" data-toggle="pill" href="#v-pills-history" role="tab" aria-controls="v-pills-history" aria-selected="false"><i class="fa fa-history"></i> Lịch Sử Đăng Ký</a>
+                        <a class="nav-link" id="v-pills-fine-tab" data-toggle="pill" href="#v-pills-fine" role="tab" aria-controls="v-pills-fine" aria-selected="false"><i class="fa fa-gavel"></i> Danh Sách Phạt</a>
                         <a class="nav-link text-danger" href="#" id="sidebar-logout"><i class="fa fa-sign-out-alt"></i> Đăng Xuất</a>
                     </div>
                 </div>
@@ -443,13 +444,11 @@
                                             <div class="d-flex justify-content-between align-items-center mb-4">
                                                 <div class="d-flex align-items-center gap-3">
                                                     <h4 class="card-title mb-0">Lịch Thi Đấu Của Đội Tôi</h4>
-                                                    <span class="badge bg-info ms-3" id="next-match-countdown" style="display:none"></span>
                                                 </div>
                                                 <div class="d-flex align-items-center gap-2">
                                                     <select class="form-control form-control-sm" id="fixtures-tournament-filter" style="max-width: 200px;">
                                                         <option value="">Tất cả giải đấu</option>
                                                     </select>
-                                                    <span class="text-muted small" id="my-team-name-label"></span>
                                                     <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-export-ics">Xuất lịch .ics</button>
                                                 </div>
                                             </div>
@@ -576,6 +575,57 @@
                                 </table>
                             </div>
                             <div id="registration-pagination" class="mt-3 d-flex justify-content-center"></div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 7: Fine List -->
+                    <div class="tab-pane fade" id="v-pills-fine" role="tabpanel" aria-labelledby="v-pills-fine-tab">
+                        <div class="bg-light p-4 rounded shadow-sm">
+                            <h4 class="mb-4 text-uppercase text-danger border-bottom pb-2">Danh Sách Phạt & Kỷ Luật</h4>
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Ngày</th>
+                                            <th>Cầu thủ</th>
+                                            <th>Loại thẻ</th>
+                                            <th>Số tiền</th>
+                                            <th>Lý do</th>
+                                            <th>Trạng thái</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="fine-list-body">
+                                        <% if (fines && fines.length > 0) { %>
+                                            <% fines.forEach(function(fine) { %>
+                                                <tr>
+                                                    <td><%= new Date(fine.createdAt).toLocaleDateString('vi-VN') %></td>
+                                                    <td><%= fine.playerName || 'Bạn' %></td>
+                                                    <td>
+                                                        <% if (fine.type === 'yellow_card') { %>
+                                                            <span class="badge badge-warning text-white">Thẻ Vàng</span>
+                                                        <% } else if (fine.type === 'red_card') { %>
+                                                            <span class="badge badge-danger">Thẻ Đỏ</span>
+                                                        <% } else { %>
+                                                            <%= fine.type %>
+                                                        <% } %>
+                                                    </td>
+                                                    <td><%= fine.amount ? fine.amount.toLocaleString('vi-VN') + ' VNĐ' : '0 VNĐ' %></td>
+                                                    <td><%= fine.reason || 'Vi phạm kỷ luật' %></td>
+                                                    <td>
+                                                        <% if (fine.status === 'paid') { %>
+                                                            <span class="badge badge-success">Đã nộp</span>
+                                                        <% } else { %>
+                                                            <span class="badge badge-secondary">Chưa nộp</span>
+                                                        <% } %>
+                                                    </td>
+                                                </tr>
+                                            <% }); %>
+                                        <% } else { %>
+                                            <tr><td colspan="6" class="text-center text-muted">Không có dữ liệu phạt.</td></tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -747,6 +797,33 @@ function setEditMode(enable) {
                             allRegistrations = response.registrations || [];
                             window.renderRegistrationPage(1);
 
+                            // Render Fines
+                            if (response.fines && response.fines.length > 0) {
+                                var finesHtml = '';
+                                response.fines.forEach(function(fine) {
+                                    var date = new Date(fine.createdAt).toLocaleDateString('vi-VN');
+                                    var amount = fine.amount.toLocaleString('vi-VN') + ' đ';
+                                    var statusBadge = fine.status === 'paid' 
+                                        ? '<span class="badge badge-success">Đã đóng</span>' 
+                                        : '<span class="badge badge-danger">Chưa đóng</span>';
+                                    var typeBadge = fine.type === 'yellow_card'
+                                        ? '<span class="badge badge-warning text-white">Thẻ vàng</span>'
+                                        : '<span class="badge badge-danger">Thẻ đỏ</span>';
+                                    
+                                    finesHtml += '<tr>' +
+                                        '<td>' + date + '</td>' +
+                                        '<td>' + fine.memberName + '</td>' +
+                                        '<td>' + typeBadge + '</td>' +
+                                        '<td>' + amount + '</td>' +
+                                        '<td>' + fine.reason + '</td>' +
+                                        '<td>' + statusBadge + '</td>' +
+                                        '</tr>';
+                                });
+                                $('#fine-list-body').html(finesHtml);
+                            } else {
+                                $('#fine-list-body').html('<tr><td colspan="6" class="text-center text-muted">Không có dữ liệu phạt</td></tr>');
+                            }
+
                             // --- Populate My Team Info ---
                             if (response.myTeam) {
                                 var team = response.myTeam;
@@ -899,14 +976,9 @@ function setEditMode(enable) {
                                 var html = '';
                                 list.forEach(function(f){
                                     var status = 'Sắp đá';
-                                    var extra = '';
                                     var dtMs = f.schedMs;
                                     if (now >= dtMs) {
                                         status = 'Đang thi đấu';
-                                        var elapsed = now - dtMs;
-                                        var mm = Math.floor(elapsed/60000);
-                                        var ss = Math.floor((elapsed%60000)/1000);
-                                        extra = ' <span class="text-muted live-time">('+String(mm).padStart(2,'0')+':'+String(ss).padStart(2,'0')+')</span>';
                                     }
                                     html += '<tr data-sched="'+dtMs+'">'+
                                         '<td>'+ (f.date||'') +'</td>'+
@@ -914,7 +986,7 @@ function setEditMode(enable) {
                                         '<td>'+ f.tournament +'</td>'+
                                         '<td>'+ f.opponent +'</td>'+
                                         '<td>'+ f.group +'</td>'+
-                                        '<td><span class="badge '+ (status==='Đang thi đấu'?'badge-primary':'badge-warning') +'">'+status+'</span>'+extra+'</td>'+
+                                        '<td><span class="badge '+ (status==='Đang thi đấu'?'badge-primary':'badge-warning') +'">'+status+'</span></td>'+
                                     '</tr>';
                                 });
                                 $('#my-team-fixtures-card').show();
@@ -953,17 +1025,23 @@ function setEditMode(enable) {
                                 (tournament.fixtures||[]).forEach(g => {
                                     (g.matches||[]).forEach(m => {
                                         var groupName = (g.group||'').toLowerCase();
+                                        // Prefer bracket index to distinguish Final vs 3rd in "Chung Kết"
                                         if (groupName.includes('chung kết') || groupName.includes('final')) {
-                                            finalMatch = m;
+                                            if (m.bracketMatchIndex === 0 || m.bracketMatchIndex === undefined) {
+                                                finalMatch = m;
+                                            } else if (m.bracketMatchIndex === 1) {
+                                                thirdMatch = m;
+                                            }
                                         }
-                                        if (groupName.includes('tranh giải ba') || groupName.includes('3rd')) {
+                                        // Fallback aliases for third place
+                                        if (groupName.includes('tranh hạng 3') || groupName.includes('tranh giải ba') || groupName.includes('3rd')) {
                                             thirdMatch = m;
                                         }
                                     });
                                 });
                                 
                                 if (finalMatch) {
-                                    if ((finalMatch.team1 === myTeamName || finalMatch.team2 === myTeamName) && finalMatch.score1) {
+                                    if ((finalMatch.team1 === myTeamName || finalMatch.team2 === myTeamName) && finalMatch.score1 !== null && finalMatch.score2 !== null && finalMatch.score1 !== '' && finalMatch.score2 !== '') {
                                         var s1 = parseInt(finalMatch.score1);
                                         var s2 = parseInt(finalMatch.score2);
                                         var winner = s1 > s2 ? finalMatch.team1 : (s2 > s1 ? finalMatch.team2 : null);
@@ -973,7 +1051,7 @@ function setEditMode(enable) {
                                 }
                                 
                                 if (thirdMatch) {
-                                     if ((thirdMatch.team1 === myTeamName || thirdMatch.team2 === myTeamName) && thirdMatch.score1) {
+                                     if ((thirdMatch.team1 === myTeamName || thirdMatch.team2 === myTeamName) && thirdMatch.score1 !== null && thirdMatch.score2 !== null && thirdMatch.score1 !== '' && thirdMatch.score2 !== '') {
                                         var s1 = parseInt(thirdMatch.score1);
                                         var s2 = parseInt(thirdMatch.score2);
                                         var winner = s1 > s2 ? thirdMatch.team1 : (s2 > s1 ? thirdMatch.team2 : null);
@@ -996,18 +1074,26 @@ function setEditMode(enable) {
                                 return { rank: 'participated' };
                             }
 
-                            function renderSeasonResults(filter) {
-                                var list = myRegistrations;
+                            function renderSeasonResults(filter, page) {
+                                var list = myRegistrations.slice();
                                 if (filter) list = list.filter(function(r) { return r.tournamentId && r.tournamentId.name === filter; });
+                                var PAGE_SIZE = 8;
+                                page = page || 1;
+                                var totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+                                if (page > totalPages) page = totalPages;
+                                var start = (page - 1) * PAGE_SIZE;
+                                var end = start + PAGE_SIZE;
+                                var pageItems = list.slice(start, end);
                                 
                                 var container = $('#season-results-container');
-                                if (list.length === 0) {
+                                if (pageItems.length === 0) {
                                     container.html('<div class="col-12 text-center text-muted py-5">Chưa có dữ liệu mùa giải.</div>');
+                                    $('#season-results-pagination').html('');
                                     return;
                                 }
                                 
                                 var html = '';
-                                list.forEach(function(reg) {
+                                pageItems.forEach(function(reg) {
                                     if (!reg.tournamentId) return;
                                     var t = reg.tournamentId;
                                     var myTeam = (reg.teamName||'').trim();
@@ -1048,41 +1134,48 @@ function setEditMode(enable) {
                                     '</div>';
                                 });
                                 container.html(html);
+                                
+                                // Render pagination controls
+                                var pagHtml = '<nav aria-label="Season pagination"><ul class="pagination justify-content-center">';
+                                var prevDisabled = (page<=1)?' disabled':'';
+                                var nextDisabled = (page>=totalPages)?' disabled':'';
+                                pagHtml += '<li class="page-item'+prevDisabled+'"><a class="page-link" href="#" data-page="'+(page-1)+'">&laquo;</a></li>';
+                                for (var i=1;i<=totalPages;i++){
+                                    pagHtml += '<li class="page-item '+(i===page?'active':'')+'"><a class="page-link" href="#" data-page="'+i+'">'+i+'</a></li>';
+                                }
+                                pagHtml += '<li class="page-item'+nextDisabled+'"><a class="page-link" href="#" data-page="'+(page+1)+'">&raquo;</a></li>';
+                                pagHtml += '</ul></nav>';
+                                $('#season-results-pagination').html(pagHtml);
+                                $('#season-results-pagination .page-link').off('click').on('click', function(e){
+                                    e.preventDefault();
+                                    var p = parseInt($(this).attr('data-page'));
+                                    if (!isNaN(p)) {
+                                        renderSeasonResults($('#results-tournament-filter').val()||'', p);
+                                    }
+                                });
                             }
                             function updateLiveTimes(){
                                 var now = Date.now();
                                 $('#my-team-fixtures-body tr').each(function(){
                                     var sched = parseInt($(this).attr('data-sched')||'0');
                                     var badge = $(this).find('.badge');
-                                    var liveSpan = $(this).find('.live-time');
                                     if (!badge.length) return;
                                     if (now >= sched) {
                                         badge.removeClass('badge-warning').addClass('badge-primary').text('Đang thi đấu');
-                                        var elapsed = now - sched;
-                                        var mm = Math.floor(elapsed/60000);
-                                        var ss = Math.floor((elapsed%60000)/1000);
-                                        if (liveSpan.length===0) {
-                                            $(this).find('td:last-child').append(' <span class="text-muted live-time"></span>');
-                                            liveSpan = $(this).find('.live-time');
-                                        }
-                                        liveSpan.text('('+String(mm).padStart(2,'0')+':'+String(ss).padStart(2,'0')+')');
                                     } else {
                                         badge.removeClass('badge-primary').addClass('badge-warning').text('Sắp đá');
-                                        if (liveSpan.length) liveSpan.text('');
                                     }
                                 });
                             }
                             collectMyTeamData();
                             renderMyTeamFixtures();
                             renderMyTeamResults();
+                            // Add pagination container for season results
+                            var seasonPagWrap = $('<div id="season-results-pagination" class="mt-3"></div>');
+                            $('#season-results').append(seasonPagWrap);
                             renderSeasonResults();
-                            class NextMatchCountdown {
-                                constructor(el){ this.el = el; this.data = []; this.timer = null; }
-                                setData(list){ this.data = list || []; }
-                                start(){ if (this.timer) clearInterval(this.timer); this.tick(); this.timer = setInterval(()=>this.tick(),1000); }
-                                fmt(n){ return String(n).padStart(2,'0'); }
-                                tick(){ if (!this.el) return; const now = Date.now(); const upcoming = this.data.filter(x=>x.schedMs>now).sort((a,b)=>a.schedMs-b.schedMs)[0]; if (!upcoming) { this.el.style.display='none'; return; } const diff = upcoming.schedMs - now; if (diff<=0) { this.el.style.display=''; this.el.innerText = 'Đang thi đấu'; return; } const h = Math.floor(diff/3600000); const m = Math.floor((diff%3600000)/60000); const s = Math.floor((diff%60000)/1000); this.el.style.display=''; this.el.innerText = 'Còn ' + this.fmt(h)+':'+this.fmt(m)+':'+this.fmt(s) + ' • ' + upcoming.opponent + ' • ' + upcoming.tournament; }
-                            }
+                            // Countdown header removed per request; keep no-op to avoid errors
+                            const CountdownNoop = { setData: function(){}, start: function(){} };
                             class IcsExporter {
                                 static pad(n){ return String(n).padStart(2,'0'); }
                                 static toIcsDate(d){ const y=d.getFullYear(); const m=this.pad(d.getMonth()+1); const day=this.pad(d.getDate()); const hh=this.pad(d.getHours()); const mm=this.pad(d.getMinutes()); const ss='00'; return `${y}${m}${day}T${hh}${mm}${ss}`; }
@@ -1105,9 +1198,7 @@ function setEditMode(enable) {
                                 ].join('\r\n'); return cal; }
                                 static download(filename, content){ const blob = new Blob([content], {type:'text/calendar'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); }
                             }
-                            const countdown = new NextMatchCountdown(document.getElementById('next-match-countdown'));
-                            countdown.setData(myFixtures);
-                            countdown.start();
+                            const countdown = CountdownNoop;
                             document.getElementById('btn-export-ics').addEventListener('click', function(){ const ics = IcsExporter.generate(myFixtures); IcsExporter.download('lich-doi-toi.ics', ics); });
                             setInterval(updateLiveTimes, 1000);
 

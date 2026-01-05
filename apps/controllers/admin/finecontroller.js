@@ -1,14 +1,21 @@
 const express = require("express");
 const router = express.Router();
-const Fine = require('../../models/Fine');
+const Fine = require(global.__basedir + "/apps/models/Fine");
 
 class FineController {
     constructor() {
+        console.log("FineController initialized");
         this.router = router;
         this.initializeRoutes();
     }
 
     initializeRoutes() {
+        // Debug middleware
+        this.router.use((req, res, next) => {
+            console.log(`FineController hit: ${req.method} ${req.originalUrl}`);
+            next();
+        });
+
         this.router.get('/', this.index.bind(this));
         this.router.post('/:id/confirm', this.confirm.bind(this));
     }

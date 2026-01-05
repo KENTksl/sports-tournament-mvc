@@ -279,8 +279,10 @@
                                                                         </td>
                                                                         <td class="text-start fw-bold"><%= match.team2 %></td>
                                                                         <td class="text-center">
-                                                                            <% if (match.score1 !== null && match.score1 !== undefined) { %>
+                                                                            <% if (match.status === 'finished') { %>
                                                                                 <span class="badge bg-success">Hoàn thành</span>
+                                                                            <% } else if (match.status === 'live') { %>
+                                                                                <span class="badge bg-danger animate-pulse">Đang đá (Live)</span>
                                                                             <% } else { %>
                                                                                 <span class="badge bg-warning text-dark">Sắp đá</span>
                                                                             <% } %>
@@ -337,8 +339,10 @@
                                                             </td>
                                                             <td class="text-start fw-bold"><%= match.team2 %></td>
                                                             <td>
-                                                                <% if (match.score1 !== null && match.score1 !== undefined) { %>
+                                                                <% if (match.status === 'finished') { %>
                                                                     <span class="badge bg-success">Hoàn thành</span>
+                                                                <% } else if (match.status === 'live') { %>
+                                                                    <span class="badge bg-danger animate-pulse">Đang đá (Live)</span>
                                                                 <% } else { %>
                                                                     <span class="badge bg-warning text-dark">Sắp đá</span>
                                                                 <% } %>
@@ -971,8 +975,70 @@
     <script>
         const tournamentData = JSON.parse(decodeURIComponent('<%- encodeURIComponent(JSON.stringify(tournament)) %>'));
         const socket = typeof io !== 'undefined' ? io() : null;
+
+        // Helper to refresh bracket
+        function refreshBracket() {
+            if (tournamentData.bracketData && tournamentData.bracketData.teams && tournamentData.bracketData.results && window.jQuery && $.fn && $.fn.bracket) {
+                // If the bracket tab is active, render immediately. 
+                // If not, we skip rendering here and rely on the shown.bs.tab event to render when user switches.
+                if (document.getElementById('bracket') && document.getElementById('bracket').classList.contains('active')) {
+                    $('#bracket-container').empty().bracket({ init: tournamentData.bracketData });
+                }
+            }
+        }
+
+        // Add listener for tab switch to refresh bracket when it becomes visible
+        document.addEventListener('DOMContentLoaded', function() {
+            const bracketTabBtn = document.querySelector('button[data-bs-target="#bracket"]');
+            if (bracketTabBtn) {
+                bracketTabBtn.addEventListener('shown.bs.tab', function (event) {
+                    // Force refresh when tab is shown
+                    if (tournamentData.bracketData && tournamentData.bracketData.teams && tournamentData.bracketData.results && window.jQuery && $.fn && $.fn.bracket) {
+                        $('#bracket-container').empty().bracket({ init: tournamentData.bracketData });
+                    }
+                });
+            }
+        });
+
+        // Helper to sync match score to bracket data
+        function syncMatchToBracket(matchId, score1, score2) {
+            if (!tournamentData.bracketData || !tournamentData.bracketData.results) return;
+            
+            let bm = null;
+            if (tournamentData.fixtures) {
+                for (const group of tournamentData.fixtures) {
+                    const m = group.matches.find(m => m.id === matchId);
+                    if (m && m.bracketRound !== undefined && m.bracketMatchIndex !== undefined) { bm = m; break; }
+                }
+            }
+
+            if (bm) {
+                const s1 = (score1 !== null && score1 !== undefined && score1 !== '') ? parseInt(score1) : null;
+                const s2 = (score2 !== null && score2 !== undefined && score2 !== '') ? parseInt(score2) : null;
+                
+                const r = bm.bracketRound;
+                const i = bm.bracketMatchIndex;
+
+                if (tournamentData.bracketData.results[r]) {
+                     // Ensure array exists
+                     if (!tournamentData.bracketData.results[r][i]) {
+                         tournamentData.bracketData.results[r][i] = [null, null];
+                     }
+                     tournamentData.bracketData.results[r][i] = [s1, s2];
+                     refreshBracket();
+                }
+            }
+        }
+
         if (socket) {
             socket.emit('join_tournament', tournamentData._id);
+            socket.on('bracket_updated', (msg) => {
+                if (msg && msg.bracketData) {
+                    tournamentData.bracketData = msg.bracketData;
+                    refreshBracket();
+                }
+            });
+
             socket.on('match_updated', (msg) => {
                 if (!msg || !msg.matchId || !msg.payload) return;
                 const { matchId, payload } = msg;
@@ -1005,33 +1071,39 @@
                             }
                             const statusCell = row.querySelector('td .badge');
                             if (statusCell && payload.status) {
-                                statusCell.className = payload.status === 'finished' ? 'badge bg-success' : 'badge bg-warning text-dark';
-                                statusCell.innerText = payload.status === 'finished' ? 'Hoàn thành' : 'Sắp đá';
+                                if (payload.status === 'finished') {
+                                    statusCell.className = 'badge bg-success';
+                                    statusCell.innerText = 'Hoàn thành';
+                                } else if (payload.status === 'live') {
+                                    statusCell.className = 'badge bg-danger animate-pulse';
+                                    statusCell.innerText = 'Đang đá (Live)';
+                                } else {
+                                    statusCell.className = 'badge bg-warning text-dark';
+                                    statusCell.innerText = 'Sắp đá';
+                                }
                             }
                         }
                     }
                 }
-                // Update bracket results and re-render if needed
-                if (tournamentData.bracketData && tournamentData.bracketData.results) {
-                    let bm = null;
-                    if (tournamentData.fixtures) {
+                
+                // Sync Bracket
+                let s1 = payload.score1;
+                let s2 = payload.score2;
+                // If payload doesn't have score, we might need to look it up from tournamentData (already updated above)
+                if (s1 === undefined || s2 === undefined) {
+                     if (tournamentData.fixtures) {
                         for (const group of tournamentData.fixtures) {
                             const m = group.matches.find(m => m.id === matchId);
-                            if (m && m.bracketRound !== undefined && m.bracketMatchIndex !== undefined) { bm = m; break; }
-                        }
-                    }
-                    if (bm) {
-                        const s1 = payload.score1 !== undefined ? parseInt(payload.score1) : (bm.score1 != null ? parseInt(bm.score1) : null);
-                        const s2 = payload.score2 !== undefined ? parseInt(payload.score2) : (bm.score2 != null ? parseInt(bm.score2) : null);
-                        const r = bm.bracketRound, i = bm.bracketMatchIndex;
-                        if (tournamentData.bracketData.results[r] && tournamentData.bracketData.results[r][i]) {
-                            tournamentData.bracketData.results[r][i] = [s1, s2];
-                            if (document.getElementById('bracket') && document.getElementById('bracket').classList.contains('show') && window.jQuery && $.fn && $.fn.bracket) {
-                                $('#bracket-container').empty().bracket({ init: tournamentData.bracketData });
+                            if (m) {
+                                s1 = m.score1;
+                                s2 = m.score2;
+                                break;
                             }
                         }
-                    }
+                     }
                 }
+                syncMatchToBracket(matchId, s1, s2);
+
                 // If modal is open for this match, refresh view
                 if (currentMatch && currentMatch.id === matchId) {
                     Object.assign(currentMatch, payload);
@@ -1161,7 +1233,7 @@
             document.getElementById('matchLocation').value = currentMatch.location || '';
             document.getElementById('scheduleValidationMsg').style.display = 'none';
 
-            editingLocked = (currentMatch.score1 !== null && currentMatch.score1 !== undefined) && (currentMatch.score2 !== null && currentMatch.score2 !== undefined);
+            editingLocked = currentMatch.status === 'finished';
             applyEditingLockUI();
 
             // Render Lineups
@@ -1253,7 +1325,7 @@
             tournamentData.fixtures.forEach(group=>{
                 (group.matches||[]).forEach(match=>{
                     const schedDate = parseMatchDateTime(match.date, match.time);
-                    const isCompleted = (match.score1 !== null && match.score1 !== undefined) && (match.score2 !== null && match.score2 !== undefined);
+                    const isCompleted = match.status === 'finished';
                     
                     const triggerBtn = document.querySelector(`[data-match-id="${match.id}"]`);
                     if (!triggerBtn) return;
@@ -1261,6 +1333,16 @@
                     if (!row) return;
                     const statusBadge = row.querySelector('td .badge');
                     if (!statusBadge) return;
+
+                    // Force Live display if match is marked live
+                    if (match.status === 'live') {
+                        statusBadge.className = 'badge bg-danger animate-pulse';
+                        statusBadge.innerText = 'Đang đá (Live)';
+                        const statusCell = statusBadge.parentElement;
+                        const liveEl = statusCell.querySelector('.live-time');
+                        if (liveEl) liveEl.textContent = '';
+                        return;
+                    }
 
                     if (!schedDate && !isCompleted) {
                         statusBadge.className = 'badge bg-secondary text-white';
@@ -1342,10 +1424,10 @@
                         const ss = Math.floor((elapsed%60000)/1000);
                         liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
                     } else {
-                        statusBadge.className = 'badge bg-secondary';
-                        statusBadge.innerText = 'FT';
+                        statusBadge.className = 'badge bg-warning text-dark';
+                        statusBadge.innerText = 'Sắp đá';
                         liveEl.textContent = '';
-                        disableInput = true; // Block input after FT
+                        disableInput = true;
                     }
                     
                     // Apply Input Blocking
@@ -1573,14 +1655,19 @@
         }
 
         function finishMatchUI(message){
-            editingLocked = true;
-            applyEditingLockUI();
+            // Do not lock UI automatically on clock finish
+            // editingLocked = true;
+            // applyEditingLockUI();
+            
+            // Show notification instead of blocking modal
             Swal.fire({
-                icon: 'success',
-                title: 'Kết thúc',
+                icon: 'info',
+                title: 'Hết giờ (Dự kiến)',
                 text: message,
-                timer: 2500,
-                showConfirmButton: false
+                timer: 3000,
+                showConfirmButton: false,
+                toast: true,
+                position: 'top-end'
             });
         }
 
@@ -1646,12 +1733,21 @@
                 mm = currentMatch.clock.displayMinute || 0;
                 ss = currentMatch.clock.displaySecond || 0;
             }
+
+            if (currentMatch.status === 'finished') {
+                statusText = 'Kết thúc (FT)';
+            }
+
             statusEl && (statusEl.textContent = statusText);
             halfEl && (halfEl.textContent = halfText);
             timeEl && (timeEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0'));
             if (minuteInput) {
                 minuteInput.value = mm;
-                minuteInput.setAttribute('disabled','disabled');
+                if (currentMatch.status === 'finished' || (currentMatch.clock && currentMatch.clock.state === 'break')) {
+                    minuteInput.setAttribute('disabled','disabled');
+                } else {
+                    minuteInput.removeAttribute('disabled');
+                }
             }
             const addBtn = document.querySelector('#matchDetailModal button.btn.btn-success');
             const controls = [
@@ -2055,8 +2151,18 @@
                         if (row) {
                             const scoreCell = row.querySelector('td.text-center');
                             if (scoreCell) scoreCell.innerHTML = `${s1} : ${s2}`;
+                            
+                            const statusCell = row.querySelector('td .badge');
+                            if (statusCell) {
+                                statusCell.className = 'badge bg-danger animate-pulse';
+                                statusCell.innerText = 'Đang đá (Live)';
+                            }
                         }
                     }
+
+                    // Ensure editing remains enabled while match is live
+                    editingLocked = false;
+                    applyEditingLockUI();
 
                     Swal.fire({
                         icon: 'success',
@@ -2097,6 +2203,7 @@
                 matchId: currentMatch.id,
                 score1: score1,
                 score2: score2,
+                status: 'finished',
                 lineup1: currentMatch.lineup1,
                 lineup2: currentMatch.lineup2,
                 events: currentMatch.events || []

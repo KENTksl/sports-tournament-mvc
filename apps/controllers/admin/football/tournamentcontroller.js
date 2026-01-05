@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const FootballService = require('../../../services/FootballService');
-const Fine = require('../../../models/Fine');
+const FootballRepository = require('../../../repositories/FootballRepository');
+const Fine = require(global.__basedir + "/apps/models/Fine"); // Import Fine model
 const multer = require('multer');
+const fs = require('fs');
 const path = require('path');
 
 // Configure Multer Storage
@@ -397,6 +399,13 @@ class FootballTournamentController {
     async updateMatch(req, res) {
         try {
             const { tournamentId, matchId, score1, score2, time, date, location, lineup1, lineup2, events } = req.body;
+            console.log('[TournamentController] Update Match Request:', {
+                tournamentId, 
+                matchId, 
+                status: req.body.status, 
+                hasScore1: req.body.score1 !== undefined, 
+                hasEvents: req.body.events ? req.body.events.length : 0
+            });
             const matchData = {};
             
             if (score1 !== undefined) {
@@ -411,6 +420,7 @@ class FootballTournamentController {
             if (lineup1) matchData.lineup1 = lineup1;
             if (lineup2) matchData.lineup2 = lineup2;
             if (events) matchData.events = events;
+            if (req.body.status) matchData.status = req.body.status;
             
             // Let Service handle status logic
             
@@ -442,46 +452,71 @@ class FootballTournamentController {
                             return team ? team.id : null;
                         };
 
-                        for (const event of events) {
-                            if (event.type === 'yellow' || event.type === 'red') {
-                                const isYellow = event.type === 'yellow';
-                                const amount = isYellow ? 100000 : 300000;
-                                const teamName = event.team === 'team1' ? currentMatch.team1 : currentMatch.team2;
-                                const teamId = getTeamId(teamName);
+                        // 1. Get all existing fines for this match
+                        const existingFines = await Fine.find({ matchId: matchId });
+                        
+                        // 2. Identify current card events
+                        const cardEvents = events.filter(e => e.type === 'yellow' || e.type === 'red');
+                        const processedFineIds = new Set();
+
+                        // 3. Sync Logic
+                        for (const event of cardEvents) {
+                            const isYellow = event.type === 'yellow';
+                            const amount = isYellow ? 100000 : 300000;
+                            const teamName = event.team === 'team1' ? currentMatch.team1 : currentMatch.team2;
+                            const teamId = getTeamId(teamName);
+                            
+                            if (teamId && event.playerId) {
+                                // Try to match with an existing fine
+                                // Logic: Same match, same player, same type.
+                                // We might have multiple fines for same player (2 yellow cards).
+                                // To handle multiple yellows, we need a way to map specific event to specific fine.
+                                // Simplest way: Match by player+type, and consume the fine so it's not matched again for next event.
                                 
-                                if (teamId && event.playerId) {
-                                    // Check for duplicates
-                                    // We use a combination of matchId, memberId, type, and maybe time/minute to be unique?
-                                    // Or just one fine per card event. 
-                                    // Since events don't have unique IDs in the array, we rely on duplicate check by properties.
-                                    // However, a player could get 2 yellow cards.
-                                    // So we should check if a fine exists for this match, player, type AND minute.
-                                    
-                                    const exists = await Fine.findOne({
+                                const matchingFine = existingFines.find(f => 
+                                    !processedFineIds.has(f._id.toString()) &&
+                                    f.memberId === event.playerId &&
+                                    f.type === (isYellow ? 'yellow_card' : 'red_card')
+                                );
+
+                                if (matchingFine) {
+                                    // Update existing fine (e.g. if minute changed)
+                                    // Don't change status if it's already paid? Maybe keep it simple.
+                                    matchingFine.reason = `${isYellow ? 'Thẻ vàng' : 'Thẻ đỏ'} phút ${event.minute}`;
+                                    await matchingFine.save();
+                                    processedFineIds.add(matchingFine._id.toString());
+                                } else {
+                                    // Create new fine
+                                    const fine = new Fine({
+                                        memberId: event.playerId,
+                                        memberName: event.playerName || 'Unknown',
+                                        teamId: teamId,
+                                        teamName: teamName,
                                         tournamentId: tournamentId,
                                         matchId: matchId,
-                                        memberId: event.playerId,
-                                        type: event.type === 'yellow' ? 'yellow_card' : 'red_card',
-                                        reason: `${event.type === 'yellow' ? 'Thẻ vàng' : 'Thẻ đỏ'} phút ${event.minute}`
+                                        matchLabel: `${groupName} - ${currentMatch.team1} vs ${currentMatch.team2}`,
+                                        type: isYellow ? 'yellow_card' : 'red_card',
+                                        amount: amount,
+                                        reason: `${isYellow ? 'Thẻ vàng' : 'Thẻ đỏ'} phút ${event.minute}`,
+                                        status: 'pending'
                                     });
+                                    await fine.save();
+                                    // Don't add to processedFineIds since it's new, or add it if we push to existingFines? 
+                                    // No need, we are done with this event.
+                                }
+                            }
+                        }
 
-                                    if (!exists) {
-                                        const fine = new Fine({
-                                            memberId: event.playerId,
-                                            memberName: event.playerName || 'Unknown',
-                                            teamId: teamId,
-                                            teamName: teamName,
-                                            tournamentId: tournamentId,
-                                            matchId: matchId,
-                                            matchLabel: `${groupName} - ${currentMatch.team1} vs ${currentMatch.team2}`,
-                                            type: event.type === 'yellow' ? 'yellow_card' : 'red_card',
-                                            amount: amount,
-                                            reason: `${event.type === 'yellow' ? 'Thẻ vàng' : 'Thẻ đỏ'} phút ${event.minute}`,
-                                            status: 'pending'
-                                        });
-                                        await fine.save();
-                                        console.log(`Created fine for ${event.playerName}: ${amount}`);
-                                    }
+                        // 4. Delete fines that were not matched (i.e., event was removed)
+                        // ONLY delete if status is 'pending'. If 'paid', we should probably keep it or warn?
+                        // For now, let's only delete pending fines to be safe.
+                        for (const fine of existingFines) {
+                            if (!processedFineIds.has(fine._id.toString())) {
+                                if (fine.status === 'pending') {
+                                    await Fine.findByIdAndDelete(fine._id);
+                                    console.log(`Deleted fine ${fine._id} because event was removed`);
+                                } else {
+                                    console.log(`Skipped deleting paid fine ${fine._id}`);
                                 }
                             }
                         }
@@ -556,6 +591,14 @@ class FootballTournamentController {
                     io.to('tournament:' + String(tournamentId)).emit('standings_updated', {
                         tournamentId,
                         standings: updatedTournament.standings
+                    });
+                }
+
+                // Emit Bracket Update if applicable
+                if (updatedTournament.bracketData) {
+                    io.to('tournament:' + String(tournamentId)).emit('bracket_updated', {
+                        tournamentId: tournamentId,
+                        bracketData: updatedTournament.bracketData
                     });
                 }
             }
