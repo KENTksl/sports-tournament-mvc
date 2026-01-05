@@ -3,6 +3,7 @@ var router = express.Router();
 var UserService = require(global.__basedir + "/apps/services/UserService");
 var TeamRegistration = require(global.__basedir + "/apps/models/TeamRegistration");
 var MyTeam = require(global.__basedir + "/apps/models/MyTeam");
+var Fine = require(global.__basedir + "/apps/models/Fine");
 var JWTMiddleware = require(global.__basedir + "/apps/Util/VerifyToken");
 var multer = require("multer");
 var path = require("path");
@@ -41,7 +42,7 @@ class ProfileController {
 
     async index(req, res) {
         try {
-            res.render("profile.ejs");
+            res.render("profile.ejs", { fines: [] });
         } catch (error) {
             console.error(error);
             res.status(500).send("Internal Server Error");
@@ -136,7 +137,20 @@ class ProfileController {
             // Fetch My Team
             const myTeam = await MyTeam.findOne({ userId: user._id });
 
-            res.json({ success: true, data: userObj, registrations: registrations, myTeam: myTeam, teamStats: teamStats, debugEmail: email });
+            // Fetch Fines
+            const teamNames = registrations
+                .filter(r => r.status === 'approved')
+                .map(r => r.teamName);
+            
+            // Also include current MyTeam name if exists
+            if (myTeam && myTeam.teamName && !teamNames.includes(myTeam.teamName)) {
+                teamNames.push(myTeam.teamName);
+            }
+
+            const fines = await Fine.find({ teamName: { $in: teamNames } })
+                .sort({ createdAt: -1 });
+
+            res.json({ success: true, data: userObj, registrations: registrations, myTeam: myTeam, teamStats: teamStats, fines: fines, debugEmail: email });
         } catch (error) {
             console.error(error);
             res.status(500).json({ success: false, message: "Internal server error" });

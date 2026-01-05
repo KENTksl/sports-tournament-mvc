@@ -254,7 +254,11 @@
                                                                     <div class="font-weight-bold h5 mb-0 text-dark">
                                                                         <%= match.score1 %> - <%= match.score2 %>
                                                                     </div>
-                                                                    <small class="text-success font-weight-bold">FT</small>
+                                                                    <% if (match.status === 'live') { %>
+                                                                        <small class="text-danger font-weight-bold animate-pulse">LIVE</small>
+                                                                    <% } else { %>
+                                                                        <small class="text-success font-weight-bold">FT</small>
+                                                                    <% } %>
                                                                 <% } else { %>
                                                                     <div class="badge badge-light border px-2 py-1 mb-1">VS</div>
                                                                 <% } %>
@@ -839,8 +843,18 @@
                     if (col && payload.score1 !== undefined && payload.score2 !== undefined) {
                         const scoreEl = col.querySelector('.font-weight-bold.h5');
                         if (scoreEl) scoreEl.innerText = `${payload.score1} - ${payload.score2}`;
-                        const ft = col.querySelector('.text-success.font-weight-bold');
-                        if (ft) ft.innerText = 'FT';
+                        
+                        // Update status badge if it exists
+                        const statusEl = col.querySelector('small');
+                        if (statusEl && payload.status) {
+                            if (payload.status === 'live') {
+                                statusEl.className = 'text-danger font-weight-bold animate-pulse';
+                                statusEl.innerText = 'LIVE';
+                            } else if (payload.status === 'finished') {
+                                statusEl.className = 'text-success font-weight-bold';
+                                statusEl.innerText = 'FT';
+                            }
+                        }
                     }
                 }
                 // If modal open for this match
@@ -868,6 +882,17 @@
                  if (msg && msg.standings) {
                      renderStandings(msg.standings);
                  }
+            });
+
+            socket.on('bracket_updated', (msg) => {
+                if (msg && msg.bracketData) {
+                    // Update local data
+                    tournamentData.bracketData = msg.bracketData;
+                    // Re-render bracket
+                    if (typeof renderBracket === 'function') {
+                        renderBracket(msg.bracketData);
+                    }
+                }
             });
         }
 
@@ -960,6 +985,14 @@
             const now = Date.now();
             const sched = new Date(currentMatch.date + 'T' + currentMatch.time).getTime();
             
+            // Explicit status check
+            if (currentMatch.status === 'finished') {
+                statusBadge.className = 'badge bg-secondary';
+                statusBadge.innerText = 'FT';
+                liveEl.textContent = '';
+                return;
+            }
+
             // If invalid date/time
             if (isNaN(sched)) {
                 statusBadge.className = 'badge bg-secondary';
@@ -1033,9 +1066,16 @@
                 const ss = Math.floor((elapsed%60000)/1000);
                 liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
             } else {
-                statusBadge.className = 'badge bg-secondary';
-                statusBadge.innerText = 'FT';
-                liveEl.textContent = '';
+                if (currentMatch.status === 'live') {
+                    statusBadge.className = 'badge bg-danger animate-pulse';
+                    statusBadge.innerText = 'Đang thi đấu';
+                    const maxTime = halfDuration * 2 + (hasOT ? otHalf * 2 : 0);
+                    liveEl.textContent = maxTime + '+';
+                } else {
+                    statusBadge.className = 'badge bg-secondary';
+                    statusBadge.innerText = 'FT';
+                    liveEl.textContent = '';
+                }
             }
         }
 
@@ -1304,7 +1344,7 @@
                 });
             });
 
-            function renderBody(map, bodyId, valueGetter) {
+            function renderBody(map, bodyId, valueGetter, customRenderer) {
                 const body = document.getElementById(bodyId);
                 if (!body) return;
                 const arr = Array.from(map.values());
@@ -1316,7 +1356,10 @@
                     return;
                 }
                 top.forEach((p, idx) => {
-                    const total = valueGetter(p);
+                    let displayValue = valueGetter(p);
+                    if (customRenderer) {
+                        displayValue = customRenderer(p);
+                    }
                     const avatar = p.avatar && p.avatar !== 'default-avatar.png' ? `/static/uploads/tournaments/${p.avatar}` : '/static/images/default.png';
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
@@ -1326,7 +1369,7 @@
                             <span class="mr-2">${p.name}</span>
                             <small class="text-muted">(${p.teamName})</small>
                         </td>
-                        <td class="text-center">${total}</td>
+                        <td class="text-center">${displayValue}</td>
                     `;
                     body.appendChild(tr);
                 });
@@ -1334,7 +1377,10 @@
 
             renderBody(scorers, 'topScorersBody', (p)=>p.goals);
             renderBody(assisters, 'topAssistsBody', (p)=>p.assists);
-            renderBody(cards, 'topCardsBody', (p)=>p.yellow + p.red);
+            renderBody(cards, 'topCardsBody', (p)=>p.yellow + p.red, (p) => {
+                return `<span class="badge badge-warning text-white mr-1" title="Thẻ vàng">${p.yellow}</span>` +
+                       `<span class="badge badge-danger text-white" title="Thẻ đỏ">${p.red}</span>`;
+            });
         }
 
         document.addEventListener('DOMContentLoaded', function(){
@@ -1536,25 +1582,29 @@
     </script>
 
     <script>
+        function renderBracket(data) {
+             if (data && data.teams && data.results) {
+                $('#bracket-container').empty().bracket({
+                    init: data
+                });
+            } else {
+                $('#bracket-container').html('<p class="text-center text-muted">Chưa có dữ liệu sơ đồ.</p>');
+            }
+        }
+
         $(document).ready(function () {
             // Render Bracket if data exists
             var bracketData = null;
             try {
                 var rawData = document.getElementById('bracket-data').textContent;
-                if (rawData) {
+                if (rawData && rawData.trim() !== 'null') {
                     bracketData = JSON.parse(rawData);
                 }
             } catch (e) {
                 console.error("Error parsing bracket data", e);
             }
 
-            if (bracketData) {
-                $('#bracket-container').bracket({
-                    init: bracketData
-                });
-            } else {
-                $('#bracket-container').html('<p class="text-center text-muted">Chưa có dữ liệu sơ đồ.</p>');
-            }
+            renderBracket(bracketData);
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>

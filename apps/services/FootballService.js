@@ -155,6 +155,12 @@ class FootballService {
         while (count >= 1) {
             let roundResults = [];
             for (let i = 0; i < count; i++) roundResults.push([null, null]);
+            
+            // Add slot for 3rd place match in the final round if we have enough teams
+            if (count === 1 && processingTeams.length >= 4) {
+                roundResults.push([null, null]);
+            }
+            
             results.push(roundResults);
             count /= 2;
         }
@@ -174,12 +180,21 @@ class FootballService {
             else roundName = `Vòng 1/${numMatches}`;
 
             const roundMatches = [];
-            for (let m = 0; m < numMatches; m++) {
+            // If it's the final round (numMatches === 1) and we have >= 4 teams, 
+            // we actually want 2 matches (Final + 3rd Place)
+            const actualMatchesInRound = (numMatches === 1 && processingTeams.length >= 4) ? 2 : numMatches;
+
+            for (let m = 0; m < actualMatchesInRound; m++) {
                 // For the first round, populate teams
                 let t1 = null, t2 = null;
                 if (r === 0) {
                     t1 = bracketTeams[m][0];
                     t2 = bracketTeams[m][1];
+                }
+
+                let matchLabel = `${roundName} - Trận ${m + 1}`;
+                if (numMatches === 1 && m === 1) {
+                    matchLabel = 'Tranh Hạng 3';
                 }
 
                 roundMatches.push({
@@ -194,7 +209,7 @@ class FootballService {
                     lineup2: [],
                     events: [],
                     time: '20:00',
-                    date: `${roundName} - Trận ${m + 1}`,
+                    date: matchLabel,
                     bracketRound: r,       
                     bracketMatchIndex: m   
                 });
@@ -202,10 +217,7 @@ class FootballService {
             fixtures.push({ group: roundName, matches: roundMatches });
         }
 
-        return {
-            bracketData: { teams: bracketTeams, results: results },
-            fixtures: fixtures
-        };
+        return { bracketData: { teams: bracketTeams, results: results }, fixtures: fixtures };
     }
 
     getRoundRobinSchedule(teams) {
@@ -481,26 +493,61 @@ class FootballService {
                     if (match.score1 !== null && match.score2 !== null && match.bracketRound !== undefined && match.bracketMatchIndex !== undefined) {
                          const currentRound = match.bracketRound;
                          const currentIndex = match.bracketMatchIndex;
-                         const nextRound = currentRound + 1;
-                         const nextIndex = Math.floor(currentIndex / 2);
-                         const isTeam1InNext = (currentIndex % 2 === 0);
                          
                          const s1 = parseInt(match.score1);
                          const s2 = parseInt(match.score2);
-                         let winnerName = null;
                          
-                         if (s1 > s2) winnerName = match.team1;
-                         else if (s2 > s1) winnerName = match.team2;
-                         
-                         if (winnerName) {
-                             // Find next match
-                             for (const g of tournament.fixtures) {
-                                 const nextMatch = g.matches.find(m => m.bracketRound === nextRound && m.bracketMatchIndex === nextIndex);
-                                 if (nextMatch) {
-                                     if (isTeam1InNext) nextMatch.team1 = winnerName;
-                                     else nextMatch.team2 = winnerName;
-                                     affectedMatches.push(nextMatch);
-                                     break; 
+                         // 1. Update Bracket Data (for UI) - Always update score
+                         if (tournament.bracketData && tournament.bracketData.results) {
+                             if (tournament.bracketData.results[currentRound]) {
+                                 tournament.bracketData.results[currentRound][currentIndex] = [s1, s2];
+                                 tournament.markModified('bracketData');
+                             }
+                         }
+
+                         // 2. Advance Teams - ONLY IF FINISHED
+                         if (match.status === 'finished') {
+                             const nextRound = currentRound + 1;
+                             const nextIndex = Math.floor(currentIndex / 2);
+                             const isTeam1InNext = (currentIndex % 2 === 0);
+                             
+                             let winnerName = null;
+                             if (s1 > s2) winnerName = match.team1;
+                             else if (s2 > s1) winnerName = match.team2;
+
+                             if (winnerName) {
+                                 // Advance Winner
+                                 for (const g of tournament.fixtures) {
+                                     const nextMatch = g.matches.find(m => m.bracketRound === nextRound && m.bracketMatchIndex === nextIndex);
+                                     if (nextMatch) {
+                                         if (isTeam1InNext) nextMatch.team1 = winnerName;
+                                         else nextMatch.team2 = winnerName;
+                                         affectedMatches.push(nextMatch);
+                                         break; 
+                                     }
+                                 }
+
+                                 // Advance Loser (If Semi-Final)
+                                 let isSemiFinal = false;
+                                 for (const g of tournament.fixtures) {
+                                     if (g.matches.some(m => m.id === matchId)) {
+                                         if (g.group === 'Bán Kết') isSemiFinal = true;
+                                         break;
+                                     }
+                                 }
+
+                                 if (isSemiFinal) {
+                                     const loserName = (winnerName === match.team1) ? match.team2 : match.team1;
+                                     // Find 3rd Place Match (Next Round, Index 1)
+                                     for (const g of tournament.fixtures) {
+                                         const thirdPlaceMatch = g.matches.find(m => m.bracketRound === nextRound && m.bracketMatchIndex === 1);
+                                         if (thirdPlaceMatch) {
+                                             if (isTeam1InNext) thirdPlaceMatch.team1 = loserName;
+                                             else thirdPlaceMatch.team2 = loserName;
+                                             affectedMatches.push(thirdPlaceMatch);
+                                             break;
+                                         }
+                                     }
                                  }
                              }
                          }
@@ -639,7 +686,7 @@ class FootballService {
 
             // 2. Calculate stats from matches
             group.matches.forEach(m => {
-                if (m.score1 !== null && m.score2 !== null && m.score1 !== undefined && m.score2 !== undefined && m.score1 !== "" && m.score2 !== "") {
+                if (m.score1 !== null && m.score2 !== null && m.score1 !== undefined && m.score2 !== undefined && m.score1 !== "" && m.score2 !== "" && m.status === 'finished') {
                     const s1 = parseInt(m.score1);
                     const s2 = parseInt(m.score2);
                     
