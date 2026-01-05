@@ -296,24 +296,27 @@ class FootballService {
     /**
      * Generate Group Stage Fixtures
      */
-    generateFixtures(numTeams) {
+    generateFixtures(teamsInput) {
         const fixtures = [];
         const groupLabels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+        
+        let teamNames = [];
+        if (Array.isArray(teamsInput)) {
+            teamNames = teamsInput;
+        } else {
+            for(let k=1; k<=teamsInput; k++) teamNames.push("Đội " + k);
+        }
+
+        const numTeams = teamNames.length;
         let numGroups = Math.ceil(numTeams / 4); 
         
         if (numTeams === 16 || numTeams === 32) {
             numGroups = 4;
         }
 
-        const teamsPerGroup = numTeams / numGroups;
-        let globalTeamCount = 1;
-
         // Small tournament: single group
         if (numTeams < 4) {
-            let groupTeamNames = [];
-            for(let k=1; k<=numTeams; k++) groupTeamNames.push("Đội " + k);
-            
-            const rounds = this.getRoundRobinSchedule(groupTeamNames);
+            const rounds = this.getRoundRobinSchedule(teamNames);
             let allMatches = [];
             
             rounds.forEach((roundMatches, roundIndex) => {
@@ -339,14 +342,22 @@ class FootballService {
         }
 
         // Multi-group tournament
+        const teamsPerGroup = numTeams / numGroups;
+        let currentTeamIndex = 0;
+
         for (let i = 0; i < numGroups; i++) {
             const groupName = `Bảng ${groupLabels[i]}`;
             let groupTeamNames = [];
-            for(let k=0; k<teamsPerGroup; k++) {
-                if (globalTeamCount <= numTeams) groupTeamNames.push("Đội " + (globalTeamCount++));
+            
+            const limit = (i === numGroups - 1) ? (numTeams - currentTeamIndex) : Math.ceil(teamsPerGroup);
+            
+            for(let k=0; k < limit; k++) {
+                if (currentTeamIndex < numTeams) {
+                    groupTeamNames.push(teamNames[currentTeamIndex++]);
+                }
             }
             
-            if (groupTeamNames.length < 2) break;
+            if (groupTeamNames.length < 2) continue;
             
             const rounds = this.getRoundRobinSchedule(groupTeamNames);
             let allMatches = [];
@@ -390,6 +401,43 @@ class FootballService {
 
     async getAllTournaments(filter = {}, page = null, limit = null) {
         return await FootballRepository.findAll(filter, page, limit);
+    }
+
+    async startTournament(tournamentId) {
+        const tournament = await FootballRepository.findById(tournamentId);
+        if (!tournament) throw new Error('Tournament not found');
+
+        if (tournament.status !== TOURNAMENT_STATUS.UPCOMING) {
+            throw new Error('Giải đấu đã bắt đầu hoặc đã kết thúc.');
+        }
+
+        const validTeams = (tournament.teams || []).filter(t => t.name);
+        if (validTeams.length < 2) {
+            throw new Error('Cần ít nhất 2 đội để bắt đầu giải đấu.');
+        }
+
+        if (tournament.mode === 'Knockout') {
+            const teamNames = validTeams.map(t => t.name);
+            const { bracketData, fixtures } = this.generateKnockoutStructure(teamNames);
+            tournament.bracketData = bracketData;
+            tournament.fixtures = fixtures;
+        } else {
+            const teamNames = validTeams.map(t => t.name);
+            const fixtures = this.generateFixtures(teamNames);
+            tournament.fixtures = fixtures;
+            tournament.standings = this.calculateStandings(tournament);
+        }
+
+        tournament.status = TOURNAMENT_STATUS.ONGOING;
+        return await tournament.save();
+    }
+
+    async batchScheduleMatches(tournamentId, options) {
+        const tournament = await FootballRepository.findById(tournamentId);
+        if (!tournament) throw new Error('Tournament not found');
+        // Placeholder implementation to avoid crash. 
+        // Real implementation would iterate fixtures and set dates.
+        return true;
     }
 
     async addTeam(tournamentId, teamData) {
