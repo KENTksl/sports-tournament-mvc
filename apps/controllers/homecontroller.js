@@ -1,5 +1,5 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 
 class HomeController {
     constructor() {
@@ -12,7 +12,6 @@ class HomeController {
     }
 
     index(req, res) {
-        //res.json({"message": "this is home"});
         res.render("home.ejs");
     }
 }

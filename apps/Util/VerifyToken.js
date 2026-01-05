@@ -19,7 +19,6 @@ class JWTMiddleware {
         email: decoded.email,
         user: decoded.user,
         roles: decoded.roles,
-        claims: decoded.claims,
       });
       next();
     } catch (err) {

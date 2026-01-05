@@ -9,24 +9,24 @@ class MainController {
 
     initializeRoutes() {
         // Sub-controllers
-        this.router.use("/home", require(__dirname + "/homecontroller"));
-        this.router.use("/about", require(__dirname + "/aboutcontroller"));
-        this.router.use("/news", require(__dirname + "/newscontroller"));
-        this.router.use("/contact", require(__dirname + "/contactcontroller"));
-        this.router.use("/login", require(__dirname + "/logincontroller"));
-        this.router.use("/signup", require(__dirname + "/signupcontroller"));
-        this.router.use("/profile", require(__dirname + "/profilecontroller"));
-        this.router.use("/admin", require(__dirname + "/admin/admincontroller"));
-        this.router.use("/authenticate", require(__dirname + "/api/authenticatecontroller"));
-        this.router.use("/football", require(__dirname + "/footballcontroller"));
-        this.router.use("/register-team", require(__dirname + "/teamregistrationcontroller"));
+        this.router.use("/home", require("./homecontroller"));
+        this.router.use("/about", require("./aboutcontroller"));
+        this.router.use("/news", require("./newscontroller"));
+        this.router.use("/contact", require("./contactcontroller"));
+        this.router.use("/login", require("./logincontroller"));
+        this.router.use("/signup", require("./signupcontroller"));
+        this.router.use("/profile", require("./profilecontroller"));
+        this.router.use("/admin", require("./admin/admincontroller"));
+        this.router.use("/authenticate", require("./api/AuthController"));
+        this.router.use("/football", require("./football/footballcontroller"));
+        this.router.use("/register-team", require("./football/teamregistrationcontroller"));
+        this.router.use("/update", require("./updatecontroller"));
 
         // Default Route
         this.router.get("/", this.index.bind(this));
     }
 
     index(req, res) {
-        //res.json({"message": "this is index page"});
         res.render("home.ejs");
     }
 }

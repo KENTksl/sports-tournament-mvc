@@ -1,51 +1,51 @@
-var express = require("express");
-var app = express();
-var mongoose = require('mongoose');
-var config = require(__dirname + "/Config/Setting.json");
+const express = require("express");
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const { Server } = require('socket.io');
+const config = require(__dirname + "/Config/Setting.json");
 
-// Connect to MongoDB with Mongoose
-const user = config.mongodb.username;
-const pass = config.mongodb.password;
-const dbName = config.mongodb.database;
-const uri = `mongodb+srv://${user}:${pass}@cluster0.u5scqoz.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+const app = express();
+
+// --- Database Connection ---
+const { username, password, database } = config.mongodb;
+const uri = `mongodb+srv://${username}:${password}@cluster0.u5scqoz.mongodb.net/${database}?retryWrites=true&w=majority`;
 
 mongoose.connect(uri)
     .then(() => console.log('Mongoose connected...'))
     .catch(err => console.error('Mongoose connection error:', err));
 
-//Body parser
+// --- Middleware ---
 global.__basedir = __dirname;
-
-var bodyParser = require('body-parser')
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json());
-//Controller
-var controller = require(__dirname  + "/apps/controllers");
-app.use(controller);
-
-app.set("views",__dirname + "/apps/views");
-app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: false }));
 app.use("/static", express.static(__dirname + "/public"));
 
-//Run server
-var server = app.listen(3000, function(){
-   console.log("server is running");
+// --- View Engine ---
+app.set("views", __dirname + "/apps/views");
+app.set("view engine", "ejs");
+
+// --- Controllers ---
+const controller = require(__dirname + "/apps/controllers");
+app.use(controller);
+
+// --- Server Start ---
+const PORT = process.env.PORT || 3000;
+const server = app.listen(PORT, function () {
+    console.log(`Server is running on port ${PORT}`);
 });
 
-// Realtime: attach Socket.IO server and rooms
-const { Server } = require('socket.io');
+// --- Socket.IO ---
 const io = new Server(server, {
-  cors: { origin: '*', methods: ['GET','POST'] }
+    cors: { origin: '*', methods: ['GET', 'POST'] }
 });
 
 app.set('io', io);
 
 io.on('connection', (socket) => {
-  socket.on('join_tournament', (tid) => {
-    if (tid) socket.join('tournament:' + String(tid));
-  });
-  socket.on('join_match', (mid) => {
-    if (mid) socket.join('match:' + String(mid));
-  });
+    socket.on('join_tournament', (tid) => {
+        if (tid) socket.join('tournament:' + String(tid));
+    });
+    socket.on('join_match', (mid) => {
+        if (mid) socket.join('match:' + String(mid));
+    });
 });
