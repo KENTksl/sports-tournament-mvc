@@ -78,6 +78,37 @@ class ProfileController {
                 
             console.log("Found registrations:", registrations.length);
 
+            // Ensure tournament status is up-to-date (completed if final finished or all matches finished)
+            for (const reg of registrations) {
+                const t = reg.tournamentId;
+                if (!t) continue;
+                try {
+                    let allFinished = true;
+                    let finalFinished = false;
+                    if (t.fixtures && t.fixtures.length > 0) {
+                        for (const g of t.fixtures) {
+                            for (const m of (g.matches || [])) {
+                                if (m.status !== 'finished') {
+                                    allFinished = false;
+                                }
+                                const isFinalGroup = (g.group && (g.group.includes('Chung Kết') || String(g.group).toLowerCase().includes('final')));
+                                if (isFinalGroup && (m.bracketMatchIndex === undefined || m.bracketMatchIndex === 0)) {
+                                    if (m.status === 'finished') {
+                                        finalFinished = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if ((allFinished || finalFinished) && t.status !== 'completed') {
+                        t.status = 'completed';
+                        await t.save();
+                    }
+                } catch (e) {
+                    console.warn('Season status reconciliation failed:', e.message);
+                }
+            }
+
             // Process Team Stats
             const teamStats = [];
             registrations.forEach(reg => {

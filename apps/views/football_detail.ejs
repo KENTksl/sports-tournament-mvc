@@ -226,6 +226,7 @@
                                 <div class="tab-content" id="public-fixtures-tabContent">
                                     <% groupNames.forEach((name, index) => { %>
                                         <div class="tab-pane fade <%= index === 0 ? 'show active' : '' %>" id="pf-<%= index %>" role="tabpanel" aria-labelledby="pf-<%= index %>-tab">
+                                            <div class="group-matches" data-group-index="<%= index %>">
                                             <% groups[name].forEach(match => { 
                                                 let logo1 = 'default.png';
                                                 let logo2 = 'default.png';
@@ -282,6 +283,12 @@
                                                     </div>
                                                 </div>
                                             <% }) %>
+                                            </div>
+                                            <div class="d-flex justify-content-center mt-2">
+                                                <nav aria-label="Group pagination">
+                                                    <ul class="pagination pagination-sm mb-0" data-pager-for="<%= index %>"></ul>
+                                                </nav>
+                                            </div>
                                         </div>
                                     <% }) %>
                                 </div>
@@ -893,6 +900,63 @@
                         renderBracket(msg.bracketData);
                     }
                 }
+            });
+            
+            // Setup group pagination after sockets and DOM ready
+            function setupGroupPagination(pageSize) {
+                pageSize = pageSize || 6;
+                const panes = document.querySelectorAll('#public-fixtures-tabContent .tab-pane');
+                panes.forEach(pane => {
+                    const list = pane.querySelectorAll('.group-matches .match-card');
+                    const pager = pane.querySelector('.pagination');
+                    if (!list || !pager) return;
+                    const total = list.length;
+                    const pages = Math.max(1, Math.ceil(total / pageSize));
+                    // Build pager
+                    let html = '';
+                    html += `<li class="page-item disabled"><a class="page-link" href="#" data-page="prev">&laquo;</a></li>`;
+                    for (let i=1;i<=pages;i++) {
+                        html += `<li class="page-item ${i===1?'active':''}"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`;
+                    }
+                    html += `<li class="page-item ${pages<=1?'disabled':''}"><a class="page-link" href="#" data-page="next">&raquo;</a></li>`;
+                    pager.innerHTML = html;
+                    // Show first page
+                    function showPage(p){
+                        const start = (p-1)*pageSize;
+                        const end = start + pageSize;
+                        list.forEach((el, idx) => {
+                            el.style.display = (idx>=start && idx<end) ? '' : 'none';
+                        });
+                        // update pager active
+                        pager.querySelectorAll('.page-item').forEach(li=>li.classList.remove('active'));
+                        const btn = pager.querySelector(`a.page-link[data-page="${p}"]`);
+                        if (btn) btn.parentElement.classList.add('active');
+                        // prev/next disable
+                        const prev = pager.querySelector('a.page-link[data-page="prev"]').parentElement;
+                        const next = pager.querySelector('a.page-link[data-page="next"]').parentElement;
+                        if (prev) prev.classList.toggle('disabled', p<=1);
+                        if (next) next.classList.toggle('disabled', p>=pages);
+                        pager.setAttribute('data-current-page', String(p));
+                    }
+                    showPage(1);
+                    pager.querySelectorAll('a.page-link').forEach(a=>{
+                        a.addEventListener('click', function(e){
+                            e.preventDefault();
+                            let p = this.getAttribute('data-page');
+                            let cur = parseInt(pager.getAttribute('data-current-page') || '1');
+                            if (p === 'prev') p = String(cur-1);
+                            if (p === 'next') p = String(cur+1);
+                            const pi = parseInt(p);
+                            if (!isNaN(pi)) {
+                                const clamped = Math.max(1, Math.min(pages, pi));
+                                showPage(clamped);
+                            }
+                        });
+                    });
+                });
+            }
+            document.addEventListener('DOMContentLoaded', function(){
+                setupGroupPagination(6);
             });
         }
 

@@ -564,6 +564,35 @@ class FootballService {
         
         if (!matchFound) throw new Error('Match not found');
         
+        // --- Tournament Completion Detection ---
+        // Mark tournament as completed if:
+        // 1) All matches are finished; OR
+        // 2) Knockout mode and the Final match is finished
+        try {
+            let allFinished = true;
+            let finalFinished = false;
+            if (tournament.fixtures && tournament.fixtures.length > 0) {
+                for (const g of tournament.fixtures) {
+                    for (const m of (g.matches || [])) {
+                        if (m.status !== 'finished') {
+                            allFinished = false;
+                        }
+                        const isFinalGroup = (g.group && (g.group.includes('Chung Kết') || g.group.toLowerCase().includes('final')));
+                        if (isFinalGroup && (m.bracketMatchIndex === undefined || m.bracketMatchIndex === 0)) {
+                            if (m.status === 'finished') {
+                                finalFinished = true;
+                            }
+                        }
+                    }
+                }
+            }
+            if (allFinished || finalFinished) {
+                tournament.status = 'completed';
+            }
+        } catch (e) {
+            // Silent catch; completion detection shouldn't block updates
+        }
+        
         // Recalculate standings
         tournament.standings = this.calculateStandings(tournament);
         tournament.markModified('standings');
@@ -738,7 +767,34 @@ class FootballService {
     }
 
     async getTournamentById(id) {
-        return await FootballRepository.findById(id);
+        const t = await FootballRepository.findById(id);
+        if (!t) return null;
+        try {
+            let allFinished = true;
+            let finalFinished = false;
+            if (t.fixtures && t.fixtures.length > 0) {
+                for (const g of t.fixtures) {
+                    for (const m of (g.matches || [])) {
+                        if (m.status !== 'finished') {
+                            allFinished = false;
+                        }
+                        const isFinalGroup = (g.group && (g.group.includes('Chung Kết') || g.group.toLowerCase().includes('final')));
+                        if (isFinalGroup && (m.bracketMatchIndex === undefined || m.bracketMatchIndex === 0)) {
+                            if (m.status === 'finished') {
+                                finalFinished = true;
+                            }
+                        }
+                    }
+                }
+            }
+            if ((allFinished || finalFinished) && t.status !== 'completed') {
+                t.status = 'completed';
+                await t.save();
+            }
+        } catch (e) {
+            // ignore
+        }
+        return t;
     }
 
     async createTournament(data) {
