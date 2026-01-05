@@ -80,7 +80,7 @@ class FootballTournamentController {
             res.redirect('/admin/football/tournament');
         } catch (error) {
             console.error('Error creating tournament:', error);
-            res.status(500).send('Error creating tournament');
+            res.status(500).send('Error creating tournament: ' + error.message);
         }
     }
 
