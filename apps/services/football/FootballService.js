@@ -684,17 +684,18 @@ class FootballService {
                     if (matchData.lineup2) match.lineup2 = matchData.lineup2;
                     if (matchData.events) match.events = matchData.events;
 
-                    // Auto-update status
-                    if (match.score1 !== null && match.score2 !== null) {
+                    // Status control:
+                    // Only set 'finished' when explicitly requested via payload.
+                    if (matchData.status === MATCH_STATUS.FINISHED) {
                         match.status = MATCH_STATUS.FINISHED;
                     } else if (match.status === MATCH_STATUS.FINISHED) {
-                         // Keep finished if scores are present, else maybe reset?
-                         // If user manually clears scores, status should probably revert.
-                         if (match.score1 === null || match.score2 === null) {
-                             match.status = MATCH_STATUS.SCHEDULED;
-                         }
+                        // If previously finished but scores cleared, revert to scheduled
+                        if (match.score1 === null || match.score2 === null) {
+                            match.status = MATCH_STATUS.SCHEDULED;
+                        }
                     } else {
-                        match.status = MATCH_STATUS.SCHEDULED;
+                        // Keep existing status; default to 'scheduled' if undefined
+                        if (!match.status) match.status = MATCH_STATUS.SCHEDULED;
                     }
                     
                     // Knockout Progression
@@ -702,13 +703,16 @@ class FootballService {
                         group.group === KNOCKOUT_ROUNDS.FINAL || 
                         group.group === KNOCKOUT_ROUNDS.SEMI_FINAL || 
                         group.group === KNOCKOUT_ROUNDS.QUARTER_FINAL || 
-                        group.group.includes('Vòng')
+                        group.group.includes('Vòng') ||
+                        group.group.includes('Bán Kết') ||
+                        group.group.includes('Chung Kết')
                     );
                     
+                    console.log(`[UpdateMatch] ID=${matchId} Group=${group.group} Status=${match.status} IsKO=${isKnockout} BracketData=${!!tournament.bracketData}`);
+
                     if (isKnockout && match.status === MATCH_STATUS.FINISHED && tournament.bracketData) {
+                        console.log('[UpdateMatch] Calling advanceKnockoutWinner');
                         await this.advanceKnockoutWinner(tournament, match, group.group);
-                        // Add potentially updated matches to affected list
-                        // (advanceKnockoutWinner modifies next match in place, we need to find it to emit socket)
                     }
                 }
             }
@@ -735,7 +739,12 @@ class FootballService {
         const roundIndex = match.bracketRound;
         const matchIndex = match.bracketMatchIndex;
         
-        if (roundIndex === undefined || matchIndex === undefined) return;
+        console.log(`[AdvanceKO] Round=${roundIndex} MatchIdx=${matchIndex} Score=${match.score1}:${match.score2}`);
+
+        if (roundIndex === undefined || matchIndex === undefined) {
+             console.log('[AdvanceKO] Missing bracket info');
+             return;
+        }
 
         const score1 = parseInt(match.score1);
         const score2 = parseInt(match.score2);
@@ -777,22 +786,29 @@ class FootballService {
 
         // Update in Fixtures
         if (tournament.fixtures) {
+             let nextMatchFound = false;
              for (const g of tournament.fixtures) {
                  if (g.matches) {
+                     // Find next match (Final/Next Round)
                      const nextMatch = g.matches.find(m => m.bracketRound === nextRoundIndex && m.bracketMatchIndex === nextMatchIndex);
                      if (nextMatch) {
+                         console.log(`[AdvanceKO] Found next match: ${nextMatch.id} (${nextMatch.team1} vs ${nextMatch.team2})`);
                          nextMatch[nextTeamPos] = winner;
+                         nextMatchFound = true;
                      }
 
                      // Update Loser for 3rd Place Match
                      if (nextMatchIndex === 0 && loser) {
-                        const thirdPlaceMatch = g.matches.find(m => m.bracketRound === nextRoundIndex && m.bracketMatchIndex === 1);
+                        const thirdPlaceMatch = g.matches.find(m => m.bracketRound === nextRoundIndex && m.bracketMatchIndex === 1)
+                                             || g.matches.find(m => m.date && String(m.date).includes('Tranh Hạng 3')); // Fallback by name
                         if (thirdPlaceMatch) {
+                            console.log(`[AdvanceKO] Found 3rd place match: ${thirdPlaceMatch.id}`);
                             thirdPlaceMatch[nextTeamPos] = loser;
                         }
                      }
                  }
              }
+             if (!nextMatchFound) console.log('[AdvanceKO] Next match NOT found in fixtures');
         }
 
         // Update in Bracket Teams (Visual) if needed?
@@ -800,6 +816,62 @@ class FootballService {
         // We might need to update the *next* round's visual representation if the frontend relies on it.
         // But usually frontend deduces next round teams from previous results.
         // However, looking at the code, we are updating the *Fixture* for the next round.
+        
+        // Ensure 3rd place match is populated from both semi-final losers
+        this.ensureThirdPlaceFromSemis(tournament);
+    }
+
+    
+
+    /**
+     * Ensure 3rd place match teams are set from Semi-Final losers
+     */
+    ensureThirdPlaceFromSemis(tournament) {
+        if (!tournament || !tournament.fixtures) return;
+        
+        let semifinals = [];
+        let finalGroup = null;
+        
+        for (const g of tournament.fixtures) {
+            if (!g || !g.matches) continue;
+            const isSemi = g.group && (g.group.includes('Bán Kết'));
+            const isFinal = g.group && (g.group.includes('Chung Kết'));
+            if (isSemi) {
+                semifinals = semifinals.concat(g.matches);
+            }
+            if (isFinal) {
+                finalGroup = g;
+            }
+        }
+        
+        if (!finalGroup || !finalGroup.matches || semifinals.length === 0) return;
+        
+        const thirdPlaceMatch = finalGroup.matches.find(m => m.bracketMatchIndex === 1) 
+            || finalGroup.matches.find(m => m.date && String(m.date).includes('Tranh Hạng 3'));
+        if (!thirdPlaceMatch) return;
+        
+        // Order semis by bracket index to map losers consistently: [semi1 -> team1, semi2 -> team2]
+        const semisOrdered = semifinals.slice().sort((a, b) => {
+            const ai = typeof a.bracketMatchIndex === 'number' ? a.bracketMatchIndex : 0;
+            const bi = typeof b.bracketMatchIndex === 'number' ? b.bracketMatchIndex : 0;
+            return ai - bi;
+        });
+        
+        const losers = [];
+        for (let i = 0; i < semisOrdered.length; i++) {
+            const m = semisOrdered[i];
+            if (m && m.score1 !== null && m.score2 !== null) {
+                const s1 = parseInt(m.score1);
+                const s2 = parseInt(m.score2);
+                if (!isNaN(s1) && !isNaN(s2)) {
+                    if (s1 > s2) losers[i] = m.team2;
+                    else if (s2 > s1) losers[i] = m.team1;
+                }
+            }
+        }
+        
+        if (losers[0]) thirdPlaceMatch.team1 = losers[0];
+        if (losers[1]) thirdPlaceMatch.team2 = losers[1];
     }
 
     calculateStandings(tournament) {

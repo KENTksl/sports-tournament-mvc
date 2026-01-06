@@ -335,6 +335,32 @@ class FootballTournamentController {
             const updatedTournament = result.tournament || result;
             const affectedMatches = result.affectedMatches || [];
 
+            // Emit sockets to update clients in real-time
+            const io = req.app.get('io');
+            if (io && tournamentId && matchId) {
+                const payload = {};
+                if (typeof matchData.score1 !== 'undefined') payload.score1 = matchData.score1;
+                if (typeof matchData.score2 !== 'undefined') payload.score2 = matchData.score2;
+                if (typeof matchData.lineup1 !== 'undefined') payload.lineup1 = matchData.lineup1;
+                if (typeof matchData.lineup2 !== 'undefined') payload.lineup2 = matchData.lineup2;
+                if (typeof matchData.events !== 'undefined') payload.events = matchData.events;
+                if (typeof matchData.status !== 'undefined') payload.status = matchData.status;
+                if (typeof matchData.time !== 'undefined') payload.time = matchData.time;
+                if (typeof matchData.date !== 'undefined') payload.date = matchData.date;
+                if (typeof matchData.location !== 'undefined') payload.location = matchData.location;
+                
+                io.to('tournament:' + String(tournamentId)).emit('match_updated', { matchId, payload });
+                
+                // Broadcast updated standings
+                if (updatedTournament && updatedTournament.standings) {
+                    io.to('tournament:' + String(tournamentId)).emit('standings_updated', { standings: updatedTournament.standings });
+                }
+                // Broadcast updated bracket if available
+                if (updatedTournament && updatedTournament.bracketData) {
+                    io.to('tournament:' + String(tournamentId)).emit('bracket_updated', { bracketData: updatedTournament.bracketData });
+                }
+            }
+
             // Sync fines using dedicated service
             if (events && Array.isArray(events)) {
                 await FineService.syncMatchFines(updatedTournament, matchId, events);

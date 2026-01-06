@@ -635,6 +635,7 @@
                         <div class="me-3">Trạng thái: <span id="matchClockStatus">Chưa bắt đầu</span></div>
                         <div class="me-3">Hiệp: <span id="matchClockHalf">1</span></div>
                         <div>Thời gian: <span id="matchClockTime">00:00</span></div>
+                        <div id="matchClockControls" class="ms-3"></div>
                     </div>
 
                     <!-- Tabs -->
@@ -971,11 +972,26 @@
         // Helper to refresh bracket
         function refreshBracket() {
             if (tournamentData.bracketData && tournamentData.bracketData.teams && tournamentData.bracketData.results && window.jQuery && $.fn && $.fn.bracket) {
-                // If the bracket tab is active, render immediately. 
-                // If not, we skip rendering here and rely on the shown.bs.tab event to render when user switches.
+                const initData = normalizeBracketDataForPlugin(tournamentData.bracketData);
                 if (document.getElementById('bracket') && document.getElementById('bracket').classList.contains('active')) {
-                    $('#bracket-container').empty().bracket({ init: tournamentData.bracketData });
+                    $('#bracket-container').empty().bracket({ init: initData });
                 }
+            }
+        }
+
+        function normalizeBracketDataForPlugin(bd){
+            try {
+                const data = JSON.parse(JSON.stringify(bd || {}));
+                if (Array.isArray(data.results) && data.results.length > 0) {
+                    const last = data.results[data.results.length - 1];
+                    if (Array.isArray(last) && last.length === 2 && Array.isArray(last[0]) && Array.isArray(last[1])) {
+                        data.results[data.results.length - 1] = [ last[0] ];
+                        data.consolation = [ last[1] ];
+                    }
+                }
+                return data;
+            } catch(_) {
+                return bd;
             }
         }
 
@@ -986,7 +1002,8 @@
                 bracketTabBtn.addEventListener('shown.bs.tab', function (event) {
                     // Force refresh when tab is shown
                     if (tournamentData.bracketData && tournamentData.bracketData.teams && tournamentData.bracketData.results && window.jQuery && $.fn && $.fn.bracket) {
-                        $('#bracket-container').empty().bracket({ init: tournamentData.bracketData });
+                        const initData = normalizeBracketDataForPlugin(tournamentData.bracketData);
+                        $('#bracket-container').empty().bracket({ init: initData });
                     }
                 });
             }
@@ -1012,12 +1029,28 @@
                 const i = bm.bracketMatchIndex;
 
                 if (tournamentData.bracketData.results[r]) {
-                     // Ensure array exists
-                     if (!tournamentData.bracketData.results[r][i]) {
-                         tournamentData.bracketData.results[r][i] = [null, null];
-                     }
-                     tournamentData.bracketData.results[r][i] = [s1, s2];
-                     refreshBracket();
+                    if (r === tournamentData.bracketData.results.length - 1 && tournamentData.bracketData.results[r].length === 1) {
+                        if (!Array.isArray(tournamentData.bracketData.results[r][0])) {
+                            tournamentData.bracketData.results[r][0] = [null, null];
+                        }
+                        if (i === 0) {
+                            tournamentData.bracketData.results[r][0] = [s1, s2];
+                        } else if (i === 1) {
+                            if (!Array.isArray(tournamentData.bracketData.consolation)) {
+                                tournamentData.bracketData.consolation = [];
+                            }
+                            if (!Array.isArray(tournamentData.bracketData.consolation[0])) {
+                                tournamentData.bracketData.consolation[0] = [null, null];
+                            }
+                            tournamentData.bracketData.consolation[0] = [s1, s2];
+                        }
+                    } else {
+                        if (!tournamentData.bracketData.results[r][i]) {
+                            tournamentData.bracketData.results[r][i] = [null, null];
+                        }
+                        tournamentData.bracketData.results[r][i] = [s1, s2];
+                    }
+                    refreshBracket();
                 }
             }
         }
@@ -1336,6 +1369,15 @@
                         return;
                     }
 
+                    if (isCompleted) {
+                        statusBadge.className = 'badge bg-success text-white';
+                        statusBadge.innerText = 'Hoàn thành';
+                        const statusCell = statusBadge.parentElement;
+                        const liveEl = statusCell.querySelector('.live-time');
+                        if (liveEl) liveEl.textContent = '';
+                        return;
+                    }
+
                     if (!schedDate && !isCompleted) {
                         statusBadge.className = 'badge bg-secondary text-white';
                         statusBadge.innerText = 'Chưa xếp lịch';
@@ -1345,8 +1387,6 @@
                         return;
                     }
 
-                    if (isCompleted) return;
-                    
                     const sched = schedDate.getTime();
                     const statusCell = statusBadge.parentElement;
                     let liveEl = statusCell.querySelector('.live-time');
@@ -1372,6 +1412,9 @@
                     const secondHalfEnd = breakEnd + halfDuration*60000;
                     const et1End = secondHalfEnd + (hasOT ? otHalf*60000 : 0);
                     const et2End = et1End + (hasOT ? otHalf*60000 : 0);
+                    const s1 = (typeof match.score1 === 'number') ? match.score1 : (match.score1 !== null ? parseInt(match.score1) : null);
+                    const s2 = (typeof match.score2 === 'number') ? match.score2 : (match.score2 !== null ? parseInt(match.score2) : null);
+                    const finalDraw = (s1 !== null && s2 !== null) ? (s1 === s2) : true;
                     let disableInput = false;
 
                     if (now < sched) {
@@ -1399,7 +1442,7 @@
                         const mm = halfDuration + Math.floor(elapsed/60000);
                         const ss = Math.floor((elapsed%60000)/1000);
                         liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
-                    } else if (hasOT && now < et1End) {
+                    } else if (hasOT && finalDraw && now < et1End) {
                         statusBadge.className = 'badge bg-primary';
                         statusBadge.innerText = 'Hiệp phụ';
                         const elapsed = now - secondHalfEnd;
@@ -1407,7 +1450,7 @@
                         const mm = halfDuration*2 + Math.floor(elapsed/60000);
                         const ss = Math.floor((elapsed%60000)/1000);
                         liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
-                    } else if (hasOT && now < et2End) {
+                    } else if (hasOT && finalDraw && now < et2End) {
                         statusBadge.className = 'badge bg-primary';
                         statusBadge.innerText = 'Hiệp phụ';
                         const elapsed = now - et1End;
@@ -1416,10 +1459,17 @@
                         const ss = Math.floor((elapsed%60000)/1000);
                         liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
                     } else {
-                        statusBadge.className = 'badge bg-warning text-dark';
-                        statusBadge.innerText = 'Sắp đá';
-                        liveEl.textContent = '';
-                        disableInput = true;
+                        if (match.status === 'finished') {
+                            statusBadge.className = 'badge bg-success text-white';
+                            statusBadge.innerText = 'Hoàn thành';
+                            liveEl.textContent = '';
+                            disableInput = true;
+                        } else {
+                            statusBadge.className = 'badge bg-secondary text-white';
+                            statusBadge.innerText = 'Chờ kết thúc';
+                            liveEl.textContent = '';
+                            disableInput = false;
+                        }
                     }
                     
                     // Apply Input Blocking
@@ -1458,6 +1508,78 @@
                 processedFulltime: false,
                 processedETEnd: false
             };
+            const schedDate = parseScheduledDateTime();
+            if (schedDate) {
+                const sched = schedDate.getTime();
+                const now = Date.now();
+                const firstEnd = sched + halfDuration * 60000;
+                const breakEnd = firstEnd + halftimeBreak * 60000;
+                const secondEnd = breakEnd + halfDuration * 60000;
+                const et1End = secondEnd + (hasOT ? otHalf * 60000 : 0);
+                const et2End = et1End + (hasOT ? otHalf * 60000 : 0);
+                const sc = getScoreAtCurrentTime();
+                const drawAtFulltime = sc && typeof sc.s1 === 'number' && typeof sc.s2 === 'number' ? (sc.s1 === sc.s2) : true;
+                if (matchClockInterval) {
+                    clearInterval(matchClockInterval);
+                    matchClockInterval = null;
+                }
+                if (now < sched) {
+                    currentMatch.clock.running = false;
+                    currentMatch.clock.state = 'idle';
+                } else if (now < firstEnd) {
+                    currentMatch.clock.running = true;
+                    currentMatch.clock.state = 'playing';
+                    currentMatch.clock.half = 1;
+                    currentMatch.clock.halfStartAt = sched;
+                    currentMatch.clock.halfEndsAt = firstEnd;
+                    const elapsed = now - sched;
+                    currentMatch.clock.displayMinute = Math.floor(elapsed / 60000);
+                    currentMatch.clock.displaySecond = Math.floor((elapsed % 60000) / 1000);
+                    matchClockInterval = setInterval(tickClock, 1000);
+                } else if (now < breakEnd) {
+                    currentMatch.clock.running = false;
+                    currentMatch.clock.state = 'break';
+                    currentMatch.clock.breakEndsAt = breakEnd;
+                    currentMatch.clock.displayMinute = halfDuration;
+                    currentMatch.clock.displaySecond = 0;
+                    matchClockInterval = setInterval(tickClock, 1000);
+                } else if (now < secondEnd) {
+                    currentMatch.clock.running = true;
+                    currentMatch.clock.state = 'playing';
+                    currentMatch.clock.half = 2;
+                    currentMatch.clock.halfStartAt = breakEnd;
+                    currentMatch.clock.halfEndsAt = secondEnd;
+                    const elapsed = now - breakEnd;
+                    currentMatch.clock.displayMinute = halfDuration + Math.floor(elapsed / 60000);
+                    currentMatch.clock.displaySecond = Math.floor((elapsed % 60000) / 1000);
+                    matchClockInterval = setInterval(tickClock, 1000);
+                } else if (hasOT && drawAtFulltime && now < et1End) {
+                    currentMatch.clock.running = true;
+                    currentMatch.clock.state = 'playing';
+                    currentMatch.clock.half = 'ET1';
+                    currentMatch.clock.halfStartAt = secondEnd;
+                    currentMatch.clock.halfEndsAt = et1End;
+                    const elapsed = now - secondEnd;
+                    currentMatch.clock.displayMinute = halfDuration * 2 + Math.floor(elapsed / 60000);
+                    currentMatch.clock.displaySecond = Math.floor((elapsed % 60000) / 1000);
+                    matchClockInterval = setInterval(tickClock, 1000);
+                } else if (hasOT && drawAtFulltime && now < et2End) {
+                    currentMatch.clock.running = true;
+                    currentMatch.clock.state = 'playing';
+                    currentMatch.clock.half = 'ET2';
+                    currentMatch.clock.halfStartAt = et1End;
+                    currentMatch.clock.halfEndsAt = et2End;
+                    const elapsed = now - et1End;
+                    currentMatch.clock.displayMinute = halfDuration * 2 + otHalf + Math.floor(elapsed / 60000);
+                    currentMatch.clock.displaySecond = Math.floor((elapsed % 60000) / 1000);
+                    matchClockInterval = setInterval(tickClock, 1000);
+                } else {
+                    currentMatch.clock.running = false;
+                    currentMatch.clock.state = 'fulltime';
+                    currentMatch.clock.displayMinute = halfDuration * 2;
+                    currentMatch.clock.displaySecond = 0;
+                }
+            }
             updateClockUI();
         }
 
@@ -1495,8 +1617,9 @@
             const schedDate = parseScheduledDateTime();
             if (!schedDate) return;
             const sched = schedDate.getTime();
-            if (now >= sched && currentMatch.clock && !currentMatch.clock.running) {
-                startHalf(1);
+            // Only auto-start when clock is idle and before match has begun
+            if (currentMatch.clock && currentMatch.clock.state === 'idle' && !currentMatch.clock.running) {
+                if (now >= sched) startHalf(1);
             }
         }
 
@@ -1509,9 +1632,9 @@
             if (!schedDate) return;
             const sched = schedDate.getTime();
             const ms = sched - Date.now();
-            if (ms > 0 && currentMatch.clock && !currentMatch.clock.running) {
+            if (ms > 0 && currentMatch.clock && currentMatch.clock.state === 'idle' && !currentMatch.clock.running) {
                 kickoffTimeoutId = setTimeout(function(){
-                    if (currentMatch && currentMatch.clock && !currentMatch.clock.running) {
+                    if (currentMatch && currentMatch.clock && currentMatch.clock.state === 'idle' && !currentMatch.clock.running) {
                         startHalf(1);
                     }
                 }, ms);
@@ -1546,11 +1669,28 @@
             if (!schedDate) return;
             const sched = schedDate.getTime();
             currentMatch.clock.breakEndsAt = sched + currentMatch.clock.config.halfDuration * 60000 + currentMatch.clock.config.halftimeBreak * 60000;
+            currentMatch.clock.displayMinute = currentMatch.clock.config.halfDuration;
+            currentMatch.clock.displaySecond = 0;
+            if (!matchClockInterval) {
+                matchClockInterval = setInterval(tickClock, 1000);
+            }
             updateClockUI();
         }
 
         function resumeSecondHalf(){
-            startHalf(2);
+            // Auto start second half exactly at break end baseline (like fixtures list)
+            if (!currentMatch || !currentMatch.clock) return;
+            const schedDate = parseScheduledDateTime();
+            if (!schedDate) return;
+            const breakEnd = schedDate.getTime() + currentMatch.clock.config.halfDuration * 60000 + currentMatch.clock.config.halftimeBreak * 60000;
+            currentMatch.clock.running = true;
+            currentMatch.clock.state = 'playing';
+            currentMatch.clock.half = 2;
+            currentMatch.clock.halfStartAt = breakEnd;
+            currentMatch.clock.halfEndsAt = breakEnd + currentMatch.clock.config.halfDuration * 60000;
+            if (matchClockInterval) clearInterval(matchClockInterval);
+            matchClockInterval = setInterval(tickClock, 1000);
+            updateClockUI();
         }
 
         function startOtHalf(number){
@@ -1647,21 +1787,22 @@
         }
 
         function finishMatchUI(message){
-            // Do not lock UI automatically on clock finish
-            // editingLocked = true;
-            // applyEditingLockUI();
-            
-            // Show notification instead of blocking modal
             Swal.fire({
                 icon: 'info',
-                title: 'Hết giờ (Dự kiến)',
+                title: 'Hết giờ',
                 text: message,
                 timer: 3000,
                 showConfirmButton: false,
                 toast: true,
                 position: 'top-end'
             });
+            if (currentMatch && currentMatch.clock) {
+                currentMatch.clock.state = 'fulltime';
+            }
+            updateFixtureStatusBadges();
         }
+
+        
 
         function tickClock(){
             if (!currentMatch || !currentMatch.clock) return;
@@ -1673,20 +1814,34 @@
                 let elapsed = Math.max(0, now - currentMatch.clock.halfStartAt);
                 const elapsedMin = Math.floor(elapsed / 60000);
                 const elapsedSec = Math.floor((elapsed % 60000) / 1000);
-                const base = (currentMatch.clock.half===2 ? currentMatch.clock.config.halfDuration : 0);
+                const base = (
+                    currentMatch.clock.half === 2
+                        ? currentMatch.clock.config.halfDuration
+                        : (currentMatch.clock.half === 'ET1'
+                            ? currentMatch.clock.config.halfDuration * 2
+                            : (currentMatch.clock.half === 'ET2'
+                                ? currentMatch.clock.config.halfDuration * 2 + currentMatch.clock.config.otHalf
+                                : 0))
+                );
                 currentMatch.clock.displayMinute = base + elapsedMin;
                 currentMatch.clock.displaySecond = elapsedSec;
                 if (now >= currentMatch.clock.halfEndsAt) {
                     if (currentMatch.clock.half === 1) {
                         startBreak();
                     } else if (currentMatch.clock.half === 2) {
-                        // End of normal time
-                        const total = currentMatch.clock.config.halfDuration * 2;
-                        currentMatch.clock.displayMinute = total;
-                        currentMatch.clock.displaySecond = 0;
-                        currentMatch.clock.state = 'fulltime';
-                        updateClockUI();
-                        handleFulltimeOutcome();
+                        const sc = getScoreAtCurrentTime();
+                        const isDraw = sc && typeof sc.s1 === 'number' && typeof sc.s2 === 'number' ? (sc.s1 === sc.s2) : true;
+                        const hasOT = currentMatch.clock && currentMatch.clock.config ? !!currentMatch.clock.config.hasOT : false;
+                        if (hasOT && isDraw) {
+                            startOtHalf(1);
+                        } else {
+                            const total = currentMatch.clock.config.halfDuration * 2;
+                            currentMatch.clock.displayMinute = total;
+                            currentMatch.clock.displaySecond = 0;
+                            currentMatch.clock.state = 'fulltime';
+                            updateClockUI();
+                            handleFulltimeOutcome();
+                        }
                     } else if (currentMatch.clock.half === 'ET1') {
                         startOtHalf(2);
                     } else if (currentMatch.clock.half === 'ET2') {
@@ -1698,6 +1853,7 @@
                     }
                 }
             } else if (currentMatch.clock.state === 'break') {
+                // Auto-resume exactly when halftime break ends
                 const now = Date.now();
                 if (now >= currentMatch.clock.breakEndsAt) {
                     resumeSecondHalf();
@@ -1733,6 +1889,10 @@
             statusEl && (statusEl.textContent = statusText);
             halfEl && (halfEl.textContent = halfText);
             timeEl && (timeEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0'));
+            const controlsEl = document.getElementById('matchClockControls');
+            if (controlsEl) {
+                controlsEl.innerHTML = '';
+            }
             if (minuteInput) {
                 minuteInput.value = mm;
                 if (currentMatch.status === 'finished' || (currentMatch.clock && currentMatch.clock.state === 'break')) {
@@ -2283,6 +2443,41 @@
                     text: err.message
                 });
             });
+        }
+
+        function finalizeMatchSilently() {
+            if (!currentMatch || !tournamentData || (currentMatch.clock && currentMatch.clock.autoFinalized)) return;
+            const s = getScoreAtCurrentTime();
+            const data = {
+                tournamentId: tournamentData._id,
+                matchId: currentMatch.id,
+                score1: s.s1,
+                score2: s.s2,
+                status: 'finished',
+                lineup1: currentMatch.lineup1,
+                lineup2: currentMatch.lineup2,
+                events: currentMatch.events || []
+            };
+            currentMatch.clock.autoFinalized = true;
+            fetch('/admin/football/tournament/update-match', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            }).then(res => res.json().catch(()=>({}))).then(res => {
+                if (res && res.success) {
+                    const triggerBtn = document.querySelector(`[data-match-id="${currentMatch.id}"]`);
+                    if (triggerBtn) {
+                        const row = triggerBtn.closest('tr');
+                        if (row) {
+                            const statusCell = row.querySelector('td .badge');
+                            if (statusCell) {
+                                statusCell.className = 'badge bg-success';
+                                statusCell.innerText = 'Hoàn thành';
+                            }
+                        }
+                    }
+                }
+            }).catch(()=>{});
         }
 
         // Events logic
