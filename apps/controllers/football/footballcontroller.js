@@ -43,22 +43,37 @@ class FootballController {
 
             // Flatten fixtures matches for pagination
             let allMatches = [];
+            let groupMatches = [];
+            let knockoutMatches = [];
+
             if (tournament.fixtures) {
                 tournament.fixtures.forEach(group => {
+                    const isKO = group.group && (
+                        group.group.includes('Tứ Kết') || 
+                        group.group.includes('Bán Kết') || 
+                        group.group.includes('Chung Kết') || 
+                        group.group.startsWith('Vòng 1/')
+                    );
+
                     if (group.matches) {
                         group.matches.forEach(match => {
                             match.groupName = group.group;
                             allMatches.push(match);
+                            if (isKO) {
+                                knockoutMatches.push(match);
+                            } else {
+                                groupMatches.push(match);
+                            }
                         });
                     }
                 });
             }
 
-            // Matches Pagination
-            const matchesPage = (tab === 'fixtures') ? page : 1;
+            // Matches Pagination - DISABLED (Show All)
+            const matchesPage = 1;
             const totalMatches = allMatches.length;
-            const matchesTotalPages = Math.ceil(totalMatches / limit);
-            const paginatedMatches = allMatches.slice((matchesPage - 1) * limit, matchesPage * limit);
+            const matchesTotalPages = 1;
+            const paginatedMatches = allMatches;
 
             // Teams Pagination
             const teamsPage = (tab === 'teams') ? page : 1;
@@ -72,6 +87,8 @@ class FootballController {
                 
                 // Matches
                 matches: paginatedMatches,
+                groupMatches: groupMatches,
+                knockoutMatches: knockoutMatches,
                 currentPage: matchesPage,
                 totalPages: matchesTotalPages,
                 matchesCurrentPage: matchesPage,
