@@ -1377,9 +1377,33 @@ function setEditMode(enable) {
                                 }
                                 
                                 if (tournament.standings && tournament.standings.length > 0) {
-                                    if (tournament.standings.length === 1) {
-                                        var teams = tournament.standings[0].teams;
-                                        teams.sort((a,b) => parseInt(b.points) - parseInt(a.points));
+                                    let teams = [];
+                                    // Check structure
+                                    if (tournament.standings[0].teams && Array.isArray(tournament.standings[0].teams)) {
+                                        // Grouped format - only if single group (League) we can determine rank easily
+                                        // Or we iterate all groups to find the team?
+                                        // For League, length is 1.
+                                        if (tournament.standings.length === 1) {
+                                            teams = tournament.standings[0].teams;
+                                        } else {
+                                            // Multi-group? Maybe rank isn't applicable simply like this.
+                                            // Try to find team in any group
+                                            for(let g of tournament.standings) {
+                                                if(g.teams) {
+                                                    let found = g.teams.find(t => t.name === myTeamName);
+                                                    if(found) {
+                                                        // Just return participation for now if complicated
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        // Flat format (Old data)
+                                        teams = tournament.standings;
+                                    }
+
+                                    if (teams.length > 0) {
+                                        teams.sort((a,b) => parseInt(b.points||b.pts||0) - parseInt(a.points||a.pts||0));
                                         var idx = teams.findIndex(x => x.name === myTeamName);
                                         if (idx !== -1) {
                                             var r = idx + 1;

@@ -203,31 +203,108 @@
                 <!-- Fixtures Tab -->
                         <div class="tab-pane fade <%= (!locals.currentTab || currentTab === 'fixtures') ? 'show active' : '' %>" id="fixtures" role="tabpanel" aria-labelledby="fixtures-tab">
                             <% 
-                                let groups = {};
-                                if (matches && matches.length > 0) {
-                                    matches.forEach(match => {
-                                        let gName = match.groupName || 'Vòng khác';
-                                        if (!groups[gName]) groups[gName] = [];
-                                        groups[gName].push(match);
+                                let localGroupMatches = locals.groupMatches || [];
+                                let localKnockoutMatches = locals.knockoutMatches || [];
+                                
+                                // Group Matches Processing
+                                let groupStageGroups = {};
+                                if (localGroupMatches.length > 0) {
+                                    localGroupMatches.forEach(match => {
+                                        let gName = match.groupName || 'Vòng bảng';
+                                        if (!groupStageGroups[gName]) groupStageGroups[gName] = [];
+                                        groupStageGroups[gName].push(match);
                                     });
                                 }
-                                let groupNames = Object.keys(groups).sort();
+                                let groupStageNames = Object.keys(groupStageGroups).sort();
+                                
+                                let hasKnockout = localKnockoutMatches.length > 0;
                             %>
 
-                            <% if (groupNames.length > 0) { %>
+                            <% if (localGroupMatches.length > 0 || hasKnockout) { %>
                                 <ul class="nav nav-pills mb-4 justify-content-center" id="public-fixtures-tab" role="tablist">
-                                    <% groupNames.forEach((name, index) => { %>
+                                    <li class="nav-item mx-1">
+                                        <a class="nav-link border active" id="pf-all-tab" data-toggle="pill" href="#pf-all" role="tab" aria-controls="pf-all" aria-selected="true">Tất cả</a>
+                                    </li>
+                                    <% groupStageNames.forEach((name, index) => { %>
                                         <li class="nav-item mx-1">
-                                            <a class="nav-link border <%= index === 0 ? 'active' : '' %>" id="pf-<%= index %>-tab" data-toggle="pill" href="#pf-<%= index %>" role="tab" aria-controls="pf-<%= index %>" aria-selected="<%= index === 0 %>"><%= name %></a>
+                                            <a class="nav-link border" id="pf-group-<%= index %>-tab" data-toggle="pill" href="#pf-group-<%= index %>" role="tab" aria-controls="pf-group-<%= index %>" aria-selected="false"><%= name %></a>
                                         </li>
                                     <% }) %>
+                                    <% if (hasKnockout) { %>
+                                        <li class="nav-item mx-1">
+                                            <a class="nav-link border" id="pf-knockout-tab" data-toggle="pill" href="#pf-knockout" role="tab" aria-controls="pf-knockout" aria-selected="false">Vòng trong</a>
+                                        </li>
+                                    <% } %>
                                 </ul>
 
                                 <div class="tab-content" id="public-fixtures-tabContent">
-                                    <% groupNames.forEach((name, index) => { %>
-                                        <div class="tab-pane fade <%= index === 0 ? 'show active' : '' %>" id="pf-<%= index %>" role="tabpanel" aria-labelledby="pf-<%= index %>-tab">
-                                            <div class="group-matches" data-group-index="<%= index %>">
-                                            <% groups[name].forEach(match => { 
+                                    <!-- All Matches Tab -->
+                                    <div class="tab-pane fade show active" id="pf-all" role="tabpanel" aria-labelledby="pf-all-tab">
+                                        <% if (matches && matches.length > 0) { %>
+                                            <% matches.forEach(match => { 
+                                                let logo1 = 'default.png';
+                                                let logo2 = 'default.png';
+                                                if (tournament.teams) {
+                                                    let t1 = tournament.teams.find(t => t.name === match.team1);
+                                                    if (t1) logo1 = t1.logo;
+                                                    let t2 = tournament.teams.find(t => t.name === match.team2);
+                                                    if (t2) logo2 = t2.logo;
+                                                }
+                                            %>
+                                                <div class="card mb-3 shadow-sm border-0 match-card">
+                                                    <div class="card-header bg-light border-bottom-0">
+                                                        <small class="text-muted font-weight-bold"><%= match.groupName %> | <%= match.date %> <%= match.time %></small>
+                                                    </div>
+                                                    <div class="card-body py-3">
+                                                        <div class="row align-items-center">
+                                                            <!-- Team 1 -->
+                                                            <div class="col-5 text-right d-flex align-items-center justify-content-end">
+                                                                <span class="font-weight-bold mr-3 d-none d-md-block"><%= match.team1 %></span>
+                                                                <img src="/static/images/<%= logo1 %>" onerror="this.src='/static/images/default.png'" class="rounded-circle border" width="40" height="40" alt="<%= match.team1 %>">
+                                                            </div>
+                                                            
+                                                            <!-- Score / Time -->
+                                                            <div class="col-2 text-center">
+                                                                <% if (match.score1 !== null && match.score1 !== undefined && match.score1 !== "") { %>
+                                                                    <div class="font-weight-bold h5 mb-0 text-dark">
+                                                                        <%= match.score1 %> - <%= match.score2 %>
+                                                                    </div>
+                                                                    <% if (match.status === 'live') { %>
+                                                                        <small class="text-danger font-weight-bold animate-pulse">LIVE</small>
+                                                                    <% } else { %>
+                                                                        <small class="text-success font-weight-bold">FT</small>
+                                                                    <% } %>
+                                                                <% } else { %>
+                                                                    <div class="badge badge-light border px-2 py-1 mb-1">VS</div>
+                                                                <% } %>
+                                                                
+                                                                <button class="btn btn-sm btn-outline-primary mt-2 shadow-sm rounded-pill" data-match-id="<%= match.id %>" onclick="openMatchDetail('<%= match.id %>')">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </button>
+                                                            </div>
+
+                                                            <!-- Team 2 -->
+                                                            <div class="col-5 text-left d-flex align-items-center">
+                                                                <img src="/static/images/<%= logo2 %>" onerror="this.src='/static/images/default.png'" class="rounded-circle border ml-0 ml-md-0" width="40" height="40" alt="<%= match.team2 %>">
+                                                                <span class="font-weight-bold ml-3 d-none d-md-block"><%= match.team2 %></span>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Mobile Team Names -->
+                                                        <div class="row d-md-none mt-2">
+                                                            <div class="col-6 text-center"><small class="font-weight-bold"><%= match.team1 %></small></div>
+                                                            <div class="col-6 text-center"><small class="font-weight-bold"><%= match.team2 %></small></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <% }) %>
+                                        <% } %>
+                                    </div>
+
+                                    <!-- Individual Group Tabs -->
+                                    <% groupStageNames.forEach((name, index) => { %>
+                                        <div class="tab-pane fade" id="pf-group-<%= index %>" role="tabpanel" aria-labelledby="pf-group-<%= index %>-tab">
+                                            <div class="group-matches">
+                                            <% groupStageGroups[name].forEach(match => { 
                                                 let logo1 = 'default.png';
                                                 let logo2 = 'default.png';
                                                 if (tournament.teams) {
@@ -284,40 +361,86 @@
                                                 </div>
                                             <% }) %>
                                             </div>
-                                            <div class="d-flex justify-content-center mt-2">
-                                                <nav aria-label="Group pagination">
-                                                    <ul class="pagination pagination-sm mb-0" data-pager-for="<%= index %>"></ul>
-                                                </nav>
-                                            </div>
                                         </div>
                                     <% }) %>
+
+                                    <!-- Knockout Tab Content -->
+                                    <% if (hasKnockout) { %>
+                                        <div class="tab-pane fade" id="pf-knockout" role="tabpanel" aria-labelledby="pf-knockout-tab">
+                                            <div class="knockout-matches">
+                                            <% 
+                                                let currentStage = '';
+                                                localKnockoutMatches.forEach(match => { 
+                                                    let logo1 = 'default.png';
+                                                    let logo2 = 'default.png';
+                                                    if (tournament.teams) {
+                                                        let t1 = tournament.teams.find(t => t.name === match.team1);
+                                                        if (t1) logo1 = t1.logo;
+                                                        let t2 = tournament.teams.find(t => t.name === match.team2);
+                                                        if (t2) logo2 = t2.logo;
+                                                    }
+                                                    
+                                                    if (match.groupName !== currentStage) {
+                                                        currentStage = match.groupName;
+                                            %>
+                                                        <div class="d-flex align-items-center mb-3 mt-4">
+                                                            <div class="bg-primary text-white px-3 py-1 rounded-right font-weight-bold shadow-sm" style="margin-left: -15px;">
+                                                                <%= currentStage %>
+                                                            </div>
+                                                            <div class="flex-grow-1 border-bottom ml-3"></div>
+                                                        </div>
+                                            <%      } %>
+
+                                                <div class="card mb-3 shadow-sm border-0 match-card">
+                                                    <div class="card-header bg-light border-bottom-0">
+                                                        <small class="text-muted font-weight-bold"><%= match.groupName %> | <%= match.date %> <%= match.time %></small>
+                                                    </div>
+                                                    <div class="card-body py-3">
+                                                        <div class="row align-items-center">
+                                                            <!-- Team 1 -->
+                                                            <div class="col-5 text-right d-flex align-items-center justify-content-end">
+                                                                <span class="font-weight-bold mr-3 d-none d-md-block"><%= match.team1 %></span>
+                                                                <img src="/static/images/<%= logo1 %>" onerror="this.src='/static/images/default.png'" class="rounded-circle border" width="40" height="40" alt="<%= match.team1 %>">
+                                                            </div>
+                                                            
+                                                            <!-- Score / Time -->
+                                                            <div class="col-2 text-center">
+                                                                <% if (match.score1 !== null && match.score1 !== undefined && match.score1 !== "") { %>
+                                                                    <div class="font-weight-bold h5 mb-0 text-dark">
+                                                                        <%= match.score1 %> - <%= match.score2 %>
+                                                                    </div>
+                                                                    <% if (match.status === 'live') { %>
+                                                                        <small class="text-danger font-weight-bold animate-pulse">LIVE</small>
+                                                                    <% } else { %>
+                                                                        <small class="text-success font-weight-bold">FT</small>
+                                                                    <% } %>
+                                                                <% } else { %>
+                                                                    <div class="badge badge-light border px-2 py-1 mb-1">VS</div>
+                                                                <% } %>
+                                                                
+                                                                <button class="btn btn-sm btn-outline-primary mt-2 shadow-sm rounded-pill" data-match-id="<%= match.id %>" onclick="openMatchDetail('<%= match.id %>')">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </button>
+                                                            </div>
+
+                                                            <!-- Team 2 -->
+                                                            <div class="col-5 text-left d-flex align-items-center">
+                                                                <img src="/static/images/<%= logo2 %>" onerror="this.src='/static/images/default.png'" class="rounded-circle border ml-0 ml-md-0" width="40" height="40" alt="<%= match.team2 %>">
+                                                                <span class="font-weight-bold ml-3 d-none d-md-block"><%= match.team2 %></span>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Mobile Team Names -->
+                                                        <div class="row d-md-none mt-2">
+                                                            <div class="col-6 text-center"><small class="font-weight-bold"><%= match.team1 %></small></div>
+                                                            <div class="col-6 text-center"><small class="font-weight-bold"><%= match.team2 %></small></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <% }) %>
+                                            </div>
+                                        </div>
+                                    <% } %>
                                 </div>
-
-                                <!-- Pagination -->
-                                <% if (typeof matchesTotalPages !== 'undefined' && matchesTotalPages > 1) { %>
-                                    <div class="col-12 mt-4">
-                                        <nav aria-label="Page navigation">
-                                            <ul class="pagination justify-content-center mb-0">
-                                                <li class="page-item <%= matchesCurrentPage == 1 ? 'disabled' : '' %>">
-                                                    <a class="page-link" href="/football/detail/<%= tournament._id %>?tab=fixtures&page=<%= parseInt(matchesCurrentPage) - 1 %>#fixtures" aria-label="Previous">
-                                                        <span aria-hidden="true">&laquo;</span>
-                                                    </a>
-                                                </li>
-                                                <% for(let i = 1; i <= matchesTotalPages; i++) { %>
-                                                    <li class="page-item <%= matchesCurrentPage == i ? 'active' : '' %>">
-                                                        <a class="page-link" href="/football/detail/<%= tournament._id %>?tab=fixtures&page=<%= i %>#fixtures"><%= i %></a>
-                                                    </li>
-                                                <% } %>
-                                                <li class="page-item <%= matchesCurrentPage == matchesTotalPages ? 'disabled' : '' %>">
-                                                    <a class="page-link" href="/football/detail/<%= tournament._id %>?tab=fixtures&page=<%= parseInt(matchesCurrentPage) + 1 %>#fixtures" aria-label="Next">
-                                                        <span aria-hidden="true">&raquo;</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                <% } %>
-
                             <% } else { %>
                                 <div class="alert alert-info text-center">Chưa có lịch thi đấu.</div>
                             <% } %>
@@ -334,8 +457,24 @@
                                 </div>
                                 <div class="card-body bg-white">
                                     <div class="row" id="standings-content">
-                                        <% if (tournament.standings && tournament.standings.length > 0) { %>
-                                            <% tournament.standings.forEach(group => { %>
+                                        <% 
+                                            let standingsData = [];
+                                            if (tournament.standings && tournament.standings.length > 0) {
+                                                // Check if data is in new Group format or old Flat format
+                                                const firstItem = tournament.standings[0];
+                                                if (firstItem.teams && Array.isArray(firstItem.teams)) {
+                                                    standingsData = tournament.standings;
+                                                } else {
+                                                    // Convert old flat format to single group
+                                                    standingsData = [{
+                                                        groupName: 'Bảng Xếp Hạng',
+                                                        teams: tournament.standings
+                                                    }];
+                                                }
+                                            }
+                                        %>
+                                        <% if (standingsData.length > 0) { %>
+                                            <% standingsData.forEach(group => { %>
                                                 <div class="col-lg-6 mb-4">
                                                     <h6 class="font-weight-bold text-primary pl-2 border-left border-primary mb-2" style="border-width: 4px !important;">
                                                         <%= group.groupName %>
@@ -354,21 +493,29 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <% group.teams.forEach((team, index) => { %>
-                                                                    <tr class="<%= index < 2 ? 'table-success' : '' %>">
-                                                                        <td class="text-left font-weight-bold text-nowrap px-2">
-                                                                            <span class="mr-2 text-secondary"><%= index + 1 %></span>
-                                                                            <img src="/static/images/<%= team.logo %>" width="20" height="20" class="rounded-circle border mr-1" onerror="this.src='/static/images/default.png'">
-                                                                            <%= team.name %>
-                                                                        </td>
-                                                                        <td><%= team.played %></td>
-                                                                        <td><%= team.won %></td>
-                                                                        <td><%= team.drawn %></td>
-                                                                        <td><%= team.lost %></td>
-                                                                        <td><%= team.gd > 0 ? '+' + team.gd : team.gd %></td>
-                                                                        <td class="font-weight-bold text-danger bg-light"><%= team.points %></td>
-                                                                    </tr>
-                                                                <% }) %>
+                                                                <% if (group.teams && Array.isArray(group.teams)) { %>
+                                                                    <% group.teams.forEach((team, index) => { %>
+                                                                        <tr class="<%= index < 2 ? 'table-success' : '' %>">
+                                                                            <td class="text-left font-weight-bold text-nowrap px-2">
+                                                                                <span class="mr-2 text-secondary"><%= index + 1 %></span>
+                                                                                <img src="/static/images/<%= team.logo || 'default.png' %>" width="20" height="20" class="rounded-circle border mr-1" onerror="this.src='/static/images/default.png'">
+                                                                                <%= team.name %>
+                                                                            </td>
+                                                                            <td><%= team.played !== undefined ? team.played : (team.p || 0) %></td>
+                                                                            <td><%= team.won !== undefined ? team.won : (team.w || 0) %></td>
+                                                                            <td><%= team.drawn !== undefined ? team.drawn : (team.d || 0) %></td>
+                                                                            <td><%= team.lost !== undefined ? team.lost : (team.l || 0) %></td>
+                                                                            <td>
+                                                                                <% 
+                                                                                    const gd = team.gd !== undefined ? team.gd : 0;
+                                                                                    const gdDisplay = gd > 0 ? '+' + gd : gd;
+                                                                                %>
+                                                                                <%= gdDisplay %>
+                                                                            </td>
+                                                                            <td class="font-weight-bold text-danger bg-light"><%= team.points !== undefined ? team.points : (team.pts || 0) %></td>
+                                                                        </tr>
+                                                                    <% }) %>
+                                                                <% } %>
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -902,61 +1049,8 @@
                 }
             });
             
-            // Setup group pagination after sockets and DOM ready
-            function setupGroupPagination(pageSize) {
-                pageSize = pageSize || 6;
-                const panes = document.querySelectorAll('#public-fixtures-tabContent .tab-pane');
-                panes.forEach(pane => {
-                    const list = pane.querySelectorAll('.group-matches .match-card');
-                    const pager = pane.querySelector('.pagination');
-                    if (!list || !pager) return;
-                    const total = list.length;
-                    const pages = Math.max(1, Math.ceil(total / pageSize));
-                    // Build pager
-                    let html = '';
-                    html += `<li class="page-item disabled"><a class="page-link" href="#" data-page="prev">&laquo;</a></li>`;
-                    for (let i=1;i<=pages;i++) {
-                        html += `<li class="page-item ${i===1?'active':''}"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`;
-                    }
-                    html += `<li class="page-item ${pages<=1?'disabled':''}"><a class="page-link" href="#" data-page="next">&raquo;</a></li>`;
-                    pager.innerHTML = html;
-                    // Show first page
-                    function showPage(p){
-                        const start = (p-1)*pageSize;
-                        const end = start + pageSize;
-                        list.forEach((el, idx) => {
-                            el.style.display = (idx>=start && idx<end) ? '' : 'none';
-                        });
-                        // update pager active
-                        pager.querySelectorAll('.page-item').forEach(li=>li.classList.remove('active'));
-                        const btn = pager.querySelector(`a.page-link[data-page="${p}"]`);
-                        if (btn) btn.parentElement.classList.add('active');
-                        // prev/next disable
-                        const prev = pager.querySelector('a.page-link[data-page="prev"]').parentElement;
-                        const next = pager.querySelector('a.page-link[data-page="next"]').parentElement;
-                        if (prev) prev.classList.toggle('disabled', p<=1);
-                        if (next) next.classList.toggle('disabled', p>=pages);
-                        pager.setAttribute('data-current-page', String(p));
-                    }
-                    showPage(1);
-                    pager.querySelectorAll('a.page-link').forEach(a=>{
-                        a.addEventListener('click', function(e){
-                            e.preventDefault();
-                            let p = this.getAttribute('data-page');
-                            let cur = parseInt(pager.getAttribute('data-current-page') || '1');
-                            if (p === 'prev') p = String(cur-1);
-                            if (p === 'next') p = String(cur+1);
-                            const pi = parseInt(p);
-                            if (!isNaN(pi)) {
-                                const clamped = Math.max(1, Math.min(pages, pi));
-                                showPage(clamped);
-                            }
-                        });
-                    });
-                });
-            }
             document.addEventListener('DOMContentLoaded', function(){
-                setupGroupPagination(6);
+                // setupGroupPagination(6); // Pagination removed as per request
             });
         }
 
@@ -1041,13 +1135,47 @@
 
         let matchTimerInterval = null;
 
+        function parseMatchDateTime(dateStr, timeStr) {
+            if (!dateStr || !timeStr) return NaN;
+            
+            // Try standard Date parse first (for ISO-like strings)
+            let d = new Date(dateStr + 'T' + timeStr);
+            if (!isNaN(d.getTime())) return d.getTime();
+            
+            // Manual parse for formats like 14:30 or 02:30 PM
+            const parts = dateStr.split('-');
+            if (parts.length !== 3) return NaN;
+            const y = parseInt(parts[0]);
+            const m = parseInt(parts[1]);
+            const day = parseInt(parts[2]);
+            
+            let hour = 0, minute = 0;
+            const timeMatch12 = timeStr.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+            const timeMatch24 = timeStr.match(/^(\d{1,2}):(\d{2})$/);
+
+            if (timeMatch12) {
+                hour = parseInt(timeMatch12[1]);
+                minute = parseInt(timeMatch12[2]);
+                const period = timeMatch12[3].toUpperCase();
+                if (period === 'PM' && hour < 12) hour += 12;
+                if (period === 'AM' && hour === 12) hour = 0;
+            } else if (timeMatch24) {
+                hour = parseInt(timeMatch24[1]);
+                minute = parseInt(timeMatch24[2]);
+            } else {
+                return NaN;
+            }
+            
+            return new Date(y, m - 1, day, hour, minute, 0, 0).getTime();
+        }
+
         function updateMatchTimer(currentMatch, groupName) {
             const statusBadge = document.getElementById('matchStatusBadge');
             const liveEl = document.getElementById('matchLiveTime');
             if (!statusBadge || !liveEl) return;
 
             const now = Date.now();
-            const sched = new Date(currentMatch.date + 'T' + currentMatch.time).getTime();
+            const sched = parseMatchDateTime(currentMatch.date, currentMatch.time);
             
             // Explicit status check
             if (currentMatch.status === 'finished') {
@@ -1059,9 +1187,16 @@
 
             // If invalid date/time
             if (isNaN(sched)) {
-                statusBadge.className = 'badge bg-secondary';
-                statusBadge.innerText = 'Chưa xếp lịch';
-                liveEl.textContent = '';
+                // If manually set to live but no valid time, show Live but no timer
+                if (currentMatch.status === 'live') {
+                    statusBadge.className = 'badge bg-danger animate-pulse';
+                    statusBadge.innerText = 'Đang thi đấu';
+                    liveEl.textContent = '--:--';
+                } else {
+                    statusBadge.className = 'badge bg-secondary';
+                    statusBadge.innerText = 'Chưa xếp lịch';
+                    liveEl.textContent = '';
+                }
                 return;
             }
 
@@ -1090,11 +1225,59 @@
             const et1End = secondHalfEnd + (hasOT ? otHalf*60000 : 0);
             const et2End = et1End + (hasOT ? otHalf*60000 : 0);
 
+            // Priority: If manually set to live, override "Sắp đá" if close enough or passed
+            // But if it's way in future, still show Sắp đá?
+            // User wants "real time". So if status is LIVE, we should show timer based on sched.
+            
+            if (currentMatch.status === 'live') {
+                 statusBadge.className = 'badge bg-danger animate-pulse';
+                 statusBadge.innerText = 'Đang thi đấu';
+                 
+                 // Calculate logical time
+                 let mm = 0, ss = 0;
+                 if (now < sched) {
+                     // Started early?
+                     // Just show 00:00 or negative? Show 00:00
+                     liveEl.textContent = '00:00';
+                 } else if (now < firstHalfEnd) {
+                     const elapsed = now - sched;
+                     mm = Math.floor(elapsed/60000);
+                     ss = Math.floor((elapsed%60000)/1000);
+                     liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
+                 } else if (now < breakEnd) {
+                     liveEl.textContent = 'HT';
+                     statusBadge.innerText = 'Giải lao'; // Override status text for break
+                     statusBadge.className = 'badge bg-info text-dark';
+                 } else if (now < secondHalfEnd) {
+                     const elapsed = now - breakEnd;
+                     mm = halfDuration + Math.floor(elapsed/60000);
+                     ss = Math.floor((elapsed%60000)/1000);
+                     liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
+                 } else if (hasOT && now < et1End) {
+                     const elapsed = now - secondHalfEnd;
+                     mm = halfDuration*2 + Math.floor(elapsed/60000);
+                     ss = Math.floor((elapsed%60000)/1000);
+                     liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
+                 } else if (hasOT && now < et2End) {
+                     const elapsed = now - et1End;
+                     mm = halfDuration*2 + otHalf + Math.floor(elapsed/60000);
+                     ss = Math.floor((elapsed%60000)/1000);
+                     liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
+                 } else {
+                     // Over time
+                     const maxTime = halfDuration * 2 + (hasOT ? otHalf * 2 : 0);
+                     liveEl.textContent = maxTime + '+';
+                 }
+                 return;
+            }
+
+            // Normal auto-status logic if NOT 'live' (e.g. 'upcoming')
             if (now < sched) {
                 statusBadge.className = 'badge bg-warning text-dark';
                 statusBadge.innerText = 'Sắp đá';
                 liveEl.textContent = '';
             } else if (now < firstHalfEnd) {
+                // Auto-detect live
                 statusBadge.className = 'badge bg-primary';
                 statusBadge.innerText = 'Đang thi đấu';
                 const elapsed = now - sched;
@@ -1109,7 +1292,6 @@
                 statusBadge.className = 'badge bg-primary';
                 statusBadge.innerText = 'Đang thi đấu';
                 const elapsed = now - breakEnd;
-                // Hiep 2 bat dau tu halfDuration, khong cong don break
                 const mm = halfDuration + Math.floor(elapsed/60000);
                 const ss = Math.floor((elapsed%60000)/1000);
                 liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
@@ -1117,7 +1299,6 @@
                 statusBadge.className = 'badge bg-primary';
                 statusBadge.innerText = 'Hiệp phụ';
                 const elapsed = now - secondHalfEnd;
-                // Hiep phu 1 bat dau sau 2 hiep chinh
                 const mm = halfDuration*2 + Math.floor(elapsed/60000);
                 const ss = Math.floor((elapsed%60000)/1000);
                 liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
@@ -1125,21 +1306,13 @@
                 statusBadge.className = 'badge bg-primary';
                 statusBadge.innerText = 'Hiệp phụ';
                 const elapsed = now - et1End;
-                // Hiep phu 2 bat dau sau hiep phu 1
                 const mm = halfDuration*2 + otHalf + Math.floor(elapsed/60000);
                 const ss = Math.floor((elapsed%60000)/1000);
                 liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
             } else {
-                if (currentMatch.status === 'live') {
-                    statusBadge.className = 'badge bg-danger animate-pulse';
-                    statusBadge.innerText = 'Đang thi đấu';
-                    const maxTime = halfDuration * 2 + (hasOT ? otHalf * 2 : 0);
-                    liveEl.textContent = maxTime + '+';
-                } else {
-                    statusBadge.className = 'badge bg-secondary';
-                    statusBadge.innerText = 'FT';
-                    liveEl.textContent = '';
-                }
+                statusBadge.className = 'badge bg-secondary';
+                statusBadge.innerText = 'FT';
+                liveEl.textContent = '';
             }
         }
 
@@ -1292,6 +1465,9 @@
             const events = currentMatch && currentMatch.events ? currentMatch.events : [];
             let yellow = 0, red = 0;
             events.forEach(ev => {
+                // Check team side first
+                if (ev.team !== side) return;
+
                 let isTarget = false;
                 if (ev.playerId && player.id && String(ev.playerId) === String(player.id)) {
                     isTarget = true;
@@ -1312,6 +1488,9 @@
             const events = currentMatch && currentMatch.events ? currentMatch.events : [];
             let goals = 0, assists = 0;
             events.forEach(ev => {
+                // Check team side first
+                if (ev.team !== side) return;
+
                 let isTarget = false;
                 if (ev.playerId && player.id && String(ev.playerId) === String(player.id)) {
                     isTarget = true;

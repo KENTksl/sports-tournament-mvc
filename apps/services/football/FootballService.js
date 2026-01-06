@@ -294,6 +294,86 @@ class FootballService {
     }
 
     /**
+     * Generate Knockout Bracket from Group Stage Standings
+     */
+    async generateKnockoutBracket(tournamentId) {
+        const tournament = await this.getTournamentById(tournamentId);
+        if (!tournament) throw new Error('Tournament not found');
+
+        if (tournament.bracketData && tournament.bracketData.teams && tournament.bracketData.teams.length > 0) {
+            throw new Error('Vòng đấu loại trực tiếp đã được tạo.');
+        }
+
+        const standings = this.calculateStandings(tournament);
+        let knockoutTeams = [];
+
+        // Logic to select teams based on group configuration
+        if (standings.length === 1) {
+            // Single Group: Top 4 (Semi-Finals) or Top 2 (Final)
+            const group = standings[0];
+            if (group.teams.length >= 4) {
+                // 1 vs 4
+                knockoutTeams.push(group.teams[0].name);
+                knockoutTeams.push(group.teams[3].name);
+                // 2 vs 3
+                knockoutTeams.push(group.teams[1].name);
+                knockoutTeams.push(group.teams[2].name);
+            } else if (group.teams.length >= 2) {
+                // 1 vs 2
+                knockoutTeams.push(group.teams[0].name);
+                knockoutTeams.push(group.teams[1].name);
+            }
+        } else if (standings.length > 0 && standings.length % 2 === 0) {
+            // Even number of groups (A-B, C-D...): Cross pairing
+            for (let i = 0; i < standings.length; i += 2) {
+                const g1 = standings[i];
+                const g2 = standings[i+1];
+                
+                // We need at least 2 teams in each group to do cross pairing (1st vs 2nd)
+                if (g1.teams.length >= 2 && g2.teams.length >= 2) {
+                    // Match 1: Group 1 Winner vs Group 2 Runner-up
+                    knockoutTeams.push(g1.teams[0].name);
+                    knockoutTeams.push(g2.teams[1].name);
+                    
+                    // Match 2: Group 2 Winner vs Group 1 Runner-up
+                    knockoutTeams.push(g2.teams[0].name);
+                    knockoutTeams.push(g1.teams[1].name);
+                } else {
+                    // Not enough teams, fallback to just taking winners
+                    if(g1.teams.length > 0) knockoutTeams.push(g1.teams[0].name);
+                    if(g2.teams.length > 0) knockoutTeams.push(g2.teams[0].name);
+                }
+            }
+        } else {
+            // Odd number of groups or complex structure: Take Top 2 from each
+            // This is a simple fallback. Better logic would depend on specific rules (best 3rd place, etc.)
+            standings.forEach(g => {
+                if(g.teams.length > 0) knockoutTeams.push(g.teams[0].name);
+                if(g.teams.length > 1) knockoutTeams.push(g.teams[1].name);
+            });
+        }
+
+        if (knockoutTeams.length < 2) {
+            throw new Error('Không đủ đội đủ điều kiện để tạo vòng đấu loại (cần ít nhất 2 đội).');
+        }
+
+        // Generate Structure
+        const { bracketData, fixtures } = this.generateKnockoutStructure(knockoutTeams);
+
+        // Update Tournament
+        tournament.bracketData = bracketData;
+        
+        // Append new fixtures to existing ones
+        if (!tournament.fixtures) tournament.fixtures = [];
+        tournament.fixtures.push(...fixtures);
+
+        tournament.markModified('bracketData');
+        tournament.markModified('fixtures');
+        
+        await tournament.save();
+    }
+
+    /**
      * Generate Group Stage Fixtures
      */
     generateFixtures(teamsInput) {
@@ -663,9 +743,14 @@ class FootballService {
         if (isNaN(score1) || isNaN(score2)) return;
 
         let winner = null;
-        if (score1 > score2) winner = match.team1;
-        else if (score2 > score1) winner = match.team2;
-        else {
+        let loser = null;
+        if (score1 > score2) {
+            winner = match.team1;
+            loser = match.team2;
+        } else if (score2 > score1) {
+            winner = match.team2;
+            loser = match.team1;
+        } else {
              // Handle draw (Penalties logic not here yet, assuming draw not allowed in KO without pens)
              // If penalties events exist, determine winner?
              // For now, if draw, no winner advanced automatically unless we add penalty logic.
@@ -698,6 +783,14 @@ class FootballService {
                      if (nextMatch) {
                          nextMatch[nextTeamPos] = winner;
                      }
+
+                     // Update Loser for 3rd Place Match
+                     if (nextMatchIndex === 0 && loser) {
+                        const thirdPlaceMatch = g.matches.find(m => m.bracketRound === nextRoundIndex && m.bracketMatchIndex === 1);
+                        if (thirdPlaceMatch) {
+                            thirdPlaceMatch[nextTeamPos] = loser;
+                        }
+                     }
                  }
              }
         }
@@ -712,67 +805,128 @@ class FootballService {
     calculateStandings(tournament) {
         if (!tournament.teams || tournament.teams.length === 0) return [];
 
-        let stats = {};
-        tournament.teams.forEach(t => {
-            if (t && t.name) {
-                stats[t.name] = { 
-                    id: t.id,
-                    name: t.name, 
-                    logo: t.logo, 
-                    p: 0, w: 0, d: 0, l: 0, 
-                    gf: 0, ga: 0, gd: 0, pts: 0 
-                };
-            }
-        });
+        // If tournament has groups (fixtures define groups), we calculate per group
+        let hasGroups = false;
+        let groupStats = {}; // Map<GroupName, Map<TeamName, Stats>>
 
+        if (tournament.fixtures && tournament.fixtures.length > 0) {
+            tournament.fixtures.forEach(group => {
+                // Only consider groups that are "Group Stage" like
+                if (group.group && (group.group.startsWith('Bảng') || group.group.startsWith('Group'))) {
+                    hasGroups = true;
+                    if (!groupStats[group.group]) {
+                        groupStats[group.group] = {};
+                    }
+                    
+                    // Initialize stats for teams in this group if we can identify them
+                    // We identify teams by looking at matches
+                    if (group.matches) {
+                        group.matches.forEach(m => {
+                            [m.team1, m.team2].forEach(tName => {
+                                if (tName && !groupStats[group.group][tName]) {
+                                    // Find team logo/id from master list
+                                    const masterTeam = tournament.teams.find(t => t.name === tName);
+                                    groupStats[group.group][tName] = {
+                                        id: masterTeam ? masterTeam.id : null,
+                                        name: tName,
+                                        logo: masterTeam ? masterTeam.logo : 'default.png',
+                                        played: 0, won: 0, drawn: 0, lost: 0, // 'played' matches 'p' in view? View uses played, won, drawn, lost
+                                        gf: 0, ga: 0, gd: 0, points: 0 // View uses points
+                                    };
+                                }
+                            });
+                        });
+                    }
+                }
+            });
+        }
+
+        // If no groups found in fixtures (e.g. League mode or not started), fallback to single table
+        if (!hasGroups) {
+             // Treat as one single group named "Bảng Xếp Hạng"
+             const groupName = "Bảng Xếp Hạng";
+             groupStats[groupName] = {};
+             tournament.teams.forEach(t => {
+                if (t && t.name) {
+                    groupStats[groupName][t.name] = { 
+                        id: t.id,
+                        name: t.name, 
+                        logo: t.logo, 
+                        played: 0, won: 0, drawn: 0, lost: 0, 
+                        gf: 0, ga: 0, gd: 0, points: 0 
+                    };
+                }
+            });
+        }
+
+        // Calculate stats
         if (tournament.fixtures) {
             tournament.fixtures.forEach(group => {
-                // Only calculate for Group Stage
-                if (group.group && (group.group.startsWith('Bảng') || group.group.startsWith('Group'))) {
+                const isGroupStage = group.group && (group.group.startsWith('Bảng') || group.group.startsWith('Group'));
+                // Use specific group if Group Stage, else use "Bảng Xếp Hạng" if it's a league (all matches contribute to one table)
+                // If it's a knockout round in a mixed tournament, ignore for standings
+                
+                let targetGroupName = null;
+                if (hasGroups) {
+                    if (isGroupStage) targetGroupName = group.group;
+                } else {
+                    // In League mode, we might have rounds "Vòng 1", "Vòng 2", etc.
+                    // If tournament.mode is League, all rounds contribute to the single table
+                    if (tournament.mode === 'League') {
+                         targetGroupName = "Bảng Xếp Hạng";
+                    } else if (isGroupStage) {
+                         // Fallback
+                         targetGroupName = group.group;
+                    }
+                }
+
+                if (targetGroupName && groupStats[targetGroupName]) {
                     group.matches.forEach(m => {
                         if (m.status === MATCH_STATUS.FINISHED && m.score1 !== null && m.score2 !== null) {
                             const s1 = parseInt(m.score1);
                             const s2 = parseInt(m.score2);
-                            
-                            if (stats[m.team1] && stats[m.team2]) {
-                                // Team 1
-                                stats[m.team1].p++;
-                                stats[m.team1].gf += s1;
-                                stats[m.team1].ga += s2;
-                                stats[m.team1].gd = stats[m.team1].gf - stats[m.team1].ga;
-                                
-                                // Team 2
-                                stats[m.team2].p++;
-                                stats[m.team2].gf += s2;
-                                stats[m.team2].ga += s1;
-                                stats[m.team2].gd = stats[m.team2].gf - stats[m.team2].ga;
+                            const t1 = m.team1;
+                            const t2 = m.team2;
 
-                                if (s1 > s2) {
-                                    stats[m.team1].w++;
-                                    stats[m.team1].pts += 3;
-                                    stats[m.team2].l++;
-                                } else if (s2 > s1) {
-                                    stats[m.team2].w++;
-                                    stats[m.team2].pts += 3;
-                                    stats[m.team1].l++;
-                                } else {
-                                    stats[m.team1].d++;
-                                    stats[m.team1].pts += 1;
-                                    stats[m.team2].d++;
-                                    stats[m.team2].pts += 1;
+                            // Helper to update stats
+                            const update = (teamName, GF, GA) => {
+                                if (groupStats[targetGroupName][teamName]) {
+                                    const s = groupStats[targetGroupName][teamName];
+                                    s.played++;
+                                    s.gf += GF;
+                                    s.ga += GA;
+                                    s.gd = s.gf - s.ga;
+                                    if (GF > GA) { s.won++; s.points += 3; }
+                                    else if (GA > GF) { s.lost++; }
+                                    else { s.drawn++; s.points += 1; }
                                 }
-                            }
+                            };
+
+                            update(t1, s1, s2);
+                            update(t2, s2, s1);
                         }
                     });
                 }
             });
         }
 
-        return Object.values(stats).sort((a, b) => {
-            if (b.pts !== a.pts) return b.pts - a.pts;
-            if (b.gd !== a.gd) return b.gd - a.gd;
-            return b.gf - a.gf;
+        // Convert to array of groups
+        const result = Object.keys(groupStats).map(gName => {
+            const teams = Object.values(groupStats[gName]).sort((a, b) => {
+                if (b.points !== a.points) return b.points - a.points;
+                if (b.gd !== a.gd) return b.gd - a.gd;
+                return b.gf - a.gf;
+            });
+            return {
+                groupName: gName,
+                teams: teams
+            };
         });
+
+        // Sort groups by name (Group A, Group B...)
+        result.sort((a, b) => a.groupName.localeCompare(b.groupName));
+
+        return result;
     }
 
     async getTournamentById(id) {
