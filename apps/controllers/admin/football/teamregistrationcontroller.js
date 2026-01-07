@@ -202,6 +202,57 @@ class TeamRegistrationController {
                 }
             }
 
+            // Logic to get random players from public/imagetest
+            const imageDir = path.join(process.cwd(), 'public', 'imagetest');
+            const avatarUploadDir = path.join(process.cwd(), 'public', 'uploads', 'avatars');
+            let members = [];
+            
+            if (fs.existsSync(imageDir)) {
+                const files = fs.readdirSync(imageDir);
+                // Filter for image files just in case
+                const imageFiles = files.filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file));
+                
+                // Shuffle and pick 7 random files (or less if not enough files)
+                const shuffled = imageFiles.sort(() => 0.5 - Math.random());
+                const selectedFiles = shuffled.slice(0, 7);
+
+                // Ensure avatar upload directory exists
+                if (!fs.existsSync(avatarUploadDir)) {
+                    fs.mkdirSync(avatarUploadDir, { recursive: true });
+                }
+
+                members = selectedFiles.map((filename, index) => {
+                    // Copy file to public/uploads/avatars so that approve logic works correctly
+                    try {
+                        const srcPath = path.join(imageDir, filename);
+                        const destPath = path.join(avatarUploadDir, filename);
+                        // Only copy if destination doesn't exist or we want to overwrite (using copyFileSync overwrites by default)
+                        fs.copyFileSync(srcPath, destPath);
+                    } catch (err) {
+                        console.error(`Failed to copy sample image ${filename}:`, err);
+                    }
+
+                    // Get name from filename without extension
+                    const name = path.parse(filename).name;
+                    return {
+                        name: name,
+                        number: Math.floor(Math.random() * 99) + 1, // Random number 1-99
+                        position: 'Cầu thủ',
+                        avatar: filename, // Just filename, assuming we handle path elsewhere or store filename
+                        citizenIdImage: 'default.png'
+                    };
+                });
+            }
+
+            // Fallback if no images found or directory doesn't exist
+            if (members.length === 0) {
+                 members = [
+                    { name: 'Cau thu 1', number: 10, position: 'Cầu thủ', avatar: 'default-avatar.png', citizenIdImage: 'default.png' },
+                    { name: 'Cau thu 2', number: 7, position: 'Cầu thủ', avatar: 'default-avatar.png', citizenIdImage: 'default.png' },
+                    { name: 'Thu mon', number: 1, position: 'Cầu thủ', avatar: 'default-avatar.png', citizenIdImage: 'default.png' }
+                ];
+            }
+
             const fakeTeam = new TeamRegistration({
                 teamName: 'FC Test ' + Date.now().toString().slice(-6),
                 representative: 'Nguyen Van A',
@@ -209,11 +260,7 @@ class TeamRegistrationController {
                 email: 'test@gmail.com',
                 description: 'Doi bong phong trao',
                 tournamentId: targetTournamentId,
-                members: [
-                    { name: 'Cau thu 1', number: 10, position: 'Cầu thủ', avatar: 'default-avatar.png', citizenIdImage: 'default.png' },
-                    { name: 'Cau thu 2', number: 7, position: 'Cầu thủ', avatar: 'default-avatar.png', citizenIdImage: 'default.png' },
-                    { name: 'Thu mon', number: 1, position: 'Cầu thủ', avatar: 'default-avatar.png', citizenIdImage: 'default.png' }
-                ],
+                members: members,
                 status: 'pending'
             });
             await fakeTeam.save();
@@ -225,6 +272,7 @@ class TeamRegistrationController {
                 
             res.redirect(redirectUrl);
         } catch(e) {
+            console.error(e);
             res.send(e.message);
         }
     }
