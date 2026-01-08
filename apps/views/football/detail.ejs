@@ -1296,25 +1296,142 @@
                 const ss = Math.floor((elapsed%60000)/1000);
                 liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
             } else if (hasOT && now < et1End) {
-                statusBadge.className = 'badge bg-primary';
-                statusBadge.innerText = 'Hiệp phụ';
-                const elapsed = now - secondHalfEnd;
-                const mm = halfDuration*2 + Math.floor(elapsed/60000);
-                const ss = Math.floor((elapsed%60000)/1000);
-                liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
+                const s1 = currentMatch.score1 || 0;
+                const s2 = currentMatch.score2 || 0;
+                const isDraw = (s1 === s2);
+                if (isDraw) {
+                    statusBadge.className = 'badge bg-primary';
+                    statusBadge.innerText = 'Hiệp phụ';
+                    const elapsed = now - secondHalfEnd;
+                    const mm = halfDuration*2 + Math.floor(elapsed/60000);
+                    const ss = Math.floor((elapsed%60000)/1000);
+                    liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
+                } else {
+                    statusBadge.className = 'badge bg-warning text-dark';
+                    statusBadge.innerText = 'Hết giờ';
+                    liveEl.textContent = 'FT';
+                }
             } else if (hasOT && now < et2End) {
-                statusBadge.className = 'badge bg-primary';
-                statusBadge.innerText = 'Hiệp phụ';
-                const elapsed = now - et1End;
-                const mm = halfDuration*2 + otHalf + Math.floor(elapsed/60000);
-                const ss = Math.floor((elapsed%60000)/1000);
-                liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
+                const s1 = currentMatch.score1 || 0;
+                const s2 = currentMatch.score2 || 0;
+                const isDraw = (s1 === s2);
+                if (isDraw) {
+                    statusBadge.className = 'badge bg-primary';
+                    statusBadge.innerText = 'Hiệp phụ';
+                    const elapsed = now - et1End;
+                    const mm = halfDuration*2 + otHalf + Math.floor(elapsed/60000);
+                    const ss = Math.floor((elapsed%60000)/1000);
+                    liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
+                } else {
+                    statusBadge.className = 'badge bg-warning text-dark';
+                    statusBadge.innerText = 'Hết giờ';
+                    liveEl.textContent = 'FT';
+                }
             } else {
                 statusBadge.className = 'badge bg-secondary';
                 statusBadge.innerText = 'FT';
                 liveEl.textContent = '';
             }
         }
+
+        function updateListStatusBadges() {
+            if (!tournamentData || !tournamentData.fixtures) return;
+            const now = Date.now();
+            
+            let pType = '7';
+            if (tournamentData.pitchType) pType = tournamentData.pitchType;
+            else if (tournamentData.mode && tournamentData.mode.includes('5')) pType = '5';
+
+            const halfDuration = pType === '5' ? 20 : 35;
+            const halftimeBreak = pType === '5' ? 15 : 10;
+            const otHalf = pType === '5' ? 5 : 10;
+
+            tournamentData.fixtures.forEach(group => {
+                if (!group.matches) return;
+                group.matches.forEach(match => {
+                    if (match.status === 'finished') return;
+
+                    const btn = document.querySelector(`button[data-match-id="${match.id}"]`);
+                    if (!btn) return;
+                    const col = btn.closest('.col-2');
+                    if (!col) return;
+                    
+                    let statusEl = col.querySelector('small');
+                    
+                    const sched = parseMatchDateTime(match.date, match.time);
+                    if (isNaN(sched)) return;
+
+                    const gname = match.groupName || group.group || '';
+                    const isKO = gname && (gname.includes('Tứ Kết') || gname.includes('Bán Kết') || gname.includes('Chung Kết') || (gname.startsWith('Vòng 1/')));
+                    const useOT = (pType === '5' ? !!isKO : !!(isKO && gname.includes('Chung Kết')));
+
+                    const firstHalfEnd = sched + halfDuration*60000;
+                    const breakEnd = firstHalfEnd + halftimeBreak*60000;
+                    const secondHalfEnd = breakEnd + halfDuration*60000;
+                    const et1End = secondHalfEnd + (useOT ? otHalf*60000 : 0);
+                    const et2End = et1End + (useOT ? otHalf*60000 : 0);
+                    
+                    let newText = '';
+                    let newClass = '';
+                    let isLive = false;
+
+                    const s1 = (match.score1 === null || match.score1 === undefined) ? 0 : parseInt(match.score1);
+                    const s2 = (match.score2 === null || match.score2 === undefined) ? 0 : parseInt(match.score2);
+                    const isDraw = (s1 === s2);
+
+                    if (now >= sched && now < firstHalfEnd) {
+                        isLive = true;
+                        const elapsed = Math.floor((now - sched)/60000);
+                        newText = `Live ${elapsed}'`;
+                        newClass = 'text-danger font-weight-bold animate-pulse';
+                    } else if (now >= firstHalfEnd && now < breakEnd) {
+                        isLive = true;
+                        newText = 'HT';
+                        newClass = 'text-info font-weight-bold';
+                    } else if (now >= breakEnd && now < secondHalfEnd) {
+                        isLive = true;
+                        const elapsed = halfDuration + Math.floor((now - breakEnd)/60000);
+                        newText = `Live ${elapsed}'`;
+                        newClass = 'text-danger font-weight-bold animate-pulse';
+                    } else if (useOT && now >= secondHalfEnd && now < et1End) {
+                        isLive = true;
+                        if (isDraw) {
+                            const elapsed = halfDuration*2 + Math.floor((now - secondHalfEnd)/60000);
+                            newText = `ET ${elapsed}'`;
+                            newClass = 'text-danger font-weight-bold animate-pulse';
+                        } else {
+                            newText = 'End of Time';
+                            newClass = 'text-warning font-weight-bold';
+                        }
+                    } else if (useOT && now >= et1End && now < et2End) {
+                        isLive = true;
+                        if (isDraw) {
+                            const elapsed = halfDuration*2 + otHalf + Math.floor((now - et1End)/60000);
+                            newText = `ET ${elapsed}'`;
+                            newClass = 'text-danger font-weight-bold animate-pulse';
+                        } else {
+                            newText = 'End of Time';
+                            newClass = 'text-warning font-weight-bold';
+                        }
+                    }
+
+                    if (isLive) {
+                        if (!statusEl) {
+                             const vsBadge = col.querySelector('.badge.badge-light');
+                             if (vsBadge) vsBadge.style.display = 'none';
+                             
+                             statusEl = document.createElement('small');
+                             btn.parentNode.insertBefore(statusEl, btn);
+                             statusEl.classList.add('d-block', 'mb-1');
+                        }
+                        statusEl.className = newClass;
+                        statusEl.innerText = newText;
+                    }
+                });
+            });
+        }
+        
+        setInterval(updateListStatusBadges, 1000);
 
         function openMatchDetail(matchId) {
             currentOpenMatchId = matchId;

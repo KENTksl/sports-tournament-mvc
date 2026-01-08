@@ -1,0 +1,4894 @@
+[{
+  "_id": {
+    "$oid": "695bb7d3efbd1737154baeea"
+  },
+  "name": "Giải Bóng Đá Vô Địch Mùa Hè 2024",
+  "organizer": "Hội Thể Thao Thành Phố",
+  "mode": "Group Stage",
+  "teamsCount": 16,
+  "teams": [],
+  "fixtures": [],
+  "standings": [],
+  "image": "default.png",
+  "description": "Giải đấu thường niên quy tụ các đội bóng mạnh nhất khu vực.",
+  "status": "ongoing",
+  "sportType": "Football",
+  "pitchType": "7",
+  "createdAt": {
+    "$date": "2026-01-05T13:08:35.215Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695bb7d3efbd1737154baeed"
+  },
+  "name": "Cúp Tứ Hùng Mùa Thu",
+  "organizer": "CLB Doanh Nhân",
+  "mode": "Knockout",
+  "teamsCount": 8,
+  "teams": [],
+  "fixtures": [],
+  "standings": [],
+  "image": "default.png",
+  "description": "Giải đấu giao hữu cọ xát giữa các doanh nghiệp.",
+  "status": "upcoming",
+  "sportType": "Football",
+  "pitchType": "7",
+  "createdAt": {
+    "$date": "2026-01-05T13:08:35.312Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695bb7d3efbd1737154baef0"
+  },
+  "name": "Siêu Cúp Liên Đoàn",
+  "organizer": "Liên Đoàn Bóng Đá Phủi",
+  "mode": "Knockout",
+  "teamsCount": 4,
+  "teams": [],
+  "fixtures": [],
+  "standings": [],
+  "image": "default.png",
+  "description": "Trận tranh tài đỉnh cao giữa 4 đội mạnh nhất.",
+  "status": "upcoming",
+  "sportType": "Football",
+  "pitchType": "5",
+  "createdAt": {
+    "$date": "2026-01-05T13:08:35.405Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695bb7d3efbd1737154baef3"
+  },
+  "name": "Giải Phủi Hà Nội Open",
+  "organizer": "Hanoi Football Community",
+  "mode": "Group Stage",
+  "teamsCount": 32,
+  "teams": [],
+  "fixtures": [],
+  "standings": [],
+  "image": "default.png",
+  "description": "Giải đấu phong trào lớn nhất năm.",
+  "status": "ongoing",
+  "sportType": "Football",
+  "pitchType": "7",
+  "createdAt": {
+    "$date": "2026-01-05T13:08:35.495Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695bb7d3efbd1737154baef6"
+  },
+  "name": "Champions League Mini",
+  "organizer": "Sân Bóng Thành Đồng",
+  "mode": "Group Stage",
+  "teamsCount": 8,
+  "teams": [],
+  "fixtures": [],
+  "standings": [],
+  "image": "default.png",
+  "description": "Mô phỏng giải đấu danh giá châu Âu phiên bản sân 5.",
+  "status": "upcoming",
+  "sportType": "Football",
+  "pitchType": "5",
+  "createdAt": {
+    "$date": "2026-01-05T13:08:35.582Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695bb7d3efbd1737154baef9"
+  },
+  "name": "FA Cup Thu Nhỏ",
+  "organizer": "Cộng Đồng Bóng Đá",
+  "mode": "Knockout",
+  "teamsCount": 16,
+  "teams": [],
+  "fixtures": [],
+  "standings": [],
+  "image": "default.png",
+  "description": "Giải đấu loại trực tiếp kịch tính.",
+  "status": "upcoming",
+  "sportType": "Football",
+  "pitchType": "7",
+  "createdAt": {
+    "$date": "2026-01-05T13:08:35.672Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695bb7d3efbd1737154baeff"
+  },
+  "name": "Đại Chiến Sân 7",
+  "organizer": "Bóng Đá Sân 7",
+  "mode": "Knockout",
+  "teamsCount": 8,
+  "teams": [],
+  "fixtures": [],
+  "standings": [],
+  "image": "default.png",
+  "description": "Giải đấu chuyên nghiệp dành cho sân 7 người.",
+  "status": "ongoing",
+  "sportType": "Football",
+  "pitchType": "7",
+  "createdAt": {
+    "$date": "2026-01-05T13:08:35.848Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695be6e7d5e2f0ffe7af8a19"
+  },
+  "name": "Giải 1",
+  "organizer": "Minh",
+  "mode": "Group Stage",
+  "teamsCount": 16,
+  "teams": [],
+  "fixtures": [],
+  "standings": [],
+  "image": "default.png",
+  "description": "",
+  "status": "upcoming",
+  "sportType": "Football",
+  "pitchType": "5",
+  "createdAt": {
+    "$date": "2026-01-05T16:29:27.236Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695cbb024096280d3da417c7"
+  },
+  "name": "HUTECH mở rộng lần 9",
+  "organizer": "Nguyễn Nhật Hào",
+  "mode": "Knockout",
+  "teamsCount": 4,
+  "teams": [
+    {
+      "name": "22DTHC3",
+      "logo": "1767558047389-NhÃ¢n.jpg",
+      "members": [
+        {
+          "name": "khải",
+          "number": 5,
+          "position": "Cầu thủ",
+          "avatar": "1767558047391-Kháº£i.jpg",
+          "citizenId": "1111",
+          "citizenIdImage": "1767558430374-Kháº£i.jpg"
+        },
+        {
+          "name": "đức",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "1767558047391-Äá»©c.jpg",
+          "citizenId": "2222",
+          "citizenIdImage": "1767558430375-Äá»©c.jpg"
+        },
+        {
+          "name": "hào",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "1767558047392-HÃ o.jpg",
+          "citizenId": "7777",
+          "citizenIdImage": "1767558430376-HÃ o.jpg"
+        },
+        {
+          "name": "nhân",
+          "number": 11,
+          "position": "Cầu thủ",
+          "avatar": "1767558430381-NhÃ¢n.jpg",
+          "citizenId": "1010",
+          "citizenIdImage": "1767558430383-NhÃ¢n.jpg"
+        },
+        {
+          "name": "minh",
+          "number": 77,
+          "position": "Cầu thủ",
+          "avatar": "1767561615498-Minh.jpg",
+          "citizenId": "7878",
+          "citizenIdImage": "1767561615502-Minh.jpg"
+        },
+        {
+          "name": "tài",
+          "number": 3,
+          "position": "Cầu thủ",
+          "avatar": "1767561615504-TÃ i.jpg",
+          "citizenId": "3333",
+          "citizenIdImage": "1767561615505-TÃ i.jpg"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767684936925v6ab0"
+    },
+    {
+      "name": "FC Test 943775",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Cau thu 1",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Cau thu 2",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Thu mon",
+          "number": 1,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767684946659lsr5h"
+    },
+    {
+      "name": "FC Test 942138",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Cau thu 1",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Cau thu 2",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Thu mon",
+          "number": 1,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "17676849500258zmly"
+    },
+    {
+      "name": "FC Test 940694",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Cau thu 1",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Cau thu 2",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Thu mon",
+          "number": 1,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767684953578v50wj"
+    }
+  ],
+  "fixtures": [
+    {
+      "group": "Bán Kết",
+      "matches": [
+        {
+          "id": "m_KO_r0_0_1767684958727_rcghfotj3",
+          "team1": "22DTHC3",
+          "team2": "FC Test 943775",
+          "score1": 1,
+          "score2": 0,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            "tài",
+            "nhân",
+            "hào",
+            null,
+            null
+          ],
+          "lineup2": [
+            "Cau thu 2",
+            "Cau thu 1",
+            "Thu mon",
+            null,
+            null
+          ],
+          "events": [
+            {
+              "id": "1767685063384_osovz",
+              "minute": 17,
+              "team": "team1",
+              "teamName": "22DTHC3",
+              "playerName": "hào",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            }
+          ],
+          "time": "14:20",
+          "date": "2026-01-06",
+          "bracketRound": 0,
+          "bracketMatchIndex": 0,
+          "status": "finished"
+        },
+        {
+          "id": "m_KO_r0_1_1767684958727_ppq8waogj",
+          "team1": "FC Test 942138",
+          "team2": "FC Test 940694",
+          "score1": 0,
+          "score2": 0,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [],
+          "time": "20:00",
+          "date": "Bán Kết - Trận 2",
+          "bracketRound": 0,
+          "bracketMatchIndex": 1,
+          "status": "finished"
+        }
+      ]
+    },
+    {
+      "group": "Chung Kết",
+      "matches": [
+        {
+          "id": "m_KO_r1_0_1767684958727_rpfkppx5a",
+          "team1": "22DTHC3",
+          "team2": null,
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [],
+          "time": "20:00",
+          "date": "Chung Kết - Trận 1",
+          "bracketRound": 1,
+          "bracketMatchIndex": 0
+        },
+        {
+          "id": "m_KO_r1_1_1767684958727_1o2s3z2d9",
+          "team1": null,
+          "team2": null,
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [],
+          "time": "20:00",
+          "date": "Tranh Hạng 3",
+          "bracketRound": 1,
+          "bracketMatchIndex": 1
+        }
+      ]
+    }
+  ],
+  "standings": [],
+  "image": "default.png",
+  "description": "",
+  "status": "ongoing",
+  "sportType": "Football",
+  "pitchType": "5",
+  "createdAt": {
+    "$date": "2026-01-06T07:34:26.122Z"
+  },
+  "__v": 9,
+  "bracketData": {
+    "teams": [
+      [
+        "22DTHC3",
+        "FC Test 943775"
+      ],
+      [
+        "FC Test 942138",
+        "FC Test 940694"
+      ]
+    ],
+    "results": [
+      [
+        [
+          1,
+          0
+        ],
+        [
+          null,
+          null
+        ]
+      ],
+      [
+        [
+          null,
+          null
+        ],
+        [
+          null,
+          null
+        ]
+      ]
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "695cc01bf5fdc29535b25fe5"
+  },
+  "name": "Giải 2",
+  "organizer": "Minh",
+  "mode": "Knockout",
+  "teamsCount": 4,
+  "teams": [
+    {
+      "name": "FC Test 230566",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Cau thu 1",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Cau thu 2",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Thu mon",
+          "number": 1,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767686233568bw8lw"
+    },
+    {
+      "name": "FC Test 229342",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Cau thu 1",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Cau thu 2",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Thu mon",
+          "number": 1,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "17676862359660cgk4"
+    },
+    {
+      "name": "FC Test 227685",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Cau thu 1",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Cau thu 2",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Thu mon",
+          "number": 1,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "176768623912955aoq"
+    },
+    {
+      "name": "FC Test 226390",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Cau thu 1",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Cau thu 2",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Thu mon",
+          "number": 1,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767686241624nmv78"
+    }
+  ],
+  "fixtures": [
+    {
+      "group": "Bán Kết",
+      "matches": [
+        {
+          "id": "m_KO_r0_0_1767686247071_6qj38odoz",
+          "team1": "FC Test 230566",
+          "team2": "FC Test 229342",
+          "score1": 2,
+          "score2": 0,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            "Thu mon",
+            null,
+            null,
+            null,
+            null
+          ],
+          "lineup2": [
+            "Cau thu 2",
+            null,
+            null,
+            null,
+            null
+          ],
+          "events": [
+            {
+              "id": "1767686427129_3tnb5",
+              "minute": 4,
+              "team": "team1",
+              "teamName": "FC Test 230566",
+              "playerName": "Thu mon",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767686428086_2yozr",
+              "minute": 4,
+              "team": "team1",
+              "teamName": "FC Test 230566",
+              "playerName": "Thu mon",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            }
+          ],
+          "time": "14:36",
+          "date": "2026-01-06",
+          "bracketRound": 0,
+          "bracketMatchIndex": 0,
+          "status": "scheduled"
+        },
+        {
+          "id": "m_KO_r0_1_1767686247071_phgmx4g29",
+          "team1": "FC Test 227685",
+          "team2": "FC Test 226390",
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [],
+          "time": "20:00",
+          "date": "Bán Kết - Trận 2",
+          "bracketRound": 0,
+          "bracketMatchIndex": 1
+        }
+      ]
+    },
+    {
+      "group": "Chung Kết",
+      "matches": [
+        {
+          "id": "m_KO_r1_0_1767686247071_whpip0qax",
+          "team1": null,
+          "team2": null,
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [],
+          "time": "20:00",
+          "date": "Chung Kết - Trận 1",
+          "bracketRound": 1,
+          "bracketMatchIndex": 0
+        },
+        {
+          "id": "m_KO_r1_1_1767686247071_6di6kndua",
+          "team1": null,
+          "team2": null,
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [],
+          "time": "20:00",
+          "date": "Tranh Hạng 3",
+          "bracketRound": 1,
+          "bracketMatchIndex": 1
+        }
+      ]
+    }
+  ],
+  "standings": [
+    {
+      "groupName": "Bảng Xếp Hạng",
+      "teams": [
+        {
+          "id": "1767686233568bw8lw",
+          "name": "FC Test 230566",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        },
+        {
+          "id": "17676862359660cgk4",
+          "name": "FC Test 229342",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        },
+        {
+          "id": "176768623912955aoq",
+          "name": "FC Test 227685",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        },
+        {
+          "id": "1767686241624nmv78",
+          "name": "FC Test 226390",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        }
+      ]
+    }
+  ],
+  "image": "default.png",
+  "description": "",
+  "status": "ongoing",
+  "sportType": "Football",
+  "pitchType": "5",
+  "createdAt": {
+    "$date": "2026-01-06T07:56:11.499Z"
+  },
+  "__v": 15,
+  "bracketData": {
+    "teams": [
+      [
+        "FC Test 230566",
+        "FC Test 229342"
+      ],
+      [
+        "FC Test 227685",
+        "FC Test 226390"
+      ]
+    ],
+    "results": [
+      [
+        [
+          null,
+          null
+        ],
+        [
+          null,
+          null
+        ]
+      ],
+      [
+        [
+          null,
+          null
+        ],
+        [
+          null,
+          null
+        ]
+      ]
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "695cc49fdf3359cb515e4eab"
+  },
+  "name": "Giải 3",
+  "organizer": "Minh",
+  "mode": "Knockout",
+  "teamsCount": 4,
+  "teams": [
+    {
+      "name": "FC Test 337545",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Cau thu 1",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Cau thu 2",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Thu mon",
+          "number": 1,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "17676873424042ubee"
+    },
+    {
+      "name": "FC Test 336290",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Cau thu 1",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Cau thu 2",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Thu mon",
+          "number": 1,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "17676873448262ilea"
+    },
+    {
+      "name": "FC Test 334495",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Cau thu 1",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Cau thu 2",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Thu mon",
+          "number": 1,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "17676873477105u2i3"
+    },
+    {
+      "name": "FC Test 333456",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Cau thu 1",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Cau thu 2",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Thu mon",
+          "number": 1,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "176768735021455udv"
+    }
+  ],
+  "fixtures": [
+    {
+      "group": "Bán Kết",
+      "matches": [
+        {
+          "id": "m_KO_r0_0_1767687355606_gwsslb0z2",
+          "team1": "FC Test 337545",
+          "team2": "FC Test 336290",
+          "score1": 0,
+          "score2": 1,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            "Thu mon",
+            null,
+            null,
+            null,
+            null
+          ],
+          "lineup2": [
+            "Thu mon",
+            null,
+            null,
+            null,
+            null
+          ],
+          "events": [
+            {
+              "id": "1767688606308_dkifk",
+              "minute": 46,
+              "team": "team2",
+              "teamName": "FC Test 336290",
+              "playerName": "Thu mon",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            }
+          ],
+          "time": "14:33",
+          "date": "2026-01-06",
+          "bracketRound": 0,
+          "bracketMatchIndex": 0,
+          "status": "finished"
+        },
+        {
+          "id": "m_KO_r0_1_1767687355606_8fasf7dc3",
+          "team1": "FC Test 334495",
+          "team2": "FC Test 333456",
+          "score1": 0,
+          "score2": 1,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            "Cau thu 2",
+            null,
+            null,
+            null,
+            null
+          ],
+          "lineup2": [
+            "Cau thu 1",
+            null,
+            null,
+            null,
+            null
+          ],
+          "events": [
+            {
+              "id": "1767688897544_jm83o",
+              "minute": 36,
+              "team": "team2",
+              "teamName": "FC Test 333456",
+              "playerName": "Cau thu 1",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            }
+          ],
+          "time": "14:40",
+          "date": "2026-01-06",
+          "bracketRound": 0,
+          "bracketMatchIndex": 1,
+          "status": "finished"
+        }
+      ]
+    },
+    {
+      "group": "Chung Kết",
+      "matches": [
+        {
+          "id": "m_KO_r1_0_1767687355606_xq3dlysna",
+          "team1": "FC Test 336290",
+          "team2": "FC Test 333456",
+          "score1": 0,
+          "score2": 1,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            "Cau thu 1",
+            null,
+            null,
+            null,
+            null
+          ],
+          "lineup2": [
+            "Cau thu 2",
+            null,
+            null,
+            null,
+            null
+          ],
+          "events": [
+            {
+              "id": "1767690181292_uovj0",
+              "minute": 2,
+              "team": "team2",
+              "teamName": "FC Test 333456",
+              "playerName": "Cau thu 2",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            }
+          ],
+          "time": "16:09",
+          "date": "2026-01-06",
+          "bracketRound": 1,
+          "bracketMatchIndex": 0,
+          "status": "finished"
+        },
+        {
+          "id": "m_KO_r1_1_1767687355606_ne4pgepu5",
+          "team1": "FC Test 337545",
+          "team2": "FC Test 334495",
+          "score1": 1,
+          "score2": 0,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [
+            {
+              "id": "1767696581009_jlgbw",
+              "minute": 39,
+              "team": "team1",
+              "teamName": "FC Test 337545",
+              "playerId": null,
+              "playerName": "N/A",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            }
+          ],
+          "time": "16:55",
+          "date": "2026-01-06",
+          "bracketRound": 1,
+          "bracketMatchIndex": 1,
+          "status": "finished"
+        }
+      ]
+    }
+  ],
+  "standings": [
+    {
+      "groupName": "Bảng Xếp Hạng",
+      "teams": [
+        {
+          "id": "17676873424042ubee",
+          "name": "FC Test 337545",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        },
+        {
+          "id": "17676873448262ilea",
+          "name": "FC Test 336290",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        },
+        {
+          "id": "17676873477105u2i3",
+          "name": "FC Test 334495",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        },
+        {
+          "id": "176768735021455udv",
+          "name": "FC Test 333456",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        }
+      ]
+    }
+  ],
+  "image": "default.png",
+  "description": "",
+  "status": "ongoing",
+  "sportType": "Football",
+  "pitchType": "5",
+  "createdAt": {
+    "$date": "2026-01-06T08:15:27.579Z"
+  },
+  "__v": 38,
+  "bracketData": {
+    "teams": [
+      [
+        "FC Test 337545",
+        "FC Test 336290"
+      ],
+      [
+        "FC Test 334495",
+        "FC Test 333456"
+      ]
+    ],
+    "results": [
+      [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ]
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "695ce9703f2b9f3d3dbe49bf"
+  },
+  "name": "Giải 4",
+  "organizer": "Minh",
+  "mode": "Knockout",
+  "teamsCount": 4,
+  "teams": [
+    {
+      "name": "FC Test 769981",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Cau thu 1",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Cau thu 2",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Thu mon",
+          "number": 1,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767696772513wduhz"
+    },
+    {
+      "name": "FC Test 768624",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Cau thu 1",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Cau thu 2",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Thu mon",
+          "number": 1,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "17676967751496sq80"
+    },
+    {
+      "name": "FC Test 767427",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Cau thu 1",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Cau thu 2",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Thu mon",
+          "number": 1,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767696777764hifb1"
+    },
+    {
+      "name": "FC Test 766419",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Cau thu 1",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Cau thu 2",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Thu mon",
+          "number": 1,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767696780372q0hra"
+    }
+  ],
+  "fixtures": [
+    {
+      "group": "Bán Kết",
+      "matches": [
+        {
+          "id": "m_KO_r0_0_1767697158919_uq1654scj",
+          "team1": "FC Test 769981",
+          "team2": "FC Test 768624",
+          "score1": 1,
+          "score2": 0,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [
+            {
+              "id": "1767697215265_e60e5",
+              "minute": 39,
+              "team": "team1",
+              "teamName": "FC Test 769981",
+              "playerId": null,
+              "playerName": "N/A",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            }
+          ],
+          "time": "17:29",
+          "date": "2026-01-06",
+          "bracketRound": 0,
+          "bracketMatchIndex": 0,
+          "status": "finished"
+        },
+        {
+          "id": "m_KO_r0_1_1767697158919_kk79k8fxq",
+          "team1": "FC Test 767427",
+          "team2": "FC Test 766419",
+          "score1": 1,
+          "score2": 0,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [
+            {
+              "id": "1767698712402_q88un",
+              "minute": 39,
+              "team": "team1",
+              "teamName": "FC Test 767427",
+              "playerId": null,
+              "playerName": "N/A",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            }
+          ],
+          "time": "17:31",
+          "date": "2026-01-06",
+          "bracketRound": 0,
+          "bracketMatchIndex": 1,
+          "status": "finished"
+        }
+      ]
+    },
+    {
+      "group": "Chung Kết",
+      "matches": [
+        {
+          "id": "m_KO_r1_0_1767697158919_paxxy491c",
+          "team1": "FC Test 769981",
+          "team2": "FC Test 767427",
+          "score1": 2,
+          "score2": 1,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [],
+          "time": "20:00",
+          "date": "Chung Kết - Trận 1",
+          "bracketRound": 1,
+          "bracketMatchIndex": 0
+        },
+        {
+          "id": "m_KO_r1_1_1767697158919_qdm2lhqzp",
+          "team1": "FC Test 768624",
+          "team2": "FC Test 766419",
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [],
+          "time": "20:00",
+          "date": "Tranh Hạng 3",
+          "bracketRound": 1,
+          "bracketMatchIndex": 1
+        }
+      ]
+    }
+  ],
+  "standings": [
+    {
+      "groupName": "Bảng Xếp Hạng",
+      "teams": [
+        {
+          "id": "1767696772513wduhz",
+          "name": "FC Test 769981",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        },
+        {
+          "id": "17676967751496sq80",
+          "name": "FC Test 768624",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        },
+        {
+          "id": "1767696777764hifb1",
+          "name": "FC Test 767427",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        },
+        {
+          "id": "1767696780372q0hra",
+          "name": "FC Test 766419",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        }
+      ]
+    }
+  ],
+  "image": "default.png",
+  "description": "",
+  "status": "ongoing",
+  "sportType": "Football",
+  "pitchType": "5",
+  "createdAt": {
+    "$date": "2026-01-06T10:52:32.589Z"
+  },
+  "__v": 21,
+  "bracketData": {
+    "teams": [
+      [
+        "FC Test 769981",
+        "FC Test 768624"
+      ],
+      [
+        "FC Test 767427",
+        "FC Test 766419"
+      ]
+    ],
+    "results": [
+      [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      [
+        [
+          null,
+          null
+        ],
+        [
+          null,
+          null
+        ]
+      ]
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "695ddc3568b3caccb2a8c416"
+  },
+  "name": "Giải 5",
+  "organizer": "Minh",
+  "mode": "Knockout",
+  "teamsCount": 4,
+  "teams": [
+    {
+      "name": "FC Test 918220",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Cau thu 1",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Cau thu 2",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Thu mon",
+          "number": 1,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767758921662lh814"
+    },
+    {
+      "name": "FC Test 916811",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Cau thu 1",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Cau thu 2",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Thu mon",
+          "number": 1,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767758924752mpa0j"
+    },
+    {
+      "name": "FC Test 915468",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Cau thu 1",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Cau thu 2",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Thu mon",
+          "number": 1,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767758927237ni9lq"
+    },
+    {
+      "name": "FC Test 913901",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Cau thu 1",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Cau thu 2",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Thu mon",
+          "number": 1,
+          "position": "Cầu thủ",
+          "avatar": "default-avatar.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767758931041th664"
+    }
+  ],
+  "fixtures": [
+    {
+      "group": "Bán Kết",
+      "matches": [
+        {
+          "id": "m_KO_r0_0_1767758939062_7trlbeooi",
+          "team1": "FC Test 918220",
+          "team2": "FC Test 916811",
+          "score1": 1,
+          "score2": 0,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            null,
+            "Cau thu 2",
+            "Cau thu 1",
+            null,
+            null
+          ],
+          "lineup2": [],
+          "events": [
+            {
+              "id": "1767759071169_jcjdl",
+              "minute": 20,
+              "team": "team1",
+              "teamName": "FC Test 918220",
+              "playerName": "Cau thu 1",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            }
+          ],
+          "time": "10:18",
+          "date": "2026-01-07",
+          "bracketRound": 0,
+          "bracketMatchIndex": 0,
+          "status": "finished"
+        },
+        {
+          "id": "m_KO_r0_1_1767758939062_6a02if666",
+          "team1": "FC Test 915468",
+          "team2": "FC Test 913901",
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [],
+          "time": "20:00",
+          "date": "Bán Kết - Trận 2",
+          "bracketRound": 0,
+          "bracketMatchIndex": 1
+        }
+      ]
+    },
+    {
+      "group": "Chung Kết",
+      "matches": [
+        {
+          "id": "m_KO_r1_0_1767758939062_dzn9hkiwe",
+          "team1": "FC Test 918220",
+          "team2": null,
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [],
+          "time": "20:00",
+          "date": "Chung Kết - Trận 1",
+          "bracketRound": 1,
+          "bracketMatchIndex": 0
+        },
+        {
+          "id": "m_KO_r1_1_1767758939062_jb562dur4",
+          "team1": "FC Test 916811",
+          "team2": null,
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [],
+          "time": "20:00",
+          "date": "Tranh Hạng 3",
+          "bracketRound": 1,
+          "bracketMatchIndex": 1
+        }
+      ]
+    }
+  ],
+  "standings": [
+    {
+      "groupName": "Bảng Xếp Hạng",
+      "teams": [
+        {
+          "id": "1767758921662lh814",
+          "name": "FC Test 918220",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        },
+        {
+          "id": "1767758924752mpa0j",
+          "name": "FC Test 916811",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        },
+        {
+          "id": "1767758927237ni9lq",
+          "name": "FC Test 915468",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        },
+        {
+          "id": "1767758931041th664",
+          "name": "FC Test 913901",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        }
+      ]
+    }
+  ],
+  "image": "default.png",
+  "description": "",
+  "status": "ongoing",
+  "sportType": "Football",
+  "pitchType": "5",
+  "createdAt": {
+    "$date": "2026-01-07T04:08:21.389Z"
+  },
+  "__v": 13,
+  "bracketData": {
+    "teams": [
+      [
+        "FC Test 918220",
+        "FC Test 916811"
+      ],
+      [
+        "FC Test 915468",
+        "FC Test 913901"
+      ]
+    ],
+    "results": [
+      [
+        [
+          1,
+          0
+        ],
+        [
+          null,
+          null
+        ]
+      ],
+      [
+        [
+          null,
+          null
+        ],
+        [
+          null,
+          null
+        ]
+      ]
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "695de113fdecd342147f1c31"
+  },
+  "name": "HUTECH mở rộng lần 25",
+  "organizer": "Nguyễn Nhật Hào",
+  "mode": "Group Stage",
+  "teamsCount": 16,
+  "teams": [
+    {
+      "name": "FC Test 173927",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Benzema",
+          "number": 21,
+          "position": "Cầu thủ",
+          "avatar": "Benzema.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Drogba",
+          "number": 84,
+          "position": "Cầu thủ",
+          "avatar": "Drogba.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Zidane",
+          "number": 43,
+          "position": "Cầu thủ",
+          "avatar": "Zidane.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Rooney",
+          "number": 97,
+          "position": "Cầu thủ",
+          "avatar": "Rooney.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "McTominay",
+          "number": 45,
+          "position": "Cầu thủ",
+          "avatar": "McTominay.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "neymar",
+          "number": 62,
+          "position": "Cầu thủ",
+          "avatar": "neymar.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Mbappé",
+          "number": 13,
+          "position": "Cầu thủ",
+          "avatar": "Mbappé.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767760177059mixbb"
+    },
+    {
+      "name": "FC Test 174099",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Lewandowski",
+          "number": 16,
+          "position": "Cầu thủ",
+          "avatar": "Lewandowski.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Mbappé",
+          "number": 88,
+          "position": "Cầu thủ",
+          "avatar": "Mbappé.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Ferdinand",
+          "number": 19,
+          "position": "Cầu thủ",
+          "avatar": "Ferdinand.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Haaland",
+          "number": 88,
+          "position": "Cầu thủ",
+          "avatar": "Haaland.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Pedri",
+          "number": 40,
+          "position": "Cầu thủ",
+          "avatar": "Pedri.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Ibrahimović",
+          "number": 58,
+          "position": "Cầu thủ",
+          "avatar": "Ibrahimović.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Kevin",
+          "number": 90,
+          "position": "Cầu thủ",
+          "avatar": "Kevin.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767760180021ffxbg"
+    },
+    {
+      "name": "22DTHC3",
+      "logo": "1767558047389-NhÃ¢n.jpg",
+      "members": [
+        {
+          "name": "khải",
+          "number": 5,
+          "position": "Cầu thủ",
+          "avatar": "1767558047391-Kháº£i.jpg",
+          "citizenId": "1111",
+          "citizenIdImage": "1767558430374-Kháº£i.jpg"
+        },
+        {
+          "name": "đức",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "1767558047391-Äá»©c.jpg",
+          "citizenId": "2222",
+          "citizenIdImage": "1767558430375-Äá»©c.jpg"
+        },
+        {
+          "name": "hào",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "1767558047392-HÃ o.jpg",
+          "citizenId": "7777",
+          "citizenIdImage": "1767558430376-HÃ o.jpg"
+        },
+        {
+          "name": "nhân",
+          "number": 11,
+          "position": "Cầu thủ",
+          "avatar": "1767558430381-NhÃ¢n.jpg",
+          "citizenId": "1010",
+          "citizenIdImage": "1767558430383-NhÃ¢n.jpg"
+        },
+        {
+          "name": "minh",
+          "number": 77,
+          "position": "Cầu thủ",
+          "avatar": "1767561615498-Minh.jpg",
+          "citizenId": "7878",
+          "citizenIdImage": "1767561615502-Minh.jpg"
+        },
+        {
+          "name": "tài",
+          "number": 3,
+          "position": "Cầu thủ",
+          "avatar": "1767561615504-TÃ i.jpg",
+          "citizenId": "3333",
+          "citizenIdImage": "1767561615505-TÃ i.jpg"
+        },
+        {
+          "name": "neymar",
+          "number": 12,
+          "position": "Cầu thủ",
+          "avatar": "1767719381885-neymar.png",
+          "citizenId": "111",
+          "citizenIdImage": "1767719381925-neymar.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767760200823pfcrh"
+    },
+    {
+      "name": "FC Test 173771",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "R4",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "R4.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "foden",
+          "number": 9,
+          "position": "Cầu thủ",
+          "avatar": "foden.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "bale",
+          "number": 82,
+          "position": "Cầu thủ",
+          "avatar": "bale.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Ibrahimović",
+          "number": 83,
+          "position": "Cầu thủ",
+          "avatar": "Ibrahimović.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Gullit",
+          "number": 46,
+          "position": "Cầu thủ",
+          "avatar": "Gullit.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Beckham",
+          "number": 98,
+          "position": "Cầu thủ",
+          "avatar": "Beckham.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Casemiro",
+          "number": 39,
+          "position": "Cầu thủ",
+          "avatar": "Casemiro.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767760203937mpsa9"
+    },
+    {
+      "name": "FC Test 223449",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Ibrahimović",
+          "number": 82,
+          "position": "Cầu thủ",
+          "avatar": "Ibrahimović.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "brunodua",
+          "number": 89,
+          "position": "Cầu thủ",
+          "avatar": "brunodua.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Benzema",
+          "number": 92,
+          "position": "Cầu thủ",
+          "avatar": "Benzema.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Suárez",
+          "number": 4,
+          "position": "Cầu thủ",
+          "avatar": "Suárez.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Højlund",
+          "number": 29,
+          "position": "Cầu thủ",
+          "avatar": "Højlund.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "McTominay",
+          "number": 15,
+          "position": "Cầu thủ",
+          "avatar": "McTominay.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Casemiro",
+          "number": 3,
+          "position": "Cầu thủ",
+          "avatar": "Casemiro.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767760228450axe9z"
+    },
+    {
+      "name": "FC Test 223669",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Zidane",
+          "number": 33,
+          "position": "Cầu thủ",
+          "avatar": "Zidane.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Højlund",
+          "number": 52,
+          "position": "Cầu thủ",
+          "avatar": "Højlund.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Nemanja",
+          "number": 15,
+          "position": "Cầu thủ",
+          "avatar": "Nemanja.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "sancho",
+          "number": 38,
+          "position": "Cầu thủ",
+          "avatar": "sancho.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Beckham",
+          "number": 65,
+          "position": "Cầu thủ",
+          "avatar": "Beckham.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Kroos",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "Kroos.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Modrić",
+          "number": 51,
+          "position": "Cầu thủ",
+          "avatar": "Modrić.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767760231530pj60p"
+    },
+    {
+      "name": "FC Test 223782",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Nemanja",
+          "number": 86,
+          "position": "Cầu thủ",
+          "avatar": "Nemanja.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Dalot",
+          "number": 53,
+          "position": "Cầu thủ",
+          "avatar": "Dalot.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "kaka",
+          "number": 44,
+          "position": "Cầu thủ",
+          "avatar": "kaka.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Rooney",
+          "number": 91,
+          "position": "Cầu thủ",
+          "avatar": "Rooney.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "brunodua",
+          "number": 60,
+          "position": "Cầu thủ",
+          "avatar": "brunodua.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Yamal",
+          "number": 82,
+          "position": "Cầu thủ",
+          "avatar": "Yamal.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "ozil",
+          "number": 83,
+          "position": "Cầu thủ",
+          "avatar": "ozil.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767760234318du0io"
+    },
+    {
+      "name": "FC Test 223934",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Modrić",
+          "number": 38,
+          "position": "Cầu thủ",
+          "avatar": "Modrić.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Pedri",
+          "number": 48,
+          "position": "Cầu thủ",
+          "avatar": "Pedri.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Mbappé",
+          "number": 44,
+          "position": "Cầu thủ",
+          "avatar": "Mbappé.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Rooney",
+          "number": 21,
+          "position": "Cầu thủ",
+          "avatar": "Rooney.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Suárez",
+          "number": 17,
+          "position": "Cầu thủ",
+          "avatar": "Suárez.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "R4",
+          "number": 51,
+          "position": "Cầu thủ",
+          "avatar": "R4.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Dalot",
+          "number": 36,
+          "position": "Cầu thủ",
+          "avatar": "Dalot.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "176776023690916kf7"
+    },
+    {
+      "name": "FC Test 224102",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Suárez",
+          "number": 74,
+          "position": "Cầu thủ",
+          "avatar": "Suárez.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Nemanja",
+          "number": 42,
+          "position": "Cầu thủ",
+          "avatar": "Nemanja.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Casillas",
+          "number": 60,
+          "position": "Cầu thủ",
+          "avatar": "Casillas.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Ronaldo",
+          "number": 23,
+          "position": "Cầu thủ",
+          "avatar": "Ronaldo.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Ferdinand",
+          "number": 23,
+          "position": "Cầu thủ",
+          "avatar": "Ferdinand.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Gullit",
+          "number": 44,
+          "position": "Cầu thủ",
+          "avatar": "Gullit.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Højlund",
+          "number": 41,
+          "position": "Cầu thủ",
+          "avatar": "Højlund.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767760241667y1ksd"
+    },
+    {
+      "name": "FC Test 224284",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "bale",
+          "number": 61,
+          "position": "Cầu thủ",
+          "avatar": "bale.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Suárez",
+          "number": 35,
+          "position": "Cầu thủ",
+          "avatar": "Suárez.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Ronaldo",
+          "number": 10,
+          "position": "Cầu thủ",
+          "avatar": "Ronaldo.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Raphinha",
+          "number": 65,
+          "position": "Cầu thủ",
+          "avatar": "Raphinha.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "ozil",
+          "number": 90,
+          "position": "Cầu thủ",
+          "avatar": "ozil.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Henry",
+          "number": 88,
+          "position": "Cầu thủ",
+          "avatar": "Henry.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Casillas",
+          "number": 51,
+          "position": "Cầu thủ",
+          "avatar": "Casillas.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767760245450wtfqr"
+    },
+    {
+      "name": "FC Test 224426",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "ozil",
+          "number": 72,
+          "position": "Cầu thủ",
+          "avatar": "ozil.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "foden",
+          "number": 34,
+          "position": "Cầu thủ",
+          "avatar": "foden.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Henry",
+          "number": 53,
+          "position": "Cầu thủ",
+          "avatar": "Henry.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Mbappé",
+          "number": 11,
+          "position": "Cầu thủ",
+          "avatar": "Mbappé.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Ronaldo",
+          "number": 83,
+          "position": "Cầu thủ",
+          "avatar": "Ronaldo.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Zidane",
+          "number": 73,
+          "position": "Cầu thủ",
+          "avatar": "Zidane.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Beckham",
+          "number": 27,
+          "position": "Cầu thủ",
+          "avatar": "Beckham.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767760248044705ht"
+    },
+    {
+      "name": "FC Test 250193",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Pedri",
+          "number": 34,
+          "position": "Cầu thủ",
+          "avatar": "Pedri.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "R4",
+          "number": 32,
+          "position": "Cầu thủ",
+          "avatar": "R4.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "brunodua",
+          "number": 61,
+          "position": "Cầu thủ",
+          "avatar": "brunodua.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Gullit",
+          "number": 96,
+          "position": "Cầu thủ",
+          "avatar": "Gullit.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Lewandowski",
+          "number": 9,
+          "position": "Cầu thủ",
+          "avatar": "Lewandowski.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Haaland",
+          "number": 69,
+          "position": "Cầu thủ",
+          "avatar": "Haaland.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Benzema",
+          "number": 97,
+          "position": "Cầu thủ",
+          "avatar": "Benzema.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "17677602545184qn9m"
+    },
+    {
+      "name": "FC Test 250338",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Dalot",
+          "number": 48,
+          "position": "Cầu thủ",
+          "avatar": "Dalot.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Benzema",
+          "number": 91,
+          "position": "Cầu thủ",
+          "avatar": "Benzema.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "McTominay",
+          "number": 20,
+          "position": "Cầu thủ",
+          "avatar": "McTominay.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Casillas",
+          "number": 66,
+          "position": "Cầu thủ",
+          "avatar": "Casillas.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Drogba",
+          "number": 86,
+          "position": "Cầu thủ",
+          "avatar": "Drogba.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "brunodua",
+          "number": 92,
+          "position": "Cầu thủ",
+          "avatar": "brunodua.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "R4",
+          "number": 58,
+          "position": "Cầu thủ",
+          "avatar": "R4.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767760256944b55x7"
+    },
+    {
+      "name": "FC Test 250470",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "R4",
+          "number": 70,
+          "position": "Cầu thủ",
+          "avatar": "R4.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "McTominay",
+          "number": 72,
+          "position": "Cầu thủ",
+          "avatar": "McTominay.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "bale",
+          "number": 18,
+          "position": "Cầu thủ",
+          "avatar": "bale.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Benzema",
+          "number": 28,
+          "position": "Cầu thủ",
+          "avatar": "Benzema.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Kevin",
+          "number": 49,
+          "position": "Cầu thủ",
+          "avatar": "Kevin.png",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Yamal",
+          "number": 72,
+          "position": "Cầu thủ",
+          "avatar": "Yamal.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Casemiro",
+          "number": 21,
+          "position": "Cầu thủ",
+          "avatar": "Casemiro.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767760260199aymrv"
+    },
+    {
+      "name": "FC Test 251830",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Haaland",
+          "number": 18,
+          "position": "Cầu thủ",
+          "avatar": "Haaland.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Xavi",
+          "number": 95,
+          "position": "Cầu thủ",
+          "avatar": "Xavi.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Henry",
+          "number": 60,
+          "position": "Cầu thủ",
+          "avatar": "Henry.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Zidane",
+          "number": 75,
+          "position": "Cầu thủ",
+          "avatar": "Zidane.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Suárez",
+          "number": 47,
+          "position": "Cầu thủ",
+          "avatar": "Suárez.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "bale",
+          "number": 6,
+          "position": "Cầu thủ",
+          "avatar": "bale.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Beckham",
+          "number": 7,
+          "position": "Cầu thủ",
+          "avatar": "Beckham.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767760263100urbmd"
+    },
+    {
+      "name": "FC Test 251998",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Raphinha",
+          "number": 73,
+          "position": "Cầu thủ",
+          "avatar": "Raphinha.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Højlund",
+          "number": 63,
+          "position": "Cầu thủ",
+          "avatar": "Højlund.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Garnacho",
+          "number": 72,
+          "position": "Cầu thủ",
+          "avatar": "Garnacho.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "brunodua",
+          "number": 15,
+          "position": "Cầu thủ",
+          "avatar": "brunodua.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Casillas",
+          "number": 36,
+          "position": "Cầu thủ",
+          "avatar": "Casillas.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Drogba",
+          "number": 72,
+          "position": "Cầu thủ",
+          "avatar": "Drogba.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Zidane",
+          "number": 46,
+          "position": "Cầu thủ",
+          "avatar": "Zidane.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767760266138vd39a"
+    }
+  ],
+  "fixtures": [
+    {
+      "group": "Bảng A",
+      "matches": [
+        {
+          "id": "m_0_r0_0_1767760280765_tufwyydim",
+          "team1": "FC Test 173927",
+          "team2": "FC Test 173771",
+          "score1": 2,
+          "score2": 3,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            "McTominay",
+            "Zidane",
+            "neymar",
+            "Benzema",
+            "Mbappé"
+          ],
+          "lineup2": [
+            "R4",
+            "foden",
+            "bale",
+            "Ibrahimović",
+            "Gullit"
+          ],
+          "events": [
+            {
+              "id": "1767760623032_9mw9h",
+              "minute": 22,
+              "team": "team2",
+              "teamName": "FC Test 173771",
+              "playerName": "R4",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767760623468_76vgu",
+              "minute": 22,
+              "team": "team2",
+              "teamName": "FC Test 173771",
+              "playerName": "R4",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767760630574_5kus9",
+              "minute": 22,
+              "team": "team2",
+              "teamName": "FC Test 173771",
+              "playerName": "bale",
+              "type": "goal",
+              "assistName": "foden"
+            },
+            {
+              "id": "1767760636356_lkp5u",
+              "minute": 22,
+              "team": "team1",
+              "teamName": "FC Test 173927",
+              "playerName": "Benzema",
+              "type": "yellow",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767760646704_qmpzz",
+              "minute": 22,
+              "team": "team1",
+              "teamName": "FC Test 173927",
+              "playerName": "Benzema",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767760650386_m4zuq",
+              "minute": 22,
+              "team": "team1",
+              "teamName": "FC Test 173927",
+              "playerName": "neymar",
+              "type": "goal",
+              "assistName": "Mbappé"
+            }
+          ],
+          "time": "11:17",
+          "date": "2026-01-07",
+          "status": "finished"
+        },
+        {
+          "id": "m_0_r0_1_1767760280765_psunkdnnk",
+          "team1": "FC Test 174099",
+          "team2": "22DTHC3",
+          "score1": 1,
+          "score2": 3,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            "Lewandowski",
+            "Ferdinand",
+            "Haaland",
+            "Ibrahimović",
+            "Kevin"
+          ],
+          "lineup2": [
+            "khải",
+            "minh",
+            "neymar",
+            "tài",
+            "nhân"
+          ],
+          "events": [
+            {
+              "id": "1767760718362_v2sco",
+              "minute": 23,
+              "team": "team2",
+              "teamName": "22DTHC3",
+              "playerName": "khải",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767760719841_z69x5",
+              "minute": 23,
+              "team": "team2",
+              "teamName": "22DTHC3",
+              "playerName": "minh",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767760723320_duuem",
+              "minute": 23,
+              "team": "team2",
+              "teamName": "22DTHC3",
+              "playerName": "neymar",
+              "type": "goal",
+              "assistName": "nhân"
+            },
+            {
+              "id": "1767760731518_bdbsh",
+              "minute": 23,
+              "team": "team1",
+              "teamName": "FC Test 174099",
+              "playerName": "Lewandowski",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            }
+          ],
+          "time": "11:02",
+          "date": "2026-01-07",
+          "status": "finished"
+        },
+        {
+          "id": "m_0_r1_0_1767760280765_18hkwwgcv",
+          "team1": "FC Test 173927",
+          "team2": "22DTHC3",
+          "score1": 1,
+          "score2": 3,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            "Drogba",
+            "Benzema",
+            "Rooney",
+            "neymar",
+            "Mbappé"
+          ],
+          "lineup2": [
+            null,
+            "hào",
+            "đức",
+            "minh",
+            "tài"
+          ],
+          "events": [
+            {
+              "id": "1767760783181_n90as",
+              "minute": 24,
+              "team": "team2",
+              "teamName": "22DTHC3",
+              "playerName": "khải",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767760789247_gqhpo",
+              "minute": 24,
+              "team": "team2",
+              "teamName": "22DTHC3",
+              "playerName": "hào",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767760791293_vk7kg",
+              "minute": 24,
+              "team": "team2",
+              "teamName": "22DTHC3",
+              "playerName": "minh",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767760794511_7xdsw",
+              "minute": 24,
+              "team": "team1",
+              "teamName": "FC Test 173927",
+              "playerName": "Benzema",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767760797386_fa44u",
+              "minute": 24,
+              "team": "team1",
+              "teamName": "FC Test 173927",
+              "playerName": "Benzema",
+              "type": "yellow",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767760805911_miwba",
+              "minute": 25,
+              "team": "team2",
+              "teamName": "22DTHC3",
+              "playerName": "khải",
+              "type": "red",
+              "assistId": null,
+              "assistName": ""
+            }
+          ],
+          "time": "11:02",
+          "date": "2026-01-07",
+          "status": "finished"
+        },
+        {
+          "id": "m_0_r1_1_1767760280765_6ki8mdtyf",
+          "team1": "FC Test 173771",
+          "team2": "FC Test 174099",
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            "Gullit",
+            "Beckham",
+            "Casemiro",
+            "Ibrahimović",
+            "bale"
+          ],
+          "lineup2": [
+            "Lewandowski",
+            "Ferdinand",
+            "Haaland",
+            "Pedri",
+            "Ibrahimović"
+          ],
+          "events": [],
+          "time": "20:00",
+          "date": "Lượt 2",
+          "status": "scheduled"
+        },
+        {
+          "id": "m_0_r2_0_1767760280765_qnzlkbx0p",
+          "team1": "FC Test 173927",
+          "team2": "FC Test 174099",
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            "neymar",
+            "McTominay",
+            "Rooney",
+            "Mbappé",
+            "Zidane"
+          ],
+          "lineup2": [
+            "Lewandowski",
+            "Ferdinand",
+            "Haaland",
+            "Ibrahimović",
+            "Kevin"
+          ],
+          "events": [],
+          "time": "20:00",
+          "date": "Lượt 3",
+          "status": "scheduled"
+        },
+        {
+          "id": "m_0_r2_1_1767760280765_ccj5jefal",
+          "team1": "22DTHC3",
+          "team2": "FC Test 173771",
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            "đức",
+            "nhân",
+            "neymar",
+            "tài",
+            "minh"
+          ],
+          "lineup2": [
+            "R4",
+            "Ibrahimović",
+            "Gullit",
+            "Casemiro",
+            "Beckham"
+          ],
+          "events": [],
+          "time": "20:00",
+          "date": "Lượt 3",
+          "status": "scheduled"
+        }
+      ]
+    },
+    {
+      "group": "Bảng B",
+      "matches": [
+        {
+          "id": "m_1_r0_0_1767760280765_loaya3mzn",
+          "team1": "FC Test 223449",
+          "team2": "FC Test 223934",
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            "McTominay",
+            "Suárez",
+            "Casemiro",
+            "Højlund",
+            "Benzema"
+          ],
+          "lineup2": [
+            "Modrić",
+            "Mbappé",
+            "R4",
+            "Dalot",
+            "Suárez"
+          ],
+          "events": [],
+          "time": "20:00",
+          "date": "Lượt 1",
+          "status": "scheduled"
+        },
+        {
+          "id": "m_1_r0_1_1767760280765_3nnt7znei",
+          "team1": "FC Test 223669",
+          "team2": "FC Test 223782",
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            "sancho",
+            "Nemanja",
+            "Kroos",
+            "Beckham",
+            "Modrić"
+          ],
+          "lineup2": [
+            "Nemanja",
+            "Rooney",
+            "kaka",
+            "ozil",
+            "Yamal"
+          ],
+          "events": [],
+          "time": "20:00",
+          "date": "Lượt 1",
+          "status": "scheduled"
+        },
+        {
+          "id": "m_1_r1_0_1767760280765_wj9850ns2",
+          "team1": "FC Test 223449",
+          "team2": "FC Test 223782",
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            "Suárez",
+            "Benzema",
+            "Højlund",
+            "Casemiro",
+            "McTominay"
+          ],
+          "lineup2": [
+            "Dalot",
+            "Rooney",
+            "Yamal",
+            "ozil",
+            "brunodua"
+          ],
+          "events": [],
+          "time": "20:00",
+          "date": "Lượt 2",
+          "status": "scheduled"
+        },
+        {
+          "id": "m_1_r1_1_1767760280765_xzksjqger",
+          "team1": "FC Test 223934",
+          "team2": "FC Test 223669",
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            "Rooney",
+            "Mbappé",
+            "R4",
+            "Dalot",
+            "Suárez"
+          ],
+          "lineup2": [
+            "Zidane",
+            "sancho",
+            "Beckham",
+            "Modrić",
+            "Kroos"
+          ],
+          "events": [],
+          "time": "20:00",
+          "date": "Lượt 2",
+          "status": "scheduled"
+        },
+        {
+          "id": "m_1_r2_0_1767760280765_6o1livwng",
+          "team1": "FC Test 223449",
+          "team2": "FC Test 223669",
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            "Benzema",
+            "brunodua",
+            "Højlund",
+            "Casemiro",
+            "McTominay"
+          ],
+          "lineup2": [
+            "sancho",
+            "Nemanja",
+            "Kroos",
+            "Beckham",
+            "Modrić"
+          ],
+          "events": [],
+          "time": "20:00",
+          "date": "Lượt 3",
+          "status": "scheduled"
+        },
+        {
+          "id": "m_1_r2_1_1767760280765_falws23oa",
+          "team1": "FC Test 223782",
+          "team2": "FC Test 223934",
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            "Rooney",
+            "kaka",
+            "ozil",
+            "Yamal",
+            "brunodua"
+          ],
+          "lineup2": [
+            "Modrić",
+            "Rooney",
+            "R4",
+            "Dalot",
+            "Suárez"
+          ],
+          "events": [],
+          "time": "20:00",
+          "date": "Lượt 3",
+          "status": "scheduled"
+        }
+      ]
+    },
+    {
+      "group": "Bảng C",
+      "matches": [
+        {
+          "id": "m_2_r0_0_1767760280765_008n04p10",
+          "team1": "FC Test 224102",
+          "team2": "FC Test 250193",
+          "score1": 3,
+          "score2": 2,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            null,
+            "Casillas",
+            "Ferdinand",
+            "Gullit",
+            null
+          ],
+          "lineup2": [
+            null,
+            "R4",
+            "brunodua",
+            "Pedri",
+            null
+          ],
+          "events": [
+            {
+              "id": "1767761114735_2thu1",
+              "minute": 0,
+              "team": "team2",
+              "teamName": "FC Test 250193",
+              "playerName": "Pedri",
+              "type": "yellow",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767761116618_7g9d4",
+              "minute": 0,
+              "team": "team2",
+              "teamName": "FC Test 250193",
+              "playerName": "Pedri",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767761118249_27bnd",
+              "minute": 0,
+              "team": "team2",
+              "teamName": "FC Test 250193",
+              "playerName": "brunodua",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767761122776_p8llf",
+              "minute": 0,
+              "team": "team1",
+              "teamName": "FC Test 224102",
+              "playerName": "Casillas",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767761124563_jm6sp",
+              "minute": 0,
+              "team": "team1",
+              "teamName": "FC Test 224102",
+              "playerName": "Ferdinand",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767761126063_c7jmk",
+              "minute": 0,
+              "team": "team1",
+              "teamName": "FC Test 224102",
+              "playerName": "Gullit",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            }
+          ],
+          "time": "20:00",
+          "date": "Lượt 1",
+          "status": "finished"
+        },
+        {
+          "id": "m_2_r0_1_1767760280765_0epullexc",
+          "team1": "FC Test 224284",
+          "team2": "FC Test 224426",
+          "score1": 1,
+          "score2": 1,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            "Raphinha",
+            "Suárez",
+            "Henry",
+            null,
+            null
+          ],
+          "lineup2": [
+            null,
+            "ozil",
+            "Henry",
+            "Zidane",
+            null
+          ],
+          "events": [
+            {
+              "id": "1767761162570_if7pz",
+              "minute": 0,
+              "team": "team2",
+              "teamName": "FC Test 224426",
+              "playerName": "ozil",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767761165130_v4g88",
+              "minute": 0,
+              "team": "team1",
+              "teamName": "FC Test 224284",
+              "playerName": "Suárez",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            }
+          ],
+          "time": "20:00",
+          "date": "Lượt 1",
+          "status": "finished"
+        },
+        {
+          "id": "m_2_r1_0_1767760280765_1cg00rzo2",
+          "team1": "FC Test 224102",
+          "team2": "FC Test 224426",
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [],
+          "time": "20:00",
+          "date": "Lượt 2"
+        },
+        {
+          "id": "m_2_r1_1_1767760280765_rmq6kzemq",
+          "team1": "FC Test 250193",
+          "team2": "FC Test 224284",
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [],
+          "time": "20:00",
+          "date": "Lượt 2"
+        },
+        {
+          "id": "m_2_r2_0_1767760280765_6n44p4mqu",
+          "team1": "FC Test 224102",
+          "team2": "FC Test 224284",
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [],
+          "time": "20:00",
+          "date": "Lượt 3"
+        },
+        {
+          "id": "m_2_r2_1_1767760280765_7ztzp6360",
+          "team1": "FC Test 224426",
+          "team2": "FC Test 250193",
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [],
+          "time": "20:00",
+          "date": "Lượt 3"
+        }
+      ]
+    },
+    {
+      "group": "Bảng D",
+      "matches": [
+        {
+          "id": "m_3_r0_0_1767760280765_xymjxeh6s",
+          "team1": "FC Test 250338",
+          "team2": "FC Test 251998",
+          "score1": 1,
+          "score2": 2,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            "Drogba",
+            "Casillas",
+            "R4",
+            null,
+            null
+          ],
+          "lineup2": [
+            "Garnacho",
+            "Højlund",
+            "Raphinha",
+            null,
+            null
+          ],
+          "events": [
+            {
+              "id": "1767760897204_0m006",
+              "minute": 0,
+              "team": "team2",
+              "teamName": "FC Test 251998",
+              "playerName": "Raphinha",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767760897405_fqh4y",
+              "minute": 0,
+              "team": "team2",
+              "teamName": "FC Test 251998",
+              "playerName": "Raphinha",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767760899583_i95wz",
+              "minute": 0,
+              "team": "team1",
+              "teamName": "FC Test 250338",
+              "playerName": "Casillas",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            }
+          ],
+          "time": "20:00",
+          "date": "Lượt 1",
+          "status": "finished"
+        },
+        {
+          "id": "m_3_r0_1_1767760280765_kud2hzw8k",
+          "team1": "FC Test 250470",
+          "team2": "FC Test 251830",
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [],
+          "time": "20:00",
+          "date": "Lượt 1"
+        },
+        {
+          "id": "m_3_r1_0_1767760280765_v3bnahf81",
+          "team1": "FC Test 250338",
+          "team2": "FC Test 251830",
+          "score1": 3,
+          "score2": 1,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            "Drogba",
+            "R4",
+            "Casillas",
+            null,
+            null
+          ],
+          "lineup2": [
+            "Xavi",
+            "Haaland",
+            "Zidane",
+            null,
+            null
+          ],
+          "events": [
+            {
+              "id": "1767760975221_6rvd8",
+              "minute": 0,
+              "team": "team1",
+              "teamName": "FC Test 250338",
+              "playerName": "Casillas",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767760979207_2tsa4",
+              "minute": 0,
+              "team": "team1",
+              "teamName": "FC Test 250338",
+              "playerName": "Drogba",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767760979601_w6grb",
+              "minute": 0,
+              "team": "team1",
+              "teamName": "FC Test 250338",
+              "playerName": "Drogba",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767760983719_v5ux3",
+              "minute": 0,
+              "team": "team2",
+              "teamName": "FC Test 251830",
+              "playerName": "Haaland",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            }
+          ],
+          "time": "20:00",
+          "date": "Lượt 2",
+          "status": "finished"
+        },
+        {
+          "id": "m_3_r1_1_1767760280765_bwq4wjo78",
+          "team1": "FC Test 251998",
+          "team2": "FC Test 250470",
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [],
+          "time": "20:00",
+          "date": "Lượt 2"
+        },
+        {
+          "id": "m_3_r2_0_1767760280765_grph97q8g",
+          "team1": "FC Test 250338",
+          "team2": "FC Test 250470",
+          "score1": 0,
+          "score2": 2,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            null,
+            "McTominay",
+            "Benzema",
+            null,
+            null
+          ],
+          "lineup2": [
+            null,
+            "bale",
+            "Benzema",
+            "McTominay",
+            null
+          ],
+          "events": [
+            {
+              "id": "1767761052186_2r2cq",
+              "minute": 0,
+              "team": "team2",
+              "teamName": "FC Test 250470",
+              "playerName": "McTominay",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767761052346_yf6m9",
+              "minute": 0,
+              "team": "team2",
+              "teamName": "FC Test 250470",
+              "playerName": "McTominay",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767761054536_j010q",
+              "minute": 0,
+              "team": "team2",
+              "teamName": "FC Test 250470",
+              "playerName": "McTominay",
+              "type": "yellow",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767761058531_xpkyg",
+              "minute": 0,
+              "team": "team1",
+              "teamName": "FC Test 250338",
+              "playerName": "Casillas",
+              "type": "yellow",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767761058878_gr193",
+              "minute": 0,
+              "team": "team1",
+              "teamName": "FC Test 250338",
+              "playerName": "Casillas",
+              "type": "yellow",
+              "assistId": null,
+              "assistName": ""
+            }
+          ],
+          "time": "20:00",
+          "date": "Lượt 3",
+          "status": "finished"
+        },
+        {
+          "id": "m_3_r2_1_1767760280765_j3blt1qql",
+          "team1": "FC Test 251830",
+          "team2": "FC Test 251998",
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [],
+          "time": "20:00",
+          "date": "Lượt 3"
+        }
+      ]
+    }
+  ],
+  "standings": [
+    {
+      "groupName": "Bảng A",
+      "teams": [
+        {
+          "id": "1767760200823pfcrh",
+          "name": "22DTHC3",
+          "logo": "1767558047389-NhÃ¢n.jpg",
+          "played": 2,
+          "won": 2,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 6,
+          "ga": 2,
+          "gd": 4,
+          "points": 6
+        },
+        {
+          "id": "1767760203937mpsa9",
+          "name": "FC Test 173771",
+          "logo": "default.png",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 3,
+          "ga": 2,
+          "gd": 1,
+          "points": 3
+        },
+        {
+          "id": "1767760180021ffxbg",
+          "name": "FC Test 174099",
+          "logo": "default.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "gf": 1,
+          "ga": 3,
+          "gd": -2,
+          "points": 0
+        },
+        {
+          "id": "1767760177059mixbb",
+          "name": "FC Test 173927",
+          "logo": "default.png",
+          "played": 2,
+          "won": 0,
+          "drawn": 0,
+          "lost": 2,
+          "gf": 3,
+          "ga": 6,
+          "gd": -3,
+          "points": 0
+        }
+      ]
+    },
+    {
+      "groupName": "Bảng B",
+      "teams": [
+        {
+          "id": "1767760228450axe9z",
+          "name": "FC Test 223449",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        },
+        {
+          "id": "176776023690916kf7",
+          "name": "FC Test 223934",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        },
+        {
+          "id": "1767760231530pj60p",
+          "name": "FC Test 223669",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        },
+        {
+          "id": "1767760234318du0io",
+          "name": "FC Test 223782",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        }
+      ]
+    },
+    {
+      "groupName": "Bảng C",
+      "teams": [
+        {
+          "id": "1767760241667y1ksd",
+          "name": "FC Test 224102",
+          "logo": "default.png",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 3,
+          "ga": 2,
+          "gd": 1,
+          "points": 3
+        },
+        {
+          "id": "1767760245450wtfqr",
+          "name": "FC Test 224284",
+          "logo": "default.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 1,
+          "lost": 0,
+          "gf": 1,
+          "ga": 1,
+          "gd": 0,
+          "points": 1
+        },
+        {
+          "id": "1767760248044705ht",
+          "name": "FC Test 224426",
+          "logo": "default.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 1,
+          "lost": 0,
+          "gf": 1,
+          "ga": 1,
+          "gd": 0,
+          "points": 1
+        },
+        {
+          "id": "17677602545184qn9m",
+          "name": "FC Test 250193",
+          "logo": "default.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "gf": 2,
+          "ga": 3,
+          "gd": -1,
+          "points": 0
+        }
+      ]
+    },
+    {
+      "groupName": "Bảng D",
+      "teams": [
+        {
+          "id": "1767760260199aymrv",
+          "name": "FC Test 250470",
+          "logo": "default.png",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 2,
+          "ga": 0,
+          "gd": 2,
+          "points": 3
+        },
+        {
+          "id": "1767760266138vd39a",
+          "name": "FC Test 251998",
+          "logo": "default.png",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 2,
+          "ga": 1,
+          "gd": 1,
+          "points": 3
+        },
+        {
+          "id": "1767760256944b55x7",
+          "name": "FC Test 250338",
+          "logo": "default.png",
+          "played": 3,
+          "won": 1,
+          "drawn": 0,
+          "lost": 2,
+          "gf": 4,
+          "ga": 5,
+          "gd": -1,
+          "points": 3
+        },
+        {
+          "id": "1767760263100urbmd",
+          "name": "FC Test 251830",
+          "logo": "default.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "gf": 1,
+          "ga": 3,
+          "gd": -2,
+          "points": 0
+        }
+      ]
+    }
+  ],
+  "image": "default.png",
+  "description": "",
+  "status": "ongoing",
+  "sportType": "Football",
+  "pitchType": "5",
+  "createdAt": {
+    "$date": "2026-01-07T04:29:07.904Z"
+  },
+  "__v": 52
+},
+{
+  "_id": {
+    "$oid": "695df184c68caed3771c3fe0"
+  },
+  "name": "HUTECH mở rộng lần 777",
+  "organizer": "Nguyễn Nhật Hào",
+  "mode": "Knockout",
+  "teamsCount": 4,
+  "teams": [
+    {
+      "name": "FC Test 365424",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Ronaldo",
+          "number": 59,
+          "position": "Cầu thủ",
+          "avatar": "Ronaldo.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Raphinha",
+          "number": 99,
+          "position": "Cầu thủ",
+          "avatar": "Raphinha.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "McTominay",
+          "number": 5,
+          "position": "Cầu thủ",
+          "avatar": "McTominay.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "neymar",
+          "number": 83,
+          "position": "Cầu thủ",
+          "avatar": "neymar.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Rooney",
+          "number": 75,
+          "position": "Cầu thủ",
+          "avatar": "Rooney.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "sancho",
+          "number": 37,
+          "position": "Cầu thủ",
+          "avatar": "sancho.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "brunodua",
+          "number": 68,
+          "position": "Cầu thủ",
+          "avatar": "brunodua.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767764368713zdfem"
+    },
+    {
+      "name": "FC Test 365153",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Casemiro",
+          "number": 96,
+          "position": "Cầu thủ",
+          "avatar": "Casemiro.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "bale",
+          "number": 63,
+          "position": "Cầu thủ",
+          "avatar": "bale.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Pedri",
+          "number": 28,
+          "position": "Cầu thủ",
+          "avatar": "Pedri.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "ozil",
+          "number": 2,
+          "position": "Cầu thủ",
+          "avatar": "ozil.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Benzema",
+          "number": 15,
+          "position": "Cầu thủ",
+          "avatar": "Benzema.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Yamal",
+          "number": 82,
+          "position": "Cầu thủ",
+          "avatar": "Yamal.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Beckham",
+          "number": 74,
+          "position": "Cầu thủ",
+          "avatar": "Beckham.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767764372844ee7vx"
+    },
+    {
+      "name": "FC Test 364912",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "sancho",
+          "number": 31,
+          "position": "Cầu thủ",
+          "avatar": "sancho.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Scholes",
+          "number": 72,
+          "position": "Cầu thủ",
+          "avatar": "Scholes.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Garnacho",
+          "number": 81,
+          "position": "Cầu thủ",
+          "avatar": "Garnacho.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "kaka",
+          "number": 39,
+          "position": "Cầu thủ",
+          "avatar": "kaka.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Messi",
+          "number": 48,
+          "position": "Cầu thủ",
+          "avatar": "Messi.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "R4",
+          "number": 56,
+          "position": "Cầu thủ",
+          "avatar": "R4.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Suárez",
+          "number": 50,
+          "position": "Cầu thủ",
+          "avatar": "Suárez.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767764381099kwqvx"
+    },
+    {
+      "name": "FC Test 364685",
+      "logo": "default.png",
+      "members": [
+        {
+          "name": "Dalot",
+          "number": 94,
+          "position": "Cầu thủ",
+          "avatar": "Dalot.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Casillas",
+          "number": 54,
+          "position": "Cầu thủ",
+          "avatar": "Casillas.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "R4",
+          "number": 69,
+          "position": "Cầu thủ",
+          "avatar": "R4.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Drogba",
+          "number": 1,
+          "position": "Cầu thủ",
+          "avatar": "Drogba.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "brunodua",
+          "number": 55,
+          "position": "Cầu thủ",
+          "avatar": "brunodua.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Casemiro",
+          "number": 36,
+          "position": "Cầu thủ",
+          "avatar": "Casemiro.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        },
+        {
+          "name": "Benzema",
+          "number": 38,
+          "position": "Cầu thủ",
+          "avatar": "Benzema.jpg",
+          "citizenId": null,
+          "citizenIdImage": "default.png"
+        }
+      ],
+      "stats": {
+        "p": 0,
+        "w": 0,
+        "d": 0,
+        "l": 0,
+        "gd": 0,
+        "pts": 0
+      },
+      "id": "1767764384973sjopu"
+    }
+  ],
+  "fixtures": [
+    {
+      "group": "Bán Kết",
+      "matches": [
+        {
+          "id": "m_KO_r0_0_1767764397305_q57ps3ryt",
+          "team1": "FC Test 365424",
+          "team2": "FC Test 365153",
+          "score1": 2,
+          "score2": 0,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [
+            "neymar",
+            "Raphinha",
+            "McTominay",
+            "Ronaldo",
+            "Rooney"
+          ],
+          "lineup2": [
+            "Benzema",
+            "Pedri",
+            "ozil",
+            "bale",
+            null
+          ],
+          "events": [
+            {
+              "id": "1767764460514_wmf3q",
+              "minute": 21,
+              "team": "team1",
+              "teamName": "FC Test 365424",
+              "playerName": "Ronaldo",
+              "type": "goal",
+              "assistId": null,
+              "assistName": ""
+            },
+            {
+              "id": "1767764463021_x8wu0",
+              "minute": 21,
+              "team": "team1",
+              "teamName": "FC Test 365424",
+              "playerName": "Ronaldo",
+              "type": "goal",
+              "assistName": "Raphinha"
+            },
+            {
+              "id": "1767764700947_o0mrx",
+              "minute": 25,
+              "team": "team2",
+              "teamName": "FC Test 365153",
+              "playerName": "Casemiro",
+              "type": "red",
+              "assistId": null,
+              "assistName": ""
+            }
+          ],
+          "time": "12:05",
+          "date": "2026-01-07",
+          "bracketRound": 0,
+          "bracketMatchIndex": 0,
+          "status": "finished"
+        },
+        {
+          "id": "m_KO_r0_1_1767764397305_csstsoqu9",
+          "team1": "FC Test 364912",
+          "team2": "FC Test 364685",
+          "score1": 3,
+          "score2": 1,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [],
+          "time": "20:00",
+          "date": "Bán Kết - Trận 2",
+          "bracketRound": 0,
+          "bracketMatchIndex": 1,
+          "status": "finished"
+        }
+      ]
+    },
+    {
+      "group": "Chung Kết",
+      "matches": [
+        {
+          "id": "m_KO_r1_0_1767764397305_lt2t9l4yh",
+          "team1": "FC Test 365424",
+          "team2": "FC Test 364912",
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [],
+          "time": "20:00",
+          "date": "Chung Kết - Trận 1",
+          "bracketRound": 1,
+          "bracketMatchIndex": 0
+        },
+        {
+          "id": "m_KO_r1_1_1767764397305_2jsq673uu",
+          "team1": "FC Test 365153",
+          "team2": "FC Test 364685",
+          "score1": null,
+          "score2": null,
+          "scorers1": "",
+          "scorers2": "",
+          "lineup1": [],
+          "lineup2": [],
+          "events": [],
+          "time": "20:00",
+          "date": "Tranh Hạng 3",
+          "bracketRound": 1,
+          "bracketMatchIndex": 1
+        }
+      ]
+    }
+  ],
+  "standings": [
+    {
+      "groupName": "Bảng Xếp Hạng",
+      "teams": [
+        {
+          "id": "1767764368713zdfem",
+          "name": "FC Test 365424",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        },
+        {
+          "id": "1767764372844ee7vx",
+          "name": "FC Test 365153",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        },
+        {
+          "id": "1767764381099kwqvx",
+          "name": "FC Test 364912",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        },
+        {
+          "id": "1767764384973sjopu",
+          "name": "FC Test 364685",
+          "logo": "default.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 0
+        }
+      ]
+    }
+  ],
+  "image": "default.png",
+  "description": "",
+  "status": "ongoing",
+  "sportType": "Football",
+  "pitchType": "5",
+  "createdAt": {
+    "$date": "2026-01-07T05:39:16.202Z"
+  },
+  "__v": 11,
+  "bracketData": {
+    "teams": [
+      [
+        "FC Test 365424",
+        "FC Test 365153"
+      ],
+      [
+        "FC Test 364912",
+        "FC Test 364685"
+      ]
+    ],
+    "results": [
+      [
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          1
+        ]
+      ],
+      [
+        [
+          null,
+          null
+        ],
+        [
+          null,
+          null
+        ]
+      ]
+    ]
+  }
+}]

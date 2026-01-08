@@ -1,0 +1,5808 @@
+[{
+  "_id": {
+    "$oid": "695ddee4fdecd342147f16b0"
+  },
+  "teamName": "22DTHC3",
+  "representative": "Nhân",
+  "phone": "0982219370",
+  "email": "dothanhnhan9370@gmail.com",
+  "logo": "1767558047389-NhÃ¢n.jpg",
+  "description": "bố mày là nhất",
+  "members": [
+    {
+      "name": "khải",
+      "position": "Cầu thủ",
+      "number": 5,
+      "citizenId": "1111",
+      "avatar": "1767558047391-Kháº£i.jpg",
+      "citizenIdImage": "1767558430374-Kháº£i.jpg",
+      "_id": {
+        "$oid": "695ddee4fdecd342147f16b1"
+      }
+    },
+    {
+      "name": "đức",
+      "position": "Cầu thủ",
+      "number": 7,
+      "citizenId": "2222",
+      "avatar": "1767558047391-Äá»©c.jpg",
+      "citizenIdImage": "1767558430375-Äá»©c.jpg",
+      "_id": {
+        "$oid": "695ddee4fdecd342147f16b2"
+      }
+    },
+    {
+      "name": "hào",
+      "position": "Cầu thủ",
+      "number": 10,
+      "citizenId": "7777",
+      "avatar": "1767558047392-HÃ o.jpg",
+      "citizenIdImage": "1767558430376-HÃ o.jpg",
+      "_id": {
+        "$oid": "695ddee4fdecd342147f16b3"
+      }
+    },
+    {
+      "name": "nhân",
+      "position": "Cầu thủ",
+      "number": 11,
+      "citizenId": "1010",
+      "avatar": "1767558430381-NhÃ¢n.jpg",
+      "citizenIdImage": "1767558430383-NhÃ¢n.jpg",
+      "_id": {
+        "$oid": "695ddee4fdecd342147f16b4"
+      }
+    },
+    {
+      "name": "minh",
+      "position": "Cầu thủ",
+      "number": 77,
+      "citizenId": "7878",
+      "avatar": "1767561615498-Minh.jpg",
+      "citizenIdImage": "1767561615502-Minh.jpg",
+      "_id": {
+        "$oid": "695ddee4fdecd342147f16b5"
+      }
+    },
+    {
+      "name": "tài",
+      "position": "Cầu thủ",
+      "number": 3,
+      "citizenId": "3333",
+      "avatar": "1767561615504-TÃ i.jpg",
+      "citizenIdImage": "1767561615505-TÃ i.jpg",
+      "_id": {
+        "$oid": "695ddee4fdecd342147f16b6"
+      }
+    },
+    {
+      "name": "neymar",
+      "position": "Cầu thủ",
+      "number": 12,
+      "citizenId": "111",
+      "avatar": "1767719381885-neymar.png",
+      "citizenIdImage": "1767719381925-neymar.png",
+      "_id": {
+        "$oid": "695ddee4fdecd342147f16b7"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695ddec3fdecd342147f168e"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:19:48.504Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:20:04.761Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695ddf72fdecd342147f1753"
+  },
+  "teamName": "FC Test 730392",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Kroos",
+      "position": "Cầu thủ",
+      "number": 34,
+      "avatar": "Kroos.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695ddf72fdecd342147f1754"
+      }
+    },
+    {
+      "name": "neymar",
+      "position": "Cầu thủ",
+      "number": 61,
+      "avatar": "neymar.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695ddf72fdecd342147f1755"
+      }
+    },
+    {
+      "name": "brunodua",
+      "position": "Cầu thủ",
+      "number": 67,
+      "avatar": "brunodua.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695ddf72fdecd342147f1756"
+      }
+    },
+    {
+      "name": "Ramos",
+      "position": "Cầu thủ",
+      "number": 46,
+      "avatar": "Ramos.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695ddf72fdecd342147f1757"
+      }
+    },
+    {
+      "name": "Højlund",
+      "position": "Cầu thủ",
+      "number": 98,
+      "avatar": "Højlund.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695ddf72fdecd342147f1758"
+      }
+    },
+    {
+      "name": "dybala",
+      "position": "Cầu thủ",
+      "number": 15,
+      "avatar": "dybala.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695ddf72fdecd342147f1759"
+      }
+    },
+    {
+      "name": "Ronaldo",
+      "position": "Cầu thủ",
+      "number": 32,
+      "avatar": "Ronaldo.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695ddf72fdecd342147f175a"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695ddf6bfdecd342147f173b"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:22:10.394Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:22:12.988Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695ddf9cfdecd342147f181a"
+  },
+  "teamName": "FC Test 772606",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "sancho",
+      "position": "Cầu thủ",
+      "number": 58,
+      "avatar": "sancho.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695ddf9cfdecd342147f181b"
+      }
+    },
+    {
+      "name": "Mbappé",
+      "position": "Cầu thủ",
+      "number": 87,
+      "avatar": "Mbappé.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695ddf9cfdecd342147f181c"
+      }
+    },
+    {
+      "name": "McTominay",
+      "position": "Cầu thủ",
+      "number": 21,
+      "avatar": "McTominay.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695ddf9cfdecd342147f181d"
+      }
+    },
+    {
+      "name": "dybala",
+      "position": "Cầu thủ",
+      "number": 74,
+      "avatar": "dybala.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695ddf9cfdecd342147f181e"
+      }
+    },
+    {
+      "name": "Pedri",
+      "position": "Cầu thủ",
+      "number": 66,
+      "avatar": "Pedri.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695ddf9cfdecd342147f181f"
+      }
+    },
+    {
+      "name": "Drogba",
+      "position": "Cầu thủ",
+      "number": 48,
+      "avatar": "Drogba.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695ddf9cfdecd342147f1820"
+      }
+    },
+    {
+      "name": "kane",
+      "position": "Cầu thủ",
+      "number": 64,
+      "avatar": "kane.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695ddf9cfdecd342147f1821"
+      }
+    }
+  ],
+  "status": "pending",
+  "tournamentId": {
+    "$oid": "695ddf95fdecd342147f17f5"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:22:52.608Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695ddf9cfdecd342147f182d"
+  },
+  "teamName": "FC Test 772799",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Modrić",
+      "position": "Cầu thủ",
+      "number": 16,
+      "avatar": "Modrić.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695ddf9cfdecd342147f182e"
+      }
+    },
+    {
+      "name": "Ramos",
+      "position": "Cầu thủ",
+      "number": 82,
+      "avatar": "Ramos.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695ddf9cfdecd342147f182f"
+      }
+    },
+    {
+      "name": "Suárez",
+      "position": "Cầu thủ",
+      "number": 84,
+      "avatar": "Suárez.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695ddf9cfdecd342147f1830"
+      }
+    },
+    {
+      "name": "McTominay",
+      "position": "Cầu thủ",
+      "number": 64,
+      "avatar": "McTominay.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695ddf9cfdecd342147f1831"
+      }
+    },
+    {
+      "name": "bale",
+      "position": "Cầu thủ",
+      "number": 99,
+      "avatar": "bale.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695ddf9cfdecd342147f1832"
+      }
+    },
+    {
+      "name": "ozil",
+      "position": "Cầu thủ",
+      "number": 1,
+      "avatar": "ozil.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695ddf9cfdecd342147f1833"
+      }
+    },
+    {
+      "name": "brunodua",
+      "position": "Cầu thủ",
+      "number": 81,
+      "avatar": "brunodua.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695ddf9cfdecd342147f1834"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695ddf95fdecd342147f17f5"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:22:52.801Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:22:55.692Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695ddfb6fdecd342147f189a"
+  },
+  "teamName": "10A3",
+  "representative": "Nhân",
+  "phone": "0982219370",
+  "email": "c3lttrong.2a3.dtnhan@gmail.com",
+  "logo": "1767723334640-Yamal.jpg",
+  "description": "xin 1 lần thua",
+  "members": [
+    {
+      "name": "voi rừng",
+      "position": "Cầu thủ",
+      "number": 10,
+      "citizenId": "1111",
+      "avatar": "1767723334644-Drogba.jpg",
+      "citizenIdImage": "1767723334648-Drogba.jpg",
+      "_id": {
+        "$oid": "695ddfb6fdecd342147f189b"
+      }
+    },
+    {
+      "name": "anh giỏi",
+      "position": "Cầu thủ",
+      "number": 9,
+      "citizenId": "9999",
+      "avatar": "1767723334650-Garnacho.jpg",
+      "citizenIdImage": "1767723334653-Garnacho.jpg",
+      "_id": {
+        "$oid": "695ddfb6fdecd342147f189c"
+      }
+    },
+    {
+      "name": "a tứ",
+      "position": "Cầu thủ",
+      "number": 4,
+      "citizenId": "4444",
+      "avatar": "1767723334654-Ramos.jpg",
+      "citizenIdImage": "1767723334657-Ramos.jpg",
+      "_id": {
+        "$oid": "695ddfb6fdecd342147f189d"
+      }
+    }
+  ],
+  "status": "pending",
+  "tournamentId": {
+    "$oid": "695ddf95fdecd342147f17f5"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:23:18.536Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695ddfc7fdecd342147f18b0"
+  },
+  "teamName": "10A3",
+  "representative": "Nhân",
+  "phone": "0982219370",
+  "email": "c3lttrong.2a3.dtnhan@gmail.com",
+  "logo": "1767723334640-Yamal.jpg",
+  "description": "xin 1 lần thua",
+  "members": [
+    {
+      "name": "voi rừng",
+      "position": "Cầu thủ",
+      "number": 10,
+      "citizenId": "1111",
+      "avatar": "1767723334644-Drogba.jpg",
+      "citizenIdImage": "1767723334648-Drogba.jpg",
+      "_id": {
+        "$oid": "695ddfc7fdecd342147f18b1"
+      }
+    },
+    {
+      "name": "anh giỏi",
+      "position": "Cầu thủ",
+      "number": 9,
+      "citizenId": "9999",
+      "avatar": "1767723334650-Garnacho.jpg",
+      "citizenIdImage": "1767723334653-Garnacho.jpg",
+      "_id": {
+        "$oid": "695ddfc7fdecd342147f18b2"
+      }
+    },
+    {
+      "name": "a tứ",
+      "position": "Cầu thủ",
+      "number": 4,
+      "citizenId": "4444",
+      "avatar": "1767723334654-Ramos.jpg",
+      "citizenIdImage": "1767723334657-Ramos.jpg",
+      "_id": {
+        "$oid": "695ddfc7fdecd342147f18b3"
+      }
+    }
+  ],
+  "status": "pending",
+  "tournamentId": {
+    "$oid": "695ddf95fdecd342147f17f5"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:23:35.380Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695de010fdecd342147f1927"
+  },
+  "teamName": "FC Test 888474",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "neymar",
+      "position": "Cầu thủ",
+      "number": 5,
+      "avatar": "neymar.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de010fdecd342147f1928"
+      }
+    },
+    {
+      "name": "Messi",
+      "position": "Cầu thủ",
+      "number": 69,
+      "avatar": "Messi.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de010fdecd342147f1929"
+      }
+    },
+    {
+      "name": "Haaland",
+      "position": "Cầu thủ",
+      "number": 16,
+      "avatar": "Haaland.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de010fdecd342147f192a"
+      }
+    },
+    {
+      "name": "Henry",
+      "position": "Cầu thủ",
+      "number": 19,
+      "avatar": "Henry.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de010fdecd342147f192b"
+      }
+    },
+    {
+      "name": "bale",
+      "position": "Cầu thủ",
+      "number": 37,
+      "avatar": "bale.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de010fdecd342147f192c"
+      }
+    },
+    {
+      "name": "Gullit",
+      "position": "Cầu thủ",
+      "number": 30,
+      "avatar": "Gullit.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de010fdecd342147f192d"
+      }
+    },
+    {
+      "name": "sancho",
+      "position": "Cầu thủ",
+      "number": 75,
+      "avatar": "sancho.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de010fdecd342147f192e"
+      }
+    }
+  ],
+  "status": "pending",
+  "tournamentId": {
+    "$oid": "695de004fdecd342147f18ee"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:24:48.475Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695de010fdecd342147f193a"
+  },
+  "teamName": "FC Test 888635",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Ibrahimović",
+      "position": "Cầu thủ",
+      "number": 31,
+      "avatar": "Ibrahimović.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de010fdecd342147f193b"
+      }
+    },
+    {
+      "name": "ozil",
+      "position": "Cầu thủ",
+      "number": 73,
+      "avatar": "ozil.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de010fdecd342147f193c"
+      }
+    },
+    {
+      "name": "Kevin",
+      "position": "Cầu thủ",
+      "number": 90,
+      "avatar": "Kevin.png",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de010fdecd342147f193d"
+      }
+    },
+    {
+      "name": "kaka",
+      "position": "Cầu thủ",
+      "number": 64,
+      "avatar": "kaka.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de010fdecd342147f193e"
+      }
+    },
+    {
+      "name": "Casemiro",
+      "position": "Cầu thủ",
+      "number": 1,
+      "avatar": "Casemiro.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de010fdecd342147f193f"
+      }
+    },
+    {
+      "name": "Rooney",
+      "position": "Cầu thủ",
+      "number": 25,
+      "avatar": "Rooney.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de010fdecd342147f1940"
+      }
+    },
+    {
+      "name": "Modrić",
+      "position": "Cầu thủ",
+      "number": 68,
+      "avatar": "Modrić.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de010fdecd342147f1941"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de004fdecd342147f18ee"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:24:48.636Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:24:54.028Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de010fdecd342147f1945"
+  },
+  "teamName": "FC Test 888754",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Pedri",
+      "position": "Cầu thủ",
+      "number": 34,
+      "avatar": "Pedri.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de010fdecd342147f1946"
+      }
+    },
+    {
+      "name": "Suárez",
+      "position": "Cầu thủ",
+      "number": 40,
+      "avatar": "Suárez.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de010fdecd342147f1947"
+      }
+    },
+    {
+      "name": "neymar",
+      "position": "Cầu thủ",
+      "number": 25,
+      "avatar": "neymar.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de010fdecd342147f1948"
+      }
+    },
+    {
+      "name": "Benzema",
+      "position": "Cầu thủ",
+      "number": 64,
+      "avatar": "Benzema.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de010fdecd342147f1949"
+      }
+    },
+    {
+      "name": "ozil",
+      "position": "Cầu thủ",
+      "number": 50,
+      "avatar": "ozil.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de010fdecd342147f194a"
+      }
+    },
+    {
+      "name": "R4",
+      "position": "Cầu thủ",
+      "number": 85,
+      "avatar": "R4.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de010fdecd342147f194b"
+      }
+    },
+    {
+      "name": "bale",
+      "position": "Cầu thủ",
+      "number": 94,
+      "avatar": "bale.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de010fdecd342147f194c"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de004fdecd342147f18ee"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:24:48.755Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:24:51.470Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de047fdecd342147f1a89"
+  },
+  "teamName": "22DTHC3",
+  "representative": "Nhân",
+  "phone": "0982219370",
+  "email": "dothanhnhan9370@gmail.com",
+  "logo": "1767558047389-NhÃ¢n.jpg",
+  "description": "bố mày là nhất",
+  "members": [
+    {
+      "name": "khải",
+      "position": "Cầu thủ",
+      "number": 5,
+      "citizenId": "1111",
+      "avatar": "1767558047391-Kháº£i.jpg",
+      "citizenIdImage": "1767558430374-Kháº£i.jpg",
+      "_id": {
+        "$oid": "695de047fdecd342147f1a8a"
+      }
+    },
+    {
+      "name": "đức",
+      "position": "Cầu thủ",
+      "number": 7,
+      "citizenId": "2222",
+      "avatar": "1767558047391-Äá»©c.jpg",
+      "citizenIdImage": "1767558430375-Äá»©c.jpg",
+      "_id": {
+        "$oid": "695de047fdecd342147f1a8b"
+      }
+    },
+    {
+      "name": "hào",
+      "position": "Cầu thủ",
+      "number": 10,
+      "citizenId": "7777",
+      "avatar": "1767558047392-HÃ o.jpg",
+      "citizenIdImage": "1767558430376-HÃ o.jpg",
+      "_id": {
+        "$oid": "695de047fdecd342147f1a8c"
+      }
+    },
+    {
+      "name": "nhân",
+      "position": "Cầu thủ",
+      "number": 11,
+      "citizenId": "1010",
+      "avatar": "1767558430381-NhÃ¢n.jpg",
+      "citizenIdImage": "1767558430383-NhÃ¢n.jpg",
+      "_id": {
+        "$oid": "695de047fdecd342147f1a8d"
+      }
+    },
+    {
+      "name": "minh",
+      "position": "Cầu thủ",
+      "number": 77,
+      "citizenId": "7878",
+      "avatar": "1767561615498-Minh.jpg",
+      "citizenIdImage": "1767561615502-Minh.jpg",
+      "_id": {
+        "$oid": "695de047fdecd342147f1a8e"
+      }
+    },
+    {
+      "name": "tài",
+      "position": "Cầu thủ",
+      "number": 3,
+      "citizenId": "3333",
+      "avatar": "1767561615504-TÃ i.jpg",
+      "citizenIdImage": "1767561615505-TÃ i.jpg",
+      "_id": {
+        "$oid": "695de047fdecd342147f1a8f"
+      }
+    },
+    {
+      "name": "neymar",
+      "position": "Cầu thủ",
+      "number": 12,
+      "citizenId": "111",
+      "avatar": "1767719381885-neymar.png",
+      "citizenIdImage": "1767719381925-neymar.png",
+      "_id": {
+        "$oid": "695de047fdecd342147f1a90"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de004fdecd342147f18ee"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:25:43.624Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:26:03.301Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de0ccfdecd342147f1ba8"
+  },
+  "teamName": "22DTHC3",
+  "representative": "Nhân",
+  "phone": "0982219370",
+  "email": "dothanhnhan9370@gmail.com",
+  "logo": "1767558047389-NhÃ¢n.jpg",
+  "description": "bố mày là nhất",
+  "members": [
+    {
+      "name": "khải",
+      "position": "Cầu thủ",
+      "number": 5,
+      "citizenId": "1111",
+      "avatar": "1767558047391-Kháº£i.jpg",
+      "citizenIdImage": "1767558430374-Kháº£i.jpg",
+      "_id": {
+        "$oid": "695de0ccfdecd342147f1ba9"
+      }
+    },
+    {
+      "name": "đức",
+      "position": "Cầu thủ",
+      "number": 7,
+      "citizenId": "2222",
+      "avatar": "1767558047391-Äá»©c.jpg",
+      "citizenIdImage": "1767558430375-Äá»©c.jpg",
+      "_id": {
+        "$oid": "695de0ccfdecd342147f1baa"
+      }
+    },
+    {
+      "name": "hào",
+      "position": "Cầu thủ",
+      "number": 10,
+      "citizenId": "7777",
+      "avatar": "1767558047392-HÃ o.jpg",
+      "citizenIdImage": "1767558430376-HÃ o.jpg",
+      "_id": {
+        "$oid": "695de0ccfdecd342147f1bab"
+      }
+    },
+    {
+      "name": "nhân",
+      "position": "Cầu thủ",
+      "number": 11,
+      "citizenId": "1010",
+      "avatar": "1767558430381-NhÃ¢n.jpg",
+      "citizenIdImage": "1767558430383-NhÃ¢n.jpg",
+      "_id": {
+        "$oid": "695de0ccfdecd342147f1bac"
+      }
+    },
+    {
+      "name": "minh",
+      "position": "Cầu thủ",
+      "number": 77,
+      "citizenId": "7878",
+      "avatar": "1767561615498-Minh.jpg",
+      "citizenIdImage": "1767561615502-Minh.jpg",
+      "_id": {
+        "$oid": "695de0ccfdecd342147f1bad"
+      }
+    },
+    {
+      "name": "tài",
+      "position": "Cầu thủ",
+      "number": 3,
+      "citizenId": "3333",
+      "avatar": "1767561615504-TÃ i.jpg",
+      "citizenIdImage": "1767561615505-TÃ i.jpg",
+      "_id": {
+        "$oid": "695de0ccfdecd342147f1bae"
+      }
+    },
+    {
+      "name": "neymar",
+      "position": "Cầu thủ",
+      "number": 12,
+      "citizenId": "111",
+      "avatar": "1767719381885-neymar.png",
+      "citizenIdImage": "1767719381925-neymar.png",
+      "_id": {
+        "$oid": "695de0ccfdecd342147f1baf"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de0b468b3caccb2a8c5b6"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:27:56.052Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:27:50.787Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de120fdecd342147f1c5e"
+  },
+  "teamName": "22DTHC3",
+  "representative": "Nhân",
+  "phone": "0982219370",
+  "email": "dothanhnhan9370@gmail.com",
+  "logo": "1767558047389-NhÃ¢n.jpg",
+  "description": "bố mày là nhất",
+  "members": [
+    {
+      "name": "khải",
+      "position": "Cầu thủ",
+      "number": 5,
+      "citizenId": "1111",
+      "avatar": "1767558047391-Kháº£i.jpg",
+      "citizenIdImage": "1767558430374-Kháº£i.jpg",
+      "_id": {
+        "$oid": "695de120fdecd342147f1c5f"
+      }
+    },
+    {
+      "name": "đức",
+      "position": "Cầu thủ",
+      "number": 7,
+      "citizenId": "2222",
+      "avatar": "1767558047391-Äá»©c.jpg",
+      "citizenIdImage": "1767558430375-Äá»©c.jpg",
+      "_id": {
+        "$oid": "695de120fdecd342147f1c60"
+      }
+    },
+    {
+      "name": "hào",
+      "position": "Cầu thủ",
+      "number": 10,
+      "citizenId": "7777",
+      "avatar": "1767558047392-HÃ o.jpg",
+      "citizenIdImage": "1767558430376-HÃ o.jpg",
+      "_id": {
+        "$oid": "695de120fdecd342147f1c61"
+      }
+    },
+    {
+      "name": "nhân",
+      "position": "Cầu thủ",
+      "number": 11,
+      "citizenId": "1010",
+      "avatar": "1767558430381-NhÃ¢n.jpg",
+      "citizenIdImage": "1767558430383-NhÃ¢n.jpg",
+      "_id": {
+        "$oid": "695de120fdecd342147f1c62"
+      }
+    },
+    {
+      "name": "minh",
+      "position": "Cầu thủ",
+      "number": 77,
+      "citizenId": "7878",
+      "avatar": "1767561615498-Minh.jpg",
+      "citizenIdImage": "1767561615502-Minh.jpg",
+      "_id": {
+        "$oid": "695de120fdecd342147f1c63"
+      }
+    },
+    {
+      "name": "tài",
+      "position": "Cầu thủ",
+      "number": 3,
+      "citizenId": "3333",
+      "avatar": "1767561615504-TÃ i.jpg",
+      "citizenIdImage": "1767561615505-TÃ i.jpg",
+      "_id": {
+        "$oid": "695de120fdecd342147f1c64"
+      }
+    },
+    {
+      "name": "neymar",
+      "position": "Cầu thủ",
+      "number": 12,
+      "citizenId": "111",
+      "avatar": "1767719381885-neymar.png",
+      "citizenIdImage": "1767719381925-neymar.png",
+      "_id": {
+        "$oid": "695de120fdecd342147f1c65"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de113fdecd342147f1c31"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:29:20.524Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:30:00.875Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de12dfdecd342147f1cbc"
+  },
+  "teamName": "FC Test 173771",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "R4",
+      "position": "Cầu thủ",
+      "number": 7,
+      "avatar": "R4.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de12dfdecd342147f1cbd"
+      }
+    },
+    {
+      "name": "foden",
+      "position": "Cầu thủ",
+      "number": 9,
+      "avatar": "foden.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de12dfdecd342147f1cbe"
+      }
+    },
+    {
+      "name": "bale",
+      "position": "Cầu thủ",
+      "number": 82,
+      "avatar": "bale.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de12dfdecd342147f1cbf"
+      }
+    },
+    {
+      "name": "Ibrahimović",
+      "position": "Cầu thủ",
+      "number": 83,
+      "avatar": "Ibrahimović.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de12dfdecd342147f1cc0"
+      }
+    },
+    {
+      "name": "Gullit",
+      "position": "Cầu thủ",
+      "number": 46,
+      "avatar": "Gullit.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de12dfdecd342147f1cc1"
+      }
+    },
+    {
+      "name": "Beckham",
+      "position": "Cầu thủ",
+      "number": 98,
+      "avatar": "Beckham.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de12dfdecd342147f1cc2"
+      }
+    },
+    {
+      "name": "Casemiro",
+      "position": "Cầu thủ",
+      "number": 39,
+      "avatar": "Casemiro.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de12dfdecd342147f1cc3"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de113fdecd342147f1c31"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:29:33.773Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:30:03.986Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de12dfdecd342147f1cc7"
+  },
+  "teamName": "FC Test 173927",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Benzema",
+      "position": "Cầu thủ",
+      "number": 21,
+      "avatar": "Benzema.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de12dfdecd342147f1cc8"
+      }
+    },
+    {
+      "name": "Drogba",
+      "position": "Cầu thủ",
+      "number": 84,
+      "avatar": "Drogba.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de12dfdecd342147f1cc9"
+      }
+    },
+    {
+      "name": "Zidane",
+      "position": "Cầu thủ",
+      "number": 43,
+      "avatar": "Zidane.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de12dfdecd342147f1cca"
+      }
+    },
+    {
+      "name": "Rooney",
+      "position": "Cầu thủ",
+      "number": 97,
+      "avatar": "Rooney.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de12dfdecd342147f1ccb"
+      }
+    },
+    {
+      "name": "McTominay",
+      "position": "Cầu thủ",
+      "number": 45,
+      "avatar": "McTominay.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de12dfdecd342147f1ccc"
+      }
+    },
+    {
+      "name": "neymar",
+      "position": "Cầu thủ",
+      "number": 62,
+      "avatar": "neymar.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de12dfdecd342147f1ccd"
+      }
+    },
+    {
+      "name": "Mbappé",
+      "position": "Cầu thủ",
+      "number": 13,
+      "avatar": "Mbappé.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de12dfdecd342147f1cce"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de113fdecd342147f1c31"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:29:33.929Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:29:37.110Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de12efdecd342147f1cf8"
+  },
+  "teamName": "FC Test 174099",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Lewandowski",
+      "position": "Cầu thủ",
+      "number": 16,
+      "avatar": "Lewandowski.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de12efdecd342147f1cf9"
+      }
+    },
+    {
+      "name": "Mbappé",
+      "position": "Cầu thủ",
+      "number": 88,
+      "avatar": "Mbappé.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de12efdecd342147f1cfa"
+      }
+    },
+    {
+      "name": "Ferdinand",
+      "position": "Cầu thủ",
+      "number": 19,
+      "avatar": "Ferdinand.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de12efdecd342147f1cfb"
+      }
+    },
+    {
+      "name": "Haaland",
+      "position": "Cầu thủ",
+      "number": 88,
+      "avatar": "Haaland.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de12efdecd342147f1cfc"
+      }
+    },
+    {
+      "name": "Pedri",
+      "position": "Cầu thủ",
+      "number": 40,
+      "avatar": "Pedri.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de12efdecd342147f1cfd"
+      }
+    },
+    {
+      "name": "Ibrahimović",
+      "position": "Cầu thủ",
+      "number": 58,
+      "avatar": "Ibrahimović.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de12efdecd342147f1cfe"
+      }
+    },
+    {
+      "name": "Kevin",
+      "position": "Cầu thủ",
+      "number": 90,
+      "avatar": "Kevin.png",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de12efdecd342147f1cff"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de113fdecd342147f1c31"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:29:34.100Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:29:40.067Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de15ffdecd342147f1eb9"
+  },
+  "teamName": "FC Test 223449",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Ibrahimović",
+      "position": "Cầu thủ",
+      "number": 82,
+      "avatar": "Ibrahimović.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1eba"
+      }
+    },
+    {
+      "name": "brunodua",
+      "position": "Cầu thủ",
+      "number": 89,
+      "avatar": "brunodua.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1ebb"
+      }
+    },
+    {
+      "name": "Benzema",
+      "position": "Cầu thủ",
+      "number": 92,
+      "avatar": "Benzema.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1ebc"
+      }
+    },
+    {
+      "name": "Suárez",
+      "position": "Cầu thủ",
+      "number": 4,
+      "avatar": "Suárez.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1ebd"
+      }
+    },
+    {
+      "name": "Højlund",
+      "position": "Cầu thủ",
+      "number": 29,
+      "avatar": "Højlund.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1ebe"
+      }
+    },
+    {
+      "name": "McTominay",
+      "position": "Cầu thủ",
+      "number": 15,
+      "avatar": "McTominay.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1ebf"
+      }
+    },
+    {
+      "name": "Casemiro",
+      "position": "Cầu thủ",
+      "number": 3,
+      "avatar": "Casemiro.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1ec0"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de113fdecd342147f1c31"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:30:23.451Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:30:28.508Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de15ffdecd342147f1ec2"
+  },
+  "teamName": "FC Test 223669",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Zidane",
+      "position": "Cầu thủ",
+      "number": 33,
+      "avatar": "Zidane.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1ec3"
+      }
+    },
+    {
+      "name": "Højlund",
+      "position": "Cầu thủ",
+      "number": 52,
+      "avatar": "Højlund.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1ec4"
+      }
+    },
+    {
+      "name": "Nemanja",
+      "position": "Cầu thủ",
+      "number": 15,
+      "avatar": "Nemanja.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1ec5"
+      }
+    },
+    {
+      "name": "sancho",
+      "position": "Cầu thủ",
+      "number": 38,
+      "avatar": "sancho.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1ec6"
+      }
+    },
+    {
+      "name": "Beckham",
+      "position": "Cầu thủ",
+      "number": 65,
+      "avatar": "Beckham.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1ec7"
+      }
+    },
+    {
+      "name": "Kroos",
+      "position": "Cầu thủ",
+      "number": 7,
+      "avatar": "Kroos.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1ec8"
+      }
+    },
+    {
+      "name": "Modrić",
+      "position": "Cầu thủ",
+      "number": 51,
+      "avatar": "Modrić.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1ec9"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de113fdecd342147f1c31"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:30:23.671Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:30:31.599Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de15ffdecd342147f1ecc"
+  },
+  "teamName": "FC Test 223782",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Nemanja",
+      "position": "Cầu thủ",
+      "number": 86,
+      "avatar": "Nemanja.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1ecd"
+      }
+    },
+    {
+      "name": "Dalot",
+      "position": "Cầu thủ",
+      "number": 53,
+      "avatar": "Dalot.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1ece"
+      }
+    },
+    {
+      "name": "kaka",
+      "position": "Cầu thủ",
+      "number": 44,
+      "avatar": "kaka.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1ecf"
+      }
+    },
+    {
+      "name": "Rooney",
+      "position": "Cầu thủ",
+      "number": 91,
+      "avatar": "Rooney.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1ed0"
+      }
+    },
+    {
+      "name": "brunodua",
+      "position": "Cầu thủ",
+      "number": 60,
+      "avatar": "brunodua.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1ed1"
+      }
+    },
+    {
+      "name": "Yamal",
+      "position": "Cầu thủ",
+      "number": 82,
+      "avatar": "Yamal.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1ed2"
+      }
+    },
+    {
+      "name": "ozil",
+      "position": "Cầu thủ",
+      "number": 83,
+      "avatar": "ozil.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1ed3"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de113fdecd342147f1c31"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:30:23.783Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:30:34.376Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de15ffdecd342147f1f0b"
+  },
+  "teamName": "FC Test 223934",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Modrić",
+      "position": "Cầu thủ",
+      "number": 38,
+      "avatar": "Modrić.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1f0c"
+      }
+    },
+    {
+      "name": "Pedri",
+      "position": "Cầu thủ",
+      "number": 48,
+      "avatar": "Pedri.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1f0d"
+      }
+    },
+    {
+      "name": "Mbappé",
+      "position": "Cầu thủ",
+      "number": 44,
+      "avatar": "Mbappé.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1f0e"
+      }
+    },
+    {
+      "name": "Rooney",
+      "position": "Cầu thủ",
+      "number": 21,
+      "avatar": "Rooney.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1f0f"
+      }
+    },
+    {
+      "name": "Suárez",
+      "position": "Cầu thủ",
+      "number": 17,
+      "avatar": "Suárez.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1f10"
+      }
+    },
+    {
+      "name": "R4",
+      "position": "Cầu thủ",
+      "number": 51,
+      "avatar": "R4.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1f11"
+      }
+    },
+    {
+      "name": "Dalot",
+      "position": "Cầu thủ",
+      "number": 36,
+      "avatar": "Dalot.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de15ffdecd342147f1f12"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de113fdecd342147f1c31"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:30:23.935Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:30:36.965Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de160fdecd342147f1f49"
+  },
+  "teamName": "FC Test 224102",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Suárez",
+      "position": "Cầu thủ",
+      "number": 74,
+      "avatar": "Suárez.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de160fdecd342147f1f4a"
+      }
+    },
+    {
+      "name": "Nemanja",
+      "position": "Cầu thủ",
+      "number": 42,
+      "avatar": "Nemanja.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de160fdecd342147f1f4b"
+      }
+    },
+    {
+      "name": "Casillas",
+      "position": "Cầu thủ",
+      "number": 60,
+      "avatar": "Casillas.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de160fdecd342147f1f4c"
+      }
+    },
+    {
+      "name": "Ronaldo",
+      "position": "Cầu thủ",
+      "number": 23,
+      "avatar": "Ronaldo.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de160fdecd342147f1f4d"
+      }
+    },
+    {
+      "name": "Ferdinand",
+      "position": "Cầu thủ",
+      "number": 23,
+      "avatar": "Ferdinand.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de160fdecd342147f1f4e"
+      }
+    },
+    {
+      "name": "Gullit",
+      "position": "Cầu thủ",
+      "number": 44,
+      "avatar": "Gullit.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de160fdecd342147f1f4f"
+      }
+    },
+    {
+      "name": "Højlund",
+      "position": "Cầu thủ",
+      "number": 41,
+      "avatar": "Højlund.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de160fdecd342147f1f50"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de113fdecd342147f1c31"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:30:24.103Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:30:41.752Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de160fdecd342147f1f8e"
+  },
+  "teamName": "FC Test 224284",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "bale",
+      "position": "Cầu thủ",
+      "number": 61,
+      "avatar": "bale.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de160fdecd342147f1f8f"
+      }
+    },
+    {
+      "name": "Suárez",
+      "position": "Cầu thủ",
+      "number": 35,
+      "avatar": "Suárez.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de160fdecd342147f1f90"
+      }
+    },
+    {
+      "name": "Ronaldo",
+      "position": "Cầu thủ",
+      "number": 10,
+      "avatar": "Ronaldo.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de160fdecd342147f1f91"
+      }
+    },
+    {
+      "name": "Raphinha",
+      "position": "Cầu thủ",
+      "number": 65,
+      "avatar": "Raphinha.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de160fdecd342147f1f92"
+      }
+    },
+    {
+      "name": "ozil",
+      "position": "Cầu thủ",
+      "number": 90,
+      "avatar": "ozil.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de160fdecd342147f1f93"
+      }
+    },
+    {
+      "name": "Henry",
+      "position": "Cầu thủ",
+      "number": 88,
+      "avatar": "Henry.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de160fdecd342147f1f94"
+      }
+    },
+    {
+      "name": "Casillas",
+      "position": "Cầu thủ",
+      "number": 51,
+      "avatar": "Casillas.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de160fdecd342147f1f95"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de113fdecd342147f1c31"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:30:24.285Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:30:45.501Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de160fdecd342147f1fda"
+  },
+  "teamName": "FC Test 224426",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "ozil",
+      "position": "Cầu thủ",
+      "number": 72,
+      "avatar": "ozil.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de160fdecd342147f1fdb"
+      }
+    },
+    {
+      "name": "foden",
+      "position": "Cầu thủ",
+      "number": 34,
+      "avatar": "foden.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de160fdecd342147f1fdc"
+      }
+    },
+    {
+      "name": "Henry",
+      "position": "Cầu thủ",
+      "number": 53,
+      "avatar": "Henry.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de160fdecd342147f1fdd"
+      }
+    },
+    {
+      "name": "Mbappé",
+      "position": "Cầu thủ",
+      "number": 11,
+      "avatar": "Mbappé.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de160fdecd342147f1fde"
+      }
+    },
+    {
+      "name": "Ronaldo",
+      "position": "Cầu thủ",
+      "number": 83,
+      "avatar": "Ronaldo.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de160fdecd342147f1fdf"
+      }
+    },
+    {
+      "name": "Zidane",
+      "position": "Cầu thủ",
+      "number": 73,
+      "avatar": "Zidane.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de160fdecd342147f1fe0"
+      }
+    },
+    {
+      "name": "Beckham",
+      "position": "Cầu thủ",
+      "number": 27,
+      "avatar": "Beckham.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de160fdecd342147f1fe1"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de113fdecd342147f1c31"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:30:24.428Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:30:48.094Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de17afdecd342147f237b"
+  },
+  "teamName": "FC Test 250193",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Pedri",
+      "position": "Cầu thủ",
+      "number": 34,
+      "avatar": "Pedri.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17afdecd342147f237c"
+      }
+    },
+    {
+      "name": "R4",
+      "position": "Cầu thủ",
+      "number": 32,
+      "avatar": "R4.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17afdecd342147f237d"
+      }
+    },
+    {
+      "name": "brunodua",
+      "position": "Cầu thủ",
+      "number": 61,
+      "avatar": "brunodua.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17afdecd342147f237e"
+      }
+    },
+    {
+      "name": "Gullit",
+      "position": "Cầu thủ",
+      "number": 96,
+      "avatar": "Gullit.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17afdecd342147f237f"
+      }
+    },
+    {
+      "name": "Lewandowski",
+      "position": "Cầu thủ",
+      "number": 9,
+      "avatar": "Lewandowski.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17afdecd342147f2380"
+      }
+    },
+    {
+      "name": "Haaland",
+      "position": "Cầu thủ",
+      "number": 69,
+      "avatar": "Haaland.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17afdecd342147f2381"
+      }
+    },
+    {
+      "name": "Benzema",
+      "position": "Cầu thủ",
+      "number": 97,
+      "avatar": "Benzema.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17afdecd342147f2382"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de113fdecd342147f1c31"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:30:50.195Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:30:54.573Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de17afdecd342147f2386"
+  },
+  "teamName": "FC Test 250338",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Dalot",
+      "position": "Cầu thủ",
+      "number": 48,
+      "avatar": "Dalot.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17afdecd342147f2387"
+      }
+    },
+    {
+      "name": "Benzema",
+      "position": "Cầu thủ",
+      "number": 91,
+      "avatar": "Benzema.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17afdecd342147f2388"
+      }
+    },
+    {
+      "name": "McTominay",
+      "position": "Cầu thủ",
+      "number": 20,
+      "avatar": "McTominay.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17afdecd342147f2389"
+      }
+    },
+    {
+      "name": "Casillas",
+      "position": "Cầu thủ",
+      "number": 66,
+      "avatar": "Casillas.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17afdecd342147f238a"
+      }
+    },
+    {
+      "name": "Drogba",
+      "position": "Cầu thủ",
+      "number": 86,
+      "avatar": "Drogba.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17afdecd342147f238b"
+      }
+    },
+    {
+      "name": "brunodua",
+      "position": "Cầu thủ",
+      "number": 92,
+      "avatar": "brunodua.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17afdecd342147f238c"
+      }
+    },
+    {
+      "name": "R4",
+      "position": "Cầu thủ",
+      "number": 58,
+      "avatar": "R4.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17afdecd342147f238d"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de113fdecd342147f1c31"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:30:50.340Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:30:57.002Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de17afdecd342147f23d9"
+  },
+  "teamName": "FC Test 250470",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "R4",
+      "position": "Cầu thủ",
+      "number": 70,
+      "avatar": "R4.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17afdecd342147f23da"
+      }
+    },
+    {
+      "name": "McTominay",
+      "position": "Cầu thủ",
+      "number": 72,
+      "avatar": "McTominay.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17afdecd342147f23db"
+      }
+    },
+    {
+      "name": "bale",
+      "position": "Cầu thủ",
+      "number": 18,
+      "avatar": "bale.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17afdecd342147f23dc"
+      }
+    },
+    {
+      "name": "Benzema",
+      "position": "Cầu thủ",
+      "number": 28,
+      "avatar": "Benzema.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17afdecd342147f23dd"
+      }
+    },
+    {
+      "name": "Kevin",
+      "position": "Cầu thủ",
+      "number": 49,
+      "avatar": "Kevin.png",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17afdecd342147f23de"
+      }
+    },
+    {
+      "name": "Yamal",
+      "position": "Cầu thủ",
+      "number": 72,
+      "avatar": "Yamal.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17afdecd342147f23df"
+      }
+    },
+    {
+      "name": "Casemiro",
+      "position": "Cầu thủ",
+      "number": 21,
+      "avatar": "Casemiro.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17afdecd342147f23e0"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de113fdecd342147f1c31"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:30:50.471Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:31:00.261Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de17bfdecd342147f2478"
+  },
+  "teamName": "FC Test 251830",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Haaland",
+      "position": "Cầu thủ",
+      "number": 18,
+      "avatar": "Haaland.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17bfdecd342147f2479"
+      }
+    },
+    {
+      "name": "Xavi",
+      "position": "Cầu thủ",
+      "number": 95,
+      "avatar": "Xavi.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17bfdecd342147f247a"
+      }
+    },
+    {
+      "name": "Henry",
+      "position": "Cầu thủ",
+      "number": 60,
+      "avatar": "Henry.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17bfdecd342147f247b"
+      }
+    },
+    {
+      "name": "Zidane",
+      "position": "Cầu thủ",
+      "number": 75,
+      "avatar": "Zidane.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17bfdecd342147f247c"
+      }
+    },
+    {
+      "name": "Suárez",
+      "position": "Cầu thủ",
+      "number": 47,
+      "avatar": "Suárez.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17bfdecd342147f247d"
+      }
+    },
+    {
+      "name": "bale",
+      "position": "Cầu thủ",
+      "number": 6,
+      "avatar": "bale.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17bfdecd342147f247e"
+      }
+    },
+    {
+      "name": "Beckham",
+      "position": "Cầu thủ",
+      "number": 7,
+      "avatar": "Beckham.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17bfdecd342147f247f"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de113fdecd342147f1c31"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:30:51.831Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:31:03.162Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de17bfdecd342147f2483"
+  },
+  "teamName": "FC Test 251998",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Raphinha",
+      "position": "Cầu thủ",
+      "number": 73,
+      "avatar": "Raphinha.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17bfdecd342147f2484"
+      }
+    },
+    {
+      "name": "Højlund",
+      "position": "Cầu thủ",
+      "number": 63,
+      "avatar": "Højlund.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17bfdecd342147f2485"
+      }
+    },
+    {
+      "name": "Garnacho",
+      "position": "Cầu thủ",
+      "number": 72,
+      "avatar": "Garnacho.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17bfdecd342147f2486"
+      }
+    },
+    {
+      "name": "brunodua",
+      "position": "Cầu thủ",
+      "number": 15,
+      "avatar": "brunodua.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17bfdecd342147f2487"
+      }
+    },
+    {
+      "name": "Casillas",
+      "position": "Cầu thủ",
+      "number": 36,
+      "avatar": "Casillas.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17bfdecd342147f2488"
+      }
+    },
+    {
+      "name": "Drogba",
+      "position": "Cầu thủ",
+      "number": 72,
+      "avatar": "Drogba.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17bfdecd342147f2489"
+      }
+    },
+    {
+      "name": "Zidane",
+      "position": "Cầu thủ",
+      "number": 46,
+      "avatar": "Zidane.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de17bfdecd342147f248a"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de113fdecd342147f1c31"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:30:51.999Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:31:06.231Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de18cfdecd342147f2748"
+  },
+  "teamName": "FC Test 268647",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Rooney",
+      "position": "Cầu thủ",
+      "number": 80,
+      "avatar": "Rooney.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de18cfdecd342147f2749"
+      }
+    },
+    {
+      "name": "Zidane",
+      "position": "Cầu thủ",
+      "number": 62,
+      "avatar": "Zidane.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de18cfdecd342147f274a"
+      }
+    },
+    {
+      "name": "Ferdinand",
+      "position": "Cầu thủ",
+      "number": 17,
+      "avatar": "Ferdinand.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de18cfdecd342147f274b"
+      }
+    },
+    {
+      "name": "Højlund",
+      "position": "Cầu thủ",
+      "number": 96,
+      "avatar": "Højlund.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de18cfdecd342147f274c"
+      }
+    },
+    {
+      "name": "Messi",
+      "position": "Cầu thủ",
+      "number": 76,
+      "avatar": "Messi.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de18cfdecd342147f274d"
+      }
+    },
+    {
+      "name": "Dalot",
+      "position": "Cầu thủ",
+      "number": 7,
+      "avatar": "Dalot.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de18cfdecd342147f274e"
+      }
+    },
+    {
+      "name": "Lewandowski",
+      "position": "Cầu thủ",
+      "number": 26,
+      "avatar": "Lewandowski.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de18cfdecd342147f274f"
+      }
+    }
+  ],
+  "status": "pending",
+  "tournamentId": {
+    "$oid": "695de113fdecd342147f1c31"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:31:08.648Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695de18dfdecd342147f279f"
+  },
+  "teamName": "FC Test 269823",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Ibrahimović",
+      "position": "Cầu thủ",
+      "number": 4,
+      "avatar": "Ibrahimović.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de18dfdecd342147f27a0"
+      }
+    },
+    {
+      "name": "brunodua",
+      "position": "Cầu thủ",
+      "number": 48,
+      "avatar": "brunodua.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de18dfdecd342147f27a1"
+      }
+    },
+    {
+      "name": "Garnacho",
+      "position": "Cầu thủ",
+      "number": 62,
+      "avatar": "Garnacho.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de18dfdecd342147f27a2"
+      }
+    },
+    {
+      "name": "Casillas",
+      "position": "Cầu thủ",
+      "number": 84,
+      "avatar": "Casillas.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de18dfdecd342147f27a3"
+      }
+    },
+    {
+      "name": "Casemiro",
+      "position": "Cầu thủ",
+      "number": 84,
+      "avatar": "Casemiro.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de18dfdecd342147f27a4"
+      }
+    },
+    {
+      "name": "kaka",
+      "position": "Cầu thủ",
+      "number": 74,
+      "avatar": "kaka.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de18dfdecd342147f27a5"
+      }
+    },
+    {
+      "name": "foden",
+      "position": "Cầu thủ",
+      "number": 30,
+      "avatar": "foden.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de18dfdecd342147f27a6"
+      }
+    }
+  ],
+  "status": "pending",
+  "tournamentId": {
+    "$oid": "695de113fdecd342147f1c31"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:31:09.825Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695de553fdecd342147f2919"
+  },
+  "teamName": "FC Test 235827",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Suárez",
+      "position": "Cầu thủ",
+      "number": 71,
+      "avatar": "Suárez.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de553fdecd342147f291a"
+      }
+    },
+    {
+      "name": "Casillas",
+      "position": "Cầu thủ",
+      "number": 49,
+      "avatar": "Casillas.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de553fdecd342147f291b"
+      }
+    },
+    {
+      "name": "Ibrahimović",
+      "position": "Cầu thủ",
+      "number": 29,
+      "avatar": "Ibrahimović.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de553fdecd342147f291c"
+      }
+    },
+    {
+      "name": "Zidane",
+      "position": "Cầu thủ",
+      "number": 71,
+      "avatar": "Zidane.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de553fdecd342147f291d"
+      }
+    },
+    {
+      "name": "Mbappé",
+      "position": "Cầu thủ",
+      "number": 53,
+      "avatar": "Mbappé.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de553fdecd342147f291e"
+      }
+    },
+    {
+      "name": "McTominay",
+      "position": "Cầu thủ",
+      "number": 4,
+      "avatar": "McTominay.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de553fdecd342147f291f"
+      }
+    },
+    {
+      "name": "Henry",
+      "position": "Cầu thủ",
+      "number": 57,
+      "avatar": "Henry.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de553fdecd342147f2920"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:47:15.829Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:47:22.992Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de554fdecd342147f292c"
+  },
+  "teamName": "FC Test 236008",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "ozil",
+      "position": "Cầu thủ",
+      "number": 79,
+      "avatar": "ozil.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f292d"
+      }
+    },
+    {
+      "name": "Kroos",
+      "position": "Cầu thủ",
+      "number": 73,
+      "avatar": "Kroos.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f292e"
+      }
+    },
+    {
+      "name": "brunodua",
+      "position": "Cầu thủ",
+      "number": 16,
+      "avatar": "brunodua.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f292f"
+      }
+    },
+    {
+      "name": "Mbappé",
+      "position": "Cầu thủ",
+      "number": 37,
+      "avatar": "Mbappé.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f2930"
+      }
+    },
+    {
+      "name": "Benzema",
+      "position": "Cầu thủ",
+      "number": 58,
+      "avatar": "Benzema.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f2931"
+      }
+    },
+    {
+      "name": "Pedri",
+      "position": "Cầu thủ",
+      "number": 15,
+      "avatar": "Pedri.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f2932"
+      }
+    },
+    {
+      "name": "Messi",
+      "position": "Cầu thủ",
+      "number": 77,
+      "avatar": "Messi.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f2933"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:47:16.009Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:47:37.763Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de554fdecd342147f2938"
+  },
+  "teamName": "FC Test 236150",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Messi",
+      "position": "Cầu thủ",
+      "number": 89,
+      "avatar": "Messi.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f2939"
+      }
+    },
+    {
+      "name": "Benzema",
+      "position": "Cầu thủ",
+      "number": 98,
+      "avatar": "Benzema.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f293a"
+      }
+    },
+    {
+      "name": "kane",
+      "position": "Cầu thủ",
+      "number": 51,
+      "avatar": "kane.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f293b"
+      }
+    },
+    {
+      "name": "Mbappé",
+      "position": "Cầu thủ",
+      "number": 55,
+      "avatar": "Mbappé.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f293c"
+      }
+    },
+    {
+      "name": "Suárez",
+      "position": "Cầu thủ",
+      "number": 59,
+      "avatar": "Suárez.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f293d"
+      }
+    },
+    {
+      "name": "brunodua",
+      "position": "Cầu thủ",
+      "number": 30,
+      "avatar": "brunodua.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f293e"
+      }
+    },
+    {
+      "name": "Kevin",
+      "position": "Cầu thủ",
+      "number": 47,
+      "avatar": "Kevin.png",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f293f"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:47:16.151Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:47:41.370Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de554fdecd342147f2969"
+  },
+  "teamName": "FC Test 236324",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "bale",
+      "position": "Cầu thủ",
+      "number": 73,
+      "avatar": "bale.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f296a"
+      }
+    },
+    {
+      "name": "Kroos",
+      "position": "Cầu thủ",
+      "number": 8,
+      "avatar": "Kroos.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f296b"
+      }
+    },
+    {
+      "name": "Ramos",
+      "position": "Cầu thủ",
+      "number": 18,
+      "avatar": "Ramos.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f296c"
+      }
+    },
+    {
+      "name": "Messi",
+      "position": "Cầu thủ",
+      "number": 77,
+      "avatar": "Messi.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f296d"
+      }
+    },
+    {
+      "name": "Kevin",
+      "position": "Cầu thủ",
+      "number": 94,
+      "avatar": "Kevin.png",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f296e"
+      }
+    },
+    {
+      "name": "Henry",
+      "position": "Cầu thủ",
+      "number": 19,
+      "avatar": "Henry.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f296f"
+      }
+    },
+    {
+      "name": "Beckham",
+      "position": "Cầu thủ",
+      "number": 14,
+      "avatar": "Beckham.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f2970"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:47:16.325Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:47:45.333Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de554fdecd342147f2992"
+  },
+  "teamName": "FC Test 236493",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Højlund",
+      "position": "Cầu thủ",
+      "number": 19,
+      "avatar": "Højlund.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f2993"
+      }
+    },
+    {
+      "name": "Dalot",
+      "position": "Cầu thủ",
+      "number": 59,
+      "avatar": "Dalot.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f2994"
+      }
+    },
+    {
+      "name": "Ramos",
+      "position": "Cầu thủ",
+      "number": 65,
+      "avatar": "Ramos.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f2995"
+      }
+    },
+    {
+      "name": "brunodua",
+      "position": "Cầu thủ",
+      "number": 29,
+      "avatar": "brunodua.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f2996"
+      }
+    },
+    {
+      "name": "Pedri",
+      "position": "Cầu thủ",
+      "number": 49,
+      "avatar": "Pedri.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f2997"
+      }
+    },
+    {
+      "name": "kane",
+      "position": "Cầu thủ",
+      "number": 93,
+      "avatar": "kane.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f2998"
+      }
+    },
+    {
+      "name": "Beckham",
+      "position": "Cầu thủ",
+      "number": 99,
+      "avatar": "Beckham.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f2999"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:47:16.494Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:47:48.702Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de554fdecd342147f29c2"
+  },
+  "teamName": "FC Test 236664",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "ozil",
+      "position": "Cầu thủ",
+      "number": 14,
+      "avatar": "ozil.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f29c3"
+      }
+    },
+    {
+      "name": "foden",
+      "position": "Cầu thủ",
+      "number": 12,
+      "avatar": "foden.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f29c4"
+      }
+    },
+    {
+      "name": "Højlund",
+      "position": "Cầu thủ",
+      "number": 9,
+      "avatar": "Højlund.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f29c5"
+      }
+    },
+    {
+      "name": "Garnacho",
+      "position": "Cầu thủ",
+      "number": 91,
+      "avatar": "Garnacho.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f29c6"
+      }
+    },
+    {
+      "name": "Casillas",
+      "position": "Cầu thủ",
+      "number": 44,
+      "avatar": "Casillas.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f29c7"
+      }
+    },
+    {
+      "name": "Dalot",
+      "position": "Cầu thủ",
+      "number": 60,
+      "avatar": "Dalot.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f29c8"
+      }
+    },
+    {
+      "name": "Zidane",
+      "position": "Cầu thủ",
+      "number": 31,
+      "avatar": "Zidane.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de554fdecd342147f29c9"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:47:16.665Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:47:56.338Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de555fdecd342147f29fe"
+  },
+  "teamName": "FC Test 237980",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Xavi",
+      "position": "Cầu thủ",
+      "number": 65,
+      "avatar": "Xavi.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de555fdecd342147f29ff"
+      }
+    },
+    {
+      "name": "Garnacho",
+      "position": "Cầu thủ",
+      "number": 35,
+      "avatar": "Garnacho.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de555fdecd342147f2a00"
+      }
+    },
+    {
+      "name": "ozil",
+      "position": "Cầu thủ",
+      "number": 32,
+      "avatar": "ozil.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de555fdecd342147f2a01"
+      }
+    },
+    {
+      "name": "Suárez",
+      "position": "Cầu thủ",
+      "number": 41,
+      "avatar": "Suárez.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de555fdecd342147f2a02"
+      }
+    },
+    {
+      "name": "Raphinha",
+      "position": "Cầu thủ",
+      "number": 15,
+      "avatar": "Raphinha.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de555fdecd342147f2a03"
+      }
+    },
+    {
+      "name": "Benzema",
+      "position": "Cầu thủ",
+      "number": 79,
+      "avatar": "Benzema.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de555fdecd342147f2a04"
+      }
+    },
+    {
+      "name": "Ibrahimović",
+      "position": "Cầu thủ",
+      "number": 70,
+      "avatar": "Ibrahimović.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de555fdecd342147f2a05"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:47:17.981Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:47:59.402Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de556fdecd342147f2a3b"
+  },
+  "teamName": "FC Test 238144",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Scholes",
+      "position": "Cầu thủ",
+      "number": 28,
+      "avatar": "Scholes.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de556fdecd342147f2a3c"
+      }
+    },
+    {
+      "name": "Nemanja",
+      "position": "Cầu thủ",
+      "number": 49,
+      "avatar": "Nemanja.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de556fdecd342147f2a3d"
+      }
+    },
+    {
+      "name": "bale",
+      "position": "Cầu thủ",
+      "number": 61,
+      "avatar": "bale.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de556fdecd342147f2a3e"
+      }
+    },
+    {
+      "name": "Kevin",
+      "position": "Cầu thủ",
+      "number": 15,
+      "avatar": "Kevin.png",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de556fdecd342147f2a3f"
+      }
+    },
+    {
+      "name": "Kroos",
+      "position": "Cầu thủ",
+      "number": 96,
+      "avatar": "Kroos.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de556fdecd342147f2a40"
+      }
+    },
+    {
+      "name": "Mbappé",
+      "position": "Cầu thủ",
+      "number": 43,
+      "avatar": "Mbappé.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de556fdecd342147f2a41"
+      }
+    },
+    {
+      "name": "Beckham",
+      "position": "Cầu thủ",
+      "number": 37,
+      "avatar": "Beckham.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de556fdecd342147f2a42"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:47:18.145Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:48:02.143Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de556fdecd342147f2a80"
+  },
+  "teamName": "FC Test 238317",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Benzema",
+      "position": "Cầu thủ",
+      "number": 51,
+      "avatar": "Benzema.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de556fdecd342147f2a81"
+      }
+    },
+    {
+      "name": "Højlund",
+      "position": "Cầu thủ",
+      "number": 26,
+      "avatar": "Højlund.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de556fdecd342147f2a82"
+      }
+    },
+    {
+      "name": "Mbappé",
+      "position": "Cầu thủ",
+      "number": 53,
+      "avatar": "Mbappé.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de556fdecd342147f2a83"
+      }
+    },
+    {
+      "name": "kaka",
+      "position": "Cầu thủ",
+      "number": 65,
+      "avatar": "kaka.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de556fdecd342147f2a84"
+      }
+    },
+    {
+      "name": "Haaland",
+      "position": "Cầu thủ",
+      "number": 85,
+      "avatar": "Haaland.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de556fdecd342147f2a85"
+      }
+    },
+    {
+      "name": "Beckham",
+      "position": "Cầu thủ",
+      "number": 40,
+      "avatar": "Beckham.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de556fdecd342147f2a86"
+      }
+    },
+    {
+      "name": "Lewandowski",
+      "position": "Cầu thủ",
+      "number": 68,
+      "avatar": "Lewandowski.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de556fdecd342147f2a87"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:47:18.319Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:48:05.362Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de58afdecd342147f2e70"
+  },
+  "teamName": "FC Test 290397",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Ramos",
+      "position": "Cầu thủ",
+      "number": 37,
+      "avatar": "Ramos.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58afdecd342147f2e71"
+      }
+    },
+    {
+      "name": "Casemiro",
+      "position": "Cầu thủ",
+      "number": 61,
+      "avatar": "Casemiro.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58afdecd342147f2e72"
+      }
+    },
+    {
+      "name": "Ronaldo",
+      "position": "Cầu thủ",
+      "number": 18,
+      "avatar": "Ronaldo.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58afdecd342147f2e73"
+      }
+    },
+    {
+      "name": "kane",
+      "position": "Cầu thủ",
+      "number": 9,
+      "avatar": "kane.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58afdecd342147f2e74"
+      }
+    },
+    {
+      "name": "Højlund",
+      "position": "Cầu thủ",
+      "number": 58,
+      "avatar": "Højlund.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58afdecd342147f2e75"
+      }
+    },
+    {
+      "name": "Ferdinand",
+      "position": "Cầu thủ",
+      "number": 94,
+      "avatar": "Ferdinand.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58afdecd342147f2e76"
+      }
+    },
+    {
+      "name": "Rooney",
+      "position": "Cầu thủ",
+      "number": 73,
+      "avatar": "Rooney.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58afdecd342147f2e77"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:48:10.399Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:48:31.090Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de58afdecd342147f2ec3"
+  },
+  "teamName": "FC Test 290690",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Ronaldo",
+      "position": "Cầu thủ",
+      "number": 74,
+      "avatar": "Ronaldo.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58afdecd342147f2ec4"
+      }
+    },
+    {
+      "name": "Ferdinand",
+      "position": "Cầu thủ",
+      "number": 51,
+      "avatar": "Ferdinand.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58afdecd342147f2ec5"
+      }
+    },
+    {
+      "name": "Casemiro",
+      "position": "Cầu thủ",
+      "number": 72,
+      "avatar": "Casemiro.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58afdecd342147f2ec6"
+      }
+    },
+    {
+      "name": "neymar",
+      "position": "Cầu thủ",
+      "number": 80,
+      "avatar": "neymar.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58afdecd342147f2ec7"
+      }
+    },
+    {
+      "name": "Garnacho",
+      "position": "Cầu thủ",
+      "number": 10,
+      "avatar": "Garnacho.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58afdecd342147f2ec8"
+      }
+    },
+    {
+      "name": "Højlund",
+      "position": "Cầu thủ",
+      "number": 88,
+      "avatar": "Højlund.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58afdecd342147f2ec9"
+      }
+    },
+    {
+      "name": "Gullit",
+      "position": "Cầu thủ",
+      "number": 71,
+      "avatar": "Gullit.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58afdecd342147f2eca"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:48:10.691Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:48:27.143Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de58bfdecd342147f2f1a"
+  },
+  "teamName": "FC Test 291832",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "brunodua",
+      "position": "Cầu thủ",
+      "number": 34,
+      "avatar": "brunodua.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58bfdecd342147f2f1b"
+      }
+    },
+    {
+      "name": "Drogba",
+      "position": "Cầu thủ",
+      "number": 22,
+      "avatar": "Drogba.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58bfdecd342147f2f1c"
+      }
+    },
+    {
+      "name": "Suárez",
+      "position": "Cầu thủ",
+      "number": 34,
+      "avatar": "Suárez.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58bfdecd342147f2f1d"
+      }
+    },
+    {
+      "name": "Mbappé",
+      "position": "Cầu thủ",
+      "number": 75,
+      "avatar": "Mbappé.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58bfdecd342147f2f1e"
+      }
+    },
+    {
+      "name": "Garnacho",
+      "position": "Cầu thủ",
+      "number": 50,
+      "avatar": "Garnacho.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58bfdecd342147f2f1f"
+      }
+    },
+    {
+      "name": "bale",
+      "position": "Cầu thủ",
+      "number": 36,
+      "avatar": "bale.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58bfdecd342147f2f20"
+      }
+    },
+    {
+      "name": "Rooney",
+      "position": "Cầu thủ",
+      "number": 63,
+      "avatar": "Rooney.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58bfdecd342147f2f21"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:48:11.833Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:48:24.413Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de58cfdecd342147f2f6c"
+  },
+  "teamName": "FC Test 292030",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Gullit",
+      "position": "Cầu thủ",
+      "number": 87,
+      "avatar": "Gullit.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58cfdecd342147f2f6d"
+      }
+    },
+    {
+      "name": "ozil",
+      "position": "Cầu thủ",
+      "number": 10,
+      "avatar": "ozil.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58cfdecd342147f2f6e"
+      }
+    },
+    {
+      "name": "Nemanja",
+      "position": "Cầu thủ",
+      "number": 66,
+      "avatar": "Nemanja.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58cfdecd342147f2f6f"
+      }
+    },
+    {
+      "name": "Henry",
+      "position": "Cầu thủ",
+      "number": 95,
+      "avatar": "Henry.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58cfdecd342147f2f70"
+      }
+    },
+    {
+      "name": "Ramos",
+      "position": "Cầu thủ",
+      "number": 57,
+      "avatar": "Ramos.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58cfdecd342147f2f71"
+      }
+    },
+    {
+      "name": "Ibrahimović",
+      "position": "Cầu thủ",
+      "number": 58,
+      "avatar": "Ibrahimović.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58cfdecd342147f2f72"
+      }
+    },
+    {
+      "name": "Suárez",
+      "position": "Cầu thủ",
+      "number": 47,
+      "avatar": "Suárez.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58cfdecd342147f2f73"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:48:12.031Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:48:20.756Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de58cfdecd342147f2fbf"
+  },
+  "teamName": "FC Test 292266",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Haaland",
+      "position": "Cầu thủ",
+      "number": 44,
+      "avatar": "Haaland.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58cfdecd342147f2fc0"
+      }
+    },
+    {
+      "name": "Beckham",
+      "position": "Cầu thủ",
+      "number": 39,
+      "avatar": "Beckham.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58cfdecd342147f2fc1"
+      }
+    },
+    {
+      "name": "Zidane",
+      "position": "Cầu thủ",
+      "number": 42,
+      "avatar": "Zidane.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58cfdecd342147f2fc2"
+      }
+    },
+    {
+      "name": "ozil",
+      "position": "Cầu thủ",
+      "number": 36,
+      "avatar": "ozil.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58cfdecd342147f2fc3"
+      }
+    },
+    {
+      "name": "Garnacho",
+      "position": "Cầu thủ",
+      "number": 38,
+      "avatar": "Garnacho.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58cfdecd342147f2fc4"
+      }
+    },
+    {
+      "name": "Nemanja",
+      "position": "Cầu thủ",
+      "number": 65,
+      "avatar": "Nemanja.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58cfdecd342147f2fc5"
+      }
+    },
+    {
+      "name": "bale",
+      "position": "Cầu thủ",
+      "number": 34,
+      "avatar": "bale.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de58cfdecd342147f2fc6"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:48:12.267Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:48:18.398Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de5a5fdecd342147f3261"
+  },
+  "teamName": "FC Test 317964",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Gullit",
+      "position": "Cầu thủ",
+      "number": 26,
+      "avatar": "Gullit.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5a5fdecd342147f3262"
+      }
+    },
+    {
+      "name": "Beckham",
+      "position": "Cầu thủ",
+      "number": 18,
+      "avatar": "Beckham.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5a5fdecd342147f3263"
+      }
+    },
+    {
+      "name": "Yamal",
+      "position": "Cầu thủ",
+      "number": 6,
+      "avatar": "Yamal.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5a5fdecd342147f3264"
+      }
+    },
+    {
+      "name": "Xavi",
+      "position": "Cầu thủ",
+      "number": 57,
+      "avatar": "Xavi.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5a5fdecd342147f3265"
+      }
+    },
+    {
+      "name": "neymar",
+      "position": "Cầu thủ",
+      "number": 1,
+      "avatar": "neymar.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5a5fdecd342147f3266"
+      }
+    },
+    {
+      "name": "kane",
+      "position": "Cầu thủ",
+      "number": 95,
+      "avatar": "kane.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5a5fdecd342147f3267"
+      }
+    },
+    {
+      "name": "Ferdinand",
+      "position": "Cầu thủ",
+      "number": 56,
+      "avatar": "Ferdinand.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5a5fdecd342147f3268"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:48:37.965Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:48:45.706Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de5a7fdecd342147f32b8"
+  },
+  "teamName": "FC Test 319518",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Yamal",
+      "position": "Cầu thủ",
+      "number": 91,
+      "avatar": "Yamal.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5a7fdecd342147f32b9"
+      }
+    },
+    {
+      "name": "Gullit",
+      "position": "Cầu thủ",
+      "number": 17,
+      "avatar": "Gullit.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5a7fdecd342147f32ba"
+      }
+    },
+    {
+      "name": "Højlund",
+      "position": "Cầu thủ",
+      "number": 40,
+      "avatar": "Højlund.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5a7fdecd342147f32bb"
+      }
+    },
+    {
+      "name": "brunodua",
+      "position": "Cầu thủ",
+      "number": 34,
+      "avatar": "brunodua.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5a7fdecd342147f32bc"
+      }
+    },
+    {
+      "name": "bale",
+      "position": "Cầu thủ",
+      "number": 3,
+      "avatar": "bale.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5a7fdecd342147f32bd"
+      }
+    },
+    {
+      "name": "ozil",
+      "position": "Cầu thủ",
+      "number": 52,
+      "avatar": "ozil.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5a7fdecd342147f32be"
+      }
+    },
+    {
+      "name": "R4",
+      "position": "Cầu thủ",
+      "number": 23,
+      "avatar": "R4.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5a7fdecd342147f32bf"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:48:39.519Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:48:42.590Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de5aefdecd342147f33eb"
+  },
+  "teamName": "FC Test 326747",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "R4",
+      "position": "Cầu thủ",
+      "number": 38,
+      "avatar": "R4.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5aefdecd342147f33ec"
+      }
+    },
+    {
+      "name": "Yamal",
+      "position": "Cầu thủ",
+      "number": 37,
+      "avatar": "Yamal.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5aefdecd342147f33ed"
+      }
+    },
+    {
+      "name": "McTominay",
+      "position": "Cầu thủ",
+      "number": 46,
+      "avatar": "McTominay.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5aefdecd342147f33ee"
+      }
+    },
+    {
+      "name": "Kevin",
+      "position": "Cầu thủ",
+      "number": 60,
+      "avatar": "Kevin.png",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5aefdecd342147f33ef"
+      }
+    },
+    {
+      "name": "Rooney",
+      "position": "Cầu thủ",
+      "number": 82,
+      "avatar": "Rooney.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5aefdecd342147f33f0"
+      }
+    },
+    {
+      "name": "Ramos",
+      "position": "Cầu thủ",
+      "number": 13,
+      "avatar": "Ramos.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5aefdecd342147f33f1"
+      }
+    },
+    {
+      "name": "Henry",
+      "position": "Cầu thủ",
+      "number": 17,
+      "avatar": "Henry.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5aefdecd342147f33f2"
+      }
+    }
+  ],
+  "status": "pending",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:48:46.748Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695de5aefdecd342147f33f6"
+  },
+  "teamName": "FC Test 326945",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Benzema",
+      "position": "Cầu thủ",
+      "number": 96,
+      "avatar": "Benzema.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5aefdecd342147f33f7"
+      }
+    },
+    {
+      "name": "neymar",
+      "position": "Cầu thủ",
+      "number": 52,
+      "avatar": "neymar.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5aefdecd342147f33f8"
+      }
+    },
+    {
+      "name": "Nemanja",
+      "position": "Cầu thủ",
+      "number": 65,
+      "avatar": "Nemanja.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5aefdecd342147f33f9"
+      }
+    },
+    {
+      "name": "foden",
+      "position": "Cầu thủ",
+      "number": 62,
+      "avatar": "foden.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5aefdecd342147f33fa"
+      }
+    },
+    {
+      "name": "Rooney",
+      "position": "Cầu thủ",
+      "number": 79,
+      "avatar": "Rooney.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5aefdecd342147f33fb"
+      }
+    },
+    {
+      "name": "Ronaldo",
+      "position": "Cầu thủ",
+      "number": 15,
+      "avatar": "Ronaldo.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5aefdecd342147f33fc"
+      }
+    },
+    {
+      "name": "Drogba",
+      "position": "Cầu thủ",
+      "number": 62,
+      "avatar": "Drogba.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5aefdecd342147f33fd"
+      }
+    }
+  ],
+  "status": "pending",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:48:46.946Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695de5affdecd342147f3448"
+  },
+  "teamName": "FC Test 327100",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Drogba",
+      "position": "Cầu thủ",
+      "number": 81,
+      "avatar": "Drogba.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f3449"
+      }
+    },
+    {
+      "name": "Beckham",
+      "position": "Cầu thủ",
+      "number": 39,
+      "avatar": "Beckham.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f344a"
+      }
+    },
+    {
+      "name": "Suárez",
+      "position": "Cầu thủ",
+      "number": 3,
+      "avatar": "Suárez.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f344b"
+      }
+    },
+    {
+      "name": "Mbappé",
+      "position": "Cầu thủ",
+      "number": 4,
+      "avatar": "Mbappé.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f344c"
+      }
+    },
+    {
+      "name": "kaka",
+      "position": "Cầu thủ",
+      "number": 44,
+      "avatar": "kaka.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f344d"
+      }
+    },
+    {
+      "name": "Rooney",
+      "position": "Cầu thủ",
+      "number": 76,
+      "avatar": "Rooney.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f344e"
+      }
+    },
+    {
+      "name": "dybala",
+      "position": "Cầu thủ",
+      "number": 43,
+      "avatar": "dybala.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f344f"
+      }
+    }
+  ],
+  "status": "pending",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:48:47.101Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695de5affdecd342147f34e3"
+  },
+  "teamName": "FC Test 327278",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Kevin",
+      "position": "Cầu thủ",
+      "number": 25,
+      "avatar": "Kevin.png",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f34e4"
+      }
+    },
+    {
+      "name": "Zidane",
+      "position": "Cầu thủ",
+      "number": 77,
+      "avatar": "Zidane.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f34e5"
+      }
+    },
+    {
+      "name": "Lewandowski",
+      "position": "Cầu thủ",
+      "number": 41,
+      "avatar": "Lewandowski.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f34e6"
+      }
+    },
+    {
+      "name": "Xavi",
+      "position": "Cầu thủ",
+      "number": 68,
+      "avatar": "Xavi.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f34e7"
+      }
+    },
+    {
+      "name": "Mbappé",
+      "position": "Cầu thủ",
+      "number": 57,
+      "avatar": "Mbappé.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f34e8"
+      }
+    },
+    {
+      "name": "R4",
+      "position": "Cầu thủ",
+      "number": 77,
+      "avatar": "R4.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f34e9"
+      }
+    },
+    {
+      "name": "Casemiro",
+      "position": "Cầu thủ",
+      "number": 44,
+      "avatar": "Casemiro.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f34ea"
+      }
+    }
+  ],
+  "status": "pending",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:48:47.279Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695de5affdecd342147f34ef"
+  },
+  "teamName": "FC Test 327468",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "neymar",
+      "position": "Cầu thủ",
+      "number": 72,
+      "avatar": "neymar.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f34f0"
+      }
+    },
+    {
+      "name": "Kevin",
+      "position": "Cầu thủ",
+      "number": 99,
+      "avatar": "Kevin.png",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f34f1"
+      }
+    },
+    {
+      "name": "Casemiro",
+      "position": "Cầu thủ",
+      "number": 9,
+      "avatar": "Casemiro.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f34f2"
+      }
+    },
+    {
+      "name": "Gullit",
+      "position": "Cầu thủ",
+      "number": 72,
+      "avatar": "Gullit.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f34f3"
+      }
+    },
+    {
+      "name": "ozil",
+      "position": "Cầu thủ",
+      "number": 31,
+      "avatar": "ozil.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f34f4"
+      }
+    },
+    {
+      "name": "Lewandowski",
+      "position": "Cầu thủ",
+      "number": 14,
+      "avatar": "Lewandowski.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f34f5"
+      }
+    },
+    {
+      "name": "Xavi",
+      "position": "Cầu thủ",
+      "number": 12,
+      "avatar": "Xavi.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f34f6"
+      }
+    }
+  ],
+  "status": "pending",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:48:47.469Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695de5affdecd342147f358a"
+  },
+  "teamName": "FC Test 327793",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Haaland",
+      "position": "Cầu thủ",
+      "number": 30,
+      "avatar": "Haaland.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f358b"
+      }
+    },
+    {
+      "name": "R4",
+      "position": "Cầu thủ",
+      "number": 60,
+      "avatar": "R4.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f358c"
+      }
+    },
+    {
+      "name": "Pedri",
+      "position": "Cầu thủ",
+      "number": 6,
+      "avatar": "Pedri.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f358d"
+      }
+    },
+    {
+      "name": "kaka",
+      "position": "Cầu thủ",
+      "number": 50,
+      "avatar": "kaka.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f358e"
+      }
+    },
+    {
+      "name": "Onana",
+      "position": "Cầu thủ",
+      "number": 11,
+      "avatar": "Onana.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f358f"
+      }
+    },
+    {
+      "name": "Xavi",
+      "position": "Cầu thủ",
+      "number": 41,
+      "avatar": "Xavi.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f3590"
+      }
+    },
+    {
+      "name": "Ronaldo",
+      "position": "Cầu thủ",
+      "number": 56,
+      "avatar": "Ronaldo.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5affdecd342147f3591"
+      }
+    }
+  ],
+  "status": "pending",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:48:47.795Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695de5b0fdecd342147f35dd"
+  },
+  "teamName": "FC Test 328003",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Modrić",
+      "position": "Cầu thủ",
+      "number": 10,
+      "avatar": "Modrić.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5b0fdecd342147f35de"
+      }
+    },
+    {
+      "name": "Lewandowski",
+      "position": "Cầu thủ",
+      "number": 1,
+      "avatar": "Lewandowski.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5b0fdecd342147f35df"
+      }
+    },
+    {
+      "name": "neymar",
+      "position": "Cầu thủ",
+      "number": 28,
+      "avatar": "neymar.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5b0fdecd342147f35e0"
+      }
+    },
+    {
+      "name": "sancho",
+      "position": "Cầu thủ",
+      "number": 97,
+      "avatar": "sancho.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5b0fdecd342147f35e1"
+      }
+    },
+    {
+      "name": "bale",
+      "position": "Cầu thủ",
+      "number": 3,
+      "avatar": "bale.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5b0fdecd342147f35e2"
+      }
+    },
+    {
+      "name": "R4",
+      "position": "Cầu thủ",
+      "number": 68,
+      "avatar": "R4.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5b0fdecd342147f35e3"
+      }
+    },
+    {
+      "name": "Zidane",
+      "position": "Cầu thủ",
+      "number": 2,
+      "avatar": "Zidane.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695de5b0fdecd342147f35e4"
+      }
+    }
+  ],
+  "status": "pending",
+  "tournamentId": {
+    "$oid": "695de53bfdecd342147f28b7"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:48:48.005Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695de62d68b3caccb2a8c70b"
+  },
+  "teamName": "22DTHC3",
+  "representative": "Nhân",
+  "phone": "0982219370",
+  "email": "dothanhnhan9370@gmail.com",
+  "logo": "1767558047389-NhÃ¢n.jpg",
+  "description": "bố mày là nhất",
+  "members": [
+    {
+      "name": "khải",
+      "position": "Cầu thủ",
+      "number": 5,
+      "citizenId": "1111",
+      "avatar": "1767558047391-Kháº£i.jpg",
+      "citizenIdImage": "1767558430374-Kháº£i.jpg",
+      "_id": {
+        "$oid": "695de62d68b3caccb2a8c70c"
+      }
+    },
+    {
+      "name": "đức",
+      "position": "Cầu thủ",
+      "number": 7,
+      "citizenId": "2222",
+      "avatar": "1767558047391-Äá»©c.jpg",
+      "citizenIdImage": "1767558430375-Äá»©c.jpg",
+      "_id": {
+        "$oid": "695de62d68b3caccb2a8c70d"
+      }
+    },
+    {
+      "name": "hào",
+      "position": "Cầu thủ",
+      "number": 10,
+      "citizenId": "7777",
+      "avatar": "1767558047392-HÃ o.jpg",
+      "citizenIdImage": "1767558430376-HÃ o.jpg",
+      "_id": {
+        "$oid": "695de62d68b3caccb2a8c70e"
+      }
+    },
+    {
+      "name": "nhân",
+      "position": "Cầu thủ",
+      "number": 11,
+      "citizenId": "1010",
+      "avatar": "1767558430381-NhÃ¢n.jpg",
+      "citizenIdImage": "1767558430383-NhÃ¢n.jpg",
+      "_id": {
+        "$oid": "695de62d68b3caccb2a8c70f"
+      }
+    },
+    {
+      "name": "minh",
+      "position": "Cầu thủ",
+      "number": 77,
+      "citizenId": "7878",
+      "avatar": "1767561615498-Minh.jpg",
+      "citizenIdImage": "1767561615502-Minh.jpg",
+      "_id": {
+        "$oid": "695de62d68b3caccb2a8c710"
+      }
+    },
+    {
+      "name": "tài",
+      "position": "Cầu thủ",
+      "number": 3,
+      "citizenId": "3333",
+      "avatar": "1767561615504-TÃ i.jpg",
+      "citizenIdImage": "1767561615505-TÃ i.jpg",
+      "_id": {
+        "$oid": "695de62d68b3caccb2a8c711"
+      }
+    },
+    {
+      "name": "neymar",
+      "position": "Cầu thủ",
+      "number": 12,
+      "citizenId": "111",
+      "avatar": "1767719381885-neymar.png",
+      "citizenIdImage": "1767719381925-neymar.png",
+      "_id": {
+        "$oid": "695de62d68b3caccb2a8c712"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695de622fdecd342147f36ef"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:50:53.282Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T04:51:23.827Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695de63dfdecd342147f370a"
+  },
+  "teamName": "10A3",
+  "representative": "Nhân",
+  "phone": "0982219370",
+  "email": "c3lttrong.2a3.dtnhan@gmail.com",
+  "logo": "1767723334640-Yamal.jpg",
+  "description": "xin 1 lần thua",
+  "members": [
+    {
+      "name": "voi rừng",
+      "position": "Cầu thủ",
+      "number": 10,
+      "citizenId": "1111",
+      "avatar": "1767723334644-Drogba.jpg",
+      "citizenIdImage": "1767723334648-Drogba.jpg",
+      "_id": {
+        "$oid": "695de63dfdecd342147f370b"
+      }
+    },
+    {
+      "name": "anh giỏi",
+      "position": "Cầu thủ",
+      "number": 9,
+      "citizenId": "9999",
+      "avatar": "1767723334650-Garnacho.jpg",
+      "citizenIdImage": "1767723334653-Garnacho.jpg",
+      "_id": {
+        "$oid": "695de63dfdecd342147f370c"
+      }
+    },
+    {
+      "name": "a tứ",
+      "position": "Cầu thủ",
+      "number": 4,
+      "citizenId": "4444",
+      "avatar": "1767723334654-Ramos.jpg",
+      "citizenIdImage": "1767723334657-Ramos.jpg",
+      "_id": {
+        "$oid": "695de63dfdecd342147f370d"
+      }
+    }
+  ],
+  "status": "pending",
+  "tournamentId": {
+    "$oid": "695de622fdecd342147f36ef"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T04:51:09.878Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695df12ac68caed3771c3de2"
+  },
+  "teamName": "FC Test 266718",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "McTominay",
+      "position": "Cầu thủ",
+      "number": 92,
+      "avatar": "McTominay.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df12ac68caed3771c3de3"
+      }
+    },
+    {
+      "name": "Haaland",
+      "position": "Cầu thủ",
+      "number": 72,
+      "avatar": "Haaland.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df12ac68caed3771c3de4"
+      }
+    },
+    {
+      "name": "Messi",
+      "position": "Cầu thủ",
+      "number": 1,
+      "avatar": "Messi.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df12ac68caed3771c3de5"
+      }
+    },
+    {
+      "name": "Højlund",
+      "position": "Cầu thủ",
+      "number": 3,
+      "avatar": "Højlund.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df12ac68caed3771c3de6"
+      }
+    },
+    {
+      "name": "R4",
+      "position": "Cầu thủ",
+      "number": 86,
+      "avatar": "R4.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df12ac68caed3771c3de7"
+      }
+    },
+    {
+      "name": "Benzema",
+      "position": "Cầu thủ",
+      "number": 31,
+      "avatar": "Benzema.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df12ac68caed3771c3de8"
+      }
+    },
+    {
+      "name": "Ramos",
+      "position": "Cầu thủ",
+      "number": 99,
+      "avatar": "Ramos.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df12ac68caed3771c3de9"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695df122c68caed3771c3d88"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T05:37:46.720Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T05:38:00.027Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695df12cc68caed3771c3dfc"
+  },
+  "teamName": "FC Test 268400",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Beckham",
+      "position": "Cầu thủ",
+      "number": 48,
+      "avatar": "Beckham.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df12cc68caed3771c3dfd"
+      }
+    },
+    {
+      "name": "Kroos",
+      "position": "Cầu thủ",
+      "number": 36,
+      "avatar": "Kroos.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df12cc68caed3771c3dfe"
+      }
+    },
+    {
+      "name": "Messi",
+      "position": "Cầu thủ",
+      "number": 72,
+      "avatar": "Messi.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df12cc68caed3771c3dff"
+      }
+    },
+    {
+      "name": "brunodua",
+      "position": "Cầu thủ",
+      "number": 22,
+      "avatar": "brunodua.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df12cc68caed3771c3e00"
+      }
+    },
+    {
+      "name": "kaka",
+      "position": "Cầu thủ",
+      "number": 43,
+      "avatar": "kaka.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df12cc68caed3771c3e01"
+      }
+    },
+    {
+      "name": "Ronaldo",
+      "position": "Cầu thủ",
+      "number": 19,
+      "avatar": "Ronaldo.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df12cc68caed3771c3e02"
+      }
+    },
+    {
+      "name": "Zidane",
+      "position": "Cầu thủ",
+      "number": 98,
+      "avatar": "Zidane.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df12cc68caed3771c3e03"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695df122c68caed3771c3d88"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T05:37:48.402Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T05:37:52.865Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695df157c68caed3771c3ebb"
+  },
+  "teamName": "22DTHC3",
+  "representative": "Nhân",
+  "phone": "0982219370",
+  "email": "dothanhnhan9370@gmail.com",
+  "logo": "1767558047389-NhÃ¢n.jpg",
+  "description": "bố mày là nhất",
+  "members": [
+    {
+      "name": "khải",
+      "position": "Cầu thủ",
+      "number": 5,
+      "citizenId": "1111",
+      "avatar": "1767558047391-Kháº£i.jpg",
+      "citizenIdImage": "1767558430374-Kháº£i.jpg",
+      "_id": {
+        "$oid": "695df157c68caed3771c3ebc"
+      }
+    },
+    {
+      "name": "đức",
+      "position": "Cầu thủ",
+      "number": 7,
+      "citizenId": "2222",
+      "avatar": "1767558047391-Äá»©c.jpg",
+      "citizenIdImage": "1767558430375-Äá»©c.jpg",
+      "_id": {
+        "$oid": "695df157c68caed3771c3ebd"
+      }
+    },
+    {
+      "name": "hào",
+      "position": "Cầu thủ",
+      "number": 10,
+      "citizenId": "7777",
+      "avatar": "1767558047392-HÃ o.jpg",
+      "citizenIdImage": "1767558430376-HÃ o.jpg",
+      "_id": {
+        "$oid": "695df157c68caed3771c3ebe"
+      }
+    },
+    {
+      "name": "nhân",
+      "position": "Cầu thủ",
+      "number": 11,
+      "citizenId": "1010",
+      "avatar": "1767558430381-NhÃ¢n.jpg",
+      "citizenIdImage": "1767558430383-NhÃ¢n.jpg",
+      "_id": {
+        "$oid": "695df157c68caed3771c3ebf"
+      }
+    },
+    {
+      "name": "minh",
+      "position": "Cầu thủ",
+      "number": 77,
+      "citizenId": "7878",
+      "avatar": "1767561615498-Minh.jpg",
+      "citizenIdImage": "1767561615502-Minh.jpg",
+      "_id": {
+        "$oid": "695df157c68caed3771c3ec0"
+      }
+    },
+    {
+      "name": "tài",
+      "position": "Cầu thủ",
+      "number": 3,
+      "citizenId": "3333",
+      "avatar": "1767561615504-TÃ i.jpg",
+      "citizenIdImage": "1767561615505-TÃ i.jpg",
+      "_id": {
+        "$oid": "695df157c68caed3771c3ec1"
+      }
+    },
+    {
+      "name": "neymar",
+      "position": "Cầu thủ",
+      "number": 12,
+      "citizenId": "111",
+      "avatar": "1767719381885-neymar.png",
+      "citizenIdImage": "1767719381925-neymar.png",
+      "_id": {
+        "$oid": "695df157c68caed3771c3ec2"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695df122c68caed3771c3d88"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T05:38:31.113Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T05:38:42.485Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695df165c68caed3771c3f57"
+  },
+  "teamName": "FC Test 325609",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Henry",
+      "position": "Cầu thủ",
+      "number": 60,
+      "avatar": "Henry.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df165c68caed3771c3f58"
+      }
+    },
+    {
+      "name": "Casillas",
+      "position": "Cầu thủ",
+      "number": 40,
+      "avatar": "Casillas.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df165c68caed3771c3f59"
+      }
+    },
+    {
+      "name": "Messi",
+      "position": "Cầu thủ",
+      "number": 25,
+      "avatar": "Messi.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df165c68caed3771c3f5a"
+      }
+    },
+    {
+      "name": "Højlund",
+      "position": "Cầu thủ",
+      "number": 52,
+      "avatar": "Højlund.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df165c68caed3771c3f5b"
+      }
+    },
+    {
+      "name": "R4",
+      "position": "Cầu thủ",
+      "number": 53,
+      "avatar": "R4.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df165c68caed3771c3f5c"
+      }
+    },
+    {
+      "name": "Beckham",
+      "position": "Cầu thủ",
+      "number": 25,
+      "avatar": "Beckham.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df165c68caed3771c3f5d"
+      }
+    },
+    {
+      "name": "Nemanja",
+      "position": "Cầu thủ",
+      "number": 45,
+      "avatar": "Nemanja.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df165c68caed3771c3f5e"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695df122c68caed3771c3d88"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T05:38:45.610Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T05:38:48.905Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695df18bc68caed3771c4039"
+  },
+  "teamName": "FC Test 363359",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "McTominay",
+      "position": "Cầu thủ",
+      "number": 39,
+      "avatar": "McTominay.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18bc68caed3771c403a"
+      }
+    },
+    {
+      "name": "Benzema",
+      "position": "Cầu thủ",
+      "number": 60,
+      "avatar": "Benzema.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18bc68caed3771c403b"
+      }
+    },
+    {
+      "name": "Ronaldo",
+      "position": "Cầu thủ",
+      "number": 89,
+      "avatar": "Ronaldo.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18bc68caed3771c403c"
+      }
+    },
+    {
+      "name": "Mbappé",
+      "position": "Cầu thủ",
+      "number": 36,
+      "avatar": "Mbappé.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18bc68caed3771c403d"
+      }
+    },
+    {
+      "name": "Ibrahimović",
+      "position": "Cầu thủ",
+      "number": 5,
+      "avatar": "Ibrahimović.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18bc68caed3771c403e"
+      }
+    },
+    {
+      "name": "Ferdinand",
+      "position": "Cầu thủ",
+      "number": 7,
+      "avatar": "Ferdinand.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18bc68caed3771c403f"
+      }
+    },
+    {
+      "name": "Lewandowski",
+      "position": "Cầu thủ",
+      "number": 94,
+      "avatar": "Lewandowski.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18bc68caed3771c4040"
+      }
+    }
+  ],
+  "status": "pending",
+  "tournamentId": {
+    "$oid": "695df184c68caed3771c3fe0"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T05:39:23.360Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695df18cc68caed3771c4051"
+  },
+  "teamName": "FC Test 364685",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Dalot",
+      "position": "Cầu thủ",
+      "number": 94,
+      "avatar": "Dalot.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18cc68caed3771c4052"
+      }
+    },
+    {
+      "name": "Casillas",
+      "position": "Cầu thủ",
+      "number": 54,
+      "avatar": "Casillas.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18cc68caed3771c4053"
+      }
+    },
+    {
+      "name": "R4",
+      "position": "Cầu thủ",
+      "number": 69,
+      "avatar": "R4.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18cc68caed3771c4054"
+      }
+    },
+    {
+      "name": "Drogba",
+      "position": "Cầu thủ",
+      "number": 1,
+      "avatar": "Drogba.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18cc68caed3771c4055"
+      }
+    },
+    {
+      "name": "brunodua",
+      "position": "Cầu thủ",
+      "number": 55,
+      "avatar": "brunodua.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18cc68caed3771c4056"
+      }
+    },
+    {
+      "name": "Casemiro",
+      "position": "Cầu thủ",
+      "number": 36,
+      "avatar": "Casemiro.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18cc68caed3771c4057"
+      }
+    },
+    {
+      "name": "Benzema",
+      "position": "Cầu thủ",
+      "number": 38,
+      "avatar": "Benzema.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18cc68caed3771c4058"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695df184c68caed3771c3fe0"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T05:39:24.686Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T05:39:45.014Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695df18cc68caed3771c405c"
+  },
+  "teamName": "FC Test 364912",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "sancho",
+      "position": "Cầu thủ",
+      "number": 31,
+      "avatar": "sancho.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18cc68caed3771c405d"
+      }
+    },
+    {
+      "name": "Scholes",
+      "position": "Cầu thủ",
+      "number": 72,
+      "avatar": "Scholes.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18cc68caed3771c405e"
+      }
+    },
+    {
+      "name": "Garnacho",
+      "position": "Cầu thủ",
+      "number": 81,
+      "avatar": "Garnacho.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18cc68caed3771c405f"
+      }
+    },
+    {
+      "name": "kaka",
+      "position": "Cầu thủ",
+      "number": 39,
+      "avatar": "kaka.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18cc68caed3771c4060"
+      }
+    },
+    {
+      "name": "Messi",
+      "position": "Cầu thủ",
+      "number": 48,
+      "avatar": "Messi.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18cc68caed3771c4061"
+      }
+    },
+    {
+      "name": "R4",
+      "position": "Cầu thủ",
+      "number": 56,
+      "avatar": "R4.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18cc68caed3771c4062"
+      }
+    },
+    {
+      "name": "Suárez",
+      "position": "Cầu thủ",
+      "number": 50,
+      "avatar": "Suárez.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18cc68caed3771c4063"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695df184c68caed3771c3fe0"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T05:39:24.914Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T05:39:41.145Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695df18dc68caed3771c4077"
+  },
+  "teamName": "FC Test 365153",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Casemiro",
+      "position": "Cầu thủ",
+      "number": 96,
+      "avatar": "Casemiro.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18dc68caed3771c4078"
+      }
+    },
+    {
+      "name": "bale",
+      "position": "Cầu thủ",
+      "number": 63,
+      "avatar": "bale.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18dc68caed3771c4079"
+      }
+    },
+    {
+      "name": "Pedri",
+      "position": "Cầu thủ",
+      "number": 28,
+      "avatar": "Pedri.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18dc68caed3771c407a"
+      }
+    },
+    {
+      "name": "ozil",
+      "position": "Cầu thủ",
+      "number": 2,
+      "avatar": "ozil.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18dc68caed3771c407b"
+      }
+    },
+    {
+      "name": "Benzema",
+      "position": "Cầu thủ",
+      "number": 15,
+      "avatar": "Benzema.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18dc68caed3771c407c"
+      }
+    },
+    {
+      "name": "Yamal",
+      "position": "Cầu thủ",
+      "number": 82,
+      "avatar": "Yamal.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18dc68caed3771c407d"
+      }
+    },
+    {
+      "name": "Beckham",
+      "position": "Cầu thủ",
+      "number": 74,
+      "avatar": "Beckham.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18dc68caed3771c407e"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695df184c68caed3771c3fe0"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T05:39:25.154Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T05:39:32.884Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695df18dc68caed3771c4097"
+  },
+  "teamName": "FC Test 365424",
+  "representative": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "logo": "default.png",
+  "description": "Doi bong phong trao",
+  "members": [
+    {
+      "name": "Ronaldo",
+      "position": "Cầu thủ",
+      "number": 59,
+      "avatar": "Ronaldo.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18dc68caed3771c4098"
+      }
+    },
+    {
+      "name": "Raphinha",
+      "position": "Cầu thủ",
+      "number": 99,
+      "avatar": "Raphinha.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18dc68caed3771c4099"
+      }
+    },
+    {
+      "name": "McTominay",
+      "position": "Cầu thủ",
+      "number": 5,
+      "avatar": "McTominay.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18dc68caed3771c409a"
+      }
+    },
+    {
+      "name": "neymar",
+      "position": "Cầu thủ",
+      "number": 83,
+      "avatar": "neymar.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18dc68caed3771c409b"
+      }
+    },
+    {
+      "name": "Rooney",
+      "position": "Cầu thủ",
+      "number": 75,
+      "avatar": "Rooney.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18dc68caed3771c409c"
+      }
+    },
+    {
+      "name": "sancho",
+      "position": "Cầu thủ",
+      "number": 37,
+      "avatar": "sancho.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18dc68caed3771c409d"
+      }
+    },
+    {
+      "name": "brunodua",
+      "position": "Cầu thủ",
+      "number": 68,
+      "avatar": "brunodua.jpg",
+      "citizenIdImage": "default.png",
+      "_id": {
+        "$oid": "695df18dc68caed3771c409e"
+      }
+    }
+  ],
+  "status": "approved",
+  "tournamentId": {
+    "$oid": "695df184c68caed3771c3fe0"
+  },
+  "submittedAt": {
+    "$date": "2026-01-07T05:39:25.425Z"
+  },
+  "__v": 0,
+  "approvedAt": {
+    "$date": "2026-01-07T05:39:28.754Z"
+  }
+}]

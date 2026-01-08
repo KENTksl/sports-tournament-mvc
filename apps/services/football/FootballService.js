@@ -515,9 +515,103 @@ class FootballService {
     async batchScheduleMatches(tournamentId, options) {
         const tournament = await FootballRepository.findById(tournamentId);
         if (!tournament) throw new Error('Tournament not found');
-        // Placeholder implementation to avoid crash. 
-        // Real implementation would iterate fixtures and set dates.
-        return true;
+
+        const { startDate, startTime, concurrentMatches, scope } = options;
+
+        // 1. Calculate Slot Duration (minutes)
+        const pitchType = tournament.pitchType || '7';
+        let slotDuration = 90; 
+        if (pitchType === '5') {
+            slotDuration = 60;
+        } else if (pitchType === '7') {
+            slotDuration = 90;
+        }
+
+        // 2. Filter Matches
+        let matchesToSchedule = [];
+        const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+
+        if (tournament.fixtures) {
+            tournament.fixtures.forEach(group => {
+                const groupName = group.group || '';
+                
+                let isTargetGroup = false;
+                const isKO = groupName.includes('Tứ Kết') || groupName.includes('Bán Kết') || groupName.includes('Chung Kết') || groupName.startsWith('Vòng 1/');
+
+                if (scope === 'all_groups') {
+                    if (!isKO) {
+                        isTargetGroup = true;
+                    }
+                } else {
+                    if (groupName === scope) {
+                        isTargetGroup = true;
+                    }
+                }
+
+                if (isTargetGroup && group.matches) {
+                    group.matches.forEach(match => {
+                        const hasResult = (match.score1 !== null && match.score1 !== undefined) && (match.score2 !== null && match.score2 !== undefined);
+                        // Check if already scheduled (has valid YYYY-MM-DD date)
+                        // "Lượt 1", "Lượt 2"... are placeholders, not real dates.
+                        const isScheduled = match.date && dateRegex.test(match.date);
+                        
+                        if (!hasResult && !isScheduled) {
+                            matchesToSchedule.push(match);
+                        }
+                    });
+                }
+            });
+        }
+
+        if (matchesToSchedule.length === 0) {
+            return true;
+        }
+
+        // 3. Sort Matches by Round (Lượt) to interleave groups and ensure rest time
+        matchesToSchedule.sort((a, b) => {
+            const getRound = (str) => {
+                if (!str) return 999;
+                const m = String(str).match(/Lượt (\d+)/i);
+                return m ? parseInt(m[1]) : 999;
+            };
+            const rA = getRound(a.date);
+            const rB = getRound(b.date);
+            return rA - rB;
+        });
+
+        // 4. Scheduling Algorithm
+        let currentDateTime = new Date(`${startDate}T${startTime}`);
+        if (isNaN(currentDateTime.getTime())) {
+             throw new Error('Invalid start date or time');
+        }
+
+        const matchesPerSlot = parseInt(concurrentMatches) || 1;
+        let scheduledInCurrentSlot = 0;
+
+        for (let match of matchesToSchedule) {
+            const hours = String(currentDateTime.getHours()).padStart(2, '0');
+            const minutes = String(currentDateTime.getMinutes()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}`;
+            
+            const year = currentDateTime.getFullYear();
+            const month = String(currentDateTime.getMonth() + 1).padStart(2, '0');
+            const day = String(currentDateTime.getDate()).padStart(2, '0');
+            const dateString = `${year}-${month}-${day}`;
+
+            match.date = dateString;
+            match.time = timeString;
+            match.status = 'scheduled'; 
+
+            scheduledInCurrentSlot++;
+
+            if (scheduledInCurrentSlot >= matchesPerSlot) {
+                currentDateTime.setMinutes(currentDateTime.getMinutes() + slotDuration);
+                scheduledInCurrentSlot = 0;
+            }
+        }
+
+        tournament.markModified('fixtures');
+        return await tournament.save();
     }
 
     async addTeam(tournamentId, teamData) {
@@ -683,7 +777,9 @@ class FootballService {
                     if (matchData.lineup1) match.lineup1 = matchData.lineup1;
                     if (matchData.lineup2) match.lineup2 = matchData.lineup2;
                     if (matchData.events) match.events = matchData.events;
+                    if (matchData.status) match.status = matchData.status;
 
+<<<<<<< HEAD
                     // Status control:
                     // Only set 'finished' when explicitly requested via payload.
                     if (matchData.status === MATCH_STATUS.FINISHED) {
@@ -696,6 +792,14 @@ class FootballService {
                     } else {
                         // Keep existing status; default to 'scheduled' if undefined
                         if (!match.status) match.status = MATCH_STATUS.SCHEDULED;
+=======
+                    // Auto-update status
+                    // Only revert to SCHEDULED if scores are explicitly cleared.
+                    // We DO NOT automatically set FINISHED just because scores exist, 
+                    // to support "Live" matches where intermediate scores are saved.
+                    if (match.score1 === null || match.score2 === null) {
+                        match.status = MATCH_STATUS.SCHEDULED;
+>>>>>>> d16688c30fbcf83331cf6b1a26bb1e1eff84dcf1
                     }
                     
                     // Knockout Progression

@@ -548,10 +548,20 @@
                     <div class="modal-body">
                         <input type="hidden" name="tournamentId" value="<%= tournament._id %>">
                         <div class="mb-3">
-                            <label class="form-label">Chọn Giai Đoạn</label>
-                            <select class="form-select" name="stageName">
-                                <option value="group_stage">Vòng Bảng</option>
-                                <option value="knockout_stage">Vòng Trong</option>
+                            <label class="form-label">Phạm Vi Xếp Lịch</label>
+                            <select class="form-select" name="scope">
+                                <option value="all_groups">Toàn bộ vòng bảng / Các vòng đấu</option>
+                                <% if (tournament.fixtures) { %>
+                                    <% tournament.fixtures.forEach(group => { %>
+                                        <% 
+                                            const gname = group.group || '';
+                                            const isKO = gname.includes('Tứ Kết') || gname.includes('Bán Kết') || gname.includes('Chung Kết') || gname.startsWith('Vòng 1/');
+                                        %>
+                                        <% if (!isKO) { %>
+                                            <option value="<%= gname %>"><%= gname %></option>
+                                        <% } %>
+                                    <% }) %>
+                                <% } %>
                             </select>
                         </div>
                         <div class="row">
@@ -565,18 +575,16 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Thời Lượng (Phút)</label>
-                                <input type="number" class="form-control" name="matchDuration" value="90" min="10" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Số Trận Cùng Lúc</label>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Số Trận Cùng Lúc (Số sân)</label>
                                 <input type="number" class="form-control" name="concurrentMatches" value="1" min="1" max="10" required>
-                                <div class="form-text">Ví dụ: 4 bảng đá cùng giờ => Điền 4</div>
+                                <div class="form-text">Ví dụ: 2 sân đá cùng lúc => Điền 2</div>
                             </div>
                         </div>
                         <div class="alert alert-info small">
-                            <i class="bi bi-info-circle"></i> Hệ thống sẽ tự động xếp lịch cho các trận chưa có kết quả. Các trận sẽ được xếp xen kẽ giữa các bảng để đảm bảo công bằng.
+                            <i class="bi bi-info-circle"></i> Hệ thống sẽ tự động xếp lịch cho các trận chưa có kết quả và chưa có lịch. <br>
+                            Thời lượng mỗi trận sẽ được tự động tính toán: 
+                            <b><%= (tournament.pitchType === '5') ? '60 phút' : '90 phút' %></b> (bao gồm nghỉ).
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -1417,6 +1425,10 @@
                     const finalDraw = (s1 !== null && s2 !== null) ? (s1 === s2) : true;
                     let disableInput = false;
 
+                    const s1 = (match.score1 === null || match.score1 === undefined) ? 0 : parseInt(match.score1);
+                    const s2 = (match.score2 === null || match.score2 === undefined) ? 0 : parseInt(match.score2);
+                    const isDraw = (s1 === s2);
+
                     if (now < sched) {
                         statusBadge.className = 'badge bg-warning text-dark';
                         statusBadge.innerText = 'Sắp đá';
@@ -1442,7 +1454,7 @@
                         const mm = halfDuration + Math.floor(elapsed/60000);
                         const ss = Math.floor((elapsed%60000)/1000);
                         liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
-                    } else if (hasOT && finalDraw && now < et1End) {
+                    } else if (hasOT && now < et1End) {
                         statusBadge.className = 'badge bg-primary';
                         statusBadge.innerText = 'Hiệp phụ';
                         const elapsed = now - secondHalfEnd;
@@ -1450,7 +1462,7 @@
                         const mm = halfDuration*2 + Math.floor(elapsed/60000);
                         const ss = Math.floor((elapsed%60000)/1000);
                         liveEl.textContent = String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
-                    } else if (hasOT && finalDraw && now < et2End) {
+                    } else if (hasOT && now < et2End) {
                         statusBadge.className = 'badge bg-primary';
                         statusBadge.innerText = 'Hiệp phụ';
                         const elapsed = now - et1End;
@@ -1617,9 +1629,8 @@
             const schedDate = parseScheduledDateTime();
             if (!schedDate) return;
             const sched = schedDate.getTime();
-            // Only auto-start when clock is idle and before match has begun
-            if (currentMatch.clock && currentMatch.clock.state === 'idle' && !currentMatch.clock.running) {
-                if (now >= sched) startHalf(1);
+            if (now >= sched && currentMatch.clock && !currentMatch.clock.running) {
+                startHalf(1);
             }
         }
 
@@ -1814,44 +1825,43 @@
                 let elapsed = Math.max(0, now - currentMatch.clock.halfStartAt);
                 const elapsedMin = Math.floor(elapsed / 60000);
                 const elapsedSec = Math.floor((elapsed % 60000) / 1000);
-                const base = (
-                    currentMatch.clock.half === 2
-                        ? currentMatch.clock.config.halfDuration
-                        : (currentMatch.clock.half === 'ET1'
-                            ? currentMatch.clock.config.halfDuration * 2
-                            : (currentMatch.clock.half === 'ET2'
-                                ? currentMatch.clock.config.halfDuration * 2 + currentMatch.clock.config.otHalf
-                                : 0))
-                );
+                const base = (currentMatch.clock.half===2 ? currentMatch.clock.config.halfDuration : 0);
                 currentMatch.clock.displayMinute = base + elapsedMin;
                 currentMatch.clock.displaySecond = elapsedSec;
                 if (now >= currentMatch.clock.halfEndsAt) {
                     if (currentMatch.clock.half === 1) {
+                        // Cap at half duration
+                        currentMatch.clock.displayMinute = currentMatch.clock.config.halfDuration;
+                        currentMatch.clock.displaySecond = 0;
                         startBreak();
+                        return;
                     } else if (currentMatch.clock.half === 2) {
-                        const sc = getScoreAtCurrentTime();
-                        const isDraw = sc && typeof sc.s1 === 'number' && typeof sc.s2 === 'number' ? (sc.s1 === sc.s2) : true;
-                        const hasOT = currentMatch.clock && currentMatch.clock.config ? !!currentMatch.clock.config.hasOT : false;
-                        if (hasOT && isDraw) {
-                            startOtHalf(1);
-                        } else {
-                            const total = currentMatch.clock.config.halfDuration * 2;
-                            currentMatch.clock.displayMinute = total;
-                            currentMatch.clock.displaySecond = 0;
-                            currentMatch.clock.state = 'fulltime';
-                            updateClockUI();
-                            handleFulltimeOutcome();
-                        }
+                        // End of normal time
+                        const total = currentMatch.clock.config.halfDuration * 2;
+                        currentMatch.clock.displayMinute = total;
+                        currentMatch.clock.displaySecond = 0;
+                        currentMatch.clock.state = 'fulltime';
+                        updateClockUI();
+                        handleFulltimeOutcome();
                     } else if (currentMatch.clock.half === 'ET1') {
                         startOtHalf(2);
+                        return;
                     } else if (currentMatch.clock.half === 'ET2') {
                         // End of extra time
                         currentMatch.clock.state = 'fulltime';
                         currentMatch.clock.displaySecond = 0;
                         updateClockUI();
                         handleFulltimeOutcome(true);
+                        return;
                     }
                 }
+
+                let elapsed = Math.max(0, now - currentMatch.clock.halfStartAt);
+                const elapsedMin = Math.floor(elapsed / 60000);
+                const elapsedSec = Math.floor((elapsed % 60000) / 1000);
+                const base = (currentMatch.clock.half===2 ? currentMatch.clock.config.halfDuration : 0);
+                currentMatch.clock.displayMinute = base + elapsedMin;
+                currentMatch.clock.displaySecond = elapsedSec;
             } else if (currentMatch.clock.state === 'break') {
                 // Auto-resume exactly when halftime break ends
                 const now = Date.now();
@@ -1878,6 +1888,7 @@
                 if (currentMatch.clock.state === 'playing') statusText = 'Đang thi đấu';
                 if (currentMatch.clock.state === 'break') statusText = 'Giải lao';
                 if (currentMatch.clock.half === 'ET1' || currentMatch.clock.half === 'ET2') statusText = 'Hiệp phụ';
+                if (currentMatch.clock.state === 'fulltime') statusText = 'Hết giờ';
                 mm = currentMatch.clock.displayMinute || 0;
                 ss = currentMatch.clock.displaySecond || 0;
             }
@@ -2319,6 +2330,10 @@
                     // Ensure editing remains enabled while match is live
                     editingLocked = false;
                     applyEditingLockUI();
+
+                    // Re-evaluate clock state (in case goal ends the match instead of OT)
+                    if (currentMatch.clock) currentMatch.clock.running = false;
+                    autoStartClockIfDue();
 
                     Swal.fire({
                         icon: 'success',

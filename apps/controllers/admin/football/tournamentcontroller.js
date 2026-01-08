@@ -424,13 +424,12 @@ class FootballTournamentController {
 
     async scheduleBatch(req, res) {
         try {
-            const { tournamentId, startDate, startTime, matchDuration, concurrentMatches, stageName } = req.body;
+            const { tournamentId, startDate, startTime, concurrentMatches, scope } = req.body;
             await FootballService.batchScheduleMatches(tournamentId, {
                 startDate,
                 startTime,
-                matchDuration,
                 concurrentMatches,
-                stageName
+                scope
             });
             res.redirect(`/admin/football/tournament/detail/${tournamentId}`);
         } catch (error) {
