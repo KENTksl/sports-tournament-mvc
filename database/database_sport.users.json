@@ -1,0 +1,71 @@
+[{
+  "_id": {
+    "$oid": "694688cba8e9cb78115a5019"
+  },
+  "username": "Nguyễn Huỳnh Quang Minh",
+  "password": "$2b$10$7R9AfcQMSSipgeompmPi8uDuu6BowtD.5atxR0DbQqm1FTa4PAvpm",
+  "email": "conkhi3695@gmail.com",
+  "role": "customer",
+  "created_at": {
+    "$date": "2025-12-20T11:30:19.650Z"
+  },
+  "address": "Linh Trung, Thủ Đức",
+  "dob": "2004-01-01",
+  "gender": "male",
+  "phone": "0779567822",
+  "avatar": "/static/uploads/avatars/avatar-1766231653364-889809158.jpg"
+},
+{
+  "_id": {
+    "$oid": "694694e0500e2a928ac99cf1"
+  },
+  "username": "Quang Minh",
+  "password": "$2b$10$qcphwbtUEK5q/zzCC79XSOiuTuZMI.UGipGRAhWYOpNZl9ZRpf9Mi",
+  "email": "admin@gmail.com",
+  "role": "admin",
+  "phone": "",
+  "address": "",
+  "dob": "2000-01-01",
+  "gender": "male",
+  "created_at": {
+    "$date": "2025-12-20T12:21:52.021Z"
+  },
+  "avatar": "/static/uploads/avatars/1767594340335-Minh.jpg"
+},
+{
+  "_id": {
+    "$oid": "695363b2b576d789fa7f5545"
+  },
+  "username": "Đỗ Thành Nhân",
+  "password": "$2b$10$muaDYaaAWQZdK2Zra/rmz.okpP1oH8o31OjeHSJ/CCXO0w5bYJmR.",
+  "email": "dothanhnhan9370@gmail.com",
+  "role": "customer",
+  "phone": "",
+  "address": "",
+  "dob": "",
+  "gender": "",
+  "createdAt": {
+    "$date": "2025-12-30T05:31:30.019Z"
+  },
+  "__v": 0,
+  "avatar": "/static/uploads/avatars/1767790579767-Screenshot 2023-11-07 231046.png"
+},
+{
+  "_id": {
+    "$oid": "695d50b9d88acd8edf7c8a4d"
+  },
+  "username": "Tôi Là Nhân",
+  "password": "$2b$10$GKdqUwmzZSqlraDgJy.WU.5jk3chxagcBA86GA0I9Cg36BlPPSRbe",
+  "email": "c3lttrong.2a3.dtnhan@gmail.com",
+  "role": "customer",
+  "phone": "098221xxx",
+  "address": "xxx",
+  "dob": "2010-01-01",
+  "citizenId": "",
+  "gender": "male",
+  "avatar": "/static/uploads/avatars/1767723233027-Yamal.jpg",
+  "createdAt": {
+    "$date": "2026-01-06T18:13:13.603Z"
+  },
+  "__v": 0
+}]

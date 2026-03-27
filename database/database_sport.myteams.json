@@ -1,0 +1,156 @@
+[{
+  "_id": {
+    "$oid": "69542710db2d92ac0dec3ee7"
+  },
+  "userId": {
+    "$oid": "695363b2b576d789fa7f5545"
+  },
+  "logo": "1767558047389-NhÃ¢n.jpg",
+  "members": [
+    {
+      "name": "khải",
+      "number": 5,
+      "position": "Cầu thủ",
+      "avatar": "1767558047391-Kháº£i.jpg",
+      "citizenId": "1111",
+      "citizenIdImage": "1767558430374-Kháº£i.jpg",
+      "_id": {
+        "$oid": "695d507ed88acd8edf7c8a23"
+      }
+    },
+    {
+      "name": "đức",
+      "number": 7,
+      "position": "Cầu thủ",
+      "avatar": "1767558047391-Äá»©c.jpg",
+      "citizenId": "2222",
+      "citizenIdImage": "1767558430375-Äá»©c.jpg",
+      "_id": {
+        "$oid": "695d507ed88acd8edf7c8a24"
+      }
+    },
+    {
+      "name": "hào",
+      "number": 10,
+      "position": "Cầu thủ",
+      "avatar": "1767558047392-HÃ o.jpg",
+      "citizenId": "7777",
+      "citizenIdImage": "1767558430376-HÃ o.jpg",
+      "_id": {
+        "$oid": "695d507ed88acd8edf7c8a25"
+      }
+    },
+    {
+      "name": "nhân",
+      "number": 11,
+      "position": "Cầu thủ",
+      "avatar": "1767558430381-NhÃ¢n.jpg",
+      "citizenId": "1010",
+      "citizenIdImage": "1767558430383-NhÃ¢n.jpg",
+      "_id": {
+        "$oid": "695d507ed88acd8edf7c8a26"
+      }
+    },
+    {
+      "name": "minh",
+      "number": 77,
+      "position": "Cầu thủ",
+      "avatar": "1767561615498-Minh.jpg",
+      "citizenId": "7878",
+      "citizenIdImage": "1767561615502-Minh.jpg",
+      "_id": {
+        "$oid": "695d507ed88acd8edf7c8a27"
+      }
+    },
+    {
+      "name": "tài",
+      "number": 3,
+      "position": "Cầu thủ",
+      "avatar": "1767561615504-TÃ i.jpg",
+      "citizenId": "3333",
+      "citizenIdImage": "1767561615505-TÃ i.jpg",
+      "_id": {
+        "$oid": "695d507ed88acd8edf7c8a28"
+      }
+    },
+    {
+      "name": "neymar",
+      "number": 12,
+      "position": "Cầu thủ",
+      "avatar": "1767719381885-neymar.png",
+      "citizenId": "111",
+      "citizenIdImage": "1767719381925-neymar.png",
+      "_id": {
+        "$oid": "695d507ed88acd8edf7c8a29"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-12-30T19:25:04.467Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-30T19:25:04.467Z"
+  },
+  "teamName": "22DTHC3",
+  "representative": "Nhân",
+  "phone": "0982219370",
+  "description": "bố mày là nhất",
+  "__v": 18,
+  "email": "dothanhnhan9370@gmail.com"
+},
+{
+  "_id": {
+    "$oid": "695d5146d88acd8edf7c8a5b"
+  },
+  "userId": {
+    "$oid": "695d50b9d88acd8edf7c8a4d"
+  },
+  "logo": "1767723334640-Yamal.jpg",
+  "members": [
+    {
+      "name": "voi rừng",
+      "number": 10,
+      "position": "Cầu thủ",
+      "avatar": "1767723334644-Drogba.jpg",
+      "citizenId": "1111",
+      "citizenIdImage": "1767723334648-Drogba.jpg",
+      "_id": {
+        "$oid": "695d5146d88acd8edf7c8a5c"
+      }
+    },
+    {
+      "name": "anh giỏi",
+      "number": 9,
+      "position": "Cầu thủ",
+      "avatar": "1767723334650-Garnacho.jpg",
+      "citizenId": "9999",
+      "citizenIdImage": "1767723334653-Garnacho.jpg",
+      "_id": {
+        "$oid": "695d5146d88acd8edf7c8a5d"
+      }
+    },
+    {
+      "name": "a tứ",
+      "number": 4,
+      "position": "Cầu thủ",
+      "avatar": "1767723334654-Ramos.jpg",
+      "citizenId": "4444",
+      "citizenIdImage": "1767723334657-Ramos.jpg",
+      "_id": {
+        "$oid": "695d5146d88acd8edf7c8a5e"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": "2026-01-06T18:15:34.808Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-06T18:15:34.808Z"
+  },
+  "teamName": "10A3",
+  "representative": "Nhân",
+  "phone": "0982219370",
+  "email": "c3lttrong.2a3.dtnhan@gmail.com",
+  "description": "xin 1 lần thua",
+  "__v": 0
+}]
